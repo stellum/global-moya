@@ -102,7 +102,7 @@ MGS / TEAM 6 with Sysmetic
 - build: 빌드 관련
 - ci: Continuous Integration 관련
 
-### Label
+### Label (주요)
 
 - 기능과 관련된 것은 모두 (add/update)
   - feature
@@ -113,6 +113,7 @@ MGS / TEAM 6 with Sysmetic
   - refactoring
 - CSS 코드 추가
   - style
+- [Label 상세확인](https://github.com/Seoul-Sysmetic/cityfalconGlobalMoya/labels)
 
 ### PR 시간 협의 규칙
 
