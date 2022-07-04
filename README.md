@@ -4,12 +4,24 @@ MGS / TEAM 6 with Sysmetic
 
 ## Team Collaborator
 
+#### Front-end
+
 - 지영배: [@youngcodej22](https://github.com/youngcodej22)
 - 박철연: [@oaat9309](https://github.com/oaat9309)
 - 오영재: [@sacultang](https://github.com/sacultang)
 - 노효정: [@stellum](https://github.com/stellum)
 - 차유나: [@sarasata3131](https://github.com/sarasata3131)
 - 조성일: [@Seong1-Jo](https://github.com/Seong1-Jo)
+
+#### UX/UI
+
+- 이양석
+- 목문정
+- 박세희
+
+## Notion: 회의록 및 주요사항
+
+- [6팀 핫식스](https://www.notion.so/6-61dcc51a7e5c42b9a02ff7066c53edaa)
 
 ## 사용 기술
 
@@ -33,7 +45,7 @@ MGS / TEAM 6 with Sysmetic
   - redux-logger
 - axios
 
-### API
+## API
 
 1. GET
 
@@ -61,13 +73,13 @@ MGS / TEAM 6 with Sysmetic
 
 - http://54.180.136.0:3002/auth/logout
 
-### Convention
+## Convention
 
 1. Issue/PR template에 맞춰서 작성
 2. Commit message를 convention에 맞게 작성
 3. ErrorReport 작성
 
-#### ISSUE Menu
+### ISSUE Menu
 
 - New Issue: issue 생성
 - Assignees: 작업 책임자
@@ -75,7 +87,7 @@ MGS / TEAM 6 with Sysmetic
 - milestone: 프로젝트의 전반적인 진행을 지정 및 진행율을 확인 가능하다.
 - Projects: 현재 프로젝트의 전체적인 흐름을 파악, 단계별로 진행 상황을 설정.
 
-#### Commit Convention (prefix)
+### Commit Convention (prefix)
 
 - feat: 기능 개발 관련
   - ex) feat: ADD searchInput (새로운 기능 추가)
@@ -92,20 +104,22 @@ MGS / TEAM 6 with Sysmetic
 - build: 빌드 관련
 - ci: Continuous Integration 관련
 
-#### Label
-- 새로운 기능 추가 시 및 컴포넌트 변경은 모두 컴포넌트
-    - component
-- 기능 추가는 아니지만 component 분리 시
-    - component
-- 처음 feature하고 PR review 받고 코드 구현 더 진행 시
-    - developing
-- 자기가 생각한 코드 구현을 끝내고 새로 검토하면서 코드 수정할 때
-    - refactoring
-- CSS 코드 추가
-    - style
-- 기타
-    - answer needed / in review 등 필요 하면 사용
+### Label
 
-#### PR 시간 협의 규칙
+- 새로운 기능 추가 시 및 컴포넌트 변경은 모두 컴포넌트
+  - component
+- 기능 추가는 아니지만 component 분리 시
+  - component
+- 처음 feature하고 PR review 받고 코드 구현 더 진행 시
+  - developing
+- 자기가 생각한 코드 구현을 끝내고 새로 검토하면서 코드 수정할 때
+  - refactoring
+- CSS 코드 추가
+  - style
+- 기타
+  - answer needed / in review 등 필요 하면 사용
+
+### PR 시간 협의 규칙
+
 - 시간: 오후 1시
 - pull 받기 전에 issue 작성
