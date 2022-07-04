@@ -9,6 +9,7 @@ import { ReactComponent as IconsInstagramSvg } from "@assets/icons-instagram.svg
 import { ReactComponent as IconsKakaotalkSvg } from "@assets/icons-kakaotalk.svg";
 import { ReactComponent as ProfileSvg } from "@assets/profile.svg";
 import { ReactComponent as SearchIconSvg } from "@assets/searchIcon.svg";
+import { ReactComponent as FilterIconSvg } from "@assets/icons-filter.svg";
 import { colors } from "./theme";
 
 export const TranslateIcon = styled(TranslateSvg)``;
@@ -39,3 +40,4 @@ export const Profile = styled(ProfileSvg)`
 export const SearchIcon = styled(SearchIconSvg)`
   width: 24px;
 `;
+export const FilterIcon = styled(FilterIconSvg)``;

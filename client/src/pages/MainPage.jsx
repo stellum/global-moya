@@ -1,14 +1,20 @@
 import React from "react";
 import MainHeader from "../components/main/MainHeader";
-import { DefaultContainer } from "@styles/containerStyle";
 import MainInputComponent from "../components/main/MainInputComponent";
 import { SearchIcon } from "../styles/svgIcon";
+import MainKeywordList from "../components/main/MainKeywordList";
+import { MainPageContainer } from "../styles/mainPageStyle/mainPageStyles";
+import NewsCard from "../components/NewsCard";
 const MainPage = () => {
   return (
-    <DefaultContainer>
-      <MainHeader />
-      <MainInputComponent SearchIcon={SearchIcon} />
-    </DefaultContainer>
+    <>
+      <MainPageContainer>
+        <MainHeader />
+        <MainInputComponent SearchIcon={SearchIcon} />
+        <MainKeywordList />
+      </MainPageContainer>
+      <NewsCard />
+    </>
   );
 };
 

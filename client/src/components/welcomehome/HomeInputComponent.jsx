@@ -13,12 +13,10 @@ const MainInputComponent = () => {
   return (
     <HomeContainer>
       <GlobalMoyaLogo />
-
       <HomeInputWrap
-      // onFocus={() => {
-      //   navigate(`/main`);
-      // }}
-      // placeholder="뉴스 키워드를 검색해보세요"
+        onFocus={() => {
+          navigate("/main");
+        }}
       >
         <HomeInput placeholder="뉴스 키워드를 검색해보세요" />
         <SearchIconWrap>

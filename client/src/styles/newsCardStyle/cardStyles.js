@@ -5,7 +5,7 @@ import {
   colors,
   cardImgType,
   cardTextType,
-} from "../themee";
+} from "../theme";
 import { cardSwitchFunc } from "../../functions/cardSwitchFunc";
 
 export const Card = styled.div`

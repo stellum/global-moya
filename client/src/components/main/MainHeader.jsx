@@ -1,5 +1,5 @@
 import React from "react";
-import { MainHeader } from "../../styles/mainpagestyle/mainPageStyles";
+import { MainHeader } from "../../styles/mainPageStyle/mainPageHeader";
 import { Hamburger, HamburgerBar } from "../../styles/buttonstyle/hamburger";
 import { GlobalMoyaLogo } from "@styles/svgIcon";
 const Header = () => {

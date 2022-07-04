@@ -10,28 +10,31 @@ export const HomeInputWrap = styled.div`
   border-radius: 2px;
   position: relative;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 export const HomeInput = styled.input`
-  width: 90%;
+  width: 87%;
   height: 90%;
   box-sizing: border-box;
   border: none;
   border-radius: 2px;
   position: relative;
   &::placeholder {
-    /* top: 50%; */
-    /* transform: translateY(-50%); */
-
     color: ${colors.gray400};
     font-size: ${fontSize.FontSize14};
     font-weight: ${fontWeight.FontWeight400};
   }
   &:focus {
     outline: none;
+    &::placeholder {
+      color: transparent;
+    }
   }
 `;
 export const SearchIconWrap = styled.div`
-  width: 24px;
+  width: 48px;
   height: 24px;
+  display: flex;
+  justify-content: center;
 `;
