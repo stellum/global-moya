@@ -89,15 +89,13 @@ MGS / TEAM 6 with Sysmetic
 
 ### Commit Convention (prefix)
 
+- prefix: 파일명
+  - (줄바꿈 아래) 아래 코드 수정한 부분 설명
 - feat: 기능 개발 관련
-  - ex) feat: ADD searchInput (새로운 기능 추가)
-  - ex) feat: UPDATE searchInput ( searchInput에서 새로운 동작을 추가해서 update)
-- fix: feat했던 기능에서 코드수정 / 오류 개선 / 버그 패치
-  - ex) fix: ADD searchInput ( 기존 코드를 처음! 고칠 때 )
-  - ex) fix: UPDATE searchInput ( 그 고친 코드를 다시 update할 때 )
-  - ex) fix: UPDATE code formatting (코드 변경 없이 누락된 것을 추가)
-  - ex) fix: UPDATE refactoring 변경한 코드요약 (코드 변경 없이 누락된 것을 추가)
+- fix: 오류 개선 / 버그 패치
+- refactor: feat에 코드 수정
 - docs: 문서화 작업
+  - ex) docs: UPDATE README.md
 - style: css style 작업
 - test: test 관련 (테스트코드, 리펙토링 테스트 코드 추가)
 - conf: 환경설정 관련, 빌드 업무 수정, 패키지 매니저, 폴더트리, 파일이름 변경
