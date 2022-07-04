@@ -104,18 +104,15 @@ MGS / TEAM 6 with Sysmetic
 
 ### Label
 
-- 새로운 기능 추가 시 및 컴포넌트 변경은 모두 컴포넌트
-  - component
-- 기능 추가는 아니지만 component 분리 시
-  - component
-- 처음 feature하고 PR review 받고 코드 구현 더 진행 시
-  - developing
+- 기능과 관련된 것은 모두 (add/update)
+  - feature
+  - deprecated (delete 시)
+- 버그 수정
+  - fix
 - 자기가 생각한 코드 구현을 끝내고 새로 검토하면서 코드 수정할 때
   - refactoring
 - CSS 코드 추가
   - style
-- 기타
-  - answer needed / in review 등 필요 하면 사용
 
 ### PR 시간 협의 규칙
 
