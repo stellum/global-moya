@@ -1,8 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import svgr from "vite-plugin-svgr";
 import path from "path";
-import eslint from "vite-plugin-eslint";
+import svgr from "vite-plugin-svgr";
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -11,8 +10,5 @@ export default defineConfig({
       "@styles": path.resolve(__dirname, "./src/styles"),
     },
   },
-  plugins: [react(), svgr(), eslint()],
-  server: {
-    host: true,
-  },
+  plugins: [react(), svgr()],
 });
