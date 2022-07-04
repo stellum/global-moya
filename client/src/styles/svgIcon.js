@@ -49,9 +49,7 @@ export const SearchIcon = styled(SearchIconSvg)`
 export const FilterIcon = styled(FilterIconSvg)``;
 
 export const TextDisable = styled(TextDisableSvg)``;
-export const MagazineDisable = styled(MagazineDisableSvg)`
-  margin-bottom: 6px;
-`;
+export const MagazineDisable = styled(MagazineDisableSvg)``;
 export const CardDisable = styled(CardDisableSvg)``;
 
 export const TextView = styled(TextSvg)``;

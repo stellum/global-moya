@@ -1,7 +1,7 @@
 import React from "react";
 import {
   FilterModal,
-  ViewWrap,
+  ViewWrapForm,
   H2Tag,
   VerticalView,
   HorizontalView,
@@ -23,15 +23,24 @@ const FilterComponent = () => {
     <>
       <FilterModal className={`Modal ${show ? "Show" : ""}`}>
         <H2Tag>보기 타입</H2Tag>
-        <ViewWrap>
-          <VerticalView>
-            <MagazineDisable />
-            <TextDisable />
-          </VerticalView>
+        <ViewWrapForm>
           <HorizontalView>
-            <CardDisable />
+            <label htmlFor="Magazine">
+              <input type="radio" id="Magazine" name="newsRadio" />
+              <MagazineDisable />
+            </label>
+            <label htmlFor="TextDisable">
+              <input type="radio" id="TextDisable" name="newsRadio" />
+              <TextDisable />
+            </label>
           </HorizontalView>
-        </ViewWrap>
+          <VerticalView>
+            <label htmlFor="CardDisable">
+              <input type="radio" id="CardDisable" name="newsRadio" />
+              <CardDisable />
+            </label>
+          </VerticalView>
+        </ViewWrapForm>
         <H2Tag>언론사 종류</H2Tag>
         <SelectForm>
           <div>
@@ -59,13 +68,10 @@ const FilterComponent = () => {
         <PublishForm>
           {published.map((item) => (
             <PublishWrap>
-              <input
-                type="radio"
-                name="publishRadio"
-                id={item}
-                defaultChecked
-              />
-              <label htmlFor={item}>{item}</label>
+              <label htmlFor={item}>
+                <input type="radio" name="publishRadio" id={item} />
+                <span className="publish-btn">{item}</span>
+              </label>
             </PublishWrap>
           ))}
         </PublishForm>
