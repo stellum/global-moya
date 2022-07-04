@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { filterValue } from "../functions/filterMasterFunc";
 import getMasterData from "../api/masterApi";
 
