@@ -75,6 +75,24 @@ MGS / TEAM 6 with Sysmetic
 - milestone: 프로젝트의 전반적인 진행을 지정 및 진행율을 확인 가능하다.
 - Projects: 현재 프로젝트의 전체적인 흐름을 파악, 단계별로 진행 상황을 설정.
 
+#### Config
+
+프로젝트를 시작하기 이전에 Terminal에서 자신의 Git configuration(환경설정)이 제대로 되어 있는지 확인하자.
+
+1. config list
+
+- `git config --list`
+
+2. config list editor 형태로 보기
+
+- `git config --global -e`
+
+3. **중요** autocrlf
+
+- 운영체제(OS) 마다 editor에서 새로운 줄바꿈을 할 때 들어가는 문자열이 다르다. Windows는 carriage-return(`\r`)과 line feed(`\n`) 형태 Mac에서는 line feed(`\n`)만 삽입이 된다. **Git사용 시에** 팀원 마다 다른 OS라면 문제가 된다. 그래서 `autocrlf`를 설정하게 되면 각 OS에서 `\r`를 삭제하고 처리가 되기 때문에 git 사용 시 문제를 해결 할 수 있다.
+  - windows: `git config --global core.autocrlf true`
+  - mac: `git config --global core.autocrlf input`
+
 #### Commit Convention (prefix)
 
 - feat: 기능 개발 관련
