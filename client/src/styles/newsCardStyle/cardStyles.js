@@ -5,8 +5,8 @@ import {
   colors,
   cardImgType,
   cardTextType,
-} from "./theme";
-import { cardSwitchFunc } from "../functions/cardSwitchFunc";
+} from "../themee";
+import { cardSwitchFunc } from "../../functions/cardSwitchFunc";
 
 export const Card = styled.div`
   max-width: 360px;

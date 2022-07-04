@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
+import MainPage from "./pages/MainPage";
 import { CustomContainer } from "./styles/containerStyle";
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
         <CustomContainer>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/main" element={<MainPage />} />
+            {/* 로그인 된 사람 중 키워드 있는 사람만  */}
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </CustomContainer>

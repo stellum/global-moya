@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { colors, fontWeight, fontSize, pxToRem } from "./theme";
+import { colors, fontWeight, fontSize, pxToRem } from "../theme";
 
 export const Footer = styled.footer`
   background-color: ${colors.gray900};
   width: 100%;
   height: 258px;
   color: ${colors.gray500};
-
   font-size: ${fontSize.FontSize12};
 `;
 export const TermsDiv = styled.div`
@@ -18,7 +17,7 @@ export const CompanyDiv = styled.div`
   padding: 16px 14px 16px;
   border-bottom: 1px solid ${colors.gray750};
 `;
-export const H3Tag = styled.h2`
+export const H2Tag = styled.h2`
   line-height: ${pxToRem(18)};
   strong {
     font-weight: ${fontWeight.FontWeight600};

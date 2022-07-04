@@ -1,5 +1,5 @@
 import React from "react";
-import { CategoryButton } from "../../styles/button";
+import { CategoryButton } from "../../styles/button/button";
 import { Link } from "react-router-dom";
 const maincate = [
   { category: "Index", path: "/index" },

@@ -1,13 +1,13 @@
 import React from "react";
-import MainInputComponent from "./MainInputComponent";
-import MainHeaderComponent from "./MainHeaderComponent";
+import HomeInputComponent from "./HomeInputComponent";
+import HomeHeaderComponent from "./HomeHeaderComponent";
 import { DefaultContainer } from "@styles/containerStyle";
 
 const MainPage = () => {
   return (
     <DefaultContainer>
-      <MainHeaderComponent />
-      <MainInputComponent />
+      <HomeHeaderComponent />
+      <HomeInputComponent />
     </DefaultContainer>
   );
 };

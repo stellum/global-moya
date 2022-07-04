@@ -15,10 +15,3 @@ export const DefaultContainer = styled.div`
   padding: 12px 16px 16px;
   position: relative;
 `;
-export const MainContainer = styled(DefaultContainer)`
-  padding: 224px 16px 305px 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;

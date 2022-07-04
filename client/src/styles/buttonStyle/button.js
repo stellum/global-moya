@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, fontWeight, pxToRem } from "./theme";
+import { colors, fontWeight, pxToRem } from "../theme";
 
 export const DefaultButton = styled.button`
   ${({ theme }) => theme.common.flexCenter}

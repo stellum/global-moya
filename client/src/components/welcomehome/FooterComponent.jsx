@@ -3,10 +3,10 @@ import {
   Footer,
   TermsDiv,
   CompanyDiv,
-  H3Tag,
+  H2Tag,
   CopyRightDiv,
   SNSGroup,
-} from "@styles/footerStyle";
+} from "@styles/welcomeHomeStyle/footerStyle";
 import { IconsFacebook, IconsInstagram, IconsKakaotalk } from "@styles/svgIcon";
 const FooterComponent = () => {
   return (
@@ -15,7 +15,7 @@ const FooterComponent = () => {
         <h2>이용약관 &nbsp;&nbsp;| &nbsp;&nbsp;개인정보처리방침</h2>
       </TermsDiv>
       <CompanyDiv>
-        <H3Tag>
+        <H2Tag>
           <strong>주식회사 시스메틱 </strong> <br />
           <strong> 사업자 등록번호</strong>&nbsp;&nbsp; 711-86-00050 <br />
           <strong>통신판매업신고</strong>&nbsp;&nbsp; 제2020-서울영등포-2864호
@@ -25,7 +25,7 @@ const FooterComponent = () => {
           <br />
           <strong>연락처</strong>&nbsp;&nbsp; +82-2-6338-1880 <br />
           <strong>이메일</strong>&nbsp;&nbsp; help@moya.ai
-        </H3Tag>
+        </H2Tag>
       </CompanyDiv>
       <CopyRightDiv>
         <div>

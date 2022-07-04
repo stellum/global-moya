@@ -8,13 +8,13 @@ import {
   Abstract,
   CardHeader,
   Tickers,
-} from "../styles/cardStyles";
+} from "@styles/newscard/cardStyles";
 import {
   ScrapIcon,
   TranslateIcon,
   ShareIcon,
   ExpandMoreIcon,
-} from "../styles/svgIcon";
+} from "@styles/svgIcon";
 
 import mediumimg from "@assets/mediumimg.png";
 import "../index.css";

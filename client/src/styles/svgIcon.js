@@ -8,7 +8,7 @@ import { ReactComponent as IconsFacebookSvg } from "@assets/icons-facebook.svg";
 import { ReactComponent as IconsInstagramSvg } from "@assets/icons-instagram.svg";
 import { ReactComponent as IconsKakaotalkSvg } from "@assets/icons-kakaotalk.svg";
 import { ReactComponent as ProfileSvg } from "@assets/profile.svg";
-
+import { ReactComponent as SearchIconSvg } from "@assets/searchIcon.svg";
 import { colors } from "./theme";
 
 export const TranslateIcon = styled(TranslateSvg)``;
@@ -35,4 +35,7 @@ export const IconsKakaotalk = styled(IconsKakaotalkSvg)``;
 export const Profile = styled(ProfileSvg)`
   width: 36px;
   height: 36px;
+`;
+export const SearchIcon = styled(SearchIconSvg)`
+  width: 24px;
 `;

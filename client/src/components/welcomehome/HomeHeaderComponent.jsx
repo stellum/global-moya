@@ -1,6 +1,6 @@
 import React from "react";
 import { DefaultHeader } from "@styles/headerStyles";
-import { DefaultButton } from "@styles/button";
+import { DefaultButton } from "@styles/buttonstyle/button";
 import { Profile } from "@styles/svgIcon";
 const MainHeaderComponent = () => {
   return (
