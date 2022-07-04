@@ -1,7 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import MainHeader from "../components/main/MainHeader";
 import MainInputComponent from "../components/main/MainInputComponent";
-import { SearchIcon } from "../styles/svgIcon";
+const FilterComponent = React.lazy(() =>
+  import("../components/filter/FilterComponent")
+);
 import MainKeywordList from "../components/main/MainKeywordList";
 import { MainPageContainer } from "../styles/mainPageStyle/mainPageStyles";
 import NewsCard from "../components/NewsCard";
@@ -10,10 +12,13 @@ const MainPage = () => {
     <>
       <MainPageContainer>
         <MainHeader />
-        <MainInputComponent SearchIcon={SearchIcon} />
+        <MainInputComponent />
         <MainKeywordList />
       </MainPageContainer>
       <NewsCard />
+      <Suspense fallback={<h1>로딩중...</h1>}>
+        <FilterComponent />
+      </Suspense>
     </>
   );
 };

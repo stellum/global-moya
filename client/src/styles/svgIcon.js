@@ -10,6 +10,12 @@ import { ReactComponent as IconsKakaotalkSvg } from "@assets/icons-kakaotalk.svg
 import { ReactComponent as ProfileSvg } from "@assets/profile.svg";
 import { ReactComponent as SearchIconSvg } from "@assets/searchIcon.svg";
 import { ReactComponent as FilterIconSvg } from "@assets/icons-filter.svg";
+import { ReactComponent as MagazineDisableSvg } from "@assets/ViewMagazine-disable.svg";
+import { ReactComponent as TextDisableSvg } from "@assets/ViewText-disable.svg";
+import { ReactComponent as CardDisableSvg } from "@assets/ViewCard-disable.svg";
+import { ReactComponent as MagazineSvg } from "@assets/ViewMagazine.svg";
+import { ReactComponent as TextSvg } from "@assets/ViewText.svg";
+import { ReactComponent as CardSvg } from "@assets/ViewCard.svg";
 import { colors } from "./theme";
 
 export const TranslateIcon = styled(TranslateSvg)``;
@@ -41,3 +47,13 @@ export const SearchIcon = styled(SearchIconSvg)`
   width: 24px;
 `;
 export const FilterIcon = styled(FilterIconSvg)``;
+
+export const TextDisable = styled(TextDisableSvg)``;
+export const MagazineDisable = styled(MagazineDisableSvg)`
+  margin-bottom: 6px;
+`;
+export const CardDisable = styled(CardDisableSvg)``;
+
+export const TextView = styled(TextSvg)``;
+export const MagazineView = styled(MagazineSvg)``;
+export const CardView = styled(CardSvg)``;
