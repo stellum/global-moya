@@ -84,9 +84,9 @@ MGS / TEAM 6 with Sysmetic
   - paramValue
     - /master/all의 paramValue를 keyType에 맞게 binding하여 요청
 5. /search/
-  - [ENDPOINT]/search/${main}/${sub}
+  - [ENDPOINT]/search/{main}/{sub}
   - Header
-    - Authorization / Bearer ${token}
+    - Authorization / Bearer {token}
   - main: category, sectors, startup
   - paramValue of main
 
