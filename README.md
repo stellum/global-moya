@@ -70,7 +70,7 @@ MGS / TEAM 6 with Sysmetic
 4. /search?
   - [ENDPOINT]/search?
   - Header
-    - Authorization / Bearer ${token}
+    - Authorization / Bearer {token}
   - timeFilter
     - m5, m15, h1, d1, w1, mth1
   - mediaType
