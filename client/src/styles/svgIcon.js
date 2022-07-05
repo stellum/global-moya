@@ -16,6 +16,8 @@ import { ReactComponent as CardDisableSvg } from "@assets/ViewCard-disable.svg";
 import { ReactComponent as MagazineSvg } from "@assets/ViewMagazine.svg";
 import { ReactComponent as TextSvg } from "@assets/ViewText.svg";
 import { ReactComponent as CardSvg } from "@assets/ViewCard.svg";
+import { ReactComponent as CancelSvg } from "@assets/icons-cancel.svg";
+import { ReactComponent as ArrowBackSvg } from "@assets/arrow-back.svg";
 import { colors } from "./theme";
 
 export const TranslateIcon = styled(TranslateSvg)``;
@@ -55,3 +57,6 @@ export const CardDisable = styled(CardDisableSvg)``;
 export const TextView = styled(TextSvg)``;
 export const MagazineView = styled(MagazineSvg)``;
 export const CardView = styled(CardSvg)``;
+
+export const CancelIcon = styled(CancelSvg)``;
+export const ArrowBack = styled(ArrowBackSvg)``;

@@ -1,12 +1,12 @@
 export const cardSwitchFunc = (tagName, viewType) => {
   switch (viewType) {
-    case `textOnly`:
-      return tagName.textOnly;
-    case `mediumImg`:
-      return tagName.mediumImg;
-    case `largeImg`:
-      return tagName.largeImg;
+    case `TextOnly`:
+      return tagName.TextOnly;
+    case `Magazine`:
+      return tagName.Magazine;
+    case `CardType`:
+      return tagName.CardType;
     default:
-      return tagName.textOnly;
+      return tagName.TextOnly;
   }
 };

@@ -19,7 +19,7 @@ export const MainContent = styled.div`
   width: inherit;
   display: flex;
   flex-direction: ${({ viewType }) =>
-    viewType === "textOnly" || viewType === "largeImg"
+    viewType === "TextOnly" || viewType === "CardType"
       ? "column"
       : "row-reverse"};
   align-items: center;
@@ -80,9 +80,6 @@ export const CardFooter = styled.div`
   background-color: ${colors.gray200};
   padding: 6px 16px;
   position: relative;
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center; */
   .tags {
     span {
       display: inline-block;

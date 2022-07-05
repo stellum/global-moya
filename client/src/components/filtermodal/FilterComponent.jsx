@@ -18,13 +18,16 @@ import {
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { toggleModalAction } from "../../redux/reducer/modalSlice";
+import { cardTypeAction } from "../../redux/reducer/cardTypeSlice";
 import { MagazineDisable, TextDisable, CardDisable } from "@styles/svgIcon";
 
 const published = ["한 달", "일주일", "하루", "1시간", "15분", "5분"];
 const FilterComponent = () => {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.modalSlice.showModal);
-
+  const handleCardType = (e) => {
+    dispatch(cardTypeAction(e.target.id));
+  };
   return (
     <>
       <FilterWrap className={`Modal ${show ? "Show" : ""}`}>
@@ -34,17 +37,33 @@ const FilterComponent = () => {
             <ViewWrapForm>
               <HorizontalView>
                 <label htmlFor="Magazine">
-                  <input type="radio" id="Magazine" name="newsRadio" />
+                  <input
+                    type="radio"
+                    id="Magazine"
+                    name="newsRadio"
+                    onChange={handleCardType}
+                  />
                   <MagazineDisable />
                 </label>
-                <label htmlFor="TextDisable">
-                  <input type="radio" id="TextDisable" name="newsRadio" />
+                <label htmlFor="TextOnly">
+                  <input
+                    type="radio"
+                    id="TextOnly"
+                    name="newsRadio"
+                    defaultChecked
+                    onChange={handleCardType}
+                  />
                   <TextDisable />
                 </label>
               </HorizontalView>
               <VerticalView>
-                <label htmlFor="CardDisable">
-                  <input type="radio" id="CardDisable" name="newsRadio" />
+                <label htmlFor="CardType">
+                  <input
+                    type="radio"
+                    id="CardType"
+                    name="newsRadio"
+                    onChange={handleCardType}
+                  />
                   <CardDisable />
                 </label>
               </VerticalView>
@@ -74,10 +93,15 @@ const FilterComponent = () => {
             </SelectForm>
             <H2Tag>발행일</H2Tag>
             <PublishForm>
-              {published.map((item) => (
+              {published.map((item, idx) => (
                 <PublishWrap key={item}>
                   <label htmlFor={item}>
-                    <input type="radio" name="publishRadio" id={item} />
+                    <input
+                      type="radio"
+                      name="publishRadio"
+                      id={item}
+                      defaultChecked={!idx}
+                    />
                     <span className="publish-btn">{item}</span>
                   </label>
                 </PublishWrap>

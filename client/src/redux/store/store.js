@@ -5,6 +5,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import logger from "redux-logger";
 import modalSlice from "../reducer/modalSlice";
+import cardTypeSlice from "../reducer/cardTypeSlice";
 // if (process.env.NODE_ENV !== "production") {
 //   middleware.push(logger);
 // }
@@ -22,6 +23,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userSlice,
   modalSlice,
+  cardTypeSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
