@@ -56,31 +56,61 @@ MGS / TEAM 6 with Sysmetic
 
 ## API
 
-1. GET
+- ENDPOINT
+  - http://cityfalcon-web-797905939.ap-northeast-2.elb.amazonaws.com:3002
 
-- http://54.180.136.0:3002/master
-- http://54.180.136.0:3002/search?
+### GET
+1. /master
+  - [ENDPOINT]/master/all
+2. 대분류
+  - [ENDPOINT]/master/lv-1
+3. 대분류의 소분류
+  - [ENDPOINT]/master/lv-2/{대분류 1개}
+  - http://cityfalcon-web-797905939.ap-northeast-2.elb.amazonaws.com:3002/master/lv-2/index
+4. /search?
+  - [ENDPOINT]/search?
   - Header
     - Authorization / Bearer ${token}
   - timeFilter
+    - m5, m15, h1, d1, w1, mth1
   - mediaType
+    - mp, op, r, mp,op, mp,op,r
   - language
+    - en, ko, ja, zh, da, el, et, fi, ga, hu, it, lt, no, pt, ro (상세 내용 추후 제공)
   - orderBy
+    - latest, popular
   - keyType
+    - [“index”, “macrotopic”, “fx”, “events”, “topics”, “commodities”, “tickers”]
   - paramValue
-- http://54.180.136.0:3002/search/${main}/${sub}
+    - /master/all의 paramValue를 keyType에 맞게 binding하여 요청
+5. /search/
+  - [ENDPOINT]/search/${main}/${sub}
+  - Header
+    - Authorization / Bearer ${token}
   - main: category, sectors, startup
   - paramValue of main
 
-2. POST
+### POST
+1. /auth/register
+  - [ENDPOINT]/auth/register
+  - Body(Form-data)
+    - email: string
+    - password: string
+  - 성공시 {"mgs": "Registered Success"}
 
-- http://54.180.136.0:3002/auth/register
-- http://54.180.136.0:3002/auth/login
-  - 성공시 token 발급
+2. /auth/login
+  - [ENDPOINT]/auth/login
+  - Body(Form-data)
+    - email: string
+    - password: string
+  - 성공시 {"access_token": 토큰}
 
-3. DELETE
-
-- http://54.180.136.0:3002/auth/logout
+### DELETE
+1. /auth/logout
+  - [ENDPOINT]/auth/logout
+  - Header
+    - Authorization: Bearer token
+  - 성공시 {"mgs": "Access token revoked}
 
 ## Convention
 
