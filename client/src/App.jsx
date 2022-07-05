@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import MainPage from "./pages/MainPage";
+import QuickGuideMain from "./pages/QuickGuideMain";
 import { CustomContainer } from "./styles/containerStyle";
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/main" element={<MainPage />} />
             {/* 로그인 된 사람 중 키워드 있는 사람만  */}
+
+            <Route path="/quick/*" element={<QuickGuideMain />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </CustomContainer>

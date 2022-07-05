@@ -13,8 +13,8 @@ import {
   ApplyBtn,
   FilterWrap,
   FilterInner,
-} from "../../styles/filterStyle/filterStyle";
-// import { DefaultButton } from "../../styles/buttonStyle/button";
+} from "@styles/filterStyle/filterStyle";
+// import { DefaultButton } from "@styles/buttonStyle/button";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { toggleModalAction } from "../../redux/reducer/modalSlice";

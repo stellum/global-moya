@@ -5,7 +5,7 @@ const FilterComponent = React.lazy(() =>
   import("../components/filtermodal/FilterComponent")
 );
 import MainKeywordList from "../components/main/MainKeywordList";
-import { MainPageContainer } from "../styles/mainPageStyle/mainPageStyles";
+import { MainPageContainer } from "@styles/mainPageStyle/mainPageStyles";
 import NewsCard from "../components/NewsCard";
 const MainPage = () => {
   return (
