@@ -29,9 +29,8 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 //     }),
 const store = configureStore({
   // combineReducer와 동일하다
-  reducer: {
-    persistedReducer,
-  },
+  reducer: persistedReducer,
+
   middleware: [...middlewares],
 });
 
