@@ -1,21 +1,34 @@
 import styled from "styled-components";
 import { colors, fontWeight, fontSize } from "../theme";
-
-export const FilterModal = styled.div`
-  padding: 20px 16px;
-  box-sizing: border-box;
+import { DefaultButton } from "../buttonStyle/button";
+export const FilterWrap = styled.div`
   position: fixed;
-  bottom: -150vh;
-  background-color: #fff;
-  width: 100%;
+  width: auto;
   height: 100%;
-  box-shadow: 0 0 4px 0px rgba(0, 0, 0, 0.15);
   left: 0;
+  right: 0;
+  bottom: -150vh;
   transition: all 0.3s ease-out;
-  z-index: 10;
   &.Show {
     bottom: 0;
   }
+`;
+export const FilterModal = styled.div`
+  background-color: #fff;
+  padding: 20px 16px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  overflow-y: auto;
+`;
+
+export const FilterInner = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 export const ViewWrapForm = styled.form`
   ${({ theme }) => theme.common.flexCenter}
@@ -100,6 +113,7 @@ export const PublishForm = styled.form`
   padding-bottom: 24px;
   border-bottom: 1px solid ${colors.gray200};
   overflow: scroll;
+  margin-bottom: 24px;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -133,3 +147,21 @@ export const PublishForm = styled.form`
   }
 `;
 export const PublishWrap = styled.div``;
+
+export const SortForm = styled(SelectForm)``;
+
+export const ButtonForm = styled.form`
+  display: flex;
+  justify-content: center;
+  padding-bottom: 16px;
+`;
+export const ApplyBtn = styled(DefaultButton)`
+  height: 52px;
+  width: ${({ apply }) => (apply ? "224px" : "96px")};
+  &:last-child {
+    margin-right: 0;
+  }
+  background-color: ${({ apply }) => (apply ? colors.black : colors.gray350)};
+  color: ${colors.white};
+  font-weight: ${fontWeight.FontWeight600};
+`;

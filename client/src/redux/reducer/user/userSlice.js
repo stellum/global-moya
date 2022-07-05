@@ -2,7 +2,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   userData: {},
-  showModal: false,
 };
 
 // ! reducers: swtich case에서 fucntion으로 바꾼다.
@@ -19,14 +18,9 @@ export const userSlice = createSlice({
       state.commentList = action.payload;
       state.loading = false;
     },
-    toggleModalAction: (state, action) => {
-      console.log(action.payload);
-      state.showModal = action.payload;
-    },
   },
 });
 
-export const { fetchUserRequest, fetchUserSuccess, toggleModalAction } =
-  userSlice.actions;
+export const { fetchUserRequest, fetchUserSuccess } = userSlice.actions;
 
 export default userSlice.reducer;

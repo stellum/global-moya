@@ -1,10 +1,10 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import userReducer from "../reducer/user/reducer";
+import userSlice from "../reducer/user/userSlice";
 import { persistStore } from "redux-persist";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import logger from "redux-logger";
-
+import modalSlice from "../reducer/modalSlice";
 // if (process.env.NODE_ENV !== "production") {
 //   middleware.push(logger);
 // }
@@ -16,10 +16,12 @@ const persistConfig = {
   // key: "views",
   storage,
   // whitelist: ["views"],
+  blacklist: ["modalSlice"],
 };
 
 const rootReducer = combineReducers({
-  user: userReducer,
+  user: userSlice,
+  modalSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
