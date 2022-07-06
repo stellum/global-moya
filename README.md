@@ -120,6 +120,13 @@ MGS / TEAM 6 with Sysmetic
 - milestone: 프로젝트의 전반적인 진행을 지정 및 진행율을 확인 가능하다.
 - Projects: 현재 프로젝트의 전체적인 흐름을 파악, 단계별로 진행 상황을 설정.
 
+### Add
+`git add`시에 아래처럼 하면 된다.
+
+1. 같은 prefix/feat 기능 끼리만 묶어서처리. 
+  - 예를들어 같은 logincomponent면 그 폴더 안에서 `git add .` 또는 `git add [파일명] [파일명]`
+2. package.json와 같은 prefix가 달라지는 파일은 따로 처리 (`conf:`) 
+
 ### Commit Convention (prefix)
 
 - prefix: 파일명
