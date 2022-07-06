@@ -1,16 +1,24 @@
 import React from "react";
 import { MainHeader } from "@styles/mainPageStyle/mainPageHeader";
 import { Hamburger, HamburgerBar } from "@styles/buttonstyle/hamburger";
-import { GlobalMoyaLogo } from "@styles/svgIcon";
+import MoyaLogo from "../MoyaLogo";
+import { useDispatch } from "react-redux";
+import { toggleNavigation } from "../../redux/reducer/modalSlice";
 const Header = () => {
+  const dispatch = useDispatch();
+
   return (
     <MainHeader>
-      <Hamburger>
+      <Hamburger
+        onClick={() => {
+          dispatch(toggleNavigation(true));
+        }}
+      >
         <HamburgerBar />
         <HamburgerBar />
         <HamburgerBar />
       </Hamburger>
-      <GlobalMoyaLogo height={"32px"} />
+      <MoyaLogo mainHeader={"mainHeader"} />
     </MainHeader>
   );
 };

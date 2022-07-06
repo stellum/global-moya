@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import MainPage from "./pages/MainPage";
 import QuickGuideMain from "./pages/QuickGuideMain";
 import { CustomContainer } from "./styles/containerStyle";
-import QuickCateMain from "./components/quickGuide/quickCategory/QuickCateMain";
+import CategoryMain from "./components/quickGuide/category/CategoryMain";
 function App() {
   return (
     <>
@@ -17,7 +17,7 @@ function App() {
             {/* 로그인 된 사람 중 키워드 있는 사람만  */}
 
             <Route path="/quick" element={<QuickGuideMain />} />
-            <Route path="/quick/:id" element={<QuickCateMain />} />
+            <Route path="/quick/:id" element={<CategoryMain />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </CustomContainer>

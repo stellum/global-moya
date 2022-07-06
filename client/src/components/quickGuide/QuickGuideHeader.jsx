@@ -2,16 +2,19 @@ import React from "react";
 import { QuickInputWrap } from "@styles/quickGuideStyle/QuikcMainStyle";
 import { QuickInput } from "@styles/quickGuideStyle/QuickInputStyle";
 import { ArrowBack, CancelIcon } from "@styles/svgIcon";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const QuickGuideHeader = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   return (
     <QuickInputWrap>
       <div
         className="arrow"
         onClick={() => {
-          navigate(-1);
+          location.pathname === "/quick"
+            ? navigate("/main", { replace: true })
+            : navigate("/quick", { replace: true });
         }}
       >
         <ArrowBack />

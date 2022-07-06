@@ -7,7 +7,6 @@ import {
 import { CategoryButton } from "@styles/buttonStyle/button";
 import { Link } from "react-router-dom";
 import { mainCategory } from "./category";
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetLeft);
 const QuickContent = () => {
   return (
     <>
