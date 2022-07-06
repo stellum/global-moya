@@ -3,7 +3,7 @@ import clientServer from "./baseUrl";
 const getMasterData = async () => {
   try {
     const response = await clientServer({
-      url: "/master",
+      url: "/master/all",
     });
     if (response.status === 200) {
       const data = await response.data;
