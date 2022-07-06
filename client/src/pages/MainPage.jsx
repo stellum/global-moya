@@ -2,10 +2,10 @@ import React, { Suspense } from "react";
 import MainHeader from "../components/main/MainHeader";
 import MainInputComponent from "../components/main/MainInputComponent";
 const FilterComponent = React.lazy(() =>
-  import("../components/filter/FilterComponent")
+  import("../components/filtermodal/FilterComponent")
 );
 import MainKeywordList from "../components/main/MainKeywordList";
-import { MainPageContainer } from "../styles/mainPageStyle/mainPageStyles";
+import { MainPageContainer } from "@styles/mainPageStyle/mainPageStyles";
 import NewsCard from "../components/NewsCard";
 const MainPage = () => {
   return (

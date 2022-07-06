@@ -65,30 +65,30 @@ const device = {
   laptop: `screen and (min-width:${deviceSizes.laptop.minWidth}) and (max-width:${deviceSizes.laptop.maxWidth})`,
 };
 export const cardImgType = {
-  textOnly: `
+  TextOnly: `
     display:none;
   `,
-  mediumImg: `
+  Magazine: `
     margin:14px 16px 0 0;
     width:106px;
     height: 80px;
     object-fit: cover;
     display:inline-block;
   `,
-  largeImg: `
+  CardType: `
     object-fit: cover;
     width: 100%;
   `,
 };
 export const cardTextType = {
-  textOnly: `
+  TextOnly: `
   padding: 14px 16px 0 16px;
 `,
-  mediumImg: `
+  Magazine: `
   padding: 14px 0 0 16px;
   width: 206px;
 `,
-  largeImg: `
+  CardType: `
   padding: 14px 16px 0 16px;
 `,
 };

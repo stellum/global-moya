@@ -1,13 +1,13 @@
 import clientServer from "./baseUrl";
 
-const getMasterData = async () => {
+export const getMasterData = async () => {
   try {
     const response = await clientServer({
       url: "/master/all",
     });
     if (response.status === 200) {
       const data = await response.data;
-      console.log(data);
+
       return data;
     }
   } catch (e) {
@@ -15,4 +15,16 @@ const getMasterData = async () => {
   }
 };
 
-export default getMasterData;
+export const getCategoryList = async (category) => {
+  try {
+    const response = await clientServer({
+      url: `/master/lv-2/${category}`,
+    });
+    if (response.status === 200) {
+      const data = await response.data;
+      return data;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};

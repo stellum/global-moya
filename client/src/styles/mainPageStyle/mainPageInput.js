@@ -24,6 +24,7 @@ export const SearchIconWrap = styled.div`
 `;
 export const MainInput = styled(HomeInput)`
   background-color: ${colors.gray150};
+  font-size: ${fontSize.FontSize16};
   &::placeholder {
     color: ${colors.gray400};
     font-size: ${fontSize.FontSize14};

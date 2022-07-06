@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   MainInput,
   MainInputWrap,
@@ -8,11 +8,13 @@ import {
 
 import { SearchIcon, FilterIcon } from "@styles/svgIcon";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModalAction } from "../../redux/reducer/user/reducer";
+import { toggleModalAction } from "../../redux/reducer/modalSlice";
 
+import { useNavigate } from "react-router-dom";
 const MainInputComponent = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const show = useSelector((state) => state.user.showModal);
+  const show = useSelector((state) => state.modalSlice.showModal);
   const toggleModal = () => {
     dispatch(toggleModalAction(!show));
   };
@@ -22,7 +24,12 @@ const MainInputComponent = () => {
       <SearchIconWrap>
         <SearchIcon />
       </SearchIconWrap>
-      <MainInput placeholder="뉴스 키워드를 검색해보세요." />
+      <MainInput
+        placeholder="뉴스 키워드를 검색해보세요."
+        onFocus={() => {
+          navigate("/quick");
+        }}
+      />
       <FilterIconWrap onClick={toggleModal}>
         <FilterIcon />
       </FilterIconWrap>

@@ -17,11 +17,13 @@ import {
 } from "@styles/svgIcon";
 
 import mediumimg from "@assets/mediumimg.png";
-import "../index.css";
+import { useSelector } from "react-redux";
 
-const NewsCard = ({ viewType }) => {
+const NewsCard = () => {
   const [scrap, setScrap] = useState(false);
   const [expand, setExpand] = useState(false);
+  const viewType = useSelector((state) => state.cardTypeSlice.viewType);
+  // console.log(viewType);
   return (
     <>
       <Card>

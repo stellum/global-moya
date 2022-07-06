@@ -1,7 +1,7 @@
 import React from "react";
-import { GlobalMoyaLogo } from "../../styles/svgIcon";
+import MoyaLogo from "../MoyaLogo";
 const SearchHeader = () => {
-  return <GlobalMoyaLogo />;
+  return <MoyaLogo />;
 };
 
 export default SearchHeader;

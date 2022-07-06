@@ -13,12 +13,14 @@ export const DefaultButton = styled.button`
       : props.theme.colors.gray150};
   border-radius: 2px;
   font-weight: ${fontWeight.FontWeight500};
-  margin-right: ${({ orange }) => (orange ? 0 : "15px")};
 `;
 
 export const RadiusButton = styled(DefaultButton)`
   border-radius: 200px;
   font-weight: ${fontWeight.FontWeight500};
+  width: auto;
+  padding: 0 16px;
+  margin-right: 8px;
 `;
 
 export const CategoryButton = styled(DefaultButton)`
@@ -33,4 +35,5 @@ export const CategoryButton = styled(DefaultButton)`
   }};
   font-weight: ${fontWeight.FontWeight500};
   color: ${colors.gray700};
+  margin: 0;
 `;
