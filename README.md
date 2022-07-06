@@ -4,12 +4,24 @@ MGS / TEAM 6 with Sysmetic
 
 ## Team Collaborator
 
+#### Front-end
+
 - 지영배: [@youngcodej22](https://github.com/youngcodej22)
 - 박철연: [@oaat9309](https://github.com/oaat9309)
 - 오영재: [@sacultang](https://github.com/sacultang)
 - 노효정: [@stellum](https://github.com/stellum)
 - 차유나: [@sarasata3131](https://github.com/sarasata3131)
 - 조성일: [@Seong1-Jo](https://github.com/Seong1-Jo)
+
+#### UX/UI
+
+- 이양석
+- 목문정
+- 박세희
+
+## Notion: 회의록 및 주요사항
+
+- [6팀 핫식스](https://www.notion.so/6-61dcc51a7e5c42b9a02ff7066c53edaa)
 
 ## 사용 기술
 
@@ -33,7 +45,7 @@ MGS / TEAM 6 with Sysmetic
   - redux-logger
 - axios
 
-### API
+## API
 
 1. GET
 
@@ -61,13 +73,13 @@ MGS / TEAM 6 with Sysmetic
 
 - http://54.180.136.0:3002/auth/logout
 
-### Convention
+## Convention
 
 1. Issue/PR template에 맞춰서 작성
 2. Commit message를 convention에 맞게 작성
 3. ErrorReport 작성
 
-#### ISSUE Menu
+### ISSUE Menu
 
 - New Issue: issue 생성
 - Assignees: 작업 책임자
@@ -75,25 +87,7 @@ MGS / TEAM 6 with Sysmetic
 - milestone: 프로젝트의 전반적인 진행을 지정 및 진행율을 확인 가능하다.
 - Projects: 현재 프로젝트의 전체적인 흐름을 파악, 단계별로 진행 상황을 설정.
 
-#### Config
-
-프로젝트를 시작하기 이전에 Terminal에서 자신의 Git configuration(환경설정)이 제대로 되어 있는지 확인하자.
-
-1. config list
-
-- `git config --list`
-
-2. config list editor 형태로 보기
-
-- `git config --global -e`
-
-3. **중요** autocrlf
-
-- 운영체제(OS) 마다 editor에서 새로운 줄바꿈을 할 때 들어가는 문자열이 다르다. Windows는 carriage-return(`\r`)과 line feed(`\n`) 형태 Mac에서는 line feed(`\n`)만 삽입이 된다. **Git사용 시에** 팀원 마다 다른 OS라면 문제가 된다. 그래서 `autocrlf`를 설정하게 되면 각 OS에서 `\r`를 삭제하고 처리가 되기 때문에 git 사용 시 문제를 해결 할 수 있다.
-  - windows: `git config --global core.autocrlf true`
-  - mac: `git config --global core.autocrlf input`
-
-#### Commit Convention (prefix)
+### Commit Convention (prefix)
 
 - prefix: 파일명
   - (줄바꿈 아래) 아래 코드 수정한 부분 설명
@@ -108,7 +102,7 @@ MGS / TEAM 6 with Sysmetic
 - build: 빌드 관련
 - ci: Continuous Integration 관련
 
-#### Label
+### Label
 
 - 새로운 기능 추가 시 및 컴포넌트 변경은 모두 컴포넌트
   - component
@@ -123,7 +117,7 @@ MGS / TEAM 6 with Sysmetic
 - 기타
   - answer needed / in review 등 필요 하면 사용
 
-#### PR 시간 협의 규칙
+### PR 시간 협의 규칙
 
 - 시간: 오후 1시
 - pull 받기 전에 issue 작성
