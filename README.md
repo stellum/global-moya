@@ -158,4 +158,4 @@ MGS / TEAM 6 with Sysmetic
 ### PR 시간 협의 규칙
 
 - 시간: 오후 1시
-- pull 받기 전에 issue 작성
+- 작업 시작 전 ISSUE작성
