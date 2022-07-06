@@ -22,7 +22,6 @@ export const getCategoryList = async (category) => {
     });
     if (response.status === 200) {
       const data = await response.data;
-
       return data;
     }
   } catch (e) {

@@ -15,7 +15,7 @@ const CategoryMain = () => {
     <DefaultContainer>
       <CategoryButton />
       <QuickGuideHeader />
-      <LvKeywordList data={data} />
+      <LvKeywordList />
     </DefaultContainer>
   );
 };
