@@ -67,8 +67,8 @@ MGS / TEAM 6 with Sysmetic
 3. 대분류의 소분류
   - [ENDPOINT]/master/lv-2/{대분류 1개}
   - http://cityfalcon-web-797905939.ap-northeast-2.elb.amazonaws.com:3002/master/lv-2/index
-4. /search?
-  - [ENDPOINT]/search?
+4. /search/news
+  - [ENDPOINT]/search/news
   - Header
     - Authorization / Bearer {token}
   - timeFilter
@@ -80,15 +80,9 @@ MGS / TEAM 6 with Sysmetic
   - orderBy
     - latest, popular
   - keyType
-    - [“index”, “macrotopic”, “fx”, “events”, “topics”, “commodities”, “tickers”]
+    - 대분류
   - paramValue
     - /master/all의 paramValue를 keyType에 맞게 binding하여 요청
-5. /search/
-  - [ENDPOINT]/search/{main}/{sub}
-  - Header
-    - Authorization / Bearer {token}
-  - main: category, sectors, startup
-  - paramValue of main
 
 ### POST
 1. /auth/register
