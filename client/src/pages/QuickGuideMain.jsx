@@ -5,19 +5,18 @@ import { DefaultContainer } from "@styles/containerStyle";
 import { getMasterData } from "../api/masterApi";
 import { useDispatch } from "react-redux";
 import { addDataAction } from "../redux/reducer/categorySlice";
+import { useQuery } from "react-query";
 const QuickGuideMain = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    const fetch = async () => {
-      const response = await getMasterData();
-      dispatch(addDataAction(response));
-    };
-    fetch();
-  }, []);
+  const { data, isLoading } = useQuery("masterData", () => getMasterData());
+  // console.log(isLoading);
+  // useEffect(() => {
+  //   if (!isLoading) dispatch(addDataAction(data));
+  // }, [isLoading]);
   return (
     <DefaultContainer>
       <QuickGuideHeader />
-      <QuickContent />
+      {isLoading ? <h1>로딩중...</h1> : <QuickContent />}
     </DefaultContainer>
   );
 };

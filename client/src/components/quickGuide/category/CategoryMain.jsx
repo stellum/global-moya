@@ -16,13 +16,14 @@ const CategoryMain = () => {
   const [pageLength, setPageLength] = useState(0);
 
   const params = useParams();
-  const category = params.id;
 
   const storeMasterData = useSelector(
     (state) => state.categorySlice.masterData
   );
+  const storeLvData = useSelector((state) => state.categorySlice.lvCategory);
+
   // console.log(storeMasterData[`${category}`]);
-  const { lastElementRef } = QuickCategoryHook(category, setPage);
+  const { lastElementRef } = QuickCategoryHook(params.id, setPage);
 
   let minValue = 0;
   let maxValue = 100;
@@ -34,22 +35,23 @@ const CategoryMain = () => {
 
   // 콘솔용
   useEffect(() => {
+    console.log(storeLvData);
     // console.log("페이지갯수", pageLength);
     // console.log(storeMasterData.length);
     // console.log("토탈", totalResult);
     // console.log("page", page);
 
-    if (page === 1) {
-      setDataList(storeMasterData[`${category}`].slice(minValue, maxValue));
-    } else {
-      setDataList((prev) => [
-        ...prev,
-        ...storeMasterData[`${category}`].slice(minValue, maxValue),
-      ]); // 뒤로 누적
-    }
+    // if (page === 1) {
+    //   setDataList(storeLvData.slice(minValue, maxValue));
+    // } else {
+    //   setDataList((prev) => [
+    //     ...prev,
+    //     ...storeLvData.slice(minValue, maxValue),
+    //   ]); // 뒤로 누적
+    // }
     minValue = maxValue;
     maxValue += 100;
-    console.log(minValue, maxValue);
+    // console.log(minValue, maxValue);
   }, [page]);
 
   return (
@@ -57,7 +59,7 @@ const CategoryMain = () => {
       <CategoryButton />
       <QuickGuideHeader />
       {/* <Suspense fallback={<div>loading...</div>}> */}
-      <LvKeywordList dataList={dataList} />
+      <LvKeywordList />
       {/* </Suspense> */}
       {/* {1 !== page && <div ref={target}></div>} */}
       {/* {masterData.length > 0 && page > 1 ? (

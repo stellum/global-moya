@@ -10,7 +10,7 @@ export const categorySlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-    addCategoryAction: (state, action) => {
+    addLvCateAction: (state, action) => {
       state.lvCategory = action.payload;
     },
     addDataAction: (state, action) => {
@@ -20,6 +20,6 @@ export const categorySlice = createSlice({
   },
 });
 
-export const { addCategoryAction, addDataAction } = categorySlice.actions;
+export const { addLvCateAction, addDataAction } = categorySlice.actions;
 
 export default categorySlice.reducer;
