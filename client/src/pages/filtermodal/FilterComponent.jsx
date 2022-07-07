@@ -23,13 +23,13 @@ import { MagazineDisable, TextDisable, CardDisable } from "@styles/svgIcon";
 const published = ["한 달", "일주일", "하루", "1시간", "15분", "5분"];
 const FilterComponent = () => {
   const dispatch = useDispatch();
-  const show = useSelector((state) => state.modalSlice.showModal);
+
   const handleCardType = (e) => {
     dispatch(cardTypeAction(e.target.id));
   };
   return (
     <>
-      <FilterWrap className={`Modal ${show ? "Show" : ""}`}>
+      {/* <FilterWrap className={`Modal ${show ? "Show" : ""}`}>
         <FilterModal>
           <FilterInner>
             <H2Tag>보기 타입</H2Tag>
@@ -139,7 +139,7 @@ const FilterComponent = () => {
             </ButtonForm>
           </FilterInner>
         </FilterModal>
-      </FilterWrap>
+      </FilterWrap> */}
     </>
   );
 };
