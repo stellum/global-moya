@@ -8,7 +8,7 @@ import {
   Abstract,
   CardHeader,
   Tickers,
-} from "@styles/newsCardStyle/cardStyles";
+} from "@styles/newsCard/cardStyles";
 import {
   ScrapIcon,
   TranslateIcon,
