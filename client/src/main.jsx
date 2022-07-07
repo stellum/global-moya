@@ -8,14 +8,19 @@ import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
 import App from "./App";
 import "./index.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <ThemeProvider theme={theme}>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
           <App />
-        </ThemeProvider>
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </PersistGate>
+  </Provider>
+  // </React.StrictMode>
 );

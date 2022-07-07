@@ -6,6 +6,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import logger from "redux-logger";
 import modalSlice from "../reducer/modalSlice";
 import cardTypeSlice from "../reducer/cardTypeSlice";
+import categorySlice from "../reducer/categorySlice";
 // if (process.env.NODE_ENV !== "production") {
 //   middleware.push(logger);
 // }
@@ -17,13 +18,14 @@ const persistConfig = {
   // key: "views",
   storage,
   // whitelist: ["views"],
-  blacklist: ["modalSlice"],
+  blacklist: ["modalSlice", "categorySlice"],
 };
 
 const rootReducer = combineReducers({
   user: userSlice,
   modalSlice,
   cardTypeSlice,
+  categorySlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
