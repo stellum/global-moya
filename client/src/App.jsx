@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ErrorPage from "./pages/ErrorPage";
-import Home from "./pages/Home";
-import MainPage from "./pages/MainPage";
-import SiginIn from "./pages/SiginIn";
-import QuickGuideMain from "./pages/QuickGuideMain";
-import { CustomContainer } from "./styles/containerStyle";
-import CategoryMain from "./components/quickGuide/category/CategoryMain";
+import ErrorPage from "@pages/error/ErrorPage";
+import Home from "@pages/home/Home";
+import MainPage from "@pages/main/MainPage";
+import SiginIn from "@pages/SiginIn";
+import QuickGuideMain from "@pages/quickGuide/QuickGuideMain";
+import { CustomContainer } from "@styles/common/container";
+import CategoryMain from "@pages/quickGuide/categorySearch/CategoryMain";
 function App() {
   return (
     <>

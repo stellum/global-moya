@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { colors, fontWeight, fontSize } from "../theme";
-import { DefaultButton } from "../buttonStyle/button";
+import { DefaultButton } from "../common/button/button";
 export const FilterWrap = styled.div`
   position: fixed;
   width: auto;

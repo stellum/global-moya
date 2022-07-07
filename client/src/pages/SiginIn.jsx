@@ -1,5 +1,5 @@
 import React from "react";
-import LoginSection from "../components/login/LoginSection";
+import LoginSection from "./login/LoginSection";
 import styled from "styled-components";
 
 const Header = styled.div`
