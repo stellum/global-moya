@@ -8,7 +8,8 @@ import { useParams } from "react-router-dom";
 import LvKeywordList from "./LvKeywordList";
 import { useSelector } from "react-redux";
 import QuickCategoryHook from "../../../hooks/QuickCategoryHook";
-
+import { useQuery } from "react-query";
+import { getCategoryList } from "@api/masterApi";
 const CategoryMain = () => {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
@@ -16,14 +17,16 @@ const CategoryMain = () => {
   const [pageLength, setPageLength] = useState(0);
 
   const params = useParams();
-
+  const { data, isLoading } = useQuery("LvData", () => {
+    getCategoryList(params.id);
+  });
   const storeMasterData = useSelector(
     (state) => state.categorySlice.masterData
   );
   const storeLvData = useSelector((state) => state.categorySlice.lvCategory);
 
   // console.log(storeMasterData[`${category}`]);
-  const { lastElementRef } = QuickCategoryHook(params.id, setPage);
+  const { lastElementRef } = QuickCategoryHook(data, setPage, isLoading);
 
   let minValue = 0;
   let maxValue = 100;

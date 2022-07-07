@@ -8,15 +8,12 @@ import { useDispatch } from "react-redux";
 import { useQuery } from "react-query";
 const QuickGuideMain = () => {
   const dispatch = useDispatch();
-  const { data, isLoading } = useQuery("masterData", () => getMasterData());
-  // console.log(isLoading);
-  // useEffect(() => {
-  //   if (!isLoading) dispatch(addDataAction(data));
-  // }, [isLoading]);
+  // const { data, isLoading } = useQuery("masterData", () => getMasterData());
+
   return (
     <DefaultContainer>
       <QuickGuideHeader />
-      {isLoading ? <h1>로딩중...</h1> : <QuickContent />}
+      <QuickContent />
     </DefaultContainer>
   );
 };

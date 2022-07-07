@@ -3,7 +3,7 @@ import HomeInput from "./HomeInput";
 import HomeHeader from "./HomeHeader";
 import { DefaultContainer } from "@styles/common/container";
 
-const MainPage = () => {
+const HomeContent = () => {
   return (
     <DefaultContainer>
       <HomeHeader />
@@ -12,4 +12,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default HomeContent;

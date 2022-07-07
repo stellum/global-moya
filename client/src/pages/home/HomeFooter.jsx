@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  Footer,
+  FooterTag,
   TermsDiv,
   CompanyDiv,
   H2Tag,
@@ -8,9 +8,9 @@ import {
   SNSGroup,
 } from "@styles/home/footer";
 import { IconsFacebook, IconsInstagram, IconsKakaotalk } from "@styles/svgIcon";
-const FooterComponent = () => {
+const HomeFooter = () => {
   return (
-    <Footer>
+    <FooterTag>
       <TermsDiv>
         <h2>이용약관 &nbsp;&nbsp;| &nbsp;&nbsp;개인정보처리방침</h2>
       </TermsDiv>
@@ -37,8 +37,8 @@ const FooterComponent = () => {
           <IconsKakaotalk />
         </SNSGroup>
       </CopyRightDiv>
-    </Footer>
+    </FooterTag>
   );
 };
 
-export default FooterComponent;
+export default HomeFooter;

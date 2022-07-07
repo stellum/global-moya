@@ -1,11 +1,11 @@
 import React from "react";
 import HomeContent from "./HomeContent";
-import FooterComponent from "./Footer";
+import HomeFooter from "./HomeFooter";
 const Home = () => {
   return (
     <>
       <HomeContent />
-      <FooterComponent />
+      <HomeFooter />
     </>
   );
 };

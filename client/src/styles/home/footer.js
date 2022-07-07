@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { colors, fontWeight, fontSize, pxToRem } from "../theme";
 
-export const Footer = styled.footer`
+export const FooterTag = styled.footer`
   background-color: ${colors.gray900};
   width: 100%;
   height: 258px;

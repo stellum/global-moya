@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { getCategoryList } from "../api/masterApi";
 import { addLvCateAction } from "../redux/reducer/categorySlice";
 import { useQuery } from "react-query";
-const QuickCategoryHook = (category, setPage) => {
+const QuickCategoryHook = (data, setPage, isLoading) => {
   // const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -19,10 +19,10 @@ const QuickCategoryHook = (category, setPage) => {
   // };
   // console.log(data);
   useEffect(() => {
-    // if (!isLoading) {
-    //   console.log(data);
-    //   dispatch(addCategoryAction(data));
-    // }
+    if (!isLoading) {
+      console.log(data);
+      dispatch(addLvCateAction(data));
+    }
   }, []);
 
   const observer = useRef(null);
