@@ -159,3 +159,45 @@ MGS / TEAM 6 with Sysmetic
 
 - 시간: 오후 1시
 - 작업 시작 전 ISSUE작성
+
+### Git Branch 전략 및 규칙
+Git Flow와 유사한 형태로 진행. 
+
+#### 작업 순서 (Local Repository에서 Remote Repository 까지)
+Local에서 자신의 이름+해당Issue번호를 branch로 만든다.
+
+1. branch들 확인: `git branch -a`
+2. `develop` 또는 `main`와 같은 branch에서 자신의 branch 생성.
+3. branch 생성: ex) `git branch yeongbae24` (Issue번호는 새로운 작업을 할 때마다 바꿔서 작업)
+4. branch가 생성됐으면 이동: `git switch 자기branch`
+5. 현재 비어있는 자신의 branch에 최신화가된 develop branch를 pull 받는다.(remote repository에 develop을 말함)
+6. 현재위치가 자신의 branch인 것을 확인 후 `git pull origin develop` (origin인 이유는 `git remote -v`를 해서 origin과 주소를 확인 할 수 있다.)
+7. 자신의 branch에 최신화된 develop branch의 파일들을 가져온 것을 확인한다.
+8. 이제 다시 새로운 작업을 이어 나간다. (branch명과 Issue가 동일함으로 해당 작업들을 해나가면 된다.)
+9. 작업시 유의할 점은 `conf:`, `feat:`, `fix:` 등 prefix에 따라서 `git add`를 해야한다. (만약 package.json과 같은 거라면 `git add package.json`처럼 직접적인 파일을 선언하고 Login component의 작업들을 한번에 올릴 경우는 그 디렉토리에 가서 `git add .`을 해줘도 된다. prefix에 유의하여 commit을 하자)
+10. 자신의 branch에서 작업이 완료 되었으면 `git add, commit`을 해주고 commit message도 convention에 맞게 작성한 후 `git push origin 자기branch`에 올린다.
+11. Github 사이트에 우리 프로젝트 Remote repository에서 pull request 요청을 한다. ( 주의! 자신branch에서 develop으로 보내야 한다! )
+12. 팀장의 검토가 완료되면 merge가 될 것이다.
+13. 이제 다른 팀원들의 작업사항까지 develop에 merge가 되어 최신화 되었다면 다시 pull의 해야한다.
+14. Remote `develop` branch에서 pull로 파일들을 받기 전에 Local에서 자신의 branch를 삭제한다.
+  - 현재 `develop or main` branch임을 확인한 후 `git branch -a`로 branch들 확인
+  - `git branch -d 자기branch`로 Local 환경에서 삭제
+  - `error: The branch ‘branch' is not fully merged.` 발생 시 `git branch -D 자기branch`를 한다.
+15. 삭제가 된 것을 확인 후 다시 `git branch 자기이름+issue번호`로 브랜치를 생성
+16. `git switch 자기branch`로 이동
+17. `git pull origin develop`을 해서 최신화된 파일들을 자기branch에 가져온다.
+
+#### branch 관련 명령어 모음
+1. branch들 확인: `git branch` or `git branch -a`
+2. 이동: `git switch 해당branch명`
+3. 추가: `git branch 이름`
+4. Local 삭제: `git branch -d 이름` or `git branch -D 이름`(강제삭제)
+5. Remote 삭제: `git push origin --delete 자기이름branch` (remote에 백업용 branch 삭제를 원하고 다시 올릴 때 사용)
+
+
+
+
+  
+  
+
+
