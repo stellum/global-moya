@@ -6,7 +6,7 @@ import {
   cardImgType,
   cardTextType,
 } from "../theme";
-import { cardSwitchFunc } from "../../functions/cardSwitchFunc";
+import { cardSwitchFunc } from "../../util/cardSwitchFunc";
 
 export const Card = styled.div`
   max-width: 360px;
