@@ -1,9 +1,5 @@
 import clientServer from "./baseUrl";
-import {
-  setCookie,
-  getCookie,
-  deleteCookie,
-} from "../functions/settingSessions";
+import { setCookie, getCookie, deleteCookie } from "../util/settingSessions";
 
 export const loginFunc = async (form) => {
   try {
