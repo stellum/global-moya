@@ -1,4 +1,4 @@
-import { lazy, useState, Suspense, useEffect } from "react";
+import { lazy, useState, Suspense, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import QuickGuideHeader from "../QuickGuideHeader";
@@ -10,7 +10,7 @@ const LvKeywordList = lazy(() => import("./LvKeywordList"));
 import QuickCategoryHook from "../../../hooks/QuickCategoryHook";
 import { DefaultContainer } from "@styles/common/container";
 
-import { isLoading } from "@redux/categorySlice";
+import { isLoading, searchKeyword } from "@redux/categorySlice";
 import { getCategoryList } from "@api/masterApi";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -22,7 +22,7 @@ const CategoryMain = () => {
   const category = params.id;
   const keyword = useSelector((state) => state.categorySlice.keyword);
   const loading = useSelector((state) => state.categorySlice.loading);
-
+  const inputRef = useRef(null);
   const { lastElementRef } = QuickCategoryHook(setPage);
 
   const dispatch = useDispatch();
@@ -38,6 +38,8 @@ const CategoryMain = () => {
 
   useEffect(() => {
     fetch();
+    inputRef.current.value = "";
+    dispatch(searchKeyword(""));
   }, [category]);
   /*  
   
@@ -49,7 +51,7 @@ const CategoryMain = () => {
   return (
     <DefaultContainer>
       <CategoryButton />
-      <QuickGuideHeader />
+      <QuickGuideHeader inputRef={inputRef} keyword={keyword} />
       {keyword ? (
         <Suspense fallback={renderLoader()}>
           <HiglightKeyword
