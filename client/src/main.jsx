@@ -4,15 +4,23 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store from "./redux/store/store";
 import { persistor } from "./redux/store/store";
-
+import { ThemeProvider } from "styled-components";
+import theme from "./styles/theme";
 import App from "./App";
+import "./index.css";
+import { QueryClient, QueryClientProvider } from "react-query";
 
+const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <App />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <App />
+        </QueryClientProvider>
+      </ThemeProvider>
+    </PersistGate>
+  </Provider>
+  // </React.StrictMode>
 );
