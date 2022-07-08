@@ -4,9 +4,11 @@ import {
   KeywordLi,
   KeywordH4,
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
+
 const LvKeywordList = ({ dataList, myRef, page }) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 100 });
 
+  // console.log(keyword);
   useEffect(() => {
     setSliceValue((prev) => ({
       minValue: prev.maxValue,
@@ -33,6 +35,7 @@ const LvKeywordList = ({ dataList, myRef, page }) => {
               return (
                 <KeywordLi ref={myRef} key={item._id}>
                   <SearchIcon />
+
                   <KeywordH4>{item.name}</KeywordH4>
                 </KeywordLi>
               );
