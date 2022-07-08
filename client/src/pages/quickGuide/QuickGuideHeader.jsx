@@ -10,6 +10,7 @@ const QuickGuideHeader = ({ inputRef, keyword }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+
   const handleKeyword = (e) => {
     dispatch(searchKeyword(e.target.value));
   };

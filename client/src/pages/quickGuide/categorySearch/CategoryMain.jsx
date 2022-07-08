@@ -17,7 +17,6 @@ import { useSelector, useDispatch } from "react-redux";
 const CategoryMain = () => {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
-  // const [loading, setLoading] = useState(true);
   const params = useParams();
   const category = params.id;
   const keyword = useSelector((state) => state.categorySlice.keyword);
