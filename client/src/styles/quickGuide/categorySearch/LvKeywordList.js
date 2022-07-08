@@ -5,7 +5,10 @@ export const KeywordLi = styled.li`
   display: flex;
   align-items: center;
   height: 48px;
+  margin-bottom: ${({ children }) =>
+    children[1].props.children.length > 40 ? "20px" : "8px"};
   svg {
+    flex-shrink: 0;
     margin-right: 12px;
   }
 `;

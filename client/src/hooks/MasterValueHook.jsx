@@ -8,7 +8,6 @@ const MasterValueHook = (searchWord) => {
     const fetch = async () => {
       const data = await getMasterData();
       setMasterData(data);
-      console.log(data);
     };
     fetch();
   }, []);

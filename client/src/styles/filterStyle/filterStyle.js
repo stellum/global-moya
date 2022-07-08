@@ -4,31 +4,17 @@ import { DefaultButton } from "../common/button/button";
 export const FilterWrap = styled.div`
   position: fixed;
   width: auto;
-  height: 100%;
+  height: auto;
   left: 0;
-  right: 0;
-  bottom: -150vh;
-  transition: all 0.3s ease-out;
-  &.Show {
-    bottom: 0;
-  }
-`;
-export const FilterModal = styled.div`
-  background-color: #fff;
-  padding: 20px 16px;
-  box-sizing: border-box;
-  position: absolute;
-  top: 0;
   right: 0;
   bottom: 0;
-  left: 0;
-  overflow: hidden;
-  overflow-y: auto;
+  transition: all 0.3s ease-out;
+  background-color: #fff;
+  z-index: 2;
 `;
 
 export const FilterInner = styled.div`
-  width: 100%;
-  height: 100%;
+  padding: 16px 16px;
 `;
 export const ViewWrapForm = styled.form`
   ${({ theme }) => theme.common.flexCenter}
@@ -148,9 +134,11 @@ export const PublishForm = styled.form`
 `;
 export const PublishWrap = styled.div``;
 
-export const SortForm = styled(SelectForm)``;
+export const SortForm = styled(SelectForm)`
+  border-bottom: none;
+`;
 
-export const ButtonForm = styled.form`
+export const ButtonWrap = styled.div`
   display: flex;
   justify-content: center;
   padding-bottom: 16px;
@@ -164,4 +152,5 @@ export const ApplyBtn = styled(DefaultButton)`
   background-color: ${({ apply }) => (apply ? colors.black : colors.gray350)};
   color: ${colors.white};
   font-weight: ${fontWeight.FontWeight600};
+  margin-right: ${({ apply }) => (apply ? 0 : "8px")};
 `;

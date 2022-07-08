@@ -20,7 +20,6 @@ import { toggleModalAction } from "../../redux/reducer/modalSlice";
 import { cardTypeAction } from "../../redux/reducer/cardTypeSlice";
 import { MagazineDisable, TextDisable, CardDisable } from "@styles/svgIcon";
 
-const published = ["한 달", "일주일", "하루", "1시간", "15분", "5분"];
 const FilterComponent = () => {
   const dispatch = useDispatch();
 
