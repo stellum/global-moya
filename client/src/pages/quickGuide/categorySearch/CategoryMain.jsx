@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { lazy, useEffect, useState, Suspense } from "react";
 import { useParams } from "react-router-dom";
 
 import QuickGuideHeader from "../QuickGuideHeader";
 import CategoryButton from "./CategoryButton";
-import LvKeywordList from "./LvKeywordList";
-import HiglightKeyword from "./HiglightKeyword";
-// const LvKeywordList = React.lazy(() => import("./LvKeywordList"));
+// import LvKeywordList from "./LvKeywordList";
+const HiglightKeyword = lazy(() => import("./HiglightKeyword"));
+const LvKeywordList = lazy(() => import("./LvKeywordList"));
 
 import QuickCategoryHook from "../../../hooks/QuickCategoryHook";
 import { DefaultContainer } from "@styles/common/container";
@@ -27,21 +27,30 @@ const CategoryMain = () => {
 
   useEffect(() => {
     fetch();
-  }, []);
+  }, [category]);
   /*  
   
     1. keyword가 있으면
     2. datalist에서 keyword를 필터 한 리스트를 보여준다
 
  */
+  const renderLoader = () => <p>Loading</p>;
   return (
     <DefaultContainer>
       <CategoryButton />
       <QuickGuideHeader />
       {keyword ? (
-        <HiglightKeyword dataList={dataList} keyword={keyword} />
+        <Suspense fallback={renderLoader()}>
+          <HiglightKeyword dataList={dataList} keyword={keyword} />
+        </Suspense>
       ) : (
-        <LvKeywordList dataList={dataList} myRef={lastElementRef} page={page} />
+        <Suspense fallback={renderLoader()}>
+          <LvKeywordList
+            dataList={dataList}
+            myRef={lastElementRef}
+            page={page}
+          />
+        </Suspense>
       )}
     </DefaultContainer>
   );

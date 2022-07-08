@@ -10,10 +10,8 @@ const QuickGuideHeader = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const keyword = useSelector((state) => state.categorySlice.keyword);
+
   const handleKeyword = (e) => {
-    // setKeyword(e.target.value);
-    // console.log(e.target.value);
     dispatch(searchKeyword(e.target.value));
   };
 

@@ -12,6 +12,16 @@ export const KeywordLi = styled.li`
     margin-right: 12px;
   }
 `;
+export const HighLightLi = styled.li`
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  height: 48px;
+  svg {
+    flex-shrink: 0;
+    margin-right: 12px;
+  }
+`;
 export const KeywordH4 = styled.h4`
   font-weight: ${fontWeight.FontWeight500};
   font-size: ${fontSize.FontSize16};
