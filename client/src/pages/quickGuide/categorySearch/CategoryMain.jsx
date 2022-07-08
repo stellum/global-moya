@@ -1,29 +1,40 @@
-import { lazy, useEffect, useState, Suspense } from "react";
+import { lazy, useState, Suspense, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import QuickGuideHeader from "../QuickGuideHeader";
 import CategoryButton from "./CategoryButton";
-// import LvKeywordList from "./LvKeywordList";
+import Spinner from "@components/common/Spinner";
 const HiglightKeyword = lazy(() => import("./HiglightKeyword"));
 const LvKeywordList = lazy(() => import("./LvKeywordList"));
 
 import QuickCategoryHook from "../../../hooks/QuickCategoryHook";
 import { DefaultContainer } from "@styles/common/container";
+
+import { isLoading } from "@redux/categorySlice";
 import { getCategoryList } from "@api/masterApi";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
 const CategoryMain = () => {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
+  // const [loading, setLoading] = useState(true);
   const params = useParams();
   const category = params.id;
   const keyword = useSelector((state) => state.categorySlice.keyword);
+  const loading = useSelector((state) => state.categorySlice.loading);
+
+  const { lastElementRef } = QuickCategoryHook(setPage);
+
+  const dispatch = useDispatch();
 
   const fetch = async () => {
     const response = await getCategoryList(category);
-    const data = response.details;
-    setDataList(data);
+    if (response) {
+      dispatch(isLoading(false));
+      const data = response.details;
+      setDataList(data);
+    }
   };
-  const { lastElementRef } = QuickCategoryHook(setPage);
 
   useEffect(() => {
     fetch();
@@ -34,14 +45,18 @@ const CategoryMain = () => {
     2. datalist에서 keyword를 필터 한 리스트를 보여준다
 
  */
-  const renderLoader = () => <p>Loading</p>;
+  const renderLoader = () => <Spinner />;
   return (
     <DefaultContainer>
       <CategoryButton />
       <QuickGuideHeader />
       {keyword ? (
         <Suspense fallback={renderLoader()}>
-          <HiglightKeyword dataList={dataList} keyword={keyword} />
+          <HiglightKeyword
+            dataList={dataList}
+            keyword={keyword}
+            loading={loading}
+          />
         </Suspense>
       ) : (
         <Suspense fallback={renderLoader()}>
@@ -49,6 +64,7 @@ const CategoryMain = () => {
             dataList={dataList}
             myRef={lastElementRef}
             page={page}
+            loading={loading}
           />
         </Suspense>
       )}

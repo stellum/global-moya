@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { QuickInputWrap } from "@styles/quickGuide/QuikcMain";
 import { QuickInput } from "@styles/quickGuide/QuickInput";
 import { ArrowBack, CancelIcon } from "@styles/svgIcon";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { searchKeyword } from "@redux/categorySlice";
+import { useDispatch } from "react-redux";
+import { searchKeyword, isLoading } from "@redux/categorySlice";
 
 const QuickGuideHeader = () => {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ const QuickGuideHeader = () => {
             ? navigate("/main", { replace: true })
             : navigate("/quick", { replace: true });
           dispatch(searchKeyword(""));
+          dispatch(isLoading(true));
         }}
       >
         <ArrowBack />
