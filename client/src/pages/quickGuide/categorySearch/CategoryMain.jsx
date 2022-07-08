@@ -7,7 +7,7 @@ import Spinner from "@components/common/Spinner";
 const HiglightKeyword = lazy(() => import("./HiglightKeyword"));
 const LvKeywordList = lazy(() => import("./LvKeywordList"));
 
-import QuickCategoryHook from "../../../hooks/QuickCategoryHook";
+import QuickInfiniteHook from "../../../hooks/QuickInfiniteHook";
 import { DefaultContainer } from "@styles/common/container";
 
 import { isLoading, searchKeyword } from "@redux/categorySlice";
@@ -23,7 +23,7 @@ const CategoryMain = () => {
   const keyword = useSelector((state) => state.categorySlice.keyword);
   const loading = useSelector((state) => state.categorySlice.loading);
   const inputRef = useRef(null);
-  const { lastElementRef } = QuickCategoryHook(setPage);
+  const { lastElementRef } = QuickInfiniteHook(setPage);
 
   const dispatch = useDispatch();
 
