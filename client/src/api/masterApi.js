@@ -20,6 +20,7 @@ export const getCategoryList = async (category) => {
     const response = await clientServer({
       url: `/master/lv-2/${category}`,
     });
+
     if (response.status === 200) {
       const data = await response.data;
       return data;

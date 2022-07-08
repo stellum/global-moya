@@ -4,5 +4,6 @@ export const filterValue = (objKey, searchWord) => {
   let filtered = _.filter(objKey, (item) => {
     return regex.test(item.name) || regex.test(item.paramValue);
   });
+
   return filtered;
 };

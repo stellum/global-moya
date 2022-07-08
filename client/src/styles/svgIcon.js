@@ -47,6 +47,12 @@ export const Profile = styled(ProfileSvg)`
 `;
 export const SearchIcon = styled(SearchIconSvg)`
   width: 24px;
+  circle {
+    stroke: ${colors.gray400};
+  }
+  path {
+    stroke: ${colors.gray400};
+  }
 `;
 export const FilterIcon = styled(FilterIconSvg)``;
 
