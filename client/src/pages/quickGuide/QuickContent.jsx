@@ -7,6 +7,9 @@ import {
 import { CategoryButton } from "@styles/common/button/button";
 import { Link } from "react-router-dom";
 import { mainCategory } from "./category";
+
+// import QuickCategoryHook from "../../hooks/QuickCategoryHook";
+
 const QuickContent = () => {
   return (
     <>

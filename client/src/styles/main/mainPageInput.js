@@ -13,14 +13,6 @@ export const SearchIconWrap = styled.div`
   width: 48px;
   height: inherit;
   ${({ theme }) => theme.common.flexCenter}
-  svg {
-    circle {
-      stroke: ${colors.gray400};
-    }
-    path {
-      stroke: ${colors.gray400};
-    }
-  }
 `;
 export const MainInputTag = styled(HomeInputTag)`
   background-color: ${colors.gray150};
@@ -37,6 +29,7 @@ export const MainInputTag = styled(HomeInputTag)`
   }
 `;
 export const FilterIconWrap = styled.div`
+  position: relative;
   width: 48px;
   height: inherit;
   ${({ theme }) => theme.common.flexCenter}

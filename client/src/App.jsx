@@ -7,6 +7,7 @@ import SiginIn from "@pages/SiginIn";
 import QuickGuideMain from "@pages/quickGuide/QuickGuideMain";
 import { CustomContainer } from "@styles/common/container";
 import CategoryMain from "@pages/quickGuide/categorySearch/CategoryMain";
+import KeywordMain from "@pages/quickGuide/keywordSearch/KeywordMain";
 function App() {
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
 
             <Route path="/quick" element={<QuickGuideMain />} />
             <Route path="/quick/:id" element={<CategoryMain />} />
+            <Route path="/keyword" element={<KeywordMain />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </CustomContainer>
