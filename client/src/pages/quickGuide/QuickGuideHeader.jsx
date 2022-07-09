@@ -5,16 +5,19 @@ import { ArrowBack, CancelIcon } from "@styles/svgIcon";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { searchKeyword, isLoading } from "@redux/categorySlice";
-
-const QuickGuideHeader = () => {
+import _ from "lodash";
+const QuickGuideHeader = ({ inputRef, keyword }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const handleKeyword = (e) => {
+  const handleKeyword = _.debounce((e) => {
     dispatch(searchKeyword(e.target.value));
+  }, 200);
+  const clearKeyword = () => {
+    inputRef.current.value = "";
+    dispatch(searchKeyword(""));
   };
-
   return (
     <QuickInputWrap>
       <div
@@ -30,15 +33,18 @@ const QuickGuideHeader = () => {
         <ArrowBack />
       </div>
       <QuickInput
+        ref={inputRef}
         placeholder="뉴스 키워드를 검색해보세요."
         onChange={handleKeyword}
         onClick={() => {
           location.pathname === "/quick" && navigate("/keyword");
         }}
       />
-      <div className="cancel">
-        <CancelIcon />
-      </div>
+      {location.pathname !== "/quick" ? (
+        <div className="cancel" onClick={clearKeyword}>
+          {keyword && <CancelIcon />}
+        </div>
+      ) : null}
     </QuickInputWrap>
   );
 };

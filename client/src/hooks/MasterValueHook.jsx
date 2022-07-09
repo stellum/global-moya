@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
-import getMasterData from "../api/masterApi";
+import { getMasterData } from "@api/masterApi";
+import { filterValue } from "../util/filterMasterFunc";
+import _ from "lodash";
 const MasterValueHook = (searchWord) => {
   const [filteredResult, setFilteredResult] = useState([]);
   const [masterData, setMasterData] = useState({});
@@ -7,6 +9,7 @@ const MasterValueHook = (searchWord) => {
   useEffect(() => {
     const fetch = async () => {
       const data = await getMasterData();
+
       setMasterData(data);
     };
     fetch();
@@ -37,7 +40,7 @@ const MasterValueHook = (searchWord) => {
     }
   }, [searchWord]);
 
-  return { filteredResult, getParamValueFunc };
+  return { filteredResult };
 };
 
 export default MasterValueHook;

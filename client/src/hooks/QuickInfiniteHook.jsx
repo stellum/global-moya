@@ -1,6 +1,6 @@
 import { useRef, useCallback } from "react";
 
-const QuickCategoryHook = (setPage) => {
+const QuickInfiniteHook = (setPage) => {
   const observer = useRef(null);
 
   const lastElementRef = useCallback((node) => {
@@ -15,4 +15,4 @@ const QuickCategoryHook = (setPage) => {
   return { lastElementRef };
 };
 
-export default QuickCategoryHook;
+export default QuickInfiniteHook;

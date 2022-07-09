@@ -8,15 +8,16 @@ import {
 import { SearchIcon, FilterIcon } from "@styles/svgIcon";
 import { FilterBG } from "@styles/filterStyle/filterBG";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModalAction } from "../../redux/reducer/modalSlice";
+import { toggleBtnAction } from "../../redux/reducer/modalSlice";
 
 import { useNavigate } from "react-router-dom";
 const MainInput = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const show = useSelector((state) => state.modalSlice.showModal);
+  const show = useSelector((state) => state.modalSlice.showBtn);
+
   const toggleModal = () => {
-    dispatch(toggleModalAction(!show));
+    dispatch(toggleBtnAction(!show));
   };
 
   return (

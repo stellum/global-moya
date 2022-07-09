@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { fontWeight, fontSize } from "@styles/theme";
-
+export const KeywordUL = styled.ul`
+  margin-top: 20px;
+`;
 export const KeywordLi = styled.li`
   display: flex;
   align-items: center;
