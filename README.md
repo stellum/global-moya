@@ -71,10 +71,19 @@ MGS / TEAM 6 with Sysmetic
   - [ENDPOINT]/search/news
   - Header
     - Authorization / Bearer {token}
-  - timeFilter
-    - m5, m15, h1, d1, w1, mth1
-  - mediaType
-    - mp, op, r, mp,op, mp,op,r
+  - timeFilter (발행일)
+    - m5 (5분),
+    - m15 (15분), 
+    - h1 (1시간), 
+    - d1 (하루), 
+    - w1 (일주일), 
+    - mth1 (한 달)
+  - mediaType (언론사 종류)
+    - mp (major), 
+    - op (others), 
+    - r (research), 
+    - mp,op (major&others), 
+    - mp,op,r (All)
   - language
     - en, ko, ja, zh, da, el, et, fi, ga, hu, it, lt, no, pt, ro (상세 내용 추후 제공)
   - orderBy
