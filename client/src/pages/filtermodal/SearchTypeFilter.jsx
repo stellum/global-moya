@@ -10,9 +10,8 @@ import {
   PublishWrap,
   FilterWrap,
 } from "@styles/filterStyle/filterStyle";
-import { published, media } from "./searchParam";
+import { published, mediaType } from "./searchParam";
 const SearchTypeFilter = ({ showModal, show }) => {
-  // console.log(showModal.sort);
   return (
     <>
       {show && (
@@ -20,30 +19,30 @@ const SearchTypeFilter = ({ showModal, show }) => {
           <FilterInner>
             <H2Tag>언론사 종류</H2Tag>
             <SelectForm>
-              {media.map((item, idx) => (
-                <div key={item}>
+              {mediaType.map((item, idx) => (
+                <div key={item.mediaType}>
                   <input
                     type="radio"
                     name="newsRadio"
-                    id={item}
+                    id={item.mediaType}
                     defaultChecked={!idx}
                   />
-                  <label htmlFor={item}>{item}</label>
+                  <label htmlFor={item.mediaType}>{item.text}</label>
                 </div>
               ))}
             </SelectForm>
             <H2Tag>발행일</H2Tag>
             <PublishForm>
               {published.map((item, idx) => (
-                <PublishWrap key={item}>
-                  <label htmlFor={item}>
+                <PublishWrap key={item.timeType}>
+                  <label htmlFor={item.timeType}>
                     <input
                       type="radio"
                       name="publishRadio"
-                      id={item}
+                      id={item.timeType}
                       defaultChecked={!idx}
                     />
-                    <span className="publish-btn">{item}</span>
+                    <span className="publish-btn">{item.text}</span>
                   </label>
                 </PublishWrap>
               ))}
