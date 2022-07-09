@@ -5,15 +5,15 @@ import { ArrowBack, CancelIcon } from "@styles/svgIcon";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { searchKeyword, isLoading } from "@redux/categorySlice";
-
+import _ from "lodash";
 const QuickGuideHeader = ({ inputRef, keyword }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const handleKeyword = (e) => {
+  const handleKeyword = _.debounce((e) => {
     dispatch(searchKeyword(e.target.value));
-  };
+  }, 200);
   const clearKeyword = () => {
     inputRef.current.value = "";
     dispatch(searchKeyword(""));
