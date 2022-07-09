@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { colors, fontWeight, fontSize } from "../theme";
 import { DefaultContainer } from "@styles/common/container";
-import { MoreIcon } from "../svgIcon";
 
 export const NaviWrap = styled.div`
   position: fixed;
