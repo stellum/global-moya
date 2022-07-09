@@ -3,6 +3,7 @@ import { SearchIcon } from "@styles/svgIcon";
 import {
   KeywordLi,
   KeywordH4,
+  KeywordUL,
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
 import Spinner from "@components/common/Spinner";
 import _ from "lodash";
@@ -21,7 +22,7 @@ const LvKeywordList = ({ dataList, myRef, page, loading }) => {
       {loading ? (
         <Spinner />
       ) : (
-        <ul>
+        <KeywordUL>
           {dataList &&
             _.map(
               dataList.slice(
@@ -33,20 +34,24 @@ const LvKeywordList = ({ dataList, myRef, page, loading }) => {
                   return (
                     <KeywordLi ref={myRef} key={item._id}>
                       <SearchIcon />
-                      <KeywordH4>{item.name}</KeywordH4>
+                      <KeywordH4>
+                        {item.name} ({item.paramValue})
+                      </KeywordH4>
                     </KeywordLi>
                   );
                 } else {
                   return (
                     <KeywordLi ref={myRef} key={item._id}>
                       <SearchIcon />
-                      <KeywordH4>{item.name}</KeywordH4>
+                      <KeywordH4>
+                        {item.name} ({item.paramValue})
+                      </KeywordH4>
                     </KeywordLi>
                   );
                 }
               }
             )}
-        </ul>
+        </KeywordUL>
       )}
     </>
   );
