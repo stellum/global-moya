@@ -11,10 +11,10 @@ export const FilterWrap = styled.div`
   background-color: #fff;
   z-index: 2;
 
-  .show {
+  .showModal {
     bottom: 0;
   }
-  .disable {
+  .hideModal {
     bottom: -150vh;
   }
 `;

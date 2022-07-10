@@ -18,6 +18,7 @@ import { ReactComponent as TextSvg } from "@assets/ViewText.svg";
 import { ReactComponent as CardSvg } from "@assets/ViewCard.svg";
 import { ReactComponent as CancelSvg } from "@assets/icons-cancel.svg";
 import { ReactComponent as ArrowBackSvg } from "@assets/arrow-back.svg";
+import { ReactComponent as IconsDeleteSvg } from "@assets/icons-delete.svg";
 import { colors } from "./theme";
 
 export const TranslateIcon = styled(TranslateSvg)``;
@@ -66,3 +67,5 @@ export const CardView = styled(CardSvg)``;
 
 export const CancelIcon = styled(CancelSvg)``;
 export const ArrowBack = styled(ArrowBackSvg)``;
+
+export const DeleteIcon = styled(IconsDeleteSvg)``;

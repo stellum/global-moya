@@ -11,11 +11,11 @@ import {
   FilterWrap,
 } from "@styles/filterStyle/filterStyle";
 import { published, mediaType } from "./searchParam";
-const SearchTypeFilter = ({ showModal, show }) => {
+const SearchTypeFilter = ({ showModal, showBtn }) => {
   return (
     <>
-      {show && (
-        <FilterWrap className={showModal.sort ? "show" : "disable"}>
+      {showBtn && (
+        <FilterWrap className={showModal.sort ? "showModal" : "hideModal"}>
           <FilterInner>
             <H2Tag>언론사 종류</H2Tag>
             <SelectForm>

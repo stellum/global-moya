@@ -14,10 +14,10 @@ import { useNavigate } from "react-router-dom";
 const MainInput = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const show = useSelector((state) => state.modalSlice.showBtn);
+  const showBtn = useSelector((state) => state.modalSlice.showBtn);
 
   const toggleModal = () => {
-    dispatch(toggleBtnAction(!show));
+    dispatch(toggleBtnAction(!showBtn));
   };
 
   return (

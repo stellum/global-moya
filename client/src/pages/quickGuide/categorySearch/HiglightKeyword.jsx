@@ -17,7 +17,6 @@ const HiglightKeyword = ({ dataList, keyword, loading }) => {
 
   useEffect(() => {
     const data = filterValue(dataList, keyword);
-    console.log(data);
     setFilterKeyword(data);
   }, [keyword]);
 

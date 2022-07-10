@@ -12,25 +12,30 @@ import {
 } from "@styles/filterStyle/filterStyle";
 import { MagazineDisable, TextDisable, CardDisable } from "@styles/svgIcon";
 import { useDispatch } from "react-redux";
-import { cardTypeAction } from "../../redux/reducer/cardTypeSlice";
-
-const ViewTypeFilter = ({ showModal, show }) => {
-  console.log(showModal.view);
+import { cardTypeAction } from "@redux/cardTypeSlice";
+import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
+const ViewTypeFilter = ({ showModal, showBtn }) => {
   const dispatch = useDispatch();
   const [type, setType] = useState("");
+
   const handleChange = (e) => {
     setType(e.target.id);
   };
+
   const handleCardType = (e) => {
     e.preventDefault();
-    e.target.id === "apply"
-      ? dispatch(cardTypeAction(type))
-      : dispatch(cardTypeAction(""));
+    dispatch(toggleBtnAction(!showBtn));
+    dispatch(toggleModalAction(""));
+    if (e.target.id === "apply") {
+      dispatch(cardTypeAction(type));
+    } else {
+      dispatch(toggleModalAction(""));
+    }
   };
   return (
     <>
-      {show && (
-        <FilterWrap className={showModal.view ? "show" : "disable"}>
+      {showBtn && (
+        <FilterWrap className={showModal.view ? "showModal" : "hideModal"}>
           <FilterInner>
             <H2Tag>보기 타입</H2Tag>
             <ViewWrapForm>
