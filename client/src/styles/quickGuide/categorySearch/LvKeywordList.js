@@ -2,6 +2,16 @@ import styled from "styled-components";
 import { fontWeight, fontSize } from "@styles/theme";
 export const KeywordUL = styled.ul`
   margin-top: 20px;
+  ul {
+    p {
+      display: none;
+    }
+    &:nth-child(1) {
+      p {
+        display: block;
+      }
+    }
+  }
 `;
 
 export const KeywordLi = styled.li`
@@ -42,4 +52,8 @@ export const IconWrap = styled.div`
   width: 24px;
   display: flex;
   justify-content: ${({ star }) => (star ? "flex-end" : "flex-start")};
+`;
+
+export const NoResults = styled.p`
+  /* display: none; */
 `;

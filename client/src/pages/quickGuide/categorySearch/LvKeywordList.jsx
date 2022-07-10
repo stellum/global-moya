@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { SearchIcon, StarIcon } from "@styles/svgIcon";
 import {
   KeywordLi,
@@ -11,7 +11,7 @@ import Spinner from "@components/common/Spinner";
 import _ from "lodash";
 const LvKeywordList = ({ dataList, myRef, page, loading }) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 100 });
-  // console.log(loading);
+
   useEffect(() => {
     setSliceValue((prev) => ({
       minValue: prev.maxValue,
@@ -69,4 +69,4 @@ const LvKeywordList = ({ dataList, myRef, page, loading }) => {
   );
 };
 
-export default LvKeywordList;
+export default memo(LvKeywordList);

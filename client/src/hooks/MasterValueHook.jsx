@@ -5,7 +5,6 @@ import _ from "lodash";
 const MasterValueHook = (searchWord) => {
   const [filteredResult, setFilteredResult] = useState([]);
   const [masterData, setMasterData] = useState({});
-
   useEffect(() => {
     const fetch = async () => {
       const data = await getMasterData();
@@ -20,8 +19,9 @@ const MasterValueHook = (searchWord) => {
   const getParamValueFunc = useCallback(() => {
     Object.keys(masterData).forEach((key) => {
       // console.log(key);
-      let objKey = masterData[key];
-      let resultValue = filterValue(objKey, searchWord);
+      let dataArr = masterData[key];
+      let resultValue = filterValue(dataArr, searchWord);
+
       resultParamValue = [
         ...resultParamValue,
         {
@@ -40,7 +40,11 @@ const MasterValueHook = (searchWord) => {
     }
   }, [searchWord]);
 
-  return { filteredResult };
+  const generateKey = useCallback((pre) => {
+    return `${pre}_${new Date().getTime()}`;
+  }, []);
+
+  return { filteredResult, generateKey };
 };
 
 export default MasterValueHook;
