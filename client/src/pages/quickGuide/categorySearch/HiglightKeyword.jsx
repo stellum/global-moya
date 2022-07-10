@@ -8,8 +8,9 @@ import _ from "lodash";
 import {
   HighLightLi,
   KeywordUL,
+  IconWrap,
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
-import { SearchIcon } from "@styles/svgIcon";
+import { SearchIcon, StarIcon } from "@styles/svgIcon";
 import { colors } from "@styles/theme";
 
 const HiglightKeyword = ({ dataList, keyword, loading }) => {
@@ -28,7 +29,9 @@ const HiglightKeyword = ({ dataList, keyword, loading }) => {
         <KeywordUL>
           {_.map(filterKeyword.slice(0, 40), (item) => (
             <HighLightLi key={item._id}>
-              <SearchIcon />
+              <IconWrap>
+                <SearchIcon />
+              </IconWrap>
               <HightLightText>
                 <Highlighter
                   textToHighlight={item.name}
@@ -49,6 +52,9 @@ const HiglightKeyword = ({ dataList, keyword, loading }) => {
                 />
                 )
               </HightLightText>
+              <IconWrap star>
+                <StarIcon />
+              </IconWrap>
             </HighLightLi>
           ))}
         </KeywordUL>

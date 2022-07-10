@@ -4,9 +4,11 @@ import {
   KeywordUL,
   HighLightLi,
   KeywordH4,
+  KeywordWrap,
+  IconWrap,
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
 import _ from "lodash";
-import { SearchIcon } from "@styles/svgIcon";
+import { SearchIcon, StarIcon } from "@styles/svgIcon";
 const KeywordList = ({ keyword }) => {
   const { filteredResult } = MasterValueHook(keyword);
   return (
@@ -22,8 +24,15 @@ const KeywordList = ({ keyword }) => {
             <KeywordUL>
               {_.map(item.filtered.slice(0, 20), (value) => (
                 <HighLightLi key={value._id}>
-                  <SearchIcon />
-                  <KeywordH4>{value.name}</KeywordH4>
+                  <IconWrap>
+                    <SearchIcon />
+                  </IconWrap>
+                  <KeywordWrap>
+                    <KeywordH4>{value.name}</KeywordH4>
+                  </KeywordWrap>
+                  <IconWrap star>
+                    <StarIcon />
+                  </IconWrap>
                 </HighLightLi>
               ))}
             </KeywordUL>
