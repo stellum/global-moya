@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MainHeader from "./MainHeader";
 import MainInputComponent from "./MainInput";
 import MainKeywordList from "./MainKeywordList";
@@ -19,8 +19,11 @@ import {
 } from "../../redux/reducer/modalSlice";
 
 const MainPage = () => {
+  const viewType = useSelector((state) => state.cardTypeSlice.viewType);
   const showBtn = useSelector((state) => state.modalSlice.showBtn);
   const showModal = useSelector((state) => state.modalSlice.showModal);
+  const [view, setView] = useState(viewType);
+  const [apply, setApply] = useState(false);
 
   const dispatch = useDispatch();
   const handleClick = (e) => {
@@ -46,7 +49,13 @@ const MainPage = () => {
       </FilterIconModal>
       <FilterTypeModal>
         {/* 버튼 조건에 따라 렌더링 */}
-        <ViewTypeFilter showModal={showModal} showBtn={showBtn} />
+        <ViewTypeFilter
+          setView={setView}
+          view={view}
+          showModal={showModal}
+          showBtn={showBtn}
+          setApply={setApply}
+        />
         <SearchTypeFilter showModal={showModal} showBtn={showBtn} />
       </FilterTypeModal>
       <FilterBG showBtn={showBtn} onClick={handleBG} />
@@ -55,7 +64,7 @@ const MainPage = () => {
         <MainInputComponent />
         <MainKeywordList />
       </MainPageContainer>
-      <NewsCard />
+      <NewsCard view={view} apply={apply} />
     </>
   );
 };

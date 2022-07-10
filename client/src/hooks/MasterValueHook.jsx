@@ -1,14 +1,16 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { getMasterData } from "@api/masterApi";
 import { filterValue } from "../util/filterMasterFunc";
+import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 const MasterValueHook = (searchWord) => {
+  const loading = useSelector((state) => state.categorySlice.loading);
   const [filteredResult, setFilteredResult] = useState([]);
   const [masterData, setMasterData] = useState({});
   useEffect(() => {
     const fetch = async () => {
       const data = await getMasterData();
-
+      console.log(data);
       setMasterData(data);
     };
     fetch();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ViewWrapForm,
   H2Tag,
@@ -11,25 +11,36 @@ import {
   FilterWrap,
 } from "@styles/filterStyle/filterStyle";
 import { MagazineDisable, TextDisable, CardDisable } from "@styles/svgIcon";
-import { useDispatch } from "react-redux";
-import { cardTypeAction } from "@redux/cardTypeSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
-const ViewTypeFilter = ({ showModal, showBtn }) => {
+import { cardTypeAction } from "@redux/cardTypeSlice";
+import { useCallback } from "react";
+const ViewTypeFilter = ({ showModal, showBtn, setApply, setView, view }) => {
   const dispatch = useDispatch();
-  const [type, setType] = useState("");
+  const viewType = useSelector((state) => state.cardTypeSlice.viewType);
 
-  const handleChange = (e) => {
-    setType(e.target.id);
-  };
-
+  const handleChange = useCallback(
+    (e) => {
+      setView(e.target.id);
+    },
+    [view]
+  );
+  /* 
+    1. 인풋 체인지로 view 타입 핸들
+    2. apply 시 저장, 취소시 이전 값
+  */
   const handleCardType = (e) => {
     e.preventDefault();
     dispatch(toggleBtnAction(!showBtn));
     dispatch(toggleModalAction(""));
     if (e.target.id === "apply") {
-      dispatch(cardTypeAction(type));
+      setApply(true);
+      dispatch(cardTypeAction(view));
     } else {
+      console.log("cancel");
+      setApply(false);
       dispatch(toggleModalAction(""));
+      dispatch(cardTypeAction(viewType));
     }
   };
   return (
@@ -47,6 +58,7 @@ const ViewTypeFilter = ({ showModal, showBtn }) => {
                       id="Magazine"
                       name="newsRadio"
                       onChange={handleChange}
+                      defaultChecked={viewType === "Magazine"}
                     />
                     <MagazineDisable />
                   </label>
@@ -56,7 +68,7 @@ const ViewTypeFilter = ({ showModal, showBtn }) => {
                       id="TextOnly"
                       name="newsRadio"
                       onChange={handleChange}
-                      defaultChecked
+                      defaultChecked={viewType === "TextOnly"}
                     />
                     <TextDisable />
                   </label>
@@ -68,6 +80,7 @@ const ViewTypeFilter = ({ showModal, showBtn }) => {
                       id="CardType"
                       name="newsRadio"
                       onChange={handleChange}
+                      defaultChecked={viewType === "CardType"}
                     />
                     <CardDisable />
                   </label>
