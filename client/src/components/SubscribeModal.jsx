@@ -5,6 +5,7 @@ import { XIcon, CheckIcon } from "../styles/svgIcon";
 import MoyaLogo from "@components/MoyaLogo";
 import { colors, fontWeight, fontSize, pxToRem } from "@styles/theme";
 import { useNavigate } from "react-router-dom";
+import { DefaultButton } from "@styles/common/button/button";
 const SubscribeModal = () => {
   const navigate = useNavigate();
   return (
@@ -53,6 +54,7 @@ const SubscribeModal = () => {
           </div>
         </label>
       </SubsForm>
+      <SubsBtn orange>구독하기</SubsBtn>
     </Container>
   );
 };
@@ -136,4 +138,11 @@ const PriceDiv = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 30px;
+`;
+const SubsBtn = styled(DefaultButton)`
+  margin-top: 138px;
+  width: 100%;
+  height: 54px;
+  font-size: ${colors.FontSize14};
+  font-weight: ${fontWeight.FontWeight600};
 `;

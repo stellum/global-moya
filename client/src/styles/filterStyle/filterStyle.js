@@ -146,7 +146,7 @@ export const SortForm = styled(SelectForm)`
   border-bottom: none;
 `;
 
-export const ButtonWrapForm = styled.form`
+export const ButtonWrapDiv = styled.div`
   display: flex;
   justify-content: center;
   padding: 16px 0;

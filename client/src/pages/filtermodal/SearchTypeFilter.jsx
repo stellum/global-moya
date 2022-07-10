@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   H2Tag,
-  ButtonWrapForm,
+  ButtonWrapDiv,
   ApplyBtn,
   FilterInner,
   SelectForm,
@@ -10,8 +10,22 @@ import {
   PublishWrap,
   FilterWrap,
 } from "@styles/filterStyle/filterStyle";
-import { published, mediaType } from "./searchParam";
+import { published, mediaTypeArr } from "./searchParam";
 const SearchTypeFilter = ({ showModal, showBtn }) => {
+  const [searchType, setSearchType] = useState({
+    mediaType: "",
+    timeFilter: "",
+    orderBy: "",
+  });
+
+  const handleSearchType = (e) => {
+    const { id, name } = e.target;
+    setSearchType({
+      ...searchType,
+      [name]: id,
+    });
+    console.log(searchType);
+  };
   return (
     <>
       {showBtn && (
@@ -19,13 +33,14 @@ const SearchTypeFilter = ({ showModal, showBtn }) => {
           <FilterInner>
             <H2Tag>언론사 종류</H2Tag>
             <SelectForm>
-              {mediaType.map((item, idx) => (
+              {mediaTypeArr.map((item, idx) => (
                 <div key={item.mediaType}>
                   <input
                     type="radio"
-                    name="newsRadio"
+                    name="mediaType"
                     id={item.mediaType}
                     defaultChecked={!idx}
+                    onChange={handleSearchType}
                   />
                   <label htmlFor={item.mediaType}>{item.text}</label>
                 </div>
@@ -38,9 +53,10 @@ const SearchTypeFilter = ({ showModal, showBtn }) => {
                   <label htmlFor={item.timeType}>
                     <input
                       type="radio"
-                      name="publishRadio"
+                      name="timeFilter"
                       id={item.timeType}
                       defaultChecked={!idx}
+                      onChange={handleSearchType}
                     />
                     <span className="publish-btn">{item.text}</span>
                   </label>
@@ -52,21 +68,27 @@ const SearchTypeFilter = ({ showModal, showBtn }) => {
               <div>
                 <input
                   type="radio"
-                  name="sortRadio"
+                  name="orderBy"
                   id="latest"
                   defaultChecked
+                  onChange={handleSearchType}
                 />
                 <label htmlFor="latest">최신순</label>
               </div>
               <div>
-                <input type="radio" name="sortRadio" id="popular" />
+                <input
+                  type="radio"
+                  name="orderBy"
+                  id="popular"
+                  onChange={handleSearchType}
+                />
                 <label htmlFor="popular">인기순</label>
               </div>
             </SortForm>
-            <ButtonWrapForm>
+            <ButtonWrapDiv>
               <ApplyBtn>취소</ApplyBtn>
               <ApplyBtn apply>적용하기</ApplyBtn>
-            </ButtonWrapForm>
+            </ButtonWrapDiv>
           </FilterInner>
         </FilterWrap>
       )}
