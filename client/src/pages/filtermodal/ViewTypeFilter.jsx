@@ -22,6 +22,7 @@ const ViewTypeFilter = ({ showModal, showBtn, setApply, setView, view }) => {
   const handleChange = useCallback(
     (e) => {
       setView(e.target.id);
+      setApply(true);
     },
     [view]
   );
