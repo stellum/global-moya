@@ -7,7 +7,6 @@ export const getMasterData = async () => {
     });
     if (response.status === 200) {
       const data = await response.data;
-
       return data;
     }
   } catch (e) {
