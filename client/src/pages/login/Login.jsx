@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { pxToRem } from "../../styles/theme";
 
+import { fetchUserSuccess } from "../../redux/reducer/user/userSlice";
+import { useDispatch } from "react-redux";
+
 const LoginForm = styled.form`
   width: 479px;
   position: absolute;
@@ -56,10 +59,18 @@ const Login = () => {
     formState: { isSubmitting },
   } = useForm();
 
-  const fetch = async (formData) => {
+  const dispatch = useDispatch();
+
+  const fetch = async (formData, data) => {
     const status = await loginFunc(formData);
-    return status;
+    console.log("fetch", data.email);
+    if (status === 200) {
+      dispatch(fetchUserSuccess(data.email));
+    } else if (status === 400) {
+      alert("경고");
+    }
   };
+
   return (
     <LoginForm
       onSubmit={handleSubmit((data) => {
@@ -68,8 +79,9 @@ const Login = () => {
         for (let key in data) {
           formData.append(key, data[key]);
         }
-        fetch(formData);
-        // console.log(status);
+
+        fetch(formData, data);
+
         // formData는 XMLHttpRequest 전송을 위한 특수한 객체이므로 일반적인 방법으로는 콘솔에 못 찍음
         // 밑에 처럼 keys(), values() 메서드를 써서 찍어줘야...
         for (let key of formData.keys()) {
