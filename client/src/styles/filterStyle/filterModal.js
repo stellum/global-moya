@@ -8,7 +8,7 @@ export const FilterModalStyle = styled.div`
   border-radius: 8px;
   top: 129px;
   right: 15px;
-  display: ${({ show }) => (show ? "flex" : "none")};
+  display: ${({ showBtn }) => (showBtn ? "flex" : "none")};
   flex-direction: column;
   overflow: hidden;
   justify-content: center;

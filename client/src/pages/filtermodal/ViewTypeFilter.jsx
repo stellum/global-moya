@@ -1,36 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ViewWrapForm,
   H2Tag,
   VerticalView,
   HorizontalView,
-  ButtonWrapForm,
+  ButtonWrapDiv,
   ApplyBtn,
   FilterInner,
   InputWrap,
   FilterWrap,
 } from "@styles/filterStyle/filterStyle";
 import { MagazineDisable, TextDisable, CardDisable } from "@styles/svgIcon";
-import { useDispatch } from "react-redux";
-import { cardTypeAction } from "../../redux/reducer/cardTypeSlice";
-
-const ViewTypeFilter = ({ showModal, show }) => {
-  console.log(showModal.view);
+import { useDispatch, useSelector } from "react-redux";
+import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
+import { cardTypeAction } from "@redux/cardTypeSlice";
+import { useCallback } from "react";
+const ViewTypeFilter = ({ showModal, showBtn, setApply, setView, view }) => {
   const dispatch = useDispatch();
-  const [type, setType] = useState("");
-  const handleChange = (e) => {
-    setType(e.target.id);
-  };
+  const viewType = useSelector((state) => state.cardTypeSlice.viewType);
+
+  const handleChange = useCallback(
+    (e) => {
+      setView(e.target.id);
+      setApply(true);
+    },
+    [view]
+  );
+  /* 
+    1. 인풋 체인지로 view 타입 핸들
+    2. apply 시 저장, 취소시 이전 값
+  */
   const handleCardType = (e) => {
     e.preventDefault();
-    e.target.id === "apply"
-      ? dispatch(cardTypeAction(type))
-      : dispatch(cardTypeAction(""));
+    dispatch(toggleBtnAction(!showBtn));
+    dispatch(toggleModalAction(""));
+    if (e.target.id === "apply") {
+      setApply(true);
+      dispatch(cardTypeAction(view));
+    } else {
+      console.log("cancel");
+      setApply(false);
+      dispatch(toggleModalAction(""));
+      dispatch(cardTypeAction(viewType));
+    }
   };
   return (
     <>
-      {show && (
-        <FilterWrap className={showModal.view ? "show" : "disable"}>
+      {showBtn && (
+        <FilterWrap className={showModal.view ? "showModal" : "hideModal"}>
           <FilterInner>
             <H2Tag>보기 타입</H2Tag>
             <ViewWrapForm>
@@ -42,6 +59,7 @@ const ViewTypeFilter = ({ showModal, show }) => {
                       id="Magazine"
                       name="newsRadio"
                       onChange={handleChange}
+                      defaultChecked={viewType === "Magazine"}
                     />
                     <MagazineDisable />
                   </label>
@@ -51,7 +69,7 @@ const ViewTypeFilter = ({ showModal, show }) => {
                       id="TextOnly"
                       name="newsRadio"
                       onChange={handleChange}
-                      defaultChecked
+                      defaultChecked={viewType === "TextOnly"}
                     />
                     <TextDisable />
                   </label>
@@ -63,20 +81,21 @@ const ViewTypeFilter = ({ showModal, show }) => {
                       id="CardType"
                       name="newsRadio"
                       onChange={handleChange}
+                      defaultChecked={viewType === "CardType"}
                     />
                     <CardDisable />
                   </label>
                 </VerticalView>
               </InputWrap>
             </ViewWrapForm>
-            <ButtonWrapForm>
+            <ButtonWrapDiv>
               <ApplyBtn id="cancel" onClick={handleCardType}>
                 취소
               </ApplyBtn>
               <ApplyBtn id="apply" onClick={handleCardType} apply>
                 적용하기
               </ApplyBtn>
-            </ButtonWrapForm>
+            </ButtonWrapDiv>
           </FilterInner>
         </FilterWrap>
       )}

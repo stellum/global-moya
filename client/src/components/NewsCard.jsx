@@ -19,17 +19,17 @@ import {
 import mediumimg from "@assets/mediumimg.png";
 import { useSelector } from "react-redux";
 
-const NewsCard = () => {
+const NewsCard = ({ apply, view }) => {
   const [scrap, setScrap] = useState(false);
   const [expand, setExpand] = useState(false);
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
-  // console.log(viewType);
+
   return (
     <>
       <Card>
-        <MainContent viewType={viewType}>
-          <ImageContent src={mediumimg} viewType={viewType} />
-          <CardHeader viewType={viewType}>
+        <MainContent viewType={apply ? view : viewType}>
+          <ImageContent src={mediumimg} viewType={apply ? view : viewType} />
+          <CardHeader viewType={apply ? view : viewType}>
             <h2>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quam
               cum accusantium voluptates, commodi dolorum alias veniam ut.

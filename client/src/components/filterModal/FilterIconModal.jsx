@@ -1,7 +1,7 @@
 import React from "react";
 import { FilterModalStyle } from "@styles/filterStyle/filterModal";
-const FilterIconModal = ({ show, children }) => {
-  return <FilterModalStyle show={show}>{children}</FilterModalStyle>;
+const FilterIconModal = ({ showBtn, children }) => {
+  return <FilterModalStyle showBtn={showBtn}>{children}</FilterModalStyle>;
 };
 
 export default FilterIconModal;
