@@ -56,6 +56,10 @@ const Login = () => {
     formState: { isSubmitting },
   } = useForm();
 
+  const fetch = async (formData) => {
+    const status = await loginFunc(formData);
+    return status;
+  };
   return (
     <LoginForm
       onSubmit={handleSubmit((data) => {
@@ -64,7 +68,8 @@ const Login = () => {
         for (let key in data) {
           formData.append(key, data[key]);
         }
-        loginFunc(formData);
+        fetch(formData);
+        // console.log(status);
         // formData는 XMLHttpRequest 전송을 위한 특수한 객체이므로 일반적인 방법으로는 콘솔에 못 찍음
         // 밑에 처럼 keys(), values() 메서드를 써서 찍어줘야...
         for (let key of formData.keys()) {
