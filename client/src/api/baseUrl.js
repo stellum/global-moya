@@ -6,3 +6,13 @@ const clientServer = axios.create({
 });
 
 export default clientServer;
+
+const SECRET_KEY = import.meta.env.VITE_SECRET_TOKEN;
+// secret_key db에 저장?
+export const stepPayServer = axios.create({
+  baseURL: "https://api.steppay.kr/api",
+  headers: {
+    Accept: "*/*",
+    "Secret-Token": `${SECRET_KEY}`,
+  },
+});

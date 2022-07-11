@@ -27,7 +27,7 @@ const HiglightKeyword = ({ dataList, keyword, loading }) => {
         <Spinner />
       ) : (
         <KeywordUL>
-          {_.map(filterKeyword.slice(0, 40), (item) => (
+          {_.map(filterKeyword.slice(0, 40), (item, idx) => (
             <HighLightLi key={item._id}>
               <IconWrap>
                 <SearchIcon />

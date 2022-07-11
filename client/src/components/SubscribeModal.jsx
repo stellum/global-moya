@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { DefaultContainer } from "@styles/common/container";
 import { XIcon, CheckIcon } from "../styles/svgIcon";
@@ -6,8 +6,14 @@ import MoyaLogo from "@components/MoyaLogo";
 import { colors, fontWeight, fontSize, pxToRem } from "@styles/theme";
 import { useNavigate } from "react-router-dom";
 import { DefaultButton } from "@styles/common/button/button";
+import { getProductsList, createOrder } from "../api/subsApi";
+
 const SubscribeModal = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    getProductsList();
+    createOrder();
+  }, []);
   return (
     <Container>
       <CancelWrap>
