@@ -2,8 +2,9 @@ import React from "react";
 import MainHeader from "./MainHeader";
 import MainInputComponent from "./MainInput";
 import MainKeywordList from "./MainKeywordList";
-
+import EditProvider from "@components/edit/EditProvider";
 import NewsCard from "@components/NewsCard";
+
 import FilterIconModal from "@components/filterModal/FilterIconModal";
 import FilterTypeModal from "@components/filterModal/FilterTypeModal";
 import ViewTypeFilter from "../filtermodal/ViewTypeFilter";
@@ -42,6 +43,7 @@ const MainPage = () => {
         <MainHeader />
         <MainInputComponent />
         <MainKeywordList />
+        {/* <EditProvider /> */}
       </MainPageContainer>
       <NewsCard />
     </>
