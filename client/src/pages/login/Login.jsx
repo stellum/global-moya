@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { loginFunc } from "@api/loginApi";
+import { loginFunc } from "../../api/loginApi";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { pxToRem } from "@styles/theme";
+import { pxToRem } from "../../styles/theme";
 
 const LoginForm = styled.form`
   width: 479px;
@@ -19,8 +19,13 @@ const LoginForm = styled.form`
 const LoginInput = styled.input`
   width: 90%;
   height: 40px;
-  border: none;
-  border-bottom: 1px solid #000;
+  border: 1px solid #000000;
+  border-radius: 2px;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
   margin-bottom: 40px;
   &:focus {
     outline: none;
@@ -54,10 +59,23 @@ const Login = () => {
   return (
     <LoginForm
       onSubmit={handleSubmit((data) => {
-        loginFunc(data);
+        const formData = new FormData();
+
+        for (let key in data) {
+          formData.append(key, data[key]);
+        }
+        loginFunc(formData);
+        // formData는 XMLHttpRequest 전송을 위한 특수한 객체이므로 일반적인 방법으로는 콘솔에 못 찍음
+        // 밑에 처럼 keys(), values() 메서드를 써서 찍어줘야...
+        for (let key of formData.keys()) {
+          console.log(key);
+        }
+        for (let value of formData.values()) {
+          console.log(value);
+        }
       })}
     >
-      <label htmlFor="email">이메일</label>
+      // icons-cancel 들어갈 자리
       <LoginInput
         type="email"
         name="email"
@@ -70,7 +88,7 @@ const Login = () => {
           },
         })}
       />
-      <label htmlFor="password">비밀번호</label>
+      // 눈동자 아이콘 들어갈 자리
       <LoginInput
         type="password"
         name="password"
@@ -80,8 +98,15 @@ const Login = () => {
         })}
       />
       <div>
-        계정 혹은 비밀번호가 일치하지 않습니다. 입력한 내용을 다시 확인해주시기
-        바랍니다.
+        <span>
+          <img src="" alt="icons-check" />
+          자동 로그인
+        </span>
+        <span>비밀번호 찾기</span>
+      </div>
+      <div>
+        아직 계정이 없으신가요?
+        <a>회원 가입</a>
       </div>
       <LoginButton type="submit" disabled={isSubmitting}>
         로그인
