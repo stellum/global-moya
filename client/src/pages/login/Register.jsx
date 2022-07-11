@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { registerFunc } from "../../api/registerApi";
 
 const Register = () => {
   const {
@@ -10,8 +11,16 @@ const Register = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit()}>
-        <label htmlFor="email">이메일</label>
+      <form
+        onSubmit={handleSubmit((data) => {
+          const formData = new FormData();
+          for (let key in data) {
+            formData.append(key, data[key]);
+          }
+          registerFunc(formData);
+        })}
+      >
+        <div>중복 확인</div>
         <input
           type="email"
           name="email"
@@ -24,22 +33,21 @@ const Register = () => {
             },
           })}
         />
-
-        <button type="submit" disabled={isSubmitting}>
-          확인
-        </button>
-      </form>
-      <form onSubmit={handleSubmit()}>
-        <label htmlFor="password">비밀번호</label>
+        // icons-check 들어가는 부분
         <input
           type="password"
           name="password"
           placeholder="비밀번호"
           {...register("password", {
             required: "비밀번호는 필수 입력입니다.",
+            pattern: {
+              value:
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&]{10,}",
+              message: "비밀번호 조건을 충족하지 못했습니다.",
+            },
           })}
         />
-        <label htmlFor="password">비밀번호</label>
+        // icons-check 들어가는 부분
         <input
           type="password"
           name="passwordCheck"
@@ -48,6 +56,9 @@ const Register = () => {
             required: "비밀번호는 필수 입력입니다.",
           })}
         />
+        <button type="submit" disabled={isSubmitting}>
+          다음
+        </button>
       </form>
     </>
   );
