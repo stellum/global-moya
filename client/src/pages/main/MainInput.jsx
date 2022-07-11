@@ -17,6 +17,7 @@ const MainInput = () => {
   const showBtn = useSelector((state) => state.modalSlice.showBtn);
 
   const toggleModal = () => {
+    console.log(showBtn);
     dispatch(toggleBtnAction(!showBtn));
   };
 
