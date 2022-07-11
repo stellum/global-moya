@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getSearchData } from "@api/searchApi";
+import { useSelector } from "react-redux";
 import {
   Card,
   MainContent,
@@ -17,13 +19,37 @@ import {
 } from "@styles/svgIcon";
 
 import mediumimg from "@assets/mediumimg.png";
-import { useSelector } from "react-redux";
 
 const NewsCard = () => {
   const [scrap, setScrap] = useState(false);
   const [expand, setExpand] = useState(false);
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
-  // console.log(viewType);
+
+  // const { keyType } = useSelector((state) => state.keywordConnectedSlice);
+  // const { paramValue } = useSelector((state) => state.keywordConnectedSlice);
+
+  // console.log("keyType", keyType);
+  // console.log("paramValue", paramValue);
+
+  useEffect(() => {
+    const getDatas = async () => {
+      const obj = {
+        timeFilter: "mth1",
+        mediaType: "mp,op,r",
+        language: "en",
+        orderBy: "latest",
+        // keyType: keyType,
+        keyType: "category",
+        // paramValue: paramValue,
+        paramValue: "stocks",
+      };
+
+      const response = await getSearchData(obj);
+      console.log("response", response);
+    };
+    getDatas();
+  }, []);
+
   return (
     <>
       <Card>
