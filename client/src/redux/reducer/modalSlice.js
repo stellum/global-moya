@@ -34,6 +34,7 @@ export const modalSlice = createSlice({
       }
     },
     toggleNavigation: (state, action) => {
+      console.log(action);
       state.showSideNavi = action.payload;
     },
   },

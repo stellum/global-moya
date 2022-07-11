@@ -3,10 +3,10 @@ import { MainHeader, SideHeader } from "@styles/main/mainPageHeader";
 import { Hamburger, HamburgerBar } from "@styles/common/button/hamburger";
 import { NaviWrap, NaviGo, Navispan } from "@styles/naviStyle/naviWrap";
 import { FilterBG } from "@styles/filterStyle/filterBG";
+import Hamburger from "../../components/common/Hamburger";
 import MoyaLogo from "@components/MoyaLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleNavigation } from "../../redux/reducer/modalSlice";
-
 const Header = () => {
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);

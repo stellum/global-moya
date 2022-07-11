@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { SearchIcon } from "@styles/svgIcon";
+import React, { useState, useEffect, memo } from "react";
+import { SearchIcon, StarIcon } from "@styles/svgIcon";
 import {
   KeywordLi,
   KeywordH4,
   KeywordUL,
+  KeywordWrap,
+  IconWrap,
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
 import Spinner from "@components/common/Spinner";
 import _ from "lodash";
 const LvKeywordList = ({ dataList, myRef, page, loading }) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 100 });
-  // console.log(loading);
+
   useEffect(() => {
     setSliceValue((prev) => ({
       minValue: prev.maxValue,
@@ -34,18 +36,28 @@ const LvKeywordList = ({ dataList, myRef, page, loading }) => {
                   return (
                     <KeywordLi ref={myRef} key={item._id}>
                       <SearchIcon />
-                      <KeywordH4>
-                        {item.name} ({item.paramValue})
-                      </KeywordH4>
+                      <KeywordWrap>
+                        <KeywordH4>
+                          {item.name} ({item.paramValue})
+                        </KeywordH4>
+                      </KeywordWrap>
+                      <StarIcon />
                     </KeywordLi>
                   );
                 } else {
                   return (
                     <KeywordLi ref={myRef} key={item._id}>
-                      <SearchIcon />
-                      <KeywordH4>
-                        {item.name} ({item.paramValue})
-                      </KeywordH4>
+                      <IconWrap>
+                        <SearchIcon />
+                      </IconWrap>
+                      <KeywordWrap>
+                        <KeywordH4>
+                          {item.name} ({item.paramValue})
+                        </KeywordH4>
+                      </KeywordWrap>
+                      <IconWrap star>
+                        <StarIcon />
+                      </IconWrap>
                     </KeywordLi>
                   );
                 }
@@ -57,4 +69,4 @@ const LvKeywordList = ({ dataList, myRef, page, loading }) => {
   );
 };
 
-export default LvKeywordList;
+export default memo(LvKeywordList);

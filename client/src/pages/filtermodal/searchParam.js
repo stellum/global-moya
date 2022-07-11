@@ -24,7 +24,7 @@ export const published = [
     text: "5분",
   },
 ];
-export const mediaType = [
+export const mediaTypeArr = [
   {
     mediaType: "mp,op,r",
     text: "All",
