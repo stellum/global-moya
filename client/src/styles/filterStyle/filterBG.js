@@ -6,5 +6,6 @@ export const FilterBG = styled.div`
   background-color: rgba(0, 0, 0, 0.55);
   position: fixed;
   z-index: 1;
-  display: ${({ show, showNavi }) => (show || showNavi ? "block" : "none")};
+  display: ${({ showBtn, showNavi }) =>
+    showBtn || showNavi ? "block" : "none"};
 `;
