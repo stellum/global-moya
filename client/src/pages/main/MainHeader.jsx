@@ -1,6 +1,5 @@
 import React from "react";
 import { MainHeader, SideHeader } from "@styles/main/mainPageHeader";
-import { Hamburger, HamburgerBar } from "@styles/common/button/hamburger";
 import { NaviWrap, NaviGo, Navispan } from "@styles/naviStyle/naviWrap";
 import { FilterBG } from "@styles/filterStyle/filterBG";
 import Hamburger from "../../components/common/Hamburger";
@@ -39,11 +38,7 @@ const Header = () => {
       </NaviWrap>
       <FilterBG showNavi={showNavi} onClick={handleBG} />
       <MainHeader>
-        <Hamburger onClick={toggleNavi}>
-          <HamburgerBar />
-          <HamburgerBar />
-          <HamburgerBar />
-        </Hamburger>
+        <Hamburger click={toggleNavi} main></Hamburger>
         <MoyaLogo mainHeader={"mainHeader"} />
       </MainHeader>
     </>

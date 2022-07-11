@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { registerFunc } from "../../api/registerApi";
+// import { registerFunc } from "@api/registerApi";
 
 const Register = () => {
   const {
