@@ -4,7 +4,7 @@ import {
   H2Tag,
   VerticalView,
   HorizontalView,
-  ButtonWrapForm,
+  ButtonWrapDiv,
   ApplyBtn,
   FilterInner,
   InputWrap,
@@ -87,14 +87,14 @@ const ViewTypeFilter = ({ showModal, showBtn, setApply, setView, view }) => {
                 </VerticalView>
               </InputWrap>
             </ViewWrapForm>
-            <ButtonWrapForm>
+            <ButtonWrapDiv>
               <ApplyBtn id="cancel" onClick={handleCardType}>
                 취소
               </ApplyBtn>
               <ApplyBtn id="apply" onClick={handleCardType} apply>
                 적용하기
               </ApplyBtn>
-            </ButtonWrapForm>
+            </ButtonWrapDiv>
           </FilterInner>
         </FilterWrap>
       )}
