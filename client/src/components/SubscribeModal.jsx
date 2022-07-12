@@ -7,7 +7,8 @@ import { colors, fontWeight, fontSize, pxToRem } from "@styles/theme";
 import { useNavigate } from "react-router-dom";
 import { DefaultButton } from "@styles/common/button/button";
 import { getProductsList, createOrder } from "../api/subsApi";
-
+import UserCheck from "../hoc/UserCheck";
+import { RequiredLogin } from "../hoc/userAccessType";
 const SubscribeModal = () => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -45,7 +46,7 @@ const SubscribeModal = () => {
             </PriceDiv>
           </div>
         </label>
-        <input type="radio" name="newsRadio" id="free" />
+        <input type="radio" name="newsRadio" id="free" disabled />
         <label htmlFor="free">
           <h3>FREE</h3>
           <div className="box">
@@ -65,7 +66,7 @@ const SubscribeModal = () => {
   );
 };
 
-export default SubscribeModal;
+export default UserCheck(SubscribeModal, RequiredLogin);
 const Container = styled(DefaultContainer)`
   display: flex;
   flex-direction: column;

@@ -7,7 +7,8 @@ import { pxToRem } from "../../styles/theme";
 
 import { fetchUserSuccess } from "../../redux/reducer/user/userSlice";
 import { useDispatch } from "react-redux";
-
+import UserCheck from "../../hoc/UserCheck";
+import { RequiredLogout } from "../../hoc/userAccessType";
 const LoginForm = styled.form`
   width: 479px;
   position: absolute;
@@ -58,14 +59,14 @@ const Login = () => {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const fetch = async (formData, data) => {
     const status = await loginFunc(formData);
-    console.log("fetch", data.email);
     if (status === 200) {
       dispatch(fetchUserSuccess(data.email));
+      navigate("/");
     } else if (status === 400) {
       alert("경고");
     }
@@ -132,4 +133,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default UserCheck(Login, RequiredLogout);
