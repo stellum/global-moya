@@ -15,6 +15,23 @@ export const getProductsList = async () => {
   }
 };
 
+export const searchUserList = async (userMail) => {
+  try {
+    const response = await stepPayServer({
+      url: "/v1/customers",
+      method: "GET",
+      params: {
+        keyword: `${userMail}`,
+      },
+    });
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 // 주문 생성
 const body = {
   items: [
