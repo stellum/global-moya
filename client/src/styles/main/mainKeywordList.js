@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { colors, fontWeight } from "../theme";
-export const MainKeywordDiv = styled.div`
+export const MainKeywordContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
+`;
+export const MainKeywordDiv = styled.div`
   position: relative;
 `;
 export const MainKeywordUl = styled.ul`
@@ -69,13 +71,30 @@ export const MainKeywordActiveContentDiv = styled.div`
 export const MainKeywordActiveContentH2 = styled.h2`
   padding: 0px 0 5px 0px;
 `;
-export const MoreIconDiv = styled.div`
+export const EditIconDiv = styled.div`
   position: absolute;
-  top: 15px;
+  top: 50%;
   right: 0px;
+  margin-top: 20px;
+  transform: translateY(-120%);
   cursor: pointer;
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 60px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: ${colors.white};
+    filter: blur(5px);
+    transform: translate(-60%, -20%);
+    z-index: -1;
+  }
 `;
-export const MoreIconCircle = styled.span`
+export const EditIconCircle = styled.span`
   width: 4px;
   height: 4px;
   margin-right: ${(props) => props.marginRight || "4px"};

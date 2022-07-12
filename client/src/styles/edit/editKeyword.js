@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { colors, fontWeight } from "../theme";
 export const EditKeywordContainer = styled.div`
+  display: ${({ showEditBtn }) => (showEditBtn ? "flex" : "none")};
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -9,7 +10,8 @@ export const EditKeywordContainer = styled.div`
   left: 0;
   right: 0;
   height: 100vh;
-  background-color: #ffff99;
+  background-color: ${colors.white};
+  z-index: 999;
 `;
 export const EditKeywordHeader = styled.h2`
   padding: 30px 0px 15px;
@@ -19,34 +21,25 @@ export const EditKeywordHeader = styled.h2`
 `;
 export const EditKeywordUl = styled.ul`
   color: ${colors.gray870};
+  height: 100%;
 `;
-export const EditKeywordLi = styled.li`
-  padding: 13px 0px;
-  cursor: pointer;
+// 나중에 컴포넌트로 분리
+export const EditButtonDiv = styled.div`
+  position: relative;
+  bottom: 16px;
+  width: 90%;
+  margin: 0 auto;
 `;
-
-// export const MainKeywordLi = styled.li`
-//   ${(props) => {
-//     if (props.toggleTab) {
-//       return `
-//         border-bottom: 3px solid ${colors.gray900};
-//         font-weight: ${fontWeight.FontWeight600};
-//         color: ${colors.gray900};
-//       `;
-//     } else {
-//       return `
-//         color: ${colors.gray400};
-//         font-weight: ${fontWeight.FontWeight500};
-//       `;
-//     }
-//   }}
-// `;
-// export const MoreIconCircle = styled.span`
-//   width: 4px;
-//   height: 4px;
-//   margin-right: ${(props) => props.marginRight || "4px"};
-//   background: ${colors.black};
-//   border-radius: 50%;
-//   display: inline-block;
-//   vertical-align: middle;
-// `;
+export const EditButtonCancel = styled.button`
+  margin-right: 4%;
+  width: 26%;
+  height: 52px;
+  background-color: ${colors.gray350};
+  color: ${colors.white};
+`;
+export const EditButtonSave = styled.button`
+  width: 70%;
+  height: 52px;
+  background-color: ${colors.gray900};
+  color: ${colors.white};
+`;
