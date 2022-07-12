@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import _ from "lodash";
-import swap from "lodash-move";
-import { useSprings, animated, interpolate } from "react-spring";
-import { EditKeywordLi } from "@styles/edit/editKeyword";
+// import _ from "lodash";
+// import swap from "lodash-move";
+// import { useSprings, animated, interpolate } from "react-spring";
+import GroupList from "@components/group/GroupList";
 
 const EditKeyword = ({ index, id, text, moveCard }) => {
   const ref = useRef(null);
@@ -74,13 +74,13 @@ const EditKeyword = ({ index, id, text, moveCard }) => {
   drag(drop(ref));
 
   return (
-    <EditKeywordLi
+    <GroupList
       ref={ref}
       style={{ opacity: opacity }}
       data-handler-id={handlerId}
-    >
-      {text}
-    </EditKeywordLi>
+      text={text}
+      type="group"
+    />
   );
 };
 
