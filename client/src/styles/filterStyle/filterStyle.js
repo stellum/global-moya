@@ -7,10 +7,16 @@ export const FilterWrap = styled.div`
   height: auto;
   left: 0;
   right: 0;
-  bottom: 0;
   transition: all 0.3s ease-out;
   background-color: #fff;
   z-index: 2;
+
+  .showModal {
+    bottom: 0;
+  }
+  .hideModal {
+    bottom: -150vh;
+  }
 `;
 
 export const FilterInner = styled.div`
@@ -18,9 +24,8 @@ export const FilterInner = styled.div`
 `;
 export const ViewWrapForm = styled.form`
   ${({ theme }) => theme.common.flexCenter}
-  padding-bottom: 24px;
-  margin-bottom: 24px;
-  border-bottom: 1px solid ${colors.gray250};
+  flex-direction: column;
+
   label {
     position: relative;
     input {
@@ -40,6 +45,9 @@ export const ViewWrapForm = styled.form`
       }
     }
   }
+`;
+export const InputWrap = styled.div`
+  display: flex;
 `;
 export const VerticalView = styled.div``;
 export const HorizontalView = styled.div`
@@ -138,10 +146,10 @@ export const SortForm = styled(SelectForm)`
   border-bottom: none;
 `;
 
-export const ButtonWrap = styled.div`
+export const ButtonWrapDiv = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 16px;
+  padding: 16px 0;
 `;
 export const ApplyBtn = styled(DefaultButton)`
   height: 52px;

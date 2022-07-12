@@ -12,6 +12,7 @@ export default defineConfig({
       "@api": path.resolve(__dirname, "./src/api"),
       "@pages": path.resolve(__dirname, "./src/pages"),
       "@redux": path.resolve(__dirname, "./src/redux/reducer"),
+      "@hooks": path.resolve(__dirname, "./src/hooks"),
     },
   },
   plugins: [react(), svgr()],

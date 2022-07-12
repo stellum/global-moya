@@ -4,7 +4,8 @@ export const FilterBG = styled.div`
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.55);
-  position: absolute;
+  position: fixed;
   z-index: 1;
-  display: ${({ show }) => (show ? "block" : "none")};
+  display: ${({ showBtn, showNavi }) =>
+    showBtn || showNavi ? "block" : "none"};
 `;
