@@ -1,19 +1,16 @@
 import styled from "styled-components";
-import { fontWeight, fontSize } from "@styles/theme";
+import { fontWeight, fontSize, colors } from "@styles/theme";
 export const KeywordUL = styled.ul`
   margin-top: 20px;
-  ul {
-    p {
-      display: none;
-    }
-    &:nth-child(1) {
-      p {
-        display: block;
-      }
-    }
+`;
+export const ResultsUL = styled(KeywordUL)`
+  margin-top: 0;
+  border-bottom: 1px solid ${colors.gray350};
+  margin-bottom: 10px;
+  &:last-child {
+    border-bottom: none;
   }
 `;
-
 export const KeywordLi = styled.li`
   display: flex;
   align-items: center;
@@ -46,6 +43,11 @@ export const KeywordH4 = styled.h4`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  line-height: 1.4;
+`;
+export const CategoryH4 = styled.h2`
+  font-weight: ${fontWeight.FontWeight700};
+  font-size: ${fontSize.FontSize16};
 `;
 
 export const IconWrap = styled.div`
@@ -55,5 +57,5 @@ export const IconWrap = styled.div`
 `;
 
 export const NoResults = styled.p`
-  /* display: none; */
+  color: ${colors.gray350};
 `;
