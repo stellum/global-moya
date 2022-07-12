@@ -1,23 +1,23 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getSearchData } from "@api/searchApi";
+import { createSlice } from "@reduxjs/toolkit";
+// import { getSearchData } from "@api/searchApi";
 
 // First, create the thunk
-export const fetchSearchNews = createAsyncThunk(
-  "keywordList/fetchSearchNews",
-  async (queryParams, thunkAPI) => {
-    try {
-      console.log("thunkAPI", thunkAPI);
-      console.log("queryParams", queryParams);
+// export const fetchSearchNews = createAsyncThunk(
+//   "keywordList/fetchSearchNews",
+//   async (queryParams, thunkAPI) => {
+//     try {
+//       console.log("thunkAPI", thunkAPI);
+//       console.log("queryParams", queryParams);
 
-      const response = await getSearchData(queryParams);
-      console.log("response", response);
-      // return response.data;
-    } catch (e) {
-      // console.log("error", e);
-      return thunkAPI.rejectWithValue("something went wrong");
-    }
-  }
-);
+//       const response = await getSearchData(queryParams);
+//       console.log("response", response);
+//       // return response.data;
+//     } catch (e) {
+//       // console.log("error", e);
+//       return thunkAPI.rejectWithValue("something went wrong");
+//     }
+//   }
+// );
 
 // https://www.youtube.com/watch?v=VQgliO57b40
 // https://www.youtube.com/watch?v=lEG___eaMQU
@@ -27,10 +27,6 @@ export const fetchSearchNews = createAsyncThunk(
 
 const initialState = {
   keywordList: [],
-  timeFilter: "mth1",
-  mediaType: "mp,op,r",
-  language: "en",
-  orderBy: "latest",
   keyTypeList: [],
   paramValueList: [],
 };
@@ -40,13 +36,11 @@ const keywordConnectedSlice = createSlice({
   initialState,
   reducers: {
     addKeywordListAction: (state, action) => {
-      // console.log("state", state);
-      // console.log("action", action);
+      console.log("state", state);
+      console.log("action", action);
       const keyTypeList = action.payload.map((obj) => {
         return obj.keyType;
       });
-      // console.log("action", action.payload);
-      // state.keywordList = keyTypeList;
       const paramValueList = action.payload.map((obj) => {
         return obj.paramValue;
       });
@@ -56,19 +50,19 @@ const keywordConnectedSlice = createSlice({
       state.paramValueList = paramValueList;
     },
   },
-  extraReducers: {
-    [fetchSearchNews.pending]: (state) => {
-      console.log("pending:state", state);
-    },
-    [fetchSearchNews.fulfilled]: (state, action) => {
-      console.log("fulfilled:state", state);
-      console.log("fulfilled:action", action);
-    },
-    [fetchSearchNews.rejected]: (state, action) => {
-      console.log("rejected:state", state);
-      console.log("rejected:action", action);
-    },
-  },
+  // extraReducers: {
+  //   [fetchSearchNews.pending]: (state) => {
+  //     console.log("pending:state", state);
+  //   },
+  //   [fetchSearchNews.fulfilled]: (state, action) => {
+  //     console.log("fulfilled:state", state);
+  //     console.log("fulfilled:action", action);
+  //   },
+  //   [fetchSearchNews.rejected]: (state, action) => {
+  //     console.log("rejected:state", state);
+  //     console.log("rejected:action", action);
+  //   },
+  // },
 
   // extraReducers: (builder) => {
   //   builder.addCase(fetchSearchNews.fulfilled, (state, action) => {
