@@ -1,5 +1,5 @@
 import React from "react";
-import LoginSection from "./login/LoginSection";
+// import LoginSection from "./login/LoginSection";
 import styled from "styled-components";
 
 const Header = styled.div`
@@ -15,7 +15,7 @@ const SiginIn = () => {
   return (
     <>
       <Header>Login</Header>
-      <LoginSection />
+      {/* <LoginSection /> */}
       {/* <Register /> */}
     </>
   );
