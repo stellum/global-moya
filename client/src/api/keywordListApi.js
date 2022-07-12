@@ -13,6 +13,16 @@ export const getKeywords = async () => {
     const response = await clientServer({
       url: "preferTerms/reports",
       headers: { Authorization: `Bearer ${accessToken}` },
+      transformResponse: [
+        function (data) {
+          const transformedData = JSON.parse(data);
+          // console.log("transformedData", transformedData);
+          return transformedData.reports.map((item, index) => {
+            item.index = index;
+            return item;
+          });
+        },
+      ],
     });
     if (response.status === 200) {
       const data = await response.data;
