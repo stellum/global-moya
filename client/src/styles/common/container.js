@@ -13,6 +13,6 @@ export const CustomContainer = styled.div`
 `;
 
 export const DefaultContainer = styled.div`
-  padding: 0px 16px;
+  padding: 12px 16px;
   position: relative;
 `;

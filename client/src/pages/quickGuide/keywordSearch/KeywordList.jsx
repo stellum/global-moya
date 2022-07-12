@@ -5,35 +5,31 @@ import {
   HighLightLi,
   KeywordH4,
   IconWrap,
+  NoResults,
+  ResultsUL,
+  CategoryH4,
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
 import _ from "lodash";
 import { SearchIcon, StarIcon } from "@styles/svgIcon";
 import Highlighter from "react-highlight-words";
 import HightLightText from "@components/HightLightText";
 import { colors } from "@styles/theme";
-
+import { changeCase } from "@util/changeCase";
 const KeywordList = ({ keyword }) => {
   const { filteredResult, generateKey } = MasterValueHook(keyword);
-  console.log(filteredResult);
   return (
     <KeywordUL>
       {filteredResult &&
-        _.map(filteredResult, (item, idx) => {
-          // console.log(item.filtered.length, idx);
-          if (item.filtered.length - 1 === idx) {
-            // console.log("if 결과d");
-          } else {
-            // console.log("else 결과");
-            return (
-              <>
+        _.map(filteredResult, (item) => {
+          return (
+            <>
+              <HighLightLi key={generateKey(item.mainCate)}>
+                <CategoryH4>{changeCase(item.mainCate)}</CategoryH4>
+              </HighLightLi>
+
+              <ResultsUL>
                 {item.filtered.length > 0 ? (
-                  <HighLightLi key={generateKey(item.mainCate)}>
-                    <KeywordH4>{item.mainCate}</KeywordH4>
-                  </HighLightLi>
-                ) : null}
-                <KeywordUL>
-                  {_.map(item.filtered.slice(0, 20), (value, idx) => {
-                    console.log("value", idx);
+                  _.map(item.filtered.slice(0, 20), (value, idx) => {
                     return (
                       <>
                         <HighLightLi key={generateKey(value._id + idx)}>
@@ -56,11 +52,15 @@ const KeywordList = ({ keyword }) => {
                         </HighLightLi>
                       </>
                     );
-                  })}
-                </KeywordUL>
-              </>
-            );
-          }
+                  })
+                ) : (
+                  <HighLightLi>
+                    <NoResults>검색 결과가 없습니다.</NoResults>
+                  </HighLightLi>
+                )}
+              </ResultsUL>
+            </>
+          );
         })}
     </KeywordUL>
   );

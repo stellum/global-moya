@@ -6,7 +6,6 @@ export const getMasterData = async () => {
       url: "/master/all",
     });
     if (response.status === 200) {
-      console.log(response);
       const data = await response.data;
       return data;
     }

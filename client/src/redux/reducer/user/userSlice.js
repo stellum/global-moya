@@ -1,8 +1,12 @@
 // ! createSlice: reducer를 만드는 것을 도와준다.
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  userData: {},
+  userData: {
+  },
+  userEmail: "",
+  userLogin: false
 };
+
 
 // ! reducers: swtich case에서 fucntion으로 바꾼다.
 export const userSlice = createSlice({
@@ -11,12 +15,15 @@ export const userSlice = createSlice({
   reducers: {
     fetchUserRequest: (state) => {
       // ! 기존 방식과 다르게 return을 생략, spread operator 필요 없다.
-      state.loading = true;
+      // state.loading = true;
     },
     fetchUserSuccess: (state, action) => {
-      // state.commentList = action.payload.data;
-      state.commentList = action.payload;
-      state.loading = false;
+      console.log("슬라이그", action);
+      state.userLogin = true;
+      state.userEmail = action.payload;
+      //  state.commentList = action.payload.data;
+      // state.commentList = action.payload;
+      // state.loading = false;
     },
   },
 });

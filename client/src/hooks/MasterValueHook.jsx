@@ -10,7 +10,6 @@ const MasterValueHook = (searchWord) => {
   useEffect(() => {
     const fetch = async () => {
       const data = await getMasterData();
-      console.log(data);
       setMasterData(data);
     };
     fetch();
