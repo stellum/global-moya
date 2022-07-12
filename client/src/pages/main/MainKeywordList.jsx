@@ -1,88 +1,95 @@
 import React, { useState, useEffect } from "react";
 import { getKeywords } from "@api/keywordListApi";
 import { useSelector, useDispatch } from "react-redux";
+import { addKeywordListAction } from "@redux/keywordConnectedSlice";
 import {
-  addKeywordListAction,
-  fetchSearchNews,
-} from "@redux/keywordConnectedSlice";
+  keywordContentRequest,
+  loggedDefaultRequest,
+} from "@redux/searchFilterSlice";
+
 import {
+  MainKeywordContainerDiv,
   MainKeywordDiv,
   MainKeywordLi,
   MainKeywordUl,
   MainKeywordContentDiv,
   MainKeywordActiveContentDiv,
   MainKeywordActiveContentH2,
-  MoreIconDiv,
-  MoreIconCircle,
+  EditIconDiv,
+  EditIconCircle,
 } from "@styles/main/mainKeywordList";
 import NewsCard from "@components/NewsCard";
 
+import storage from "redux-persist/lib/storage";
+
 const MainKeywordList = () => {
   const [toggleTabState, setToggleTabState] = useState(0);
-  const { keywordList } = useSelector((state) => state.keywordConnectedSlice);
+  const { keywordList, keyTypeList, paramValueList } = useSelector(
+    (state) => state.keywordConnectedSlice
+  );
+
+  // const persistGetItem = async () => {
+  //   const getPersistObj = await storage.getItem("persist:root");
+  //   const items = JSON.parse(getPersistObj);
+  //   console.log("items", items);
+  //   // mine.then((item) => {
+  //   //   const obj = JSON.parse(item);
+  //   //   console.log("obj", obj.keywordConnectedSlice);
+  //   // });
+  //   // console.log("mine", mine);
+  // };
+  // persistGetItem();
 
   const dispatch = useDispatch();
 
   const toggleTab = (index) => {
     setToggleTabState(index);
+    dispatch(
+      keywordContentRequest([keyTypeList[index], paramValueList[index]])
+    );
   };
+
+  const handleMoreIcon = () => {};
 
   useEffect(() => {
     const getDatas = async () => {
       const response = await getKeywords();
-      const { reports } = response;
-      dispatch(addKeywordListAction(reports));
-      // dispatch(
-      //   fetchSearchNews({
-      //     timeFilter: "mth1",
-      //     mediaType: "mp",
-      //     language: "en",
-      //     orderBy: "latest",
-      //     keyType: "category",
-      //     paramValue: "stocks",
-      //   })
-      // );
+      // const { reports } = response;
+      dispatch(addKeywordListAction(response));
     };
     getDatas();
+
+    // login인 된 사용자
+    // dispatch(loggedDefaultRequest([keyTypeList[0], paramValueList[0]]));
   }, []);
 
-  /**
-   * keyType: "index"
-    name: "IBEX 35"
-    paramValue: "IB"
-    termSeq: "US500"
-    updateFlag: "D"
-    _id: 8
-   */
   return (
     <>
-      <MainKeywordDiv>
-        <MainKeywordUl>
-          {keywordList.map((keyword, index) => {
-            console.log("key", keyword);
-            const { name, _id } = keyword;
-
-            return (
-              <MainKeywordLi
-                key={_id}
-                toggleTab={toggleTabState === index}
-                onClick={() => toggleTab(index)}
-              >
-                {name.length > 10 ? name.slice(0, 9) + "..." : name}
-              </MainKeywordLi>
-            );
-          })}
-        </MainKeywordUl>
-        <MoreIconDiv>
-          <MoreIconCircle />
-          <MoreIconCircle />
-          <MoreIconCircle marginRight="0px" />
-        </MoreIconDiv>
+      <MainKeywordContainerDiv>
+        <MainKeywordDiv>
+          <MainKeywordUl>
+            {keywordList.map((keyword) => {
+              const { name, _id, index } = keyword;
+              return (
+                <MainKeywordLi
+                  key={_id}
+                  toggleTab={toggleTabState === index}
+                  onClick={() => toggleTab(index)}
+                >
+                  {name.length > 10 ? name.slice(0, 9) + "..." : name}
+                </MainKeywordLi>
+              );
+            })}
+          </MainKeywordUl>
+          <EditIconDiv onClick={handleMoreIcon}>
+            <EditIconCircle />
+            <EditIconCircle />
+            <EditIconCircle marginRight="0px" />
+          </EditIconDiv>
+        </MainKeywordDiv>
         <MainKeywordContentDiv>
-          {keywordList.map((keyword, index) => {
-            const { _id } = keyword;
-            console.log("keyword+index", keyword, index);
-
+          {keywordList.map((keyword) => {
+            const { _id, index } = keyword;
             return (
               <MainKeywordActiveContentDiv
                 key={_id}
@@ -92,11 +99,12 @@ const MainKeywordList = () => {
                   Content {index + 1}
                 </MainKeywordActiveContentH2>
                 <NewsCard viewType="largeImg" />
+                {/* <NewsCard view={view} apply={apply} /> */}
               </MainKeywordActiveContentDiv>
             );
           })}
         </MainKeywordContentDiv>
-      </MainKeywordDiv>
+      </MainKeywordContainerDiv>
     </>
   );
 };
