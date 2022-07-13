@@ -13,5 +13,5 @@ export const getCookie = () => {
 };
 
 export const deleteCookie = () => {
-  setCookie("accessToken");
+  // setCookie("accessToken");
 };
