@@ -29,6 +29,7 @@ const NewsCard = ({ apply, view }) => {
   // searchNews Datas
   const { timeFilter, mediaType, language, orderBy, keyType, paramValue } =
     useSelector((state) => state.searchFilterSlice);
+
   const [newsList, setNewsList] = useState([]);
   // redux 처리?
   const [pageToken, setPageToken] = useState("");
@@ -44,8 +45,8 @@ const NewsCard = ({ apply, view }) => {
         keyType,
         paramValue,
       };
-      await delay(2000);
       const response = await getSearchData(obj);
+      await delay(1500);
 
       console.log("response", response);
       setNewsList(response.newsList);
@@ -55,14 +56,16 @@ const NewsCard = ({ apply, view }) => {
     };
     getDatas();
 
+    console.log("page", pageToken);
+
     return () => {};
-  }, [timeFilter, mediaType, language, orderBy, paramValue]);
+  }, [newsList, pageToken]);
 
   return (
     <>
-      {newsList &&
-        newsList.map((news) => {
-          console.log("news", news);
+      {newsList.map((news) => {
+        console.log("news", news);
+        return (
           <Card>
             <MainContent viewType={apply ? view : viewType}>
               <ImageContent
@@ -108,9 +111,9 @@ const NewsCard = ({ apply, view }) => {
                 </li>
               </Tickers>
               <div className="tags">
-                {/* {news.assetTags.map((tag) => {
-                <span>#{tag}</span>;
-              })} */}
+                {news.assetTags.map((tag) => {
+                  <span>#{tag}</span>;
+                })}
               </div>
               <ExpandMoreIcon
                 onClick={() => {
@@ -119,8 +122,9 @@ const NewsCard = ({ apply, view }) => {
                 $expand={expand}
               />
             </CardFooter>
-          </Card>;
-        })}
+          </Card>
+        );
+      })}
     </>
   );
 };
