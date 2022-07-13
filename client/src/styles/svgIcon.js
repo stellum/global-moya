@@ -81,7 +81,12 @@ export const BackArrow = styled(BackArrowSvg)``;
 export const DeleteIcon = styled(IconsDeleteSvg)``;
 export const XIcon = styled(IconsXSvg)``;
 export const CheckIcon = styled(IconsCheckSvg)``;
-export const StarIcon = styled(IconsStarSvg)``;
+export const StarIcon = styled(IconsStarSvg)`
+  fill: ${({ $clip }) => ($clip ? colors.pointOrange100 : "none")};
+  path {
+    stroke: ${({ $clip }) => ($clip ? colors.pointOrange100 : "#B7B7B7")};
+  }
+`;
 export const LearnMore = styled(LearnMoreSvg)``;
 export const AttachIcon = styled(AttachIconSvg)``;
 export const CloseIcon = styled(CloseIconSvg)``;

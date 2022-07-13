@@ -11,10 +11,11 @@ export const loginFunc = async (form) => {
 
     if (response.status === 200) {
       const { access_token } = response.data;
-      setCookie(access_token);
-    //   clientServer.defaults.headers.common[ 
-    //   "Authorization"
-    // ] = `Bearer ${access_token}`;
+      // setCookie(access_token);
+      // console.log(access_token);
+      clientServer.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${access_token}`;
       return response.status;
     }
   } catch (error) {
@@ -25,15 +26,15 @@ export const loginFunc = async (form) => {
 };
 
 export const logOutFunc = async () => {
-  const accessToken = getCookie();
+  // const accessToken = getCookie();
   try {
     const response = await clientServer({
       url: "auth/logout",
       method: "delete",
-      headers: { Authorization: `Bearer ${accessToken}` },
+      // headers: { Authorization: `Bearer ${accessToken}` },
     });
     if (response.status === 200) {
-      deleteCookie();
+      // deleteCookie();
     }
   } catch (e) {
     console.log(e);

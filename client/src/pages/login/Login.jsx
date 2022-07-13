@@ -4,13 +4,14 @@ import { loginFunc } from "@api/loginApi";
 import { searchUserList } from "@api/subsApi";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { pxToRem } from "../../styles/theme";
 
 import { fetchUserSuccess } from "@redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import UserCheck from "../../hoc/UserCheck";
 import { RequiredLogout } from "../../hoc/userAccessType";
 import { subsUserAction } from "@redux/user/subsSlice";
+import { getKeywords } from "../../api/keywordListApi";
+import { addKeywordListAction } from "@redux/keywordListSlice";
 const LoginForm = styled.form`
   width: 479px;
   position: absolute;
@@ -66,12 +67,15 @@ const Login = () => {
 
   const fetch = async (formData, data) => {
     const status = await loginFunc(formData);
-    const response = await searchUserList(data.email);
-    const userEmail = response.userCode.content[0].email;
-    const userCode = response.userCode.content[0].id;
-    if (response) {
+
+    if (status === 200) {
+      const userList = await searchUserList(data.email);
+      const keywordList = await getKeywords();
+      const userEmail = userList.userCode.content[0].email;
+      const userCode = userList.userCode.content[0].id;
+      dispatch(addKeywordListAction(keywordList));
       dispatch(fetchUserSuccess({ userEmail, userCode }));
-      dispatch(subsUserAction(response.subsUser));
+      dispatch(subsUserAction(userList.subsUser));
       navigate("/");
     } else if (status === 400) {
       alert("경고");

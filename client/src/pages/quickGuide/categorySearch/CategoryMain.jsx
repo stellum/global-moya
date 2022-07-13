@@ -30,6 +30,7 @@ const CategoryMain = () => {
     const response = await getCategoryList(category);
     if (response) {
       dispatch(isLoading(false));
+
       const data = response.details;
       setDataList(data);
     }
@@ -38,6 +39,7 @@ const CategoryMain = () => {
   useEffect(() => {
     fetch();
     inputRef.current.value = "";
+    inputRef.current.focus();
     dispatch(searchKeyword(""));
   }, [category]);
   /*  
@@ -57,6 +59,7 @@ const CategoryMain = () => {
             dataList={dataList}
             keyword={keyword}
             loading={loading}
+            category={category}
           />
         </Suspense>
       ) : (
@@ -66,6 +69,7 @@ const CategoryMain = () => {
             myRef={lastElementRef}
             page={page}
             loading={loading}
+            category={category}
           />
         </Suspense>
       )}
