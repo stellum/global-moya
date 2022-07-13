@@ -23,6 +23,7 @@ export const getKeywords = async () => {
           });
         },
       ],
+      // withCredentials: true,
     });
     if (response.status === 200) {
       const data = await response.data;

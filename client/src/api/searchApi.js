@@ -8,7 +8,7 @@ export const getSearchData = async (queryParams) => {
 
   try {
     const response = await clientServer({
-      url: "/search/news",
+      url: "/news/search",
       headers: { Authorization: `Bearer ${accessToken}` },
       params: {
         timeFilter,
@@ -18,6 +18,7 @@ export const getSearchData = async (queryParams) => {
         keyType,
         paramValue,
       },
+      // withCredentials: true,
     });
     if (response.status === 200) {
       const data = await response.data;
