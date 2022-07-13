@@ -31,5 +31,6 @@
     "lodash": "^4.17.21",
     "redux-logger": "^3.0.6",
     "vite": "^2.9.9"
-  }
+  },
+  "proxy": "http://localhost:3000/"
 }

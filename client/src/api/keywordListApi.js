@@ -8,11 +8,11 @@ import { getCookie } from "../util/settingSessions";
  */
 
 export const getKeywords = async () => {
-  // const accessToken = getCookie();
+  const accessToken = getCookie();
   try {
     const response = await clientServer({
       url: "preferTerms/reports",
-      // headers: { Authorization: `Bearer ${accessToken}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
       // transformResponse: [
       //   function (data) {
       //     const transformedData = JSON.parse(data);

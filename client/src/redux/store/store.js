@@ -8,7 +8,6 @@ import modalSlice from "../reducer/modalSlice";
 import cardTypeSlice from "../reducer/cardTypeSlice";
 import categorySlice from "../reducer/categorySlice";
 import subsSlice from "../reducer/user/subsSlice";
-import keywordListSlice from "../reducer/keywordListSlice";
 // if (process.env.NODE_ENV !== "production") {
 //   middleware.push(logger);
 // }
@@ -29,7 +28,6 @@ const rootReducer = combineReducers({
   cardTypeSlice,
   categorySlice,
   subsSlice,
-  keywordListSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

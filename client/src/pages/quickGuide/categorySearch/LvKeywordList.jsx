@@ -9,15 +9,18 @@ import {
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
 import Spinner from "@components/common/Spinner";
 import _ from "lodash";
-import { getKeywords, createKeywords } from "@api/keywordListApi";
-import { useSelector } from "react-redux";
-const LvKeywordList = ({ dataList, myRef, page, loading, category }) => {
+import { createKeywords } from "@api/keywordListApi";
+
+import { checkClip } from "@util/filterMasterFunc";
+const LvKeywordList = ({
+  dataList,
+  myRef,
+  page,
+  loading,
+  category,
+  clipKeyword,
+}) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 100 });
-  const [hasKeyword, setHasKeyword] = useState([]);
-  const keywordList = useSelector(
-    (state) => state.keywordListSlice.keywordList
-  );
-  // console.log(keywordList);
 
   useEffect(() => {
     setSliceValue((prev) => ({
@@ -27,15 +30,8 @@ const LvKeywordList = ({ dataList, myRef, page, loading, category }) => {
   }, [page]);
 
   useEffect(() => {
-    setHasKeyword(keywordList.filter((item) => item.keyType === category));
-    // console.log(keywordList);
+    console.log(loading);
   }, [category]);
-
-  const checkClip = (list, id) => {
-    const result = list.some((item) => item._id === id);
-    console.log(result);
-    return result;
-  };
 
   const createKeywordFunc = async (id, category) => {
     const data = {
@@ -78,7 +74,7 @@ const LvKeywordList = ({ dataList, myRef, page, loading, category }) => {
                       </KeywordWrap>
                       <StarIcon
                         onClick={() => createKeywordFunc(item)}
-                        $clip={checkClip(hasKeyword, item._id)}
+                        $clip={checkClip(clipKeyword, item._id)}
                       />
                     </KeywordLi>
                   );
@@ -96,7 +92,7 @@ const LvKeywordList = ({ dataList, myRef, page, loading, category }) => {
                       <IconWrap star>
                         <StarIcon
                           onClick={() => createKeywordFunc(item._id, category)}
-                          $clip={checkClip(hasKeyword, item._id)}
+                          $clip={checkClip(clipKeyword, item._id)}
                         />
                       </IconWrap>
                     </KeywordLi>
