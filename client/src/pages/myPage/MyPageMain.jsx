@@ -11,19 +11,17 @@ import {
   Help,
 } from "@styles/myPage/Main";
 import { BackArrow, ProfileIcon, LearnMore } from "@styles/svgIcon";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import UserCheck from "../../hoc/UserCheck";
 import { RequiredLogin } from "../../hoc/userAccessType";
 import { useSelector } from "react-redux";
 const MyPageMain = ({ user }) => {
   const navigate = useNavigate();
   const subsUser = useSelector((state) => state.subsSlice.subsUser);
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  useEffect(() => {}, []);
   return (
     <MainContainer>
-      {subsUser && (
+      {user && (
         <>
           <Main>
             <div className="h3div">
@@ -42,7 +40,9 @@ const MyPageMain = ({ user }) => {
             <SubscriptionInfo>
               <div className="subs">
                 <span>월별 정기구독 이용중</span>
-                <button>구독관리</button>
+                <Link to="/mypage/subscription">
+                  <button>구독관리</button>
+                </Link>
               </div>
               <Subscription>
                 <div className="substerm">

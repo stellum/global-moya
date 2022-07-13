@@ -55,7 +55,6 @@ export const searchUserList = async (userMail) => {
   
 */
 export const createOrder = async (userCode) => {
-  console.log("userCode", userCode);
   try {
     const response = await stepPayServer({
       url: "/v1/orders",
@@ -130,18 +129,31 @@ export const customerSearch = async (userCode) => {
   }
 };
 
-// fetch("http://localhost:3000/api/v1/products", options)
-//   .then((response) => response.json())
-//   .then((response) => console.log(response))
-//   .catch((err) => console.error(err));
+export const payMentChange = async (userCode) => {
+  try {
+    const response = await stepPayServer({
+      url: `/v1/customers/${userCode}/payment-method`,
+      method: "PUT",
+    });
+    console.log(response);
+    // if (response.status === 200) {
+    //   return response.data;
+    // }
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-// https://api.steppay.kr/api/v1/products/product_W9gLQy9ac', options)
-
-// const response = await axios({
-//   url: "http://localhost:3000/api/v1/products/product_W9gLQy9ac",
-//   method: "GET",
-//   headers: {
-//     Accept: "*/*",
-//     "Secret-Token": `${SECRET_KEY}`,
-//   },
-// });
+export const subsCancel = async (subsId) => {
+  try {
+    const response = await stepPayServer({
+      url: `v1/subscriptions/${subsId}/cancel`,
+      method: "POST",
+      data: {
+        whenToCancel: "NOW",
+      },
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
