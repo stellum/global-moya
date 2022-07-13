@@ -6,14 +6,22 @@ import MoyaLogo from "@components/MoyaLogo";
 import { colors, fontWeight, fontSize, pxToRem } from "@styles/theme";
 import { useNavigate } from "react-router-dom";
 import { DefaultButton } from "@styles/common/button/button";
-import { getProductsList, createOrder } from "../api/subsApi";
-
+import { createOrder, orderRedirect } from "../api/subsApi";
+import UserCheck from "../hoc/UserCheck";
+import { RequiredLogin } from "../hoc/userAccessType";
+import { useSelector } from "react-redux";
 const SubscribeModal = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    getProductsList();
-    createOrder();
-  }, []);
+  const userCode = useSelector((state) => state.user.userData.userCode);
+
+  const subsFetch = async () => {
+    const orderCode = await createOrder(userCode);
+    console.log(orderCode);
+    // if (orderCode) orderRedirect(orderCode);
+  };
+  const handleSubs = () => {
+    subsFetch();
+  };
   return (
     <Container>
       <CancelWrap>
@@ -45,7 +53,7 @@ const SubscribeModal = () => {
             </PriceDiv>
           </div>
         </label>
-        <input type="radio" name="newsRadio" id="free" />
+        <input type="radio" name="newsRadio" id="free" disabled />
         <label htmlFor="free">
           <h3>FREE</h3>
           <div className="box">
@@ -60,12 +68,14 @@ const SubscribeModal = () => {
           </div>
         </label>
       </SubsForm>
-      <SubsBtn orange>구독하기</SubsBtn>
+      <SubsBtn orange onClick={handleSubs}>
+        구독하기
+      </SubsBtn>
     </Container>
   );
 };
 
-export default SubscribeModal;
+export default UserCheck(SubscribeModal, RequiredLogin);
 const Container = styled(DefaultContainer)`
   display: flex;
   flex-direction: column;
