@@ -3,11 +3,12 @@ import { ReactComponent as TranslateSvg } from "@assets/Translate-ko.svg";
 import { ReactComponent as ShareIconSvg } from "@assets/ShareIcon.svg";
 import { ReactComponent as ScrapIconSvg } from "@assets/ScrapIcon.svg";
 import { ReactComponent as ExpandMoreIconSvg } from "@assets/ExpandMoreIcon.svg";
+import { ReactComponent as LearnMoreSvg } from "@assets/LearnMore.svg";
 import { ReactComponent as GlobalMoyaSvg } from "@assets/globalMOYA.svg";
 import { ReactComponent as IconsFacebookSvg } from "@assets/icons-facebook.svg";
 import { ReactComponent as IconsInstagramSvg } from "@assets/icons-instagram.svg";
 import { ReactComponent as IconsKakaotalkSvg } from "@assets/icons-kakaotalk.svg";
-import { ReactComponent as ProfileSvg } from "@assets/profile.svg";
+import { ReactComponent as ProfileIconSvg } from "@assets/ProfileIcon.svg";
 import { ReactComponent as SearchIconSvg } from "@assets/searchIcon.svg";
 import { ReactComponent as FilterIconSvg } from "@assets/icons-filter.svg";
 import { ReactComponent as MagazineDisableSvg } from "@assets/ViewMagazine-disable.svg";
@@ -17,11 +18,17 @@ import { ReactComponent as MagazineSvg } from "@assets/ViewMagazine.svg";
 import { ReactComponent as TextSvg } from "@assets/ViewText.svg";
 import { ReactComponent as CardSvg } from "@assets/ViewCard.svg";
 import { ReactComponent as CancelSvg } from "@assets/icons-cancel.svg";
-import { ReactComponent as ArrowBackSvg } from "@assets/arrow-back.svg";
+import { ReactComponent as BackArrowSvg } from "@assets/BackArrow.svg";
 import { ReactComponent as IconsDeleteSvg } from "@assets/icons-delete.svg";
 import { ReactComponent as IconsXSvg } from "@assets/icons-x.svg";
 import { ReactComponent as IconsCheckSvg } from "@assets/icons-check.svg";
 import { ReactComponent as IconsStarSvg } from "@assets/icons-star.svg";
+import { ReactComponent as AttachIconSvg } from "@assets/AttachIcon.svg";
+import { ReactComponent as CloseIconSvg } from "@assets/CloseIcon.svg";
+import { ReactComponent as PhotoIconSvg } from "@assets/PhotoIcon.svg";
+import { ReactComponent as globalMOYAPremiumSvg } from "@assets/globalMOYAPremium.svg";
+import { ReactComponent as ProfilePhotoSvg } from "@assets/ProfilePhoto.svg";
+
 import { colors } from "./theme";
 
 export const TranslateIcon = styled(TranslateSvg)``;
@@ -45,7 +52,7 @@ export const GlobalMoyaLogo = styled(GlobalMoyaSvg)``;
 export const IconsFacebook = styled(IconsFacebookSvg)``;
 export const IconsInstagram = styled(IconsInstagramSvg)``;
 export const IconsKakaotalk = styled(IconsKakaotalkSvg)``;
-export const Profile = styled(ProfileSvg)`
+export const ProfileIcon = styled(ProfileIconSvg)`
   width: 36px;
   height: 36px;
 `;
@@ -69,9 +76,15 @@ export const MagazineView = styled(MagazineSvg)``;
 export const CardView = styled(CardSvg)``;
 
 export const CancelIcon = styled(CancelSvg)``;
-export const ArrowBack = styled(ArrowBackSvg)``;
+export const BackArrow = styled(BackArrowSvg)``;
 
 export const DeleteIcon = styled(IconsDeleteSvg)``;
 export const XIcon = styled(IconsXSvg)``;
 export const CheckIcon = styled(IconsCheckSvg)``;
 export const StarIcon = styled(IconsStarSvg)``;
+export const LearnMore = styled(LearnMoreSvg)``;
+export const AttachIcon = styled(AttachIconSvg)``;
+export const CloseIcon = styled(CloseIconSvg)``;
+export const PhotoIcon = styled(PhotoIconSvg)``;
+export const GlobalMOYAPremium = styled(globalMOYAPremiumSvg)``;
+export const ProfilePhoto = styled(ProfilePhotoSvg)``;

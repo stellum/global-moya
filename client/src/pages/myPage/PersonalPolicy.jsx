@@ -1,9 +1,9 @@
 import React from "react";
-import { PersonalPolicy, Container } from "@styles/myPageStyle/PersonalPolicy";
+import { Policy, Container } from "@styles/myPage/PersonalPolicy";
 
-const MyPagePersonalPolicy = () => {
+const PersonalPolicy = () => {
   return (
-    <PersonalPolicy>
+    <Policy>
       <h3>개인정보 처리방침</h3>
       <Container>
         모야 개인 정보 처리/취급 방침
@@ -239,8 +239,8 @@ const MyPagePersonalPolicy = () => {
         <br />
         시행일자 : 2019년 10월 14일
       </Container>
-    </PersonalPolicy>
+    </Policy>
   );
 };
 
-export default MyPagePersonalPolicy;
+export default PersonalPolicy;

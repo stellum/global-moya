@@ -1,7 +1,7 @@
 import React from "react";
 import { QuickInputWrap } from "@styles/quickGuide/QuikcMain";
 import { QuickInput } from "@styles/quickGuide/QuickInput";
-import { ArrowBack, CancelIcon } from "@styles/svgIcon";
+import { BackArrow, CancelIcon } from "@styles/svgIcon";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { searchKeyword, isLoading } from "@redux/categorySlice";
@@ -30,7 +30,7 @@ const QuickGuideHeader = ({ inputRef, keyword }) => {
           dispatch(isLoading(true));
         }}
       >
-        <ArrowBack />
+        <BackArrow />
       </div>
       <QuickInput
         ref={inputRef}

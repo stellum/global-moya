@@ -1,7 +1,7 @@
 import React from "react";
 import { DefaultHeader } from "@styles/common/DefaultHeader";
 import { DefaultButton } from "@styles/common/button/button";
-import { Profile } from "@styles/svgIcon";
+import { ProfileIcon } from "@styles/svgIcon";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const HomeHeader = () => {
@@ -15,7 +15,7 @@ const HomeHeader = () => {
             <Link to="/subscribe" style={{ marginRight: 15 }}>
               <DefaultButton>구독</DefaultButton>
             </Link>
-            <Profile />
+            <ProfileIcon />
           </>
         ) : (
           <Link to="/login">

@@ -1,6 +1,7 @@
 import React from "react";
 import {
-  ContactUs,
+  ContactContainer,
+  Header,
   MessageSubject,
   Message,
   Email,
@@ -8,19 +9,18 @@ import {
   AttachmentDesc,
   CheckBox,
   Complete,
-  ContactContainer,
-} from "@styles/myPageStyle/ContactUs";
-import { AttachIcon, ArrowBack, MoreIcon } from "@styles/svgIcon";
+} from "@styles/myPage/ContactUs";
+import { AttachIcon, BackArrow, LearnMore } from "@styles/svgIcon";
 
-const MyPageContactUs = () => {
+const ContactUs = () => {
   return (
     <ContactContainer>
-      <ContactUs>
+      <Header>
         <div className="h3div">
-          <ArrowBack />
+          <BackArrow />
           <h3>문의하기</h3>
         </div>
-      </ContactUs>
+      </Header>
       <MessageSubject
         type="text"
         maxLength="20"
@@ -55,13 +55,13 @@ const MyPageContactUs = () => {
         <label htmlFor="privacy">
           <input type="checkbox" id="privacy" />
           개인정보 수집, 이용동의 (필수)
-          <MoreIcon></MoreIcon>
+          <LearnMore></LearnMore>
         </label>
         <br />
         <label htmlFor="service">
           <input type="checkbox" id="service" />
           서비스 이용약관 동의 (필수)
-          <MoreIcon></MoreIcon>
+          <LearnMore></LearnMore>
         </label>
       </CheckBox>
 
@@ -70,4 +70,4 @@ const MyPageContactUs = () => {
   );
 };
 
-export default MyPageContactUs;
+export default ContactUs;
