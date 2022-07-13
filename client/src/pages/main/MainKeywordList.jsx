@@ -49,16 +49,21 @@ const MainKeywordList = () => {
     );
   };
 
+  // const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
   const handleMoreIcon = () => {};
 
   useEffect(() => {
     const getDatas = async () => {
+      // reports data
       const response = await getKeywords();
       // const { reports } = response;
-      dispatch(addKeywordListAction(response));
+      await dispatch(addKeywordListAction(response));
+
+      // await delay(1500);
+      await toggleTab(0);
     };
     getDatas();
-
     // login인 된 사용자
     // dispatch(loggedDefaultRequest([keyTypeList[0], paramValueList[0]]));
   }, []);
@@ -98,7 +103,7 @@ const MainKeywordList = () => {
                 <MainKeywordActiveContentH2>
                   Content {index + 1}
                 </MainKeywordActiveContentH2>
-                <NewsCard viewType="largeImg" />
+                <NewsCard key={index} viewType="largeImg" />
                 {/* <NewsCard view={view} apply={apply} /> */}
               </MainKeywordActiveContentDiv>
             );

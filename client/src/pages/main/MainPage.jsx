@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import MainHeader from "./MainHeader";
 import MainInputComponent from "./MainInput";
 import MainKeywordList from "./MainKeywordList";
-import EditProvider from "@components/edit/EditProvider";
+// import EditProvider from "@components/edit/EditProvider";
+import EditContainer from "@components/edit/EditContainer";
 // import NewsCard from "@components/NewsCard";
 
 import FilterIconModal from "@components/filterModal/FilterIconModal";
@@ -65,6 +66,7 @@ const MainPage = () => {
         <MainInputComponent />
         <MainKeywordList />
         {/* <EditProvider /> */}
+        <EditContainer />
       </MainPageContainer>
       {/* <NewsCard view={view} apply={apply} /> */}
     </>
