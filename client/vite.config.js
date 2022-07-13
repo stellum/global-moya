@@ -14,6 +14,7 @@ export default defineConfig({
       "@redux": path.resolve(__dirname, "./src/redux/reducer"),
       "@hooks": path.resolve(__dirname, "./src/hooks"),
       "@util": path.resolve(__dirname, "./src/util"),
+      "@hoc": path.resolve(__dirname, "./src/hoc"),
     },
   },
   plugins: [react(), svgr()],

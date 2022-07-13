@@ -12,8 +12,8 @@ import {
 } from "@styles/myPage/Main";
 import { BackArrow, ProfileIcon, LearnMore } from "@styles/svgIcon";
 import { useNavigate, Link } from "react-router-dom";
-import UserCheck from "../../hoc/UserCheck";
-import { RequiredLogin } from "../../hoc/userAccessType";
+import UserCheck from "@hoc/UserCheck";
+import { RequiredLogin } from "@hoc/userAccessType";
 import { useSelector } from "react-redux";
 const MyPageMain = ({ user }) => {
   const navigate = useNavigate();
