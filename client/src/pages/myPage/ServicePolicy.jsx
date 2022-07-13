@@ -1,10 +1,7 @@
 import React from "react";
-import {
-  TermsAndConditions,
-  Container,
-} from "@styles/myPageStyle/ServicePolicy";
+import { TermsAndConditions, Container } from "@styles/myPage/ServicePolicy";
 
-const MyPageServicePolicy = () => {
+const ServicePolicy = () => {
   return (
     <TermsAndConditions>
       <h3>서비스 이용약관</h3>
@@ -184,4 +181,4 @@ const MyPageServicePolicy = () => {
   );
 };
 
-export default MyPageServicePolicy;
+export default ServicePolicy;

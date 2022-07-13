@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { fontSize, fontWeight, colors } from "../theme";
 import { DefaultContainer } from "../common/container";
 
-export const ContactUs = styled.div`
+export const Header = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 17px;
@@ -92,6 +92,7 @@ export const Email = styled.input`
     }
   }
 `;
+// AttachIcon 친구는 어디서 조종되는걸까?
 export const Attachment = styled.div`
   box-sizing: border-box;
   width: 100%;

@@ -1,7 +1,7 @@
 import React from "react";
 import { DefaultHeader } from "@styles/common/DefaultHeader";
 import { DefaultButton } from "@styles/common/button/button";
-import { Profile } from "@styles/svgIcon";
+import { ProfileIcon } from "@styles/svgIcon";
 import { Link } from "react-router-dom";
 const HomeHeader = () => {
   return (
@@ -13,7 +13,7 @@ const HomeHeader = () => {
         <Link to="/subscribe">
           <DefaultButton>구독</DefaultButton>
         </Link>
-        <Profile />
+        <ProfileIcon />
       </DefaultHeader>
     </>
   );

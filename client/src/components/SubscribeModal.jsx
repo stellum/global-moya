@@ -145,7 +145,7 @@ const PriceDiv = styled.div`
   justify-content: flex-end;
   margin-top: 30px;
 `;
-const SubsBtn = styled(DefaultButton)`
+export const SubsBtn = styled(DefaultButton)`
   margin-top: 138px;
   width: 100%;
   height: 54px;

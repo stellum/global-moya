@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { fontSize, fontWeight, colors } from "../theme";
 
-export const PersonalPolicy = styled.div`
+export const Policy = styled.div`
   width: 100%;
   h3 {
     height: 56px;
