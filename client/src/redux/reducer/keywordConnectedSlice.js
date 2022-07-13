@@ -38,6 +38,7 @@ const keywordConnectedSlice = createSlice({
     addKeywordListAction: (state, action) => {
       console.log("state", state);
       console.log("action", action);
+
       const keyTypeList = action.payload.map((obj) => {
         return obj.keyType;
       });
@@ -48,6 +49,10 @@ const keywordConnectedSlice = createSlice({
       state.keywordList = action.payload;
       state.keyTypeList = keyTypeList;
       state.paramValueList = paramValueList;
+    },
+    mainKeywordContentRequest: (state, action) => {
+      console.log("state", state);
+      console.log("action", action);
     },
   },
   // extraReducers: {
@@ -75,6 +80,7 @@ const keywordConnectedSlice = createSlice({
   // },
 });
 
-export const { addKeywordListAction } = keywordConnectedSlice.actions;
+export const { addKeywordListAction, mainKeywordContentRequest } =
+  keywordConnectedSlice.actions;
 
 export default keywordConnectedSlice.reducer;
