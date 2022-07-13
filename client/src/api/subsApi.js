@@ -26,7 +26,9 @@ export const searchUserList = async (userMail) => {
       },
     });
     if (response.status === 200) {
-      return response.data;
+      // console.log(response);
+      const subsUser = await customerSearch(response.data.content[0].id);
+      return { userCode: response.data, subsUser };
     }
   } catch (e) {
     console.log(e);
@@ -83,28 +85,50 @@ export const createOrder = async (userCode) => {
     console.log(e);
   }
 };
-export const orderRedirect = async (orderCode) => {
-  console.log("orderCode", orderCode);
-  try {
-    const reponse = await stepPayServer({
-      url: `v1/orders/${orderCode}/pay`,
-      method: "get",
-      params: {
-        successUrl: "http://localhost:3000",
-        errorUrl: "http://localhost:3000/main",
-        cancelUrl: "http://localhost:3000/quick",
-      },
-    });
-    console.log(reponse);
-  } catch (e) {
-    console.log(e);
-  }
-};
+// export const orderRedirect = async (orderCode) => {
+//   console.log("orderCode", orderCode);
+//   try {
+//     const reponse = await stepPayServer({
+//       url: `v1/orders/${orderCode}/pay`,
+//       method: "get",
+//       params: {
+//         successUrl: "http://localhost:3000",
+//         errorUrl: "http://localhost:3000/main",
+//         cancelUrl: "http://localhost:3000/quick",
+//       },
+//     });
+//     console.log(reponse);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 
+/* 
+  결제창 띄는 함수
+*/
 function redirectPay(orderCode) {
   var url = `https://api.steppay.kr/api/public/orders/${orderCode}/pay?successUrl=http://localhost:3000/&errorUrl=http://localhost:3000/main&cancelUrl=http://localhost:3000/quick`;
   window.location.href = url;
 }
+
+/* 
+  고객 상세 조회
+*/
+
+export const customerSearch = async (userCode) => {
+  try {
+    const response = await stepPayServer({
+      url: `/v1/customers/${userCode}`,
+      method: "GET",
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 // fetch("http://localhost:3000/api/v1/products", options)
 //   .then((response) => response.json())

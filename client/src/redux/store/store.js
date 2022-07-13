@@ -7,6 +7,7 @@ import logger from "redux-logger";
 import modalSlice from "../reducer/modalSlice";
 import cardTypeSlice from "../reducer/cardTypeSlice";
 import categorySlice from "../reducer/categorySlice";
+import subsSlice from "../reducer/user/subsSlice";
 // if (process.env.NODE_ENV !== "production") {
 //   middleware.push(logger);
 // }
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   modalSlice,
   cardTypeSlice,
   categorySlice,
+  subsSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

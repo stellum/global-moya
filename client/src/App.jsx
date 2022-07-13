@@ -27,21 +27,25 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/main" element={<MainPage />} />
+
+            {/* Register */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/registerpolicy" element={<RegisterPolicy />} />
-
             <Route path="/pwchange" element={<PwChange />} />
+            <Route path="/personalpolicy" element={<PersonalPolicy />} />
+            <Route path="/servicepolicy" element={<ServicePolicy />} />
+            {/* Subs */}
             <Route path="/subscribe" element={<SubscribeModal />} />
-            {/* 로그인 된 사람 중 키워드 있는 사람만  */}
+
+            {/* MyPage */}
             <Route path="/mypagemain" element={<MyPageMain />} />
             <Route path="/mypage/profile" element={<Profile />} />
             <Route path="/mypage/subscription" element={<Subscription />} />
-            <Route path="/personalpolicy" element={<PersonalPolicy />} />
-            <Route path="/servicepolicy" element={<ServicePolicy />} />
 
             <Route path="/contactus" element={<ContactUs />} />
 
+            {/* Quick Search */}
             <Route path="/quick" element={<QuickGuideMain />} />
             <Route path="/quick/:id" element={<CategoryMain />} />
             <Route path="/keyword" element={<KeywordMain />} />

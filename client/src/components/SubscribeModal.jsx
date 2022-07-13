@@ -6,7 +6,7 @@ import MoyaLogo from "@components/MoyaLogo";
 import { colors, fontWeight, fontSize, pxToRem } from "@styles/theme";
 import { useNavigate } from "react-router-dom";
 import { DefaultButton } from "@styles/common/button/button";
-import { createOrder, orderRedirect } from "../api/subsApi";
+import { createOrder } from "../api/subsApi";
 import UserCheck from "../hoc/UserCheck";
 import { RequiredLogin } from "../hoc/userAccessType";
 import { useSelector } from "react-redux";
@@ -17,7 +17,6 @@ const SubscribeModal = () => {
   const subsFetch = async () => {
     const orderCode = await createOrder(userCode);
     console.log(orderCode);
-    // if (orderCode) orderRedirect(orderCode);
   };
   const handleSubs = () => {
     subsFetch();

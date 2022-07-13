@@ -1,15 +1,11 @@
 import styled from "styled-components";
 import { fontSize, fontWeight, colors } from "../theme";
 
-export const MainContainer = styled.div`
-  width: 100%;
-  height: 20px;
-`;
+export const MainContainer = styled.div``;
 
 export const Main = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 17px;
   height: 56px;
   h3 {
     text-align: center;
@@ -28,7 +24,6 @@ export const Main = styled.div`
 `;
 
 export const AccountInfo = styled.div`
-  width: 600px;
   padding-left: 15px;
   padding-right: 15px;
   /* width: 360px; */
@@ -63,81 +58,59 @@ export const Account = styled.div`
 
 export const SubscriptionInfo = styled.div`
   width: 100%;
-  height: 110px;
   background-color: #fff;
   box-sizing: border-box;
   border: 1px solid #dfdfdf;
   border-radius: 2px;
-  span {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.2px;
-    color: #2a2a2a;
-    margin-left: 16px;
-  }
-  button {
-    width: 69px;
-    height: 24px;
-    border: 1px solid #dfdfdf;
-    border-radius: 2px;
-    margin-left: 102px;
-    margin-top: 12px;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 18px;
-    display: inline-block;
-    letter-spacing: -0.2px;
-    background: #ffffff;
-    /* Gray/Gray400 */
+  padding: 12px 12px 14px 16px;
+  .subs {
+    display: flex;
+    justify-content: space-between;
+    span {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.2px;
+      color: #2a2a2a;
+    }
+    button {
+      width: 69px;
+      height: 24px;
+      border: 1px solid #dfdfdf;
+      border-radius: 2px;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 18px;
+      display: inline-block;
+      letter-spacing: -0.2px;
+      background: #ffffff;
+      /* Gray/Gray400 */
 
-    color: #b7b7b7;
+      color: #b7b7b7;
+    }
   }
 `;
-export const Subscription = styled.table`
+export const Subscription = styled.div`
   font-size: ${fontSize.FontSize14};
   color: ${colors.gray500};
   line-height: 22px;
   font-weight: ${fontWeight.FontWeight500};
-  margin-left: 16px;
-  margin-top: 22px;
+  margin-top: 16px;
   display: flex;
-  flex-wrap: wrap;
-  th:last-child {
-    margin-left: 101px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
-    letter-spacing: -0.2px;
-    /* Gray/Gray500 */
-    color: #949494;
-  }
-  td:last-child {
-    margin-left: 101px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
-    letter-spacing: -0.2px;
-    /* Gray/Gray500 */
-    color: #949494;
-  }
-  p {
-    margin-left: 101px;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
-    letter-spacing: -0.2px;
-    /* Gray/Gray500 */
-    color: #949494;
+  flex-direction: column;
+  .substerm {
+    display: flex;
+    div {
+      width: 74px;
+    }
   }
 `;
 export const Menu = styled.ul`
-  margin-left: 16px;
-  margin-top: 20px;
-  position: relative;
+  border-bottom: 1px solid #ddd;
 `;
 
 export const Settings = styled.ul`
+  padding: 20px 18px 20px 18px;
   /* 계정 관리 */
   li:nth-child(1) {
     font-weight: 600;
@@ -150,7 +123,7 @@ export const Settings = styled.ul`
   /* 비밀번호 재설정 */
   li:nth-child(2) {
     width: 360px;
-    height: 44px;
+    height: 24px;
     left: 0px;
     top: 343px;
     font-weight: 500;
@@ -174,6 +147,10 @@ export const Settings = styled.ul`
 `;
 
 export const Help = styled.div`
+  border-top: 1px solid #ddd;
+  .helpWrap {
+    padding: 20px 18px 20px 18px;
+  }
   div {
     font-weight: 600;
     font-size: 14px;
@@ -184,6 +161,9 @@ export const Help = styled.div`
   }
   ul {
     margin-top: 15px;
+    color: ${colors.gray800};
+    font-weight: 500;
+    font-size: 16px;
     li {
       width: 360px;
       height: 44px;
