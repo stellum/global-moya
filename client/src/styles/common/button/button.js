@@ -37,3 +37,21 @@ export const CategoryButton = styled(DefaultButton)`
   color: ${colors.gray700};
   margin: 0;
 `;
+export const DefaultBlackButton = styled.button`
+  ${({ theme }) => theme.common.flexCenter}
+  width:${({ black }) => (black ? "64px" : "53px")};
+  height: 38px;
+  color: ${(props) =>
+    props.black ? props.theme.colors.white : props.theme.colors.gray500};
+  background-color: ${(props) =>
+    props.black ? props.theme.colors.black : props.theme.colors.gray150};
+  border-radius: 2px;
+  font-weight: ${fontWeight.FontWeight500};
+`;
+export const RadiusBlackButton = styled(DefaultButton)`
+  border-radius: 200px;
+  font-weight: ${fontWeight.FontWeight500};
+  width: auto;
+  padding: 0 16px;
+  margin-right: 8px;
+`;

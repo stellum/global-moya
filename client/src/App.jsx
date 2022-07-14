@@ -17,7 +17,11 @@ import PersonalPolicy from "@pages/myPage/PersonalPolicy";
 import ServicePolicy from "@pages/myPage/ServicePolicy";
 import Profile from "@pages/myPage/Profile";
 import Subscription from "./pages/myPage/Subscription";
-
+import ScrapMain from "./pages/scrap/ScrapMain";
+import ScrapNews from "./pages/scrap/ScrapNews";
+import ScrapNewsEdit from "./pages/scrap/ScrapNewsEdit";
+import NewFolder from "./pages/scrap/NewFolder";
+import ScrapGroupEdit from "./pages/scrap/ScrapGroupEdit";
 function App() {
   return (
     <>
@@ -42,6 +46,13 @@ function App() {
             <Route path="/mypage/subscription" element={<Subscription />} />
 
             <Route path="/contactus" element={<ContactUs />} />
+
+            {/*Scrap*/}
+            <Route path="/scrap" element={<ScrapMain />} />
+            <Route path="/scrap/:id" element={<ScrapNews />} />
+            <Route path="/scrap/:id/edit" element={<ScrapNewsEdit />} />
+            <Route path="/newfolder" element={<NewFolder />} />
+            <Route path="/scrap/groupedit" element={<ScrapGroupEdit />} />
 
             {/* Quick Search */}
             <Route path="/quick" element={<QuickGuideMain />} />
