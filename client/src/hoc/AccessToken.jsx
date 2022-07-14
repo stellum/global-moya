@@ -8,13 +8,17 @@ const AccessToken = (SpecificComponent) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const userLogin = useSelector((state) => state.user.userLogin);
     const dispatch = useDispatch();
+
+    const getCookie = async () => {
+      const refresh = await getCookieToken();
+      const access_token = await refreshTokenFunc(refresh);
+      await dispatch(setAccessTokenAction(access_token));
+    };
+
     useEffect(() => {
-      const getCookie = async () => {
-        const refresh = await getCookieToken();
-        const access_token = await refreshTokenFunc(refresh);
-        await dispatch(setAccessTokenAction(access_token));
-      };
-      getCookie();
+      if (userLogin) {
+        getCookie();
+      }
     }, []);
     return (
       <SpecificComponent accessToken={accessToken} userLogin={userLogin} />
