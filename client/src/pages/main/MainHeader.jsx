@@ -1,23 +1,38 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import { MainHeader, SideHeader } from "@styles/main/mainPageHeader";
 import { NaviWrap, NaviGo, Navispan } from "@styles/naviStyle/naviWrap";
 import { FilterBG } from "@styles/filterStyle/filterBG";
+
 import Hamburger from "@components/common/Hamburger";
 import MoyaLogo from "@components/MoyaLogo";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleNavigation } from "../../redux/reducer/modalSlice";
+
 import { logOutFunc } from "@api/loginApi";
+
+import { toggleNavigation } from "@redux/modalSlice";
 import { userLogoutAction } from "@redux/user/userSlice";
-import { Link } from "react-router-dom";
-const Header = () => {
+
+import AccessToken from "@hoc/AccessToken";
+
+const Header = ({ userLogin, accessToken }) => {
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
-
+  const navigate = useNavigate();
   const toggleNavi = () => {
     dispatch(toggleNavigation(!showNavi));
   };
   const handleBG = () => {
     dispatch(toggleNavigation(!showNavi));
+  };
+
+  const handleLogin = () => {
+    if (!userLogin) navigate("/login");
+    else {
+      logOutFunc(accessToken);
+      dispatch(userLogoutAction());
+    }
   };
   return (
     <>
@@ -40,13 +55,8 @@ const Header = () => {
         <Link to="/mypagemain">
           <NaviGo>마이페이지</NaviGo>
         </Link>
-        <NaviGo
-          onClick={() => {
-            logOutFunc();
-            dispatch(userLogoutAction());
-          }}
-        >
-          로그아웃
+        <NaviGo onClick={handleLogin}>
+          {userLogin ? "로그아웃" : "로그인"}
         </NaviGo>
       </NaviWrap>
       <FilterBG showNavi={showNavi} onClick={handleBG} />
@@ -58,4 +68,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default AccessToken(Header);

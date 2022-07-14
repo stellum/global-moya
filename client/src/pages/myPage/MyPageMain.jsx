@@ -34,7 +34,7 @@ const MyPageMain = ({ user }) => {
             <Account>
               <ProfileIcon />
               <span>{subsUser.name}</span>
-              <p>{subsUser.email}r</p>
+              <p>{subsUser.email}</p>
             </Account>
 
             <SubscriptionInfo>
