@@ -1,18 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import { MainHeader, SideHeader } from "@styles/main/mainPageHeader";
 import { NaviWrap, NaviGo, Navispan } from "@styles/naviStyle/naviWrap";
 import { FilterBG } from "@styles/filterStyle/filterBG";
+
 import Hamburger from "@components/common/Hamburger";
 import MoyaLogo from "@components/MoyaLogo";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleNavigation } from "../../redux/reducer/modalSlice";
+
 import { logOutFunc } from "@api/loginApi";
+
+import { toggleNavigation } from "@redux/modalSlice";
 import { userLogoutAction } from "@redux/user/userSlice";
-import { Link } from "react-router-dom";
-const Header = () => {
+
+import AccessToken from "@hoc/AccessToken";
+
+const Header = ({ userLogin, accessToken }) => {
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
-
   const toggleNavi = () => {
     dispatch(toggleNavigation(!showNavi));
   };
@@ -46,7 +52,7 @@ const Header = () => {
             dispatch(userLogoutAction());
           }}
         >
-          로그아웃
+          {userLogin ? "로그아웃" : "로그인"}
         </NaviGo>
       </NaviWrap>
       <FilterBG showNavi={showNavi} onClick={handleBG} />
@@ -58,4 +64,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default AccessToken(Header);

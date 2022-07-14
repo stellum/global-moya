@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorPage from "@pages/error/ErrorPage";
 import Home from "@pages/home/Home";
@@ -18,7 +18,7 @@ import PersonalPolicy from "@pages/myPage/PersonalPolicy";
 import ServicePolicy from "@pages/myPage/ServicePolicy";
 import Profile from "@pages/myPage/Profile";
 import Subscription from "./pages/myPage/Subscription";
-
+import { ReactQueryDevtools } from "react-query/devtools";
 function App() {
   return (
     <>
@@ -51,6 +51,7 @@ function App() {
             <Route path="/keyword" element={<KeywordMain />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
+          <ReactQueryDevtools initialIsOpen={false} />
         </CustomContainer>
       </BrowserRouter>
     </>

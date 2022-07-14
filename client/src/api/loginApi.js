@@ -1,5 +1,5 @@
 import clientServer from "./baseUrl";
-import { setCookie, getCookie, deleteCookie } from "../util/settingSessions";
+// import { setCookie, getCookie, deleteCookie } from "../util/settingSessions";
 
 export const loginFunc = async (form) => {
   try {
@@ -10,13 +10,7 @@ export const loginFunc = async (form) => {
     });
 
     if (response.status === 200) {
-      const { access_token } = response.data;
-      setCookie(access_token);
-      // console.log(access_token);
-      clientServer.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${access_token}`;
-      return response.status;
+      return response;
     }
   } catch (error) {
     if (error.response.status === 400) {
@@ -25,18 +19,27 @@ export const loginFunc = async (form) => {
   }
 };
 
-export const logOutFunc = async () => {
-  const accessToken = getCookie();
+export const logOutFunc = async (accessToken) => {
   try {
     const response = await clientServer({
       url: "auth/logout",
       method: "delete",
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    if (response.status === 200) {
-      // deleteCookie();
-    }
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const refreshTokenFunc = async (refreshToken) => {
+  // const refreshToken = getCookie();
+  try {
+    const response = await clientServer({
+      url: "/auth/refresh",
+      method: "POST",
+      headers: { Authorization: `Bearer ${refreshToken}` },
+    });
+  } catch (err) {
+    console.log(err);
   }
 };

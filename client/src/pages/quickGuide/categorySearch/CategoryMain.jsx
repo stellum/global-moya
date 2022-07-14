@@ -15,9 +15,8 @@ import { isLoading, searchKeyword } from "@redux/categorySlice";
 import { getCategoryList } from "@api/masterApi";
 import { getKeywords } from "@api/keywordListApi";
 import { useSelector, useDispatch } from "react-redux";
-import { set } from "lodash";
-
-const CategoryMain = () => {
+import AccessToken from "@hoc/AccessToken";
+const CategoryMain = ({ accessToken }) => {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
   const [reports, setReports] = useState([]);
@@ -29,16 +28,17 @@ const CategoryMain = () => {
   const inputRef = useRef(null);
   const { lastElementRef } = QuickInfiniteHook(setPage);
   const dispatch = useDispatch();
-  // getKeywords().then((res) => setReports(res.reports))
   const fetch = async () => {
     try {
       const response = await getCategoryList(category);
+
       if (response.details.length > 0) {
         setDataList(response.details);
-        const reports = await getKeywords();
-        if (reports.reports.length > 0) {
+        const reports = await getKeywords(accessToken);
+
+        if (reports.length > 0) {
           dispatch(isLoading(false));
-          setReports(reports.reports);
+          setReports(reports);
         }
       }
     } catch (e) {
@@ -46,9 +46,6 @@ const CategoryMain = () => {
     } finally {
       dispatch(isLoading(false));
     }
-
-    // .then(dispatch(isLoading(false)))
-    // .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -98,4 +95,4 @@ const CategoryMain = () => {
   );
 };
 
-export default CategoryMain;
+export default AccessToken(CategoryMain);
