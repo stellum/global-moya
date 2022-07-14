@@ -40,8 +40,8 @@ const HiglightKeyword = ({ dataList, keyword, loading }) => {
                     color: `${colors.pointOrange200}`,
                     backgroundColor: "transparent",
                   }}
-                />
-                &npsp (
+                />{" "}
+                (
                 <Highlighter
                   textToHighlight={item.paramValue}
                   searchWords={[keyword]}

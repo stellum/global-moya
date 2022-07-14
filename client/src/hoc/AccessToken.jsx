@@ -4,7 +4,7 @@ import { getCookieToken } from "@util/settingSessions";
 import { refreshTokenFunc } from "@api/loginApi";
 import { setAccessTokenAction } from "@redux/user/userSlice";
 const AccessToken = (SpecificComponent) => {
-  const AccessToken = () => {
+  const AccessToken = (props) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const userLogin = useSelector((state) => state.user.userLogin);
     const dispatch = useDispatch();
@@ -21,7 +21,11 @@ const AccessToken = (SpecificComponent) => {
       }
     }, []);
     return (
-      <SpecificComponent accessToken={accessToken} userLogin={userLogin} />
+      <SpecificComponent
+        {...props}
+        accessToken={accessToken}
+        userLogin={userLogin}
+      />
     );
   };
   return AccessToken;

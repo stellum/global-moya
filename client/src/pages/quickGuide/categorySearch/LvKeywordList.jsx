@@ -9,9 +9,9 @@ import {
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
 import Spinner from "@components/common/Spinner";
 import _ from "lodash";
-import { createKeywords } from "@api/keywordListApi";
 import AccessToken from "@hoc/AccessToken";
 import { checkClip } from "@util/filterMasterFunc";
+import { deleteKeywordFunc, createKeywordFunc } from "@util";
 const LvKeywordList = ({
   dataList,
   myRef,
@@ -20,9 +20,11 @@ const LvKeywordList = ({
   category,
   clipKeyword,
   accessToken,
+
+  setFillStar,
 }) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 100 });
-
+  // console.log(clipKeyword);
   useEffect(() => {
     setSliceValue((prev) => ({
       minValue: prev.maxValue,
@@ -30,26 +32,14 @@ const LvKeywordList = ({
     }));
   }, [page]);
 
-  useEffect(() => {
-    console.log(loading);
-  }, [category]);
-
-  const createKeywordFunc = async (id, category, accessToken) => {
-    const data = {
-      keyType: category,
-      _id: id.toString(),
-      termSeq: "z",
-    };
-
-    const res = await createKeywords(data);
+  const handleFillStar = (_id, category, accessToken, clipKeyword) => {
+    setFillStar((prev) => !prev);
+    if (checkClip(clipKeyword, _id)) {
+      deleteKeywordFunc(_id, category, accessToken, clipKeyword);
+    } else {
+      createKeywordFunc(_id, category, accessToken);
+    }
   };
-
-  /* 
-    1. 등록된 키워드 리스트를 불러온다 -> keyType 과 category 비교
-    2. 등록된 키워드 리스트 id와 뿌려지는 id 가 같으면 별에 색을 채운다
-    3. ??
-  
-  */
   return (
     <>
       {loading ? (
@@ -73,7 +63,14 @@ const LvKeywordList = ({
                         </KeywordH4>
                       </KeywordWrap>
                       <StarIcon
-                        onClick={() => createKeywordFunc(item)}
+                        onClick={() => {
+                          handleFillStar(
+                            item._id,
+                            category,
+                            accessToken,
+                            clipKeyword
+                          );
+                        }}
                         $clip={checkClip(clipKeyword, item._id)}
                       />
                     </KeywordLi>
@@ -91,7 +88,14 @@ const LvKeywordList = ({
                       </KeywordWrap>
                       <IconWrap star>
                         <StarIcon
-                          onClick={() => createKeywordFunc(item._id, category)}
+                          onClick={() => {
+                            handleFillStar(
+                              item._id,
+                              category,
+                              accessToken,
+                              clipKeyword
+                            );
+                          }}
                           $clip={checkClip(clipKeyword, item._id)}
                         />
                       </IconWrap>
