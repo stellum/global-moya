@@ -15,10 +15,13 @@ import { useNavigate, Link } from "react-router-dom";
 import UserCheck from "@hoc/UserCheck";
 import { RequiredLogin } from "@hoc/userAccessType";
 import { useSelector } from "react-redux";
+import { dateFormat, subDate } from "@util/dateFunc";
 const MyPageMain = ({ user }) => {
   const navigate = useNavigate();
   const subsUser = useSelector((state) => state.subsSlice.subsUser);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(subsUser);
+  }, []);
   return (
     <MainContainer>
       {user && (
@@ -46,11 +49,14 @@ const MyPageMain = ({ user }) => {
               </div>
               <Subscription>
                 <div className="substerm">
-                  <div>구독 기간 </div>| &nbsp; 2022.05.28 ~ 2022.06.27
+                  <div>구독 기간 </div>| &nbsp;
+                  {subDate(subsUser.subscriptions[0].nextPaymentDateTime)}{" "}
+                  &nbsp;~ &nbsp;
+                  {dateFormat(subsUser.subscriptions[0].nextPaymentDateTime)}
                 </div>
                 <div className="substerm">
                   <div>다음 결제일 </div>| &nbsp;
-                  {subsUser.subscriptions[0].nextPaymentDateTime}
+                  {dateFormat(subsUser.subscriptions[0].nextPaymentDateTime)}
                 </div>
               </Subscription>
             </SubscriptionInfo>
