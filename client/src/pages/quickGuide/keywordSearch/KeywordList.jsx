@@ -3,7 +3,6 @@ import MasterValueHook from "@hooks/MasterValueHook";
 import {
   KeywordUL,
   HighLightLi,
-  KeywordH4,
   IconWrap,
   NoResults,
   ResultsUL,
@@ -15,8 +14,17 @@ import Highlighter from "react-highlight-words";
 import HightLightText from "@components/HightLightText";
 import { colors } from "@styles/theme";
 import { changeCase } from "@util/changeCase";
-const KeywordList = ({ keyword }) => {
+import { getKeywords } from "../../../api/keywordListApi";
+const KeywordList = ({ keyword, updateSearchInput }) => {
   const { filteredResult, generateKey } = MasterValueHook(keyword);
+  const searchWord = (name) => {
+    updateSearchInput(name);
+    getKeywords();
+  };
+
+  const createKeywordFunc = (_id, keyType) => {
+    console.log(_id, keyType);
+  };
   return (
     <KeywordUL>
       {filteredResult &&
@@ -36,7 +44,9 @@ const KeywordList = ({ keyword }) => {
                           <IconWrap>
                             <SearchIcon />
                           </IconWrap>
-                          <HightLightText>
+                          <HightLightText
+                            searchWord={() => searchWord(value.name)}
+                          >
                             <Highlighter
                               textToHighlight={value.name}
                               searchWords={[keyword]}
@@ -47,7 +57,11 @@ const KeywordList = ({ keyword }) => {
                             />
                           </HightLightText>
                           <IconWrap star>
-                            <StarIcon />
+                            <StarIcon
+                              onClick={() => {
+                                createKeywordFunc(value._id, item.mainCate);
+                              }}
+                            />
                           </IconWrap>
                         </HighLightLi>
                       </>

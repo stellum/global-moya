@@ -18,6 +18,7 @@ const QuickGuideHeader = ({ inputRef, keyword }) => {
     inputRef.current.value = "";
     dispatch(searchKeyword(""));
   };
+
   return (
     <QuickInputWrap>
       <div

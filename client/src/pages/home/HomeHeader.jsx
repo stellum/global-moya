@@ -15,7 +15,9 @@ const HomeHeader = () => {
             <Link to="/subscribe" style={{ marginRight: 15 }}>
               <DefaultButton>구독</DefaultButton>
             </Link>
-            <ProfileIcon />
+            <Link to="/mypagemain">
+              <ProfileIcon />
+            </Link>
           </>
         ) : (
           <Link to="/login">

@@ -3,10 +3,10 @@ import {
   KeywordH4,
   KeywordWrap,
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
-const HightLightText = ({ children }) => {
+const HightLightText = ({ searchWord, children }) => {
   return (
     <KeywordWrap>
-      <KeywordH4>{children}</KeywordH4>
+      <KeywordH4 onClick={searchWord}>{children}</KeywordH4>
     </KeywordWrap>
   );
 };

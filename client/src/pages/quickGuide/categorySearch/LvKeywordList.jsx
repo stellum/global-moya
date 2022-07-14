@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useCallback } from "react";
 import { SearchIcon, StarIcon } from "@styles/svgIcon";
 import {
   KeywordLi,
@@ -9,7 +9,17 @@ import {
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
 import Spinner from "@components/common/Spinner";
 import _ from "lodash";
-const LvKeywordList = ({ dataList, myRef, page, loading }) => {
+import { createKeywords } from "@api/keywordListApi";
+
+import { checkClip } from "@util/filterMasterFunc";
+const LvKeywordList = ({
+  dataList,
+  myRef,
+  page,
+  loading,
+  category,
+  clipKeyword,
+}) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 100 });
 
   useEffect(() => {
@@ -19,6 +29,27 @@ const LvKeywordList = ({ dataList, myRef, page, loading }) => {
     }));
   }, [page]);
 
+  useEffect(() => {
+    console.log(loading);
+  }, [category]);
+
+  const createKeywordFunc = async (id, category) => {
+    const data = {
+      keyType: category,
+      _id: id.toString(),
+      termSeq: "z",
+    };
+
+    const res = await createKeywords(data);
+    console.log(res);
+  };
+
+  /* 
+    1. 등록된 키워드 리스트를 불러온다 -> keyType 과 category 비교
+    2. 등록된 키워드 리스트 id와 뿌려지는 id 가 같으면 별에 색을 채운다
+    3. ??
+  
+  */
   return (
     <>
       {loading ? (
@@ -41,7 +72,10 @@ const LvKeywordList = ({ dataList, myRef, page, loading }) => {
                           {item.name} ({item.paramValue})
                         </KeywordH4>
                       </KeywordWrap>
-                      <StarIcon />
+                      <StarIcon
+                        onClick={() => createKeywordFunc(item)}
+                        $clip={checkClip(clipKeyword, item._id)}
+                      />
                     </KeywordLi>
                   );
                 } else {
@@ -56,7 +90,10 @@ const LvKeywordList = ({ dataList, myRef, page, loading }) => {
                         </KeywordH4>
                       </KeywordWrap>
                       <IconWrap star>
-                        <StarIcon />
+                        <StarIcon
+                          onClick={() => createKeywordFunc(item._id, category)}
+                          $clip={checkClip(clipKeyword, item._id)}
+                        />
                       </IconWrap>
                     </KeywordLi>
                   );

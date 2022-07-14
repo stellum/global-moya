@@ -1,3 +1,10 @@
+
+import React from "react";
+import HomeContent from "./HomeContent";
+import HomeFooter from "./HomeFooter";
+import TokenCheck from "../../hoc/TokenCheck";
+const Home = () => {
+
 import React, { useEffect, useRef } from "react";
 import { getKeywords } from "@api/keywordListApi";
 import { useSelector, useDispatch } from "react-redux";
@@ -47,6 +54,7 @@ const Home = () => {
     }
   }, []);
 
+
   return (
     <>
       <HomeContent />
@@ -55,4 +63,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default TokenCheck(Home);

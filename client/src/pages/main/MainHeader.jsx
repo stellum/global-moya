@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleNavigation } from "../../redux/reducer/modalSlice";
 import { logOutFunc } from "@api/loginApi";
 import { userLogoutAction } from "@redux/user/userSlice";
+import { Link } from "react-router-dom";
 const Header = () => {
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
@@ -36,7 +37,9 @@ const Header = () => {
         <NaviGo>스크랩 뉴스</NaviGo>
         <NaviGo>키워드 관리</NaviGo>
         <Navispan />
-        <NaviGo>마이페이지</NaviGo>
+        <Link to="/mypagemain">
+          <NaviGo>마이페이지</NaviGo>
+        </Link>
         <NaviGo
           onClick={() => {
             logOutFunc();
