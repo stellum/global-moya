@@ -4,8 +4,7 @@ import ErrorPage from "@pages/error/ErrorPage";
 import Home from "@pages/home/Home";
 import MainPage from "@pages/main/MainPage";
 import Login from "./pages/login/Login";
-import Register from "./pages/login/Register";
-import RegisterPolicy from "@pages/register/RegisterPolicy";
+import RegisterContainer from "@pages/register/RegisterContainer";
 import PwChange from "./pages/login/PwChange";
 import QuickGuideMain from "@pages/quickGuide/QuickGuideMain";
 import { CustomContainer } from "@styles/common/container";
@@ -30,8 +29,7 @@ function App() {
 
             {/* Register */}
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/registerpolicy" element={<RegisterPolicy />} />
+            <Route path="/register" element={<RegisterContainer />} />
             <Route path="/pwchange" element={<PwChange />} />
             <Route path="/personalpolicy" element={<PersonalPolicy />} />
             <Route path="/servicepolicy" element={<ServicePolicy />} />

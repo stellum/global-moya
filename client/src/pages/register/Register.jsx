@@ -144,7 +144,7 @@ const Register = () => {
         />
         <RegisterInput
           type="number"
-          name="phoneNumber"
+          name="phoneNum"
           maxLength="11"
           pattern="[0-9]+"
           placeholder="전화번호"
