@@ -6,6 +6,8 @@ export const getSearchData = async (queryParams) => {
   const { timeFilter, mediaType, language, orderBy, keyType, paramValue } =
     queryParams;
 
+  console.log("queryParams", queryParams);
+
   try {
     const response = await clientServer({
       url: "/news/search",
