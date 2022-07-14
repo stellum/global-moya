@@ -3,7 +3,7 @@ import MainHeader from "./MainHeader";
 import MainInputComponent from "./MainInput";
 import MainKeywordList from "./MainKeywordList";
 // import EditProvider from "@components/edit/EditProvider";
-import EditContainer from "@components/edit/EditContainer";
+// import EditContainer from "@components/edit/EditContainer";
 // import NewsCard from "@components/NewsCard";
 
 import FilterIconModal from "@components/filterModal/FilterIconModal";

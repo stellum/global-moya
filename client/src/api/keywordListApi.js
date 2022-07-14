@@ -14,20 +14,6 @@ export const getKeywords = async () => {
       url: "preferTerms/reports",
       headers: { Authorization: `Bearer ${accessToken}` },
 
-      // transformResponse: [
-      //   function (data) {
-      //     const transformedData = JSON.parse(data);
-      //     // console.log("transformedData", transformedData);
-      //     return transformedData.reports.map((item, index) => {
-      //       item.index = index;
-      //       return item;
-      //     });
-      //   },
-      // ],
-      // withCredentials: true,
-    });
-    // console.log(response);
-
       transformResponse: [
         function (data) {
           const transformedData = JSON.parse(data);
@@ -58,8 +44,6 @@ export const getKeywords = async () => {
  */
 
 export const createKeywords = async (json) => {
-
-
   const accessToken = getCookie();
 
   try {
@@ -74,7 +58,6 @@ export const createKeywords = async (json) => {
     if (response.status === 200) {
       // console.log(data);
       return response;
-
     }
   } catch (e) {
     // 401, 2002, 4018 에러처리 필요
