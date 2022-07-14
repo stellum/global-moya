@@ -16,6 +16,10 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setAccessTokenAction: (state, action) => {
+      state.accessToken = action.payload;
+      state.expireTime = new Date().getTime + TOKEN_TIME_OUT;
+    },
     fetchUserSuccess: (state, action) => {
       state.userLogin = true;
       state.expireTime = new Date().getTime + TOKEN_TIME_OUT;
@@ -31,7 +35,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { deleteTokenAction, fetchUserSuccess, userLogoutAction } =
+export const { setAccessTokenAction, fetchUserSuccess, userLogoutAction } =
   userSlice.actions;
 
 export default userSlice.reducer;

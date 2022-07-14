@@ -1,10 +1,21 @@
-import React from "react";
-import { useSelector } from "react-redux";
-
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getCookieToken } from "@util/settingSessions";
+import { refreshTokenFunc } from "@api/loginApi";
+import { setAccessTokenAction } from "@redux/user/userSlice";
 const AccessToken = (SpecificComponent) => {
   const AccessToken = () => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const userLogin = useSelector((state) => state.user.userLogin);
+    const dispatch = useDispatch();
+    useEffect(() => {
+      const getCookie = async () => {
+        const refresh = await getCookieToken();
+        const access_token = await refreshTokenFunc(refresh);
+        await dispatch(setAccessTokenAction(access_token));
+      };
+      getCookie();
+    }, []);
     return (
       <SpecificComponent accessToken={accessToken} userLogin={userLogin} />
     );

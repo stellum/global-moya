@@ -6,14 +6,12 @@ import { useDispatch } from "react-redux";
 
 import { loginFunc } from "@api/loginApi";
 import { searchUserList } from "@api/subsApi";
-import { getKeywords } from "@api/keywordListApi";
 
 import UserCheck from "@hoc/UserCheck";
 import { RequiredLogout } from "@hoc/userAccessType";
 
 import { fetchUserSuccess } from "@redux/user/userSlice";
 import { subsUserAction } from "@redux/user/subsSlice";
-import { addKeywordListAction } from "@redux/keywordListSlice";
 
 import { setRefreshToken } from "@util/settingSessions";
 const Login = () => {
@@ -33,16 +31,16 @@ const Login = () => {
       const userEmail = userList.userCode.content[0].email;
       const userCode = userList.userCode.content[0].id;
 
-      dispatch(
+      await dispatch(
         fetchUserSuccess({
           userEmail,
           userCode,
           accessToken: response.data.access_token,
         })
       );
-      dispatch(subsUserAction(userList.subsUser));
-      setRefreshToken(response.data.refresh_token);
-      navigate("/");
+      await dispatch(subsUserAction(userList.subsUser));
+      await setRefreshToken(response.data.refresh_token);
+      navigate(-1);
     } else if (response.status === 400) {
       alert("경고");
     }

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { MainHeader, SideHeader } from "@styles/main/mainPageHeader";
@@ -19,11 +19,20 @@ import AccessToken from "@hoc/AccessToken";
 const Header = ({ userLogin, accessToken }) => {
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
+  const navigate = useNavigate();
   const toggleNavi = () => {
     dispatch(toggleNavigation(!showNavi));
   };
   const handleBG = () => {
     dispatch(toggleNavigation(!showNavi));
+  };
+
+  const handleLogin = () => {
+    if (!userLogin) navigate("/login");
+    else {
+      logOutFunc(accessToken);
+      dispatch(userLogoutAction());
+    }
   };
   return (
     <>
@@ -46,12 +55,7 @@ const Header = ({ userLogin, accessToken }) => {
         <Link to="/mypagemain">
           <NaviGo>마이페이지</NaviGo>
         </Link>
-        <NaviGo
-          onClick={() => {
-            logOutFunc();
-            dispatch(userLogoutAction());
-          }}
-        >
+        <NaviGo onClick={handleLogin}>
           {userLogin ? "로그아웃" : "로그인"}
         </NaviGo>
       </NaviWrap>
