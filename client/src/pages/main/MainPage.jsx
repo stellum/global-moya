@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import MainHeader from "./MainHeader";
 import MainInputComponent from "./MainInput";
 import MainKeywordList from "./MainKeywordList";
+// import EditProvider from "@components/edit/EditProvider";
+import EditContainer from "@components/edit/EditContainer";
+// import NewsCard from "@components/NewsCard";
 
-import NewsCard from "@components/NewsCard";
 import FilterIconModal from "@components/filterModal/FilterIconModal";
 import FilterTypeModal from "@components/filterModal/FilterTypeModal";
 import ViewTypeFilter from "../filtermodal/ViewTypeFilter";
@@ -62,9 +64,11 @@ const MainPage = () => {
       <MainPageContainer>
         <MainHeader />
         <MainInputComponent />
-        <MainKeywordList />
+        <MainKeywordList view={view} apply={apply} />
+        {/* <EditProvider /> */}
+        {/* <EditContainer /> */}
       </MainPageContainer>
-      <NewsCard view={view} apply={apply} />
+      {/* <NewsCard view={view} apply={apply} /> */}
     </>
   );
 };

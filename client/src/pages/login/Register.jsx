@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { registerFunc } from "@api/registerApi";
+import { emailCheckFunc } from "@api/emailCheckApi";
 import styled from "styled-components";
 
 const RegisterForm = styled.form`
@@ -59,8 +60,23 @@ const Register = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isSubmitting },
   } = useForm();
+
+  // 이메일 중복 검증 하는 함수 (버튼 글자 바꾸는 함수 미포함)
+  const handleEmail = () => {
+    console.log(watch().email);
+    let data = { email: watch().email };
+    let check = emailCheckFunc(JSON.stringify(data));
+    const button = document.getElementById("emailCheck");
+
+    if (check === 200) {
+      button.innerText = "확인 완료";
+    } else {
+      button.innerText = "확인 필요";
+    }
+  };
 
   return (
     <>
@@ -91,6 +107,10 @@ const Register = () => {
             },
           })}
         />
+        {/* 이메일 중복 체크 하는 버튼 */}
+        <button id="emailCheck" onClick={handleEmail}>
+          중복 확인
+        </button>
         {/* // icons-check 들어가는 부분 */}
         <RegisterInput
           type="password"

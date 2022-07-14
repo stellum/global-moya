@@ -2,12 +2,12 @@ import React from "react";
 import { GlobalMoyaLogo, SearchIcon } from "@styles/svgIcon";
 import { HomeContainer } from "@styles/home/homeContainer";
 import { useNavigate } from "react-router-dom";
-// import {SearchIcon} from '@styles/svgIcon'
 import {
   HomeInputTag,
   HomeInputWrap,
   SearchIconWrap,
 } from "@styles/home/homeInput";
+
 const HomeInput = () => {
   const navigate = useNavigate();
   return (

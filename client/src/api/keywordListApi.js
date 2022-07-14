@@ -13,6 +13,7 @@ export const getKeywords = async () => {
     const response = await clientServer({
       url: "preferTerms/reports",
       headers: { Authorization: `Bearer ${accessToken}` },
+
       // transformResponse: [
       //   function (data) {
       //     const transformedData = JSON.parse(data);
@@ -26,6 +27,20 @@ export const getKeywords = async () => {
       // withCredentials: true,
     });
     // console.log(response);
+
+      transformResponse: [
+        function (data) {
+          const transformedData = JSON.parse(data);
+          // console.log("transformedData", transformedData);
+          return transformedData.reports.map((item, index) => {
+            item.index = index;
+            return item;
+          });
+        },
+      ],
+      // withCredentials: true,
+    });
+
     if (response.status === 200) {
       const data = await response.data;
       return data;
@@ -43,12 +58,15 @@ export const getKeywords = async () => {
  */
 
 export const createKeywords = async (json) => {
-  // const accessToken = getCookie();
-  console.log(JSON.stringify(json));
+
+
+  const accessToken = getCookie();
+
   try {
     const response = await clientServer({
       url: "preferTerms/create",
       method: "post",
+
       headers: { "Content-Type": "application/json" },
       data: JSON.stringify(json),
     });
@@ -56,6 +74,7 @@ export const createKeywords = async (json) => {
     if (response.status === 200) {
       // console.log(data);
       return response;
+
     }
   } catch (e) {
     // 401, 2002, 4018 에러처리 필요
@@ -78,7 +97,7 @@ export const updateListKeywords = async (json) => {
     });
     if (response.status === 200) {
       const data = await response.data;
-      // console.log(data);
+
       return data;
     }
   } catch (e) {

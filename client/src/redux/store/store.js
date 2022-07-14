@@ -7,7 +7,12 @@ import logger from "redux-logger";
 import modalSlice from "../reducer/modalSlice";
 import cardTypeSlice from "../reducer/cardTypeSlice";
 import categorySlice from "../reducer/categorySlice";
+
 import subsSlice from "../reducer/user/subsSlice";
+
+import keywordConnectedSlice from "../reducer/keywordConnectedSlice";
+import searchFilterSlice from "../reducer/searchFilterSlice";
+
 // if (process.env.NODE_ENV !== "production") {
 //   middleware.push(logger);
 // }
@@ -19,7 +24,12 @@ const persistConfig = {
   // key: "views",
   storage,
   // whitelist: ["views"],
-  blacklist: ["modalSlice", "categorySlice"],
+  blacklist: [
+    "modalSlice",
+    "categorySlice",
+    // "keywordConnectedSlice",
+    // "searchFilterSlice",
+  ],
 };
 
 const rootReducer = combineReducers({
@@ -27,7 +37,12 @@ const rootReducer = combineReducers({
   modalSlice,
   cardTypeSlice,
   categorySlice,
+
   subsSlice,
+
+  keywordConnectedSlice,
+  searchFilterSlice,
+
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
