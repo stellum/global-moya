@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -13,11 +13,13 @@ import { fetchUserSuccess } from "@redux/user/userSlice";
 import { subsUserAction } from "@redux/user/subsSlice";
 import { getKeywords } from "../../api/keywordListApi";
 import { addKeywordListAction } from "@redux/keywordListSlice";
+
 import { LoginForm } from "@styles/login/login";
 import { LoginEmail, LoginInput ,IconCancel, IconText, ShowIcon } from "@styles/login/loginInput"
 import { LoginDiv, LoginSpan, LonginIcon, LoginAuto, FindPw } from "@styles/login/loginAuto"
 import { RegisterLink , LoginRegi } from "@styles/login/loginNew"
 import { LoginButton } from "@styles/login/loginButton"
+
 import { setRefreshToken } from "@util/settingSessions";
 const Login = () => {
   const {
@@ -126,47 +128,3 @@ const Login = () => {
 };
 
 export default UserCheck(Login, RequiredLogout);
-
-const LoginForm = styled.form`
-  width: 479px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const LoginInput = styled.input`
-  width: 90%;
-  height: 40px;
-  border: 1px solid #000000;
-  border-radius: 2px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 22px;
-  margin-bottom: 40px;
-  &:focus {
-    outline: none;
-    // placeholder 안없어짐
-    &::placeholder {
-      display: none;
-    }
-  }
-`;
-
-const LoginButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 15px 0px 10px;
-  width: 90%;
-  height: 40px;
-  background-color: #efefef;
-  &:hover {
-    background-color: #dfdfdf;
-  }
-`;
