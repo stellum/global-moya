@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { getSearchData } from "@api/searchApi";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import {
   Card,
@@ -20,46 +19,10 @@ import {
 
 import mediumimg from "@assets/mediumimg.png";
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const NewsCard = ({ apply, view }) => {
+const NewsCard = ({ view, apply, newsList }) => {
   const [scrap, setScrap] = useState(false);
   const [expand, setExpand] = useState(false);
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
-  // searchNews Datas
-  const { timeFilter, mediaType, language, orderBy, keyType, paramValue } =
-    useSelector((state) => state.searchFilterSlice);
-
-  const [newsList, setNewsList] = useState([]);
-  // redux 처리?
-  const [pageToken, setPageToken] = useState("");
-
-  useEffect(() => {
-    const getDatas = async () => {
-      console.log("before");
-      const obj = {
-        timeFilter,
-        mediaType,
-        language,
-        orderBy,
-        keyType,
-        paramValue,
-      };
-      const response = await getSearchData(obj);
-      await delay(1500);
-
-      console.log("response", response);
-      setNewsList(response.newsList);
-      setPageToken(response.nextPageToken);
-
-      console.log("after");
-    };
-    getDatas();
-
-    console.log("page", pageToken);
-
-    return () => {};
-  }, [newsList, pageToken]);
 
   return (
     <>
