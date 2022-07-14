@@ -23,8 +23,8 @@ const persistConfig = {
   blacklist: [
     "modalSlice",
     "categorySlice",
-    "keywordConnectedSlice",
-    "searchFilterSlice",
+    // "keywordConnectedSlice",
+    // "searchFilterSlice",
   ],
 };
 

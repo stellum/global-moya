@@ -4,8 +4,8 @@ const initialState = {
   mediaType: "mp,op,r",
   language: "en",
   orderBy: "latest",
-  keyType: "category",
-  paramValue: "stocks",
+  keyType: "",
+  paramValue: "",
 };
 
 export const searchFilterSlice = createSlice({
@@ -13,6 +13,7 @@ export const searchFilterSlice = createSlice({
   initialState,
   reducers: {
     keywordContentRequest: (state, action) => {
+      console.log("action", action);
       state.keyType = action.payload[0];
       state.paramValue = action.payload[1];
     },
