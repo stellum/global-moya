@@ -42,13 +42,6 @@ const ScrapMain = () => {
           </div>
         </Header>
         <ScrapCategory />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
       </DefaultContainer>
     </>
   );
