@@ -6,13 +6,18 @@ import { useDispatch } from "react-redux";
 
 import { loginFunc } from "@api/loginApi";
 import { searchUserList } from "@api/subsApi";
-
+import { useNavigate } from "react-router-dom";
 import UserCheck from "@hoc/UserCheck";
 import { RequiredLogout } from "@hoc/userAccessType";
-
 import { fetchUserSuccess } from "@redux/user/userSlice";
 import { subsUserAction } from "@redux/user/subsSlice";
-
+import { getKeywords } from "../../api/keywordListApi";
+import { addKeywordListAction } from "@redux/keywordListSlice";
+import { LoginForm } from "@styles/login/login";
+import { LoginEmail, LoginInput ,IconCancel, IconText, ShowIcon } from "@styles/login/loginInput"
+import { LoginDiv, LoginSpan, LonginIcon, LoginAuto, FindPw } from "@styles/login/loginAuto"
+import { RegisterLink , LoginRegi } from "@styles/login/loginNew"
+import { LoginButton } from "@styles/login/loginButton"
 import { setRefreshToken } from "@util/settingSessions";
 const Login = () => {
   const {
@@ -67,39 +72,52 @@ const Login = () => {
         }
       })}
     >
-      // icons-cancel 들어갈 자리
-      <LoginInput
-        type="email"
-        name="email"
-        placeholder="email"
-        {...register("email", {
-          required: "이메일은 필수 입력입니다.",
-          pattern: {
-            value: /\S+@\S+\.\S+/,
-            message: "이메일 형식에 맞지 않습니다.",
-          },
-        })}
-      />
-      // 눈동자 아이콘 들어갈 자리
-      <LoginInput
-        type="password"
-        name="password"
-        placeholder="password"
-        {...register("password", {
-          required: "비밀번호는 필수 입력입니다.",
-        })}
-      />
-      <div>
-        <span>
-          <img src="" alt="icons-check" />
-          자동 로그인
-        </span>
-        <span>비밀번호 찾기</span>
-      </div>
-      <div>
+      <LoginEmail>
+        <LoginInput
+            type="email"
+            name="email"
+            placeholder="이메일"
+            {...register("email", {
+              required: "이메일은 필수 입력입니다.",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "이메일 형식에 맞지 않습니다.",
+              },
+            })}
+          />
+        
+          <IconCancel>
+            <IconText>icons-cancel</IconText>
+          </IconCancel>
+      </LoginEmail>
+      <LoginEmail>
+        <LoginInput
+          type="password"
+          name="password"
+          placeholder="비밀번호"
+          {...register("password", {
+            required: "비밀번호는 필수 입력입니다.",
+          })}
+        />
+          <ShowIcon>
+            <IconText>눈동자 아이콘</IconText>
+          </ShowIcon>
+      </LoginEmail>
+
+      <LoginDiv>
+        <LoginSpan>
+          {/* <CheckCircle alt="icons-check"  /> */}
+          <LonginIcon type="checkbox" value="" />
+          <LoginAuto>자동 로그인</LoginAuto>
+        </LoginSpan>
+        <FindPw>비밀번호 찾기</FindPw>
+      </LoginDiv>
+
+      <RegisterLink>
         아직 계정이 없으신가요?
-        <a>회원 가입</a>
-      </div>
+        <LoginRegi>회원가입</LoginRegi>
+      </RegisterLink>
+
       <LoginButton type="submit" disabled={isSubmitting}>
         로그인
       </LoginButton>
