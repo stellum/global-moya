@@ -1,5 +1,10 @@
 // ! createSlice: reducer를 만드는 것을 도와준다.
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+
+const accessToken = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("accessToken"));
+
 const initialState = {
   userData: {
     userEmail: "",
@@ -14,9 +19,9 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    fetchUserRequest: (state) => {
-      // ! 기존 방식과 다르게 return을 생략, spread operator 필요 없다.
-      // state.loading = true;
+    fetchUserLogin: (state, action) => {
+      // console.log(action.payload);
+      // state.userLogin = accessToken === undefined ? false : true;
     },
     fetchUserSuccess: (state, action) => {
       state.userLogin = true;
@@ -33,7 +38,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { fetchUserRequest, fetchUserSuccess, userLogoutAction } =
+export const { fetchUserLogin, fetchUserSuccess, userLogoutAction } =
   userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,12 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import HomeContent from "./HomeContent";
 import HomeFooter from "./HomeFooter";
-import { useSelector } from "react-redux";
+import TokenCheck from "../../hoc/TokenCheck";
 const Home = () => {
-  // const userEmail = useSelector((state) => state.user.userData.userEmail);
-  // useEffect(() => {
-  //   console.log(userEmail);
-  // }, []);
   return (
     <>
       <HomeContent />
@@ -15,4 +11,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default TokenCheck(Home);
