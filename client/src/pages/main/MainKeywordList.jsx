@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { getKeywords } from "@api/keywordListApi";
+import React, { useState, useEffect, useRef } from "react";
+import { getSearchData } from "@api/searchApi";
 import { useSelector, useDispatch } from "react-redux";
-import { addKeywordListAction } from "@redux/keywordConnectedSlice";
-import {
-  keywordContentRequest,
-  loggedDefaultRequest,
-} from "@redux/searchFilterSlice";
+import { keywordContentRequest } from "@redux/searchFilterSlice";
 
 import {
   MainKeywordContainerDiv,
@@ -20,33 +16,46 @@ import {
 } from "@styles/main/mainKeywordList";
 import NewsCard from "@components/NewsCard";
 
-import storage from "redux-persist/lib/storage";
-
-const MainKeywordList = () => {
+const MainKeywordList = ({ view, apply }) => {
   const [toggleTabState, setToggleTabState] = useState(0);
-  const { keywordList, keyTypeList, paramValueList } = useSelector(
-    (state) => state.keywordConnectedSlice
-  );
 
-  // const persistGetItem = async () => {
-  //   const getPersistObj = await storage.getItem("persist:root");
-  //   const items = JSON.parse(getPersistObj);
-  //   console.log("items", items);
-  //   // mine.then((item) => {
-  //   //   const obj = JSON.parse(item);
-  //   //   console.log("obj", obj.keywordConnectedSlice);
-  //   // });
-  //   // console.log("mine", mine);
-  // };
-  // persistGetItem();
+  const rootStorage = JSON.parse(localStorage["persist:root"]);
+  const keywordSlice = JSON.parse(rootStorage["keywordConnectedSlice"]);
+  const keywordList = keywordSlice.keywordList;
+  const keyTypeList = keywordSlice.keyTypeList;
+  const paramValueList = keywordSlice.paramValueList;
 
+  const effectMount = useRef(false);
   const dispatch = useDispatch();
 
-  const toggleTab = (index) => {
+  // ! card
+  const { timeFilter, mediaType, language, orderBy, keyType, paramValue } =
+    useSelector((state) => state.searchFilterSlice);
+  const [newsList, setNewsList] = useState([]);
+  const [pageToken, setPageToken] = useState("");
+
+  const getDatas = async () => {
+    console.log("card실행");
+    const obj = {
+      timeFilter,
+      mediaType,
+      language,
+      orderBy,
+      keyType,
+      paramValue,
+    };
+    const response = await getSearchData(obj);
+    setNewsList(response.newsList);
+    setPageToken(response.nextPageToken);
+  };
+
+  const toggleTab = async (index) => {
     setToggleTabState(index);
-    dispatch(
+    await dispatch(
       keywordContentRequest([keyTypeList[index], paramValueList[index]])
     );
+
+    getDatas();
   };
 
   // const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -54,19 +63,43 @@ const MainKeywordList = () => {
   const handleMoreIcon = () => {};
 
   useEffect(() => {
-    const getDatas = async () => {
-      // reports data
-      const response = await getKeywords();
-      // const { reports } = response;
-      await dispatch(addKeywordListAction(response));
+    if (effectMount.current === false) {
+      // const getDatas = async () => {
+      //   console.log("card실행");
+      //   const obj = {
+      //     timeFilter,
+      //     mediaType,
+      //     language,
+      //     orderBy,
+      //     keyType,
+      //     paramValue,
+      //   };
+      //   const response = await getSearchData(obj);
+      //   setNewsList(response.newsList);
+      //   setPageToken(response.nextPageToken);
+      // };
+      getDatas();
 
-      // await delay(1500);
-      await toggleTab(0);
-    };
-    getDatas();
-    // login인 된 사용자
-    // dispatch(loggedDefaultRequest([keyTypeList[0], paramValueList[0]]));
+      return () => {
+        console.log("unMounted 카드");
+        effectMount.current = true;
+      };
+    }
   }, []);
+
+  // useEffect(() => {
+  //   if (effectMount.current === false) {
+  //     const firstToggle = async () => {
+  //       await toggleTab(0);
+  //     };
+  //     firstToggle();
+
+  //     return () => {
+  //       console.log("unMounted toggle0");
+  //       effectMount.current = true;
+  //     };
+  //   }
+  // }, []);
 
   return (
     <>
@@ -103,8 +136,13 @@ const MainKeywordList = () => {
                 <MainKeywordActiveContentH2>
                   Content {index + 1}
                 </MainKeywordActiveContentH2>
-                <NewsCard key={index} viewType="largeImg" />
-                {/* <NewsCard view={view} apply={apply} /> */}
+                {/* <NewsCard key={index} viewType="largeImg" newsList={newsList} /> */}
+                <NewsCard
+                  key={index}
+                  view={view}
+                  apply={apply}
+                  newsList={newsList}
+                />
               </MainKeywordActiveContentDiv>
             );
           })}

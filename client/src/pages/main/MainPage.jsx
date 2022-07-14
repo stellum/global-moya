@@ -64,9 +64,9 @@ const MainPage = () => {
       <MainPageContainer>
         <MainHeader />
         <MainInputComponent />
-        <MainKeywordList />
+        <MainKeywordList view={view} apply={apply} />
         {/* <EditProvider /> */}
-        <EditContainer />
+        {/* <EditContainer /> */}
       </MainPageContainer>
       {/* <NewsCard view={view} apply={apply} /> */}
     </>
