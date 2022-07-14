@@ -1,19 +1,27 @@
 import React from "react";
 import { DefaultHeader } from "@styles/common/DefaultHeader";
 import { DefaultButton } from "@styles/common/button/button";
-import { Profile } from "@styles/svgIcon";
+import { ProfileIcon } from "@styles/svgIcon";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const HomeHeader = () => {
+  const isLogin = useSelector((state) => state.user.userLogin);
+  // console.log(isLogin);
   return (
     <>
       <DefaultHeader>
-        <Link to="/login">
-          <DefaultButton orange>로그인</DefaultButton>
-        </Link>
-        <Link to="/subscribe">
-          <DefaultButton>구독</DefaultButton>
-        </Link>
-        <Profile />
+        {isLogin ? (
+          <>
+            <Link to="/subscribe" style={{ marginRight: 15 }}>
+              <DefaultButton>구독</DefaultButton>
+            </Link>
+            <ProfileIcon />
+          </>
+        ) : (
+          <Link to="/login">
+            <DefaultButton orange>로그인</DefaultButton>
+          </Link>
+        )}
       </DefaultHeader>
     </>
   );

@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { loginFunc } from "../../api/loginApi";
+import { loginFunc } from "@api/loginApi";
+import { searchUserList } from "@api/subsApi";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { pxToRem } from "../../styles/theme";
 
-import { fetchUserSuccess } from "../../redux/reducer/user/userSlice";
-import { useDispatch } from "react-redux";
-
+import { fetchUserSuccess } from "@redux/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import UserCheck from "../../hoc/UserCheck";
+import { RequiredLogout } from "../../hoc/userAccessType";
 const LoginForm = styled.form`
   width: 479px;
   position: absolute;
@@ -58,14 +60,18 @@ const Login = () => {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm();
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const fetch = async (formData, data) => {
     const status = await loginFunc(formData);
-    console.log("fetch", data.email);
+    const response = await searchUserList(data.email);
+    const userCode = response.content[0].id;
+
     if (status === 200) {
-      dispatch(fetchUserSuccess(data.email));
+      dispatch(fetchUserSuccess({ userEmail: data.email, userCode }));
+
+      navigate("/");
     } else if (status === 400) {
       alert("경고");
     }
@@ -85,10 +91,10 @@ const Login = () => {
         // formData는 XMLHttpRequest 전송을 위한 특수한 객체이므로 일반적인 방법으로는 콘솔에 못 찍음
         // 밑에 처럼 keys(), values() 메서드를 써서 찍어줘야...
         for (let key of formData.keys()) {
-          console.log(key);
+          // console.log(key);
         }
         for (let value of formData.values()) {
-          console.log(value);
+          // console.log(value);
         }
       })}
     >
@@ -132,4 +138,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default UserCheck(Login, RequiredLogout);

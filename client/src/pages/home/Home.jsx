@@ -10,6 +10,11 @@ import HomeContent from "./HomeContent";
 import HomeFooter from "./HomeFooter";
 
 const Home = () => {
+  // const userEmail = useSelector((state) => state.user.userData.userEmail);
+  // useEffect(() => {
+  //   console.log(userEmail);
+  // }, []);
+
   const { keyTypeList, paramValueList } = useSelector(
     (state) => state.keywordConnectedSlice
   );

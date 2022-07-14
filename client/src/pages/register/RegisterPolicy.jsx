@@ -2,25 +2,41 @@ import React, { useState, useCallback } from "react";
 import {
   TermsAndConditions,
   ImageIcon,
+  CheckAll,
+  CheckAllItems,
+  Check,
   Instruction,
   CustomerAgreement,
   ImageContent,
-  Check,
-  CheckAll,
+  Checklabel,
   SignUp,
-} from "../../styles/registerStyle/registerPolicy";
+} from "../../styles/register/registerPolicy";
 import "../../index.css";
-import PreviousIcon from "../../assets/images/PreviousIcon.svg";
-import MoreIcon from "../../assets/images/MoreIcon.svg";
+import BackArrow from "../../assets/images/BackArrow.svg";
+import LearnMore from "../../assets/images/LearnMore.svg";
+import CheckedIcon from "../../assets/images/CheckedIcon.svg";
+import { Link } from "react-router-dom";
 
 const data = [
-  { id: "privacy", data: "개인정보 수집 및 이용약관에 동의 (필수)" },
-  { id: "service", data: "서비스 이용약관 동의 (필수)" },
-  { id: "personal", data: "개인정보 처리방침 동의 (필수)" },
+  {
+    id: "privacy",
+    data: "개인정보 수집 및 이용약관에 동의 (필수)",
+    path: "/personalpolicy",
+  },
+  {
+    id: "service",
+    data: "서비스 이용약관 동의 (필수)",
+    path: "/servicepolicy",
+  },
+  {
+    id: "personal",
+    data: "개인정보 처리방침 동의 (필수)",
+    path: "/personalpolicy",
+  },
   { id: "event", data: "이벤트 및 혜택 안내 수신동의 (선택)" },
 ];
 
-const Register = () => {
+const RegisterPolicy = () => {
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
 
@@ -50,34 +66,42 @@ const Register = () => {
   return (
     <TermsAndConditions>
       <h3>회원가입</h3>
-      <ImageIcon src={PreviousIcon} />
+      <ImageIcon src={BackArrow} />
       <Instruction>서비스 이용 약관에 동의해 주세요.</Instruction>
       <CustomerAgreement>
         <CheckAll>
-          <label htmlFor="agreement">
-            <Check
+          <Check>
+            <input
               type="checkbox"
               id="agreement"
               checked={checkedItems.length >= 4}
               onChange={(e) => allAgreeHandler(e.currentTarget.checked)}
             />
-          </label>
-
-          <span>전체 동의</span>
+            <Checklabel htmlFor="agreement" className="container">
+              <span className="checkmark"></span>
+              <CheckAllItems>전체 동의</CheckAllItems>
+            </Checklabel>
+          </Check>
         </CheckAll>
         {data.map((item) => (
-          <div>
-            <Check
+          <Check>
+            <input
               type="checkbox"
+              id={item.id}
               checked={checkedItems.includes(item.id)}
               value={item.id}
               onChange={(e) =>
                 agreeHandler(e.currentTarget.checked, e.target.value)
               }
             />
-            {item.data}
-            <ImageContent src={MoreIcon} />
-          </div>
+            <Checklabel htmlFor={item.id} className="container">
+              <span className="checkmark"></span>
+              <CheckAllItems>{item.data}</CheckAllItems>
+              <Link to={`${item.path}`}>
+                <ImageContent src={LearnMore} />
+              </Link>
+            </Checklabel>
+          </Check>
         ))}
 
         {/* <div><Check type='checkbox' value="privacy" onChange={(e) => agreeHandler(e.currentTarget.checked, e.target.value)} />개인정보 수집 및 이용약관에 동의 (필수)          
@@ -93,4 +117,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterPolicy;

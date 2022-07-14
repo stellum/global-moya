@@ -2,13 +2,16 @@ import React from "react";
 import { MainHeader, SideHeader } from "@styles/main/mainPageHeader";
 import { NaviWrap, NaviGo, Navispan } from "@styles/naviStyle/naviWrap";
 import { FilterBG } from "@styles/filterStyle/filterBG";
-import Hamburger from "../../components/common/Hamburger";
+import Hamburger from "@components/common/Hamburger";
 import MoyaLogo from "@components/MoyaLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleNavigation } from "../../redux/reducer/modalSlice";
+import { logOutFunc } from "@api/loginApi";
+import { userLogoutAction } from "@redux/user/userSlice";
 const Header = () => {
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
+
   const toggleNavi = () => {
     dispatch(toggleNavigation(!showNavi));
   };
@@ -34,7 +37,14 @@ const Header = () => {
         <NaviGo>키워드 관리</NaviGo>
         <Navispan />
         <NaviGo>마이페이지</NaviGo>
-        <NaviGo>로그아웃</NaviGo>
+        <NaviGo
+          onClick={() => {
+            logOutFunc();
+            dispatch(userLogoutAction());
+          }}
+        >
+          로그아웃
+        </NaviGo>
       </NaviWrap>
       <FilterBG showNavi={showNavi} onClick={handleBG} />
       <MainHeader>
