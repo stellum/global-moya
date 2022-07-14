@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo, useCallback } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { SearchIcon, StarIcon } from "@styles/svgIcon";
 import {
   KeywordLi,
@@ -10,7 +10,7 @@ import {
 import Spinner from "@components/common/Spinner";
 import _ from "lodash";
 import { createKeywords } from "@api/keywordListApi";
-
+import AccessToken from "@hoc/AccessToken";
 import { checkClip } from "@util/filterMasterFunc";
 const LvKeywordList = ({
   dataList,
@@ -19,6 +19,7 @@ const LvKeywordList = ({
   loading,
   category,
   clipKeyword,
+  accessToken,
 }) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 100 });
 
@@ -33,7 +34,7 @@ const LvKeywordList = ({
     console.log(loading);
   }, [category]);
 
-  const createKeywordFunc = async (id, category) => {
+  const createKeywordFunc = async (id, category, accessToken) => {
     const data = {
       keyType: category,
       _id: id.toString(),
@@ -41,7 +42,6 @@ const LvKeywordList = ({
     };
 
     const res = await createKeywords(data);
-    console.log(res);
   };
 
   /* 
@@ -106,4 +106,4 @@ const LvKeywordList = ({
   );
 };
 
-export default memo(LvKeywordList);
+export default AccessToken(memo(LvKeywordList));

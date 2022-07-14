@@ -27,7 +27,7 @@ const NewsCard = ({ view, apply, newsList }) => {
   return (
     <>
       {newsList.map((news) => {
-        console.log("news", news);
+        // console.log("news", news);
         return (
           <Card>
             <MainContent viewType={apply ? view : viewType}>

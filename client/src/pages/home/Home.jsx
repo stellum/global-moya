@@ -15,37 +15,37 @@ const Home = () => {
   //   console.log(userEmail);
   // }, []);
 
-  const { keyTypeList, paramValueList } = useSelector(
-    (state) => state.keywordConnectedSlice
-  );
+  // const { keyTypeList, paramValueList } = useSelector(
+  //   (state) => state.keywordConnectedSlice
+  // );
 
-  const effectMount = useRef(false);
-  const dispatch = useDispatch();
+  // const effectMount = useRef(false);
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log("실행");
+  // useEffect(() => {
+  //   console.log("실행");
 
-    if (effectMount.current === false) {
-      const getDatas = async () => {
-        // reports data
-        const response = await getKeywords();
-        console.log("responseKeyword", response);
+  //   if (effectMount.current === false) {
+  //     const getDatas = async () => {
+  //       // reports data
+  //       const response = await getKeywords();
+  //       console.log("responseKeyword", response);
 
-        await dispatch(addKeywordListAction(response));
-        console.log("keyTypeList", keyTypeList[0]);
-        console.log("paramValueList", paramValueList[0]);
-        await dispatch(
-          keywordContentRequest([keyTypeList[0], paramValueList[0]])
-        );
-      };
-      getDatas();
+  //       await dispatch(addKeywordListAction(response));
+  //       console.log("keyTypeList", keyTypeList[0]);
+  //       console.log("paramValueList", paramValueList[0]);
+  //       await dispatch(
+  //         keywordContentRequest([keyTypeList[0], paramValueList[0]])
+  //       );
+  //     };
+  //     getDatas();
 
-      return () => {
-        console.log("unMounted");
-        effectMount.current = true;
-      };
-    }
-  }, []);
+  //     return () => {
+  //       console.log("unMounted");
+  //       effectMount.current = true;
+  //     };
+  //   }
+  // }, []);
 
   return (
     <>
