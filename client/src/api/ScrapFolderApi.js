@@ -10,7 +10,6 @@ export const allFolder = async () => {
     });
 
     if (response.status === 200) {
-      console.log(response);
       const data = await response.data;
       return data;
     }
@@ -33,7 +32,6 @@ export const createFolder = async () => {
     });
 
     if (response.status === 200) {
-      console.log(response);
       const data = await response.data;
       return data;
     }
@@ -57,7 +55,6 @@ export const updateNameFolder = async () => {
     });
 
     if (response.status === 200) {
-      console.log(response);
       const data = await response.data;
       return data;
     }
@@ -91,7 +88,7 @@ export const updateSeqFolder = async () => {
 };
 
 //그룹 폴더를 삭제, 해당 폴더에 저장된 북마크도 동시에 전부 삭제 됨
-export const updateSeqFolder = async () => {
+export const deleteFolder = async () => {
   try {
     const response = await clientServer({
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -122,9 +119,7 @@ export const updateListFolder = async () => {
       url: "/folders/updateList",
       method: "delete",
       data: {
-        groupId,
-        groupName,
-        groupSeq,
+        groupList,
       },
     });
 

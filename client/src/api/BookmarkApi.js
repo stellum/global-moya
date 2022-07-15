@@ -1,6 +1,6 @@
 import clientServer from "./baseUrl";
 //뉴스 북마크 CRUD
-///search/news에서 가져온 뉴스 newsId를 바인딩한 뉴스를 내 특정 폴더 내로 저장한다.
+//search/news에서 가져온 뉴스 newsId를 바인딩한 뉴스를 내 특정 폴더 내로 저장한다.
 export const bookmarkSave = async () => {
   try {
     const response = await clientServer({
@@ -63,7 +63,7 @@ export const bookmarkReportsOne = async () => {
   }
 };
 
-// 내가 등록한 특정 폴더내의 newsId를 가진 뉴스를 내 리스트에서 삭제한다.
+// 내가 등록한 특정 폴더내의 newsId 리스트를 최대 10건까지 한번에 삭제한다.
 export const bookmarkDelete = async () => {
   try {
     const response = await clientServer({
@@ -72,7 +72,29 @@ export const bookmarkDelete = async () => {
       method: "delete",
       data: {
         groupId,
-        newsId,
+        newsIdList,
+      },
+    });
+
+    if (response.status === 200) {
+    }
+  } catch (error) {
+    if (error.response.status === 400) {
+      return error.response.status;
+    }
+  }
+};
+//기존에 스크랩한 뉴스리스트를 최대 10건까지 다른 폴더로 이동시킨다.
+export const bookmarkMove = async () => {
+  try {
+    const response = await clientServer({
+      headers: { Authorization: `Bearer ${accessToken}` },
+      url: "/bookmark/move",
+      method: "delete",
+      data: {
+        fromGroupId,
+        toGroupId,
+        newsIdList,
       },
     });
 
