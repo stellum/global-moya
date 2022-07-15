@@ -17,12 +17,16 @@ import PersonalPolicy from "@pages/myPage/PersonalPolicy";
 import ServicePolicy from "@pages/myPage/ServicePolicy";
 import Profile from "@pages/myPage/Profile";
 import Subscription from "./pages/myPage/Subscription";
+
+import Password from "./pages/myPage/Password";
+
 import ScrapMain from "./pages/scrap/ScrapMain";
 import ScrapNews from "./pages/scrap/ScrapNews";
 import ScrapNewsEdit from "./pages/scrap/ScrapNewsEdit";
 import NewFolder from "./pages/scrap/NewFolder";
 import ScrapGroupEdit from "./pages/scrap/ScrapGroupEdit";
 import { ReactQueryDevtools } from "react-query/devtools";
+
 
 function App() {
   return (
@@ -45,6 +49,7 @@ function App() {
             {/* MyPage */}
             <Route path="/mypagemain" element={<MyPageMain />} />
             <Route path="/mypage/profile" element={<Profile />} />
+            <Route path="/mypage/password" element={<Password />} />
             <Route path="/mypage/subscription" element={<Subscription />} />
 
             <Route path="/contactus" element={<ContactUs />} />

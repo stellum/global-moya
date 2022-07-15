@@ -1,10 +1,23 @@
 import React from "react";
-import { TermsAndConditions, Container } from "@styles/myPage/ServicePolicy";
+import {
+  TermsAndConditions,
+  Container,
+  Header,
+} from "@styles/myPage/ServicePolicy";
+import { useNavigate } from "react-router-dom";
+import { BackArrow } from "@styles/svgIcon";
 
 const ServicePolicy = () => {
+  const navigate = useNavigate();
   return (
     <TermsAndConditions>
-      <h3>서비스 이용약관</h3>
+      <Header>
+        <div className="h3div">
+          <BackArrow onClick={() => navigate(-1)} />
+          <h3>서비스 이용약관</h3>
+        </div>
+      </Header>
+
       <Container>
         <p>
           모야 서비스 이용약관

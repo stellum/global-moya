@@ -24,7 +24,6 @@ const Profile = () => {
   return (
     <Settings>
       <Popup popup={popup}>
-        <div>사진 촬영</div>
         <div>갤러리에서 사진 선택</div>
         <div>프로필 이미지 삭제</div>
       </Popup>

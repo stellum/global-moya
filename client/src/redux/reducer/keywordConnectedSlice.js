@@ -45,8 +45,10 @@ const keywordConnectedSlice = createSlice({
       // });
       // state.keyTypeList = keyTypeList;
       // state.paramValueList = paramValueList;
+
     },
   },
+
   // extraReducers: {
   //   [fetchSearchNews.pending]: (state) => {
   //     console.log("pending:state", state);
