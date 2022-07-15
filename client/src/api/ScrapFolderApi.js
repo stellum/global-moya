@@ -1,9 +1,10 @@
 import clientServer from "./baseUrl";
 //나의 뉴스 폴더 생성 및 관리 API
 //생성된 모든 나의 그룹 폴더를 반환
-export const AllFolder = async () => {
+export const allFolder = async () => {
   try {
     const response = await clientServer({
+      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/reports",
       method: "get",
     });
@@ -19,9 +20,10 @@ export const AllFolder = async () => {
 };
 
 //그룹 폴더를 생성 (폴더명/시퀀스는 계정당 중복 불가)
-export const CreateFolder = async () => {
+export const createFolder = async () => {
   try {
     const response = await clientServer({
+      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/create",
       method: "post",
       data: {
@@ -41,9 +43,10 @@ export const CreateFolder = async () => {
 };
 
 //그롭 폴더명을 변경
-export const UpdateNameFolder = async () => {
+export const updateNameFolder = async () => {
   try {
     const response = await clientServer({
+      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/updateName",
       method: "put",
       data: {
@@ -64,9 +67,10 @@ export const UpdateNameFolder = async () => {
 };
 
 //그롭 폴더의 순서를 변경
-export const UpdateSeqFolder = async () => {
+export const updateSeqFolder = async () => {
   try {
     const response = await clientServer({
+      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/updateSeq",
       method: "put",
       data: {
@@ -87,9 +91,10 @@ export const UpdateSeqFolder = async () => {
 };
 
 //그룹 폴더를 삭제, 해당 폴더에 저장된 북마크도 동시에 전부 삭제 됨
-export const UpdateSeqFolder = async () => {
+export const updateSeqFolder = async () => {
   try {
     const response = await clientServer({
+      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/delete",
       method: "delete",
       data: {
@@ -110,9 +115,10 @@ export const UpdateSeqFolder = async () => {
 };
 
 //updateFlag (D->R,N,S)에 따라 벌크로 내용 변경
-export const UpdateListFolder = async () => {
+export const updateListFolder = async () => {
   try {
     const response = await clientServer({
+      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/updateList",
       method: "delete",
       data: {

@@ -47,6 +47,7 @@ export const bookmarkAll = async () => {
 export const bookmarkReportsOne = async () => {
   try {
     const response = await clientServer({
+      headers: { Authorization: `Bearer ${accessToken}` },
       url: `/bookmark/reportsOne/${groupId}`,
       method: "get",
     });
@@ -66,6 +67,7 @@ export const bookmarkReportsOne = async () => {
 export const bookmarkDelete = async () => {
   try {
     const response = await clientServer({
+      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/bookmark/delete",
       method: "delete",
       data: {
