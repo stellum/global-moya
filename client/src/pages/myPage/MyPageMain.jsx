@@ -77,15 +77,21 @@ const MyPageMain = ({ user }) => {
                   <li>
                     공지사항 <LearnMore />
                   </li>
-                  <li>
-                    1:1 문의하기 <LearnMore />
-                  </li>
-                  <li>
-                    서비스 이용약관 <LearnMore />
-                  </li>
-                  <li>
-                    개인정보 처리방침 <LearnMore />
-                  </li>
+                  <Link to="/contactus">
+                    <li>
+                      1:1 문의하기 <LearnMore />
+                    </li>
+                  </Link>
+                  <Link to="/servicepolicy">
+                    <li>
+                      서비스 이용약관 <LearnMore />
+                    </li>
+                  </Link>
+                  <Link to="/personalpolicy">
+                    <li>
+                      개인정보 처리방침 <LearnMore />
+                    </li>
+                  </Link>
                 </ul>
               </div>
             </Help>

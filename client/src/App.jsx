@@ -18,6 +18,7 @@ import PersonalPolicy from "@pages/myPage/PersonalPolicy";
 import ServicePolicy from "@pages/myPage/ServicePolicy";
 import Profile from "@pages/myPage/Profile";
 import Subscription from "./pages/myPage/Subscription";
+import Password from "./pages/myPage/Password";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             {/* MyPage */}
             <Route path="/mypagemain" element={<MyPageMain />} />
             <Route path="/mypage/profile" element={<Profile />} />
+            <Route path="/mypage/password" element={<Password />} />
             <Route path="/mypage/subscription" element={<Subscription />} />
 
             <Route path="/contactus" element={<ContactUs />} />

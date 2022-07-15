@@ -36,15 +36,15 @@ const keywordConnectedSlice = createSlice({
   initialState,
   reducers: {
     addKeywordListAction: (state, action) => {
-      state.keywordList = action.payload;
-      const keyTypeList = action.payload.map((obj) => {
-        return obj.keyType;
-      });
-      const paramValueList = action.payload.map((obj) => {
-        return obj.paramValue;
-      });
-      state.keyTypeList = keyTypeList;
-      state.paramValueList = paramValueList;
+      // state.keywordList = action.payload;
+      // const keyTypeList = action.payload.map((obj) => {
+      //   return obj.keyType;
+      // });
+      // const paramValueList = action.payload.map((obj) => {
+      //   return obj.paramValue;
+      // });
+      // state.keyTypeList = keyTypeList;
+      // state.paramValueList = paramValueList;
     },
   },
   extraReducers: {

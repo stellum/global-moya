@@ -14,16 +14,16 @@ export const getKeywords = async () => {
       url: "preferTerms/reports",
       headers: { Authorization: `Bearer ${accessToken}` },
 
-      transformResponse: [
-        function (data) {
-          const transformedData = JSON.parse(data);
-          // console.log("transformedData", transformedData);
-          return transformedData.reports.map((item, index) => {
-            item.index = index;
-            return item;
-          });
-        },
-      ],
+      // transformResponse: [
+      //   function (data) {
+      //     const transformedData = JSON.parse(data);
+      //     // console.log("transformedData", transformedData);
+      //     return transformedData.reports.map((item, index) => {
+      //       item.index = index;
+      //       return item;
+      //     });
+      //   },
+      // ],
       // withCredentials: true,
     });
 

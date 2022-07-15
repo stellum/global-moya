@@ -26,7 +26,7 @@ export const searchUserList = async (userMail) => {
       },
     });
     if (response.status === 200) {
-      // console.log(response);
+      console.log(response);
       const subsUser = await customerSearch(response.data.content[0].id);
       return { userCode: response.data, subsUser };
     }

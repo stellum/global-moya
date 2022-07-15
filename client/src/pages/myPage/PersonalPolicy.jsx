@@ -1,10 +1,19 @@
 import React from "react";
-import { Policy, Container } from "@styles/myPage/PersonalPolicy";
+import { Policy, Header, Container } from "@styles/myPage/PersonalPolicy";
+import { useNavigate } from "react-router-dom";
+import { BackArrow } from "@styles/svgIcon";
 
 const PersonalPolicy = () => {
+  const navigate = useNavigate();
   return (
     <Policy>
-      <h3>개인정보 처리방침</h3>
+      <Header>
+        <div className="h3div">
+          <BackArrow onClick={() => navigate(-1)} />
+          <h3>개인정보 처리방침</h3>
+        </div>
+      </Header>
+
       <Container>
         모야 개인 정보 처리/취급 방침
         <br />

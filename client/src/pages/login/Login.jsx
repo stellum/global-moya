@@ -70,6 +70,7 @@ const Login = () => {
 
     if (status === 200) {
       const userList = await searchUserList(data.email);
+      console.log(userList);
       const keywordList = await getKeywords();
       const userEmail = userList.userCode.content[0].email;
       const userCode = userList.userCode.content[0].id;
