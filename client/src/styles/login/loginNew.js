@@ -11,4 +11,8 @@ export const LoginRegi = styled.a`
   padding-left: 6px;
   font-weight: ${fontWeight.FontWeight600};
   color: ${colors.gray900};
-`
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`;

@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 
 import { loginFunc } from "@api/loginApi";
 import { searchUserList } from "@api/subsApi";
-import { useNavigate } from "react-router-dom";
 import UserCheck from "@hoc/UserCheck";
 import { RequiredLogout } from "@hoc/userAccessType";
 import { fetchUserSuccess } from "@redux/user/userSlice";
@@ -15,10 +14,22 @@ import { getKeywords } from "../../api/keywordListApi";
 import { addKeywordListAction } from "@redux/keywordListSlice";
 
 import { LoginForm } from "@styles/login/login";
-import { LoginEmail, LoginInput ,IconCancel, IconText, ShowIcon } from "@styles/login/loginInput"
-import { LoginDiv, LoginSpan, LonginIcon, LoginAuto, FindPw } from "@styles/login/loginAuto"
-import { RegisterLink , LoginRegi } from "@styles/login/loginNew"
-import { LoginButton } from "@styles/login/loginButton"
+import {
+  LoginEmail,
+  LoginInput,
+  IconCancel,
+  IconText,
+  ShowIcon,
+} from "@styles/login/loginInput";
+import {
+  LoginDiv,
+  LoginSpan,
+  LonginIcon,
+  LoginAuto,
+  FindPw,
+} from "@styles/login/loginAuto";
+import { RegisterLink, LoginRegi } from "@styles/login/loginNew";
+import { LoginButton } from "@styles/login/loginButton";
 
 import { setRefreshToken } from "@util/settingSessions";
 const Login = () => {
@@ -53,6 +64,11 @@ const Login = () => {
     }
   };
 
+  // 회원가입 navigate
+  const handleClick = () => {
+    navigate("/register");
+  };
+
   return (
     <LoginForm
       onSubmit={handleSubmit((data) => {
@@ -76,21 +92,21 @@ const Login = () => {
     >
       <LoginEmail>
         <LoginInput
-            type="email"
-            name="email"
-            placeholder="이메일"
-            {...register("email", {
-              required: "이메일은 필수 입력입니다.",
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: "이메일 형식에 맞지 않습니다.",
-              },
-            })}
-          />
-        
-          <IconCancel>
-            <IconText>icons-cancel</IconText>
-          </IconCancel>
+          type="email"
+          name="email"
+          placeholder="이메일"
+          {...register("email", {
+            required: "이메일은 필수 입력입니다.",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "이메일 형식에 맞지 않습니다.",
+            },
+          })}
+        />
+
+        <IconCancel>
+          <IconText>icons-cancel</IconText>
+        </IconCancel>
       </LoginEmail>
       <LoginEmail>
         <LoginInput
@@ -101,9 +117,9 @@ const Login = () => {
             required: "비밀번호는 필수 입력입니다.",
           })}
         />
-          <ShowIcon>
-            <IconText>눈동자 아이콘</IconText>
-          </ShowIcon>
+        <ShowIcon>
+          <IconText>눈동자 아이콘</IconText>
+        </ShowIcon>
       </LoginEmail>
 
       <LoginDiv>
@@ -117,7 +133,7 @@ const Login = () => {
 
       <RegisterLink>
         아직 계정이 없으신가요?
-        <LoginRegi>회원가입</LoginRegi>
+        <LoginRegi onClick={handleClick}>회원가입</LoginRegi>
       </RegisterLink>
 
       <LoginButton type="submit" disabled={isSubmitting}>
