@@ -20,11 +20,10 @@ const LvKeywordList = ({
   category,
   clipKeyword,
   accessToken,
-
   setFillStar,
 }) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 100 });
-  // console.log(clipKeyword);
+
   useEffect(() => {
     setSliceValue((prev) => ({
       minValue: prev.maxValue,

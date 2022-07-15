@@ -78,6 +78,7 @@ const CategoryMain = ({ accessToken }) => {
             dataList={dataList}
             keyword={keyword}
             loading={loading}
+            category={category}
             clipKeyword={clipKeyword}
             setFillStar={setFillStar}
             fillStar={fillStar}
