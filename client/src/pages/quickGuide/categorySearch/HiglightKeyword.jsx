@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import HightLightText from "@components/HightLightText";
 import Spinner from "@components/common/Spinner";
 
-import { filterValue } from "../../../util/filterMasterFunc";
+import { filterValue } from "@util/filterMasterFunc";
 import Highlighter from "react-highlight-words";
 import _ from "lodash";
 import {
@@ -12,14 +12,31 @@ import {
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
 import { SearchIcon, StarIcon } from "@styles/svgIcon";
 import { colors } from "@styles/theme";
-
-const HiglightKeyword = ({ dataList, keyword, loading }) => {
+import { deleteKeywordFunc, createKeywordFunc, checkClip } from "@util";
+import AccessToken from "@hoc/AccessToken";
+const HiglightKeyword = ({
+  dataList,
+  keyword,
+  loading,
+  category,
+  accessToken,
+  clipKeyword,
+}) => {
   const [filterKeyword, setFilterKeyword] = useState([]);
 
   useEffect(() => {
     const data = filterValue(dataList, keyword);
     setFilterKeyword(data);
   }, [keyword]);
+
+  const handleFillStar = (_id, category, accessToken, clipKeyword) => {
+    setFillStar((prev) => !prev);
+    if (checkClip(clipKeyword, _id)) {
+      deleteKeywordFunc(_id, category, accessToken, clipKeyword);
+    } else {
+      createKeywordFunc(_id, category, accessToken);
+    }
+  };
 
   return (
     <>
@@ -40,8 +57,8 @@ const HiglightKeyword = ({ dataList, keyword, loading }) => {
                     color: `${colors.pointOrange200}`,
                     backgroundColor: "transparent",
                   }}
-                />
-                &npsp (
+                />{" "}
+                (
                 <Highlighter
                   textToHighlight={item.paramValue}
                   searchWords={[keyword]}
@@ -53,7 +70,17 @@ const HiglightKeyword = ({ dataList, keyword, loading }) => {
                 )
               </HightLightText>
               <IconWrap star>
-                <StarIcon />
+                <StarIcon
+                  onClick={() => {
+                    handleFillStar(
+                      item._id,
+                      category,
+                      accessToken,
+                      clipKeyword
+                    );
+                  }}
+                  $clip={checkClip(clipKeyword, item._id)}
+                />
               </IconWrap>
             </HighLightLi>
           ))}
@@ -63,4 +90,4 @@ const HiglightKeyword = ({ dataList, keyword, loading }) => {
   );
 };
 
-export default HiglightKeyword;
+export default AccessToken(HiglightKeyword);

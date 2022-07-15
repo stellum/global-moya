@@ -15,9 +15,9 @@ import { isLoading, searchKeyword } from "@redux/categorySlice";
 import { getCategoryList } from "@api/masterApi";
 import { getKeywords } from "@api/keywordListApi";
 import { useSelector, useDispatch } from "react-redux";
-import { set } from "lodash";
+import AccessToken from "@hoc/AccessToken";
 
-const CategoryMain = () => {
+const CategoryMain = ({ accessToken }) => {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
   const [reports, setReports] = useState([]);
@@ -27,17 +27,19 @@ const CategoryMain = () => {
   const keyword = useSelector((state) => state.categorySlice.keyword);
   const loading = useSelector((state) => state.categorySlice.loading);
   const inputRef = useRef(null);
+  const [fillStar, setFillStar] = useState(false);
   const { lastElementRef } = QuickInfiniteHook(setPage);
+
   const dispatch = useDispatch();
-  // getKeywords().then((res) => setReports(res.reports))
+
   const fetch = async () => {
     try {
       const response = await getCategoryList(category);
       if (response.details.length > 0) {
         setDataList(response.details);
-        const reports = await getKeywords();
+        const reports = await getKeywords(accessToken);
         if (reports.reports.length > 0) {
-          dispatch(isLoading(false));
+          await dispatch(isLoading(false));
           setReports(reports.reports);
         }
       }
@@ -46,9 +48,6 @@ const CategoryMain = () => {
     } finally {
       dispatch(isLoading(false));
     }
-
-    // .then(dispatch(isLoading(false)))
-    // .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -56,7 +55,7 @@ const CategoryMain = () => {
     inputRef.current.value = "";
     inputRef.current.focus();
     dispatch(searchKeyword(""));
-  }, [category]);
+  }, [category, fillStar]);
 
   useEffect(() => {
     setClipKeyword(reports.filter((item) => item.keyType === category));
@@ -79,7 +78,10 @@ const CategoryMain = () => {
             dataList={dataList}
             keyword={keyword}
             loading={loading}
+            category={category}
             clipKeyword={clipKeyword}
+            setFillStar={setFillStar}
+            fillStar={fillStar}
           />
         </Suspense>
       ) : (
@@ -91,6 +93,8 @@ const CategoryMain = () => {
             loading={loading}
             category={category}
             clipKeyword={clipKeyword}
+            setFillStar={setFillStar}
+            fillStar={fillStar}
           />
         </Suspense>
       )}
@@ -98,4 +102,4 @@ const CategoryMain = () => {
   );
 };
 
-export default CategoryMain;
+export default AccessToken(CategoryMain);

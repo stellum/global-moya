@@ -45,21 +45,23 @@ const keywordConnectedSlice = createSlice({
       // });
       // state.keyTypeList = keyTypeList;
       // state.paramValueList = paramValueList;
+
     },
   },
-  extraReducers: {
-    [fetchSearchNews.pending]: (state) => {
-      console.log("pending:state", state);
-    },
-    [fetchSearchNews.fulfilled]: (state, action) => {
-      console.log("fulfilled:state", state);
-      console.log("fulfilled:action", action);
-    },
-    [fetchSearchNews.rejected]: (state, action) => {
-      console.log("rejected:state", state);
-      console.log("rejected:action", action);
-    },
-  },
+
+  // extraReducers: {
+  //   [fetchSearchNews.pending]: (state) => {
+  //     console.log("pending:state", state);
+  //   },
+  //   [fetchSearchNews.fulfilled]: (state, action) => {
+  //     console.log("fulfilled:state", state);
+  //     console.log("fulfilled:action", action);
+  //   },
+  //   [fetchSearchNews.rejected]: (state, action) => {
+  //     console.log("rejected:state", state);
+  //     console.log("rejected:action", action);
+  //   },
+  // },
 
   // extraReducers: (builder) => {
   //   builder.addCase(fetchSearchNews.fulfilled, (state, action) => {
