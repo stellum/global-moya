@@ -15,8 +15,8 @@ import {
   EditIconCircle,
 } from "@styles/main/mainKeywordList";
 import NewsCard from "@components/NewsCard";
-
-const MainKeywordList = ({ view, apply }) => {
+import AccessToken from "@hoc/AccessToken";
+const MainKeywordList = ({ view, apply, accessToken }) => {
   const [toggleTabState, setToggleTabState] = useState(0);
 
   const rootStorage = JSON.parse(localStorage["persist:root"]);
@@ -35,7 +35,6 @@ const MainKeywordList = ({ view, apply }) => {
   const [pageToken, setPageToken] = useState("");
 
   const getDatas = async () => {
-    console.log("card실행");
     const obj = {
       timeFilter,
       mediaType,
@@ -44,7 +43,7 @@ const MainKeywordList = ({ view, apply }) => {
       keyType,
       paramValue,
     };
-    const response = await getSearchData(obj);
+    const response = await getSearchData(obj, accessToken);
     setNewsList(response.newsList);
     setPageToken(response.nextPageToken);
   };
@@ -152,4 +151,4 @@ const MainKeywordList = ({ view, apply }) => {
   );
 };
 
-export default MainKeywordList;
+export default AccessToken(MainKeywordList);

@@ -7,29 +7,18 @@ import logger from "redux-logger";
 import modalSlice from "../reducer/modalSlice";
 import cardTypeSlice from "../reducer/cardTypeSlice";
 import categorySlice from "../reducer/categorySlice";
-
 import subsSlice from "../reducer/user/subsSlice";
 
 import keywordConnectedSlice from "../reducer/keywordConnectedSlice";
 import searchFilterSlice from "../reducer/searchFilterSlice";
 
-// if (process.env.NODE_ENV !== "production") {
-//   middleware.push(logger);
-// }
-
 const middlewares = [logger];
 
 const persistConfig = {
   key: "root",
-  // key: "views",
   storage,
-  // whitelist: ["views"],
-  blacklist: [
-    "modalSlice",
-    "categorySlice",
-    // "keywordConnectedSlice",
-    // "searchFilterSlice",
-  ],
+
+  blacklist: ["modalSlice", "categorySlice", "accessTokenSlice"],
 };
 
 const rootReducer = combineReducers({
@@ -42,16 +31,10 @@ const rootReducer = combineReducers({
 
   keywordConnectedSlice,
   searchFilterSlice,
-
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware({
-//       serializableCheck: false,
-//     }),
 const store = configureStore({
-  // combineReducer와 동일하다
   reducer: persistedReducer,
 
   middleware: [...middlewares],

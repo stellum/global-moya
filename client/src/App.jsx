@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorPage from "@pages/error/ErrorPage";
 import Home from "@pages/home/Home";
@@ -22,6 +22,8 @@ import ScrapNews from "./pages/scrap/ScrapNews";
 import ScrapNewsEdit from "./pages/scrap/ScrapNewsEdit";
 import NewFolder from "./pages/scrap/NewFolder";
 import ScrapGroupEdit from "./pages/scrap/ScrapGroupEdit";
+import { ReactQueryDevtools } from "react-query/devtools";
+
 function App() {
   return (
     <>
@@ -60,6 +62,7 @@ function App() {
             <Route path="/keyword" element={<KeywordMain />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
+          <ReactQueryDevtools initialIsOpen={false} />
         </CustomContainer>
       </BrowserRouter>
     </>
