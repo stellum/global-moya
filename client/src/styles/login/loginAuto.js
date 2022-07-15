@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 import { colors } from "@styles/theme";
 
-import IconsCheckCircleSvg  from "@assets/icons-checkCircle.svg";
+import IconsCheckCircleSvg from "@assets/icons-checkCircle.svg";
 
 export const LoginDiv = styled.div`
-//   width: 328px;
+  //   width: 328px;
   width: 90%;
   margin-top: 5px;
   margin-bottom: 22%;
@@ -43,11 +43,16 @@ export const LoginAuto = styled.label`
     background-size: 20px;
     background-position: 50%;
     background-repeat: no-repeat;
-}
+  }
 `;
 
 export const FindPw = styled.div`
   position: absolute;
   right: 0;
   top: 0;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    color: #000000;
+  }
 `;

@@ -8,6 +8,7 @@ export const LoginButton = styled.button`
   justify-content: center;
   align-items: center;
   color: ${colors.white};
+  cursor: pointer;
   font-weight: ${fontWeight.FontWeight600};
   margin: 15px 0px 10px;
   width: 328px;
