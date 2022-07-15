@@ -28,9 +28,13 @@ import { ReactComponent as CloseIconSvg } from "@assets/CloseIcon.svg";
 import { ReactComponent as PhotoIconSvg } from "@assets/PhotoIcon.svg";
 import { ReactComponent as globalMOYAPremiumSvg } from "@assets/globalMOYAPremium.svg";
 import { ReactComponent as ProfilePhotoSvg } from "@assets/ProfilePhoto.svg";
-
+import { ReactComponent as MoreIconSvg } from "@assets/MoreIcon.svg";
 import { colors } from "./theme";
 
+export const MoreIcon = styled(MoreIconSvg)`
+  position: absolute;
+  right: 6px;
+`;
 export const TranslateIcon = styled(TranslateSvg)``;
 export const ShareIcon = styled(ShareIconSvg)``;
 export const ScrapIcon = styled(ScrapIconSvg)`
