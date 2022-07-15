@@ -16,6 +16,7 @@ import { getCategoryList } from "@api/masterApi";
 import { getKeywords } from "@api/keywordListApi";
 import { useSelector, useDispatch } from "react-redux";
 import AccessToken from "@hoc/AccessToken";
+
 const CategoryMain = ({ accessToken }) => {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
@@ -26,19 +27,20 @@ const CategoryMain = ({ accessToken }) => {
   const keyword = useSelector((state) => state.categorySlice.keyword);
   const loading = useSelector((state) => state.categorySlice.loading);
   const inputRef = useRef(null);
+  const [fillStar, setFillStar] = useState(false);
   const { lastElementRef } = QuickInfiniteHook(setPage);
+
   const dispatch = useDispatch();
+
   const fetch = async () => {
     try {
       const response = await getCategoryList(category);
-
       if (response.details.length > 0) {
         setDataList(response.details);
         const reports = await getKeywords(accessToken);
-
-        if (reports.length > 0) {
-          dispatch(isLoading(false));
-          setReports(reports);
+        if (reports.reports.length > 0) {
+          await dispatch(isLoading(false));
+          setReports(reports.reports);
         }
       }
     } catch (e) {
@@ -53,7 +55,7 @@ const CategoryMain = ({ accessToken }) => {
     inputRef.current.value = "";
     inputRef.current.focus();
     dispatch(searchKeyword(""));
-  }, [category]);
+  }, [category, fillStar]);
 
   useEffect(() => {
     setClipKeyword(reports.filter((item) => item.keyType === category));
@@ -76,7 +78,10 @@ const CategoryMain = ({ accessToken }) => {
             dataList={dataList}
             keyword={keyword}
             loading={loading}
+            category={category}
             clipKeyword={clipKeyword}
+            setFillStar={setFillStar}
+            fillStar={fillStar}
           />
         </Suspense>
       ) : (
@@ -88,6 +93,8 @@ const CategoryMain = ({ accessToken }) => {
             loading={loading}
             category={category}
             clipKeyword={clipKeyword}
+            setFillStar={setFillStar}
+            fillStar={fillStar}
           />
         </Suspense>
       )}

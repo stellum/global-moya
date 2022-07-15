@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import UserCheck from "../../hoc/UserCheck";
 import { RequiredLogin } from "../../hoc/userAccessType";
 import { payMentChange, subsCancel } from "../../api/subsApi";
+import { dateFormat } from "../../util/dateFunc";
 const Subscription = ({ user }) => {
   const navigate = useNavigate();
   const subsUser = useSelector((state) => state.subsSlice.subsUser);
@@ -39,7 +40,8 @@ const Subscription = ({ user }) => {
               <span>개인 멤버십 | 9,900원/월</span>
               <NextPayment>
                 <div>
-                  다음 결제일 | {subsUser.subscriptions[0].nextPaymentDateTime}
+                  다음 결제일 |{" "}
+                  {dateFormat(subsUser.subscriptions[0].nextPaymentDateTime)}
                 </div>
                 <span>구독취소</span>
               </NextPayment>

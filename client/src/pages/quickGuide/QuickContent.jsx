@@ -8,8 +8,6 @@ import { CategoryButton } from "@styles/common/button/button";
 import { Link } from "react-router-dom";
 import { mainCategory } from "./category";
 
-// import QuickInfiniteHook from "../../hooks/QuickInfiniteHook";
-
 const QuickContent = () => {
   return (
     <>

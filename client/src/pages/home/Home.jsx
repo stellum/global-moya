@@ -8,6 +8,7 @@ import {
 import { keywordContentRequest } from "@redux/searchFilterSlice";
 import HomeContent from "./HomeContent";
 import HomeFooter from "./HomeFooter";
+import AccessToken from "@hoc/AccessToken";
 
 const Home = () => {
   // const userEmail = useSelector((state) => state.user.userData.userEmail);
@@ -55,4 +56,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AccessToken(Home);
