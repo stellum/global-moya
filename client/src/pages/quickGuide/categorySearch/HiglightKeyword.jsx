@@ -20,7 +20,8 @@ const HiglightKeyword = ({
   loading,
   category,
   accessToken,
-  clipKeyword,
+  reports,
+  setFillStar,
 }) => {
   const [filterKeyword, setFilterKeyword] = useState([]);
 
@@ -29,10 +30,10 @@ const HiglightKeyword = ({
     setFilterKeyword(data);
   }, [keyword]);
 
-  const handleFillStar = (_id, category, accessToken, clipKeyword) => {
+  const handleFillStar = (_id, category, accessToken, reports) => {
     setFillStar((prev) => !prev);
-    if (checkClip(clipKeyword, _id)) {
-      deleteKeywordFunc(_id, category, accessToken, clipKeyword);
+    if (checkClip(reports, _id, category)) {
+      deleteKeywordFunc(_id, category, accessToken, reports);
     } else {
       createKeywordFunc(_id, category, accessToken);
     }
@@ -72,14 +73,9 @@ const HiglightKeyword = ({
               <IconWrap star>
                 <StarIcon
                   onClick={() => {
-                    handleFillStar(
-                      item._id,
-                      category,
-                      accessToken,
-                      clipKeyword
-                    );
+                    handleFillStar(item._id, category, accessToken, reports);
                   }}
-                  $clip={checkClip(clipKeyword, item._id)}
+                  $clip={checkClip(reports, item._id)}
                 />
               </IconWrap>
             </HighLightLi>

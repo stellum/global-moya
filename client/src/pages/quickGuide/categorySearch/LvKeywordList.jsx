@@ -18,12 +18,12 @@ const LvKeywordList = ({
   page,
   loading,
   category,
-  clipKeyword,
+  reports,
   accessToken,
   setFillStar,
 }) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 100 });
-
+  // console.log(reports);
   useEffect(() => {
     setSliceValue((prev) => ({
       minValue: prev.maxValue,
@@ -31,12 +31,12 @@ const LvKeywordList = ({
     }));
   }, [page]);
 
-  const handleFillStar = (_id, category, accessToken, clipKeyword) => {
+  const handleFillStar = (item, category, accessToken, reports) => {
     setFillStar((prev) => !prev);
-    if (checkClip(clipKeyword, _id)) {
-      deleteKeywordFunc(_id, category, accessToken, clipKeyword);
+    if (checkClip(reports, item, category)) {
+      deleteKeywordFunc(item, category, accessToken, reports);
     } else {
-      createKeywordFunc(_id, category, accessToken);
+      createKeywordFunc(item, category, accessToken);
     }
   };
   return (
@@ -63,14 +63,9 @@ const LvKeywordList = ({
                       </KeywordWrap>
                       <StarIcon
                         onClick={() => {
-                          handleFillStar(
-                            item._id,
-                            category,
-                            accessToken,
-                            clipKeyword
-                          );
+                          handleFillStar(item, category, accessToken, reports);
                         }}
-                        $clip={checkClip(clipKeyword, item._id)}
+                        $clip={checkClip(reports, item, category)}
                       />
                     </KeywordLi>
                   );
@@ -89,13 +84,13 @@ const LvKeywordList = ({
                         <StarIcon
                           onClick={() => {
                             handleFillStar(
-                              item._id,
+                              item,
                               category,
                               accessToken,
-                              clipKeyword
+                              reports
                             );
                           }}
-                          $clip={checkClip(clipKeyword, item._id)}
+                          $clip={checkClip(reports, item, category)}
                         />
                       </IconWrap>
                     </KeywordLi>

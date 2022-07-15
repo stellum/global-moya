@@ -1,6 +1,6 @@
 import { lazy, useState, Suspense, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-
+import _ from "lodash";
 import QuickGuideHeader from "../QuickGuideHeader";
 import CategoryButton from "./CategoryButton";
 import Spinner from "@components/common/Spinner";
@@ -21,13 +21,14 @@ const CategoryMain = ({ accessToken }) => {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
   const [reports, setReports] = useState([]);
-  const [clipKeyword, setClipKeyword] = useState([]);
+  const [fillStar, setFillStar] = useState(false);
+
   const params = useParams();
   const category = params.id;
+
   const keyword = useSelector((state) => state.categorySlice.keyword);
   const loading = useSelector((state) => state.categorySlice.loading);
   const inputRef = useRef(null);
-  const [fillStar, setFillStar] = useState(false);
   const { lastElementRef } = QuickInfiniteHook(setPage);
 
   const dispatch = useDispatch();
@@ -57,10 +58,6 @@ const CategoryMain = ({ accessToken }) => {
     dispatch(searchKeyword(""));
   }, [category, fillStar]);
 
-  useEffect(() => {
-    setClipKeyword(reports.filter((item) => item.keyType === category));
-  }, [category, reports]);
-
   /*  
   
     1. keyword가 있으면
@@ -79,7 +76,7 @@ const CategoryMain = ({ accessToken }) => {
             keyword={keyword}
             loading={loading}
             category={category}
-            clipKeyword={clipKeyword}
+            reports={reports}
             setFillStar={setFillStar}
             fillStar={fillStar}
           />
@@ -92,7 +89,7 @@ const CategoryMain = ({ accessToken }) => {
             page={page}
             loading={loading}
             category={category}
-            clipKeyword={clipKeyword}
+            reports={reports}
             setFillStar={setFillStar}
             fillStar={fillStar}
           />
