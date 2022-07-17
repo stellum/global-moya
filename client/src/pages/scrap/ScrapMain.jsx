@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom"; // useHistory 추가
+import { Link } from "react-router-dom"; // useHistory 추가
 import { useSelector, useDispatch } from "react-redux";
 import { toggleScrapEditBtn } from "../../redux/reducer/modalSlice";
 import AccessToken from "@hoc/AccessToken";
@@ -47,7 +47,6 @@ const ScrapMain = ({ accessToken }) => {
   };
   useEffect(() => {
     getBookmarkAllDatas();
-    dispatch()
   }, []);
   return (
     <>

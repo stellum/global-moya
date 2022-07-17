@@ -24,6 +24,7 @@ import ScrapMain from "./pages/scrap/ScrapMain";
 import ScrapNews from "./pages/scrap/ScrapNews";
 import ScrapNewsEdit from "./pages/scrap/ScrapNewsEdit";
 import NewFolder from "./pages/scrap/NewFolder";
+import NameChange from "./pages/scrap/NameChange";
 import ScrapGroupEdit from "./pages/scrap/ScrapGroupEdit";
 import { ReactQueryDevtools } from "react-query/devtools";
 
@@ -58,6 +59,7 @@ function App() {
             <Route path="/scrap/:id" element={<ScrapNews />} />
             <Route path="/scrapedit/:id" element={<ScrapNewsEdit />} />
             <Route path="/newfolder" element={<NewFolder />} />
+            <Route path="/namechange" element={<NameChange />} />
             <Route path="/scrap/groupedit" element={<ScrapGroupEdit />} />
 
             {/* Quick Search */}

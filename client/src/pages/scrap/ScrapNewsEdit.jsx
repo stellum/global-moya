@@ -1,32 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom"; // useHistory 추가
+import { useParams } from "react-router-dom"; // useHistory 추가
 import { useSelector, useDispatch } from "react-redux";
-import { toggleScrapEditBtn } from "../../redux/reducer/modalSlice";
+import { toggleScrapMoveBtn } from "../../redux/reducer/modalSlice";
 import AccessToken from "@hoc/AccessToken";
 import { bookmarkOne } from "@api/bookmarkApi";
 
-import NewsCard from "../../components/NewsCard";
+import { ScrapMoveWrap, ScrapMoveh4 } from "@styles/scrap/scrapModal";
+import {
+  Btn50percent,
+  BtnWrap,
+  FixedHeader,
+  NewsCardcontent,
+  Wrap,
+} from "@styles/scrap/scrap";
+import { ApplyBtn, ButtonWrapDiv } from "@styles/scrap/scrapnews";
 import ScrapNewsCard from "./scrapcate/ScrapNewsCard";
-import ScrapCategory from "./scrapcate/ScrapCategory";
+import ScrapMoveModal from "./scrapcate/ScrapMoveModal";
 import { FilterBG } from "@styles/naviStyle/naviWrap";
-import { BtnWrap, FilterBtn } from "@styles/scrap/ScrapModal";
-import ScrapEditModal from "@components/ScrapModal/ScrapModal";
 import { BackArrow } from "@styles/svgIcon";
-import { EditButton, Header } from "@styles/scrap/scrap";
+import { BtnWrapVisible } from "../../styles/scrap/scrap";
 
-const ScrapNewsEdit = ({ accessToken }) => {
+const ScrapNewsEdit = ({ accessToken, scrapcheck }) => {
   const params = useParams();
   const groupId = params.id;
   const [bookmark, setBookmark] = useState([]);
   const dispatch = useDispatch();
-  const showScrapEditBtn = useSelector(
-    (state) => state.modalSlice.showScrapEditBtn
+  const showScrapMoveBtn = useSelector(
+    (state) => state.modalSlice.showScrapMoveBtn
   );
-  const toggleEditModal = () => {
-    dispatch(toggleScrapEditBtn(!showScrapEditBtn));
+  const toggleMoveModal = () => {
+    dispatch(toggleScrapMoveBtn(!showScrapMoveBtn));
   };
   const handleBG = () => {
-    dispatch(toggleScrapEditBtn(!showScrapEditBtn));
+    dispatch(toggleScrapMoveBtn(!showScrapMoveBtn));
   };
   const getBookmarkOneDatas = async () => {
     const response = await bookmarkOne(accessToken, groupId);
@@ -38,30 +44,32 @@ const ScrapNewsEdit = ({ accessToken }) => {
   }, [params.id]);
   return (
     <>
-      <FilterBG showScrapEditBtn={showScrapEditBtn} onClick={handleBG} />
-      <ScrapEditModal showScrapEditBtn={showScrapEditBtn}>
-        <BtnWrap>
-          <Link to="/scrap/groupedit">
-            <FilterBtn>그룹 편집</FilterBtn>
-          </Link>
-        </BtnWrap>
-        <BtnWrap>
-          <Link to="/scrap/:id/edit">
-            <FilterBtn>스크랩 편집</FilterBtn>
-          </Link>
-        </BtnWrap>
-      </ScrapEditModal>
-
-      <Header>
+      <FilterBG showScrapMoveBtn={showScrapMoveBtn} onClick={handleBG} />
+      <FixedHeader>
         <div>
           <BackArrow />
-          <h3>스크랩 뉴스</h3>
-          <EditButton className="edit" onClick={toggleEditModal}>
-            편집
-          </EditButton>
+          <h3>그룹네임있어야함{groupId}</h3>
+          <button>완료</button>
         </div>
-      </Header>
-      <ScrapCategory />
+      </FixedHeader>
+      <NewsCardcontent>
+        <ScrapNewsCard /> <ScrapNewsCard /> <ScrapNewsCard /> <ScrapNewsCard />
+        <ScrapNewsCard /> <ScrapNewsCard /> <ScrapNewsCard />
+      </NewsCardcontent>
+      <BtnWrapVisible visible={!(scrapcheck = false)}>
+        <Btn50percent onClick={toggleMoveModal}>이동</Btn50percent>
+        <Btn50percent className="delete">삭제</Btn50percent>
+      </BtnWrapVisible>
+      <ScrapMoveWrap showScrapMoveBtn={showScrapMoveBtn}>
+        <ScrapMoveh4>이동할 그룹 선택</ScrapMoveh4>
+        <ScrapMoveModal />
+        <Wrap>
+          <ButtonWrapDiv>
+            <ApplyBtn>취소</ApplyBtn>
+            <ApplyBtn apply>저장</ApplyBtn>
+          </ButtonWrapDiv>
+        </Wrap>
+      </ScrapMoveWrap>
     </>
   );
 };

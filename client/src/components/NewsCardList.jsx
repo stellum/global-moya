@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   Card,
   MainContent,
@@ -11,7 +11,7 @@ import {
   Tickers,
 } from "@styles/newsCard/cardStyles";
 import {
-  ScrapCheckIcon,
+  ScrapIcon,
   TranslateIcon,
   ShareIcon,
   ExpandMoreIcon,
@@ -19,36 +19,38 @@ import {
 
 import mediumimg from "@assets/mediumimg.png";
 
-const ScrapNewsCard = ({ view, apply }) => {
-  const [scrapcheck, setScrapcheck] = useState(false);
+const NewsCardList = ({ view, apply, props }) => {
+  const [scrap, setScrap] = useState(false);
   const [expand, setExpand] = useState(false);
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
-  console.log(scrapcheck);
+
   return (
     <>
       <Card>
         <MainContent viewType={apply ? view : viewType}>
           <ImageContent src={mediumimg} viewType={apply ? view : viewType} />
           <CardHeader viewType={apply ? view : viewType}>
-            <h2>title</h2>
+            <h2>gg</h2>
           </CardHeader>
         </MainContent>
 
         <Abstract>
-          <p>description</p>
+          <p>{props.description}</p>
         </Abstract>
 
         <SubContent>
-          <div className="time">brandName | publishTime</div>
+          <div className="time">
+            {props.brandName} | {props.publishTime}
+          </div>
 
           <div className="iconGroup">
             <TranslateIcon />
             <ShareIcon />
-            <ScrapCheckIcon
+            <ScrapIcon
               onClick={() => {
-                setScrapcheck((prev) => !prev);
+                setScrap((prev) => !prev);
               }}
-              $scrapcheck={scrapcheck}
+              $scrap={scrap}
             />
           </div>
         </SubContent>
@@ -66,7 +68,9 @@ const ScrapNewsCard = ({ view, apply }) => {
             </li>
           </Tickers>
           <div className="tags">
-            <span>tag</span>;
+            {props.assetTags.map((tag) => {
+              <span>#{tag}</span>;
+            })}
           </div>
           <ExpandMoreIcon
             onClick={() => {
@@ -80,4 +84,4 @@ const ScrapNewsCard = ({ view, apply }) => {
   );
 };
 
-export default ScrapNewsCard;
+export default NewsCardList;

@@ -11,7 +11,7 @@ export const ScrapFolderSlice = createSlice({
   initialState,
   reducers: {
     addScrapFolderAction: (state, action) => {
-      state.keywordList = action.payload.reports;
+      state.groupName = action.payload.reports;
     },
   },
 });

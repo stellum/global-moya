@@ -42,6 +42,8 @@ export const Header = styled.div`
 export const FixedHeader = styled(Header)`
   position: fixed;
   top: 0;
+  background-color: ${colors.white};
+  z-index: 1;
 `;
 export const EditButton = styled.button`
   background: none;
@@ -52,10 +54,22 @@ export const EditButton = styled.button`
 export const BtnWrap = styled.div`
   background-color: ${colors.white};
   position: fixed;
+  left: 0;
+  right: 0;
   bottom: 0;
+  padding: 16px;
+  display: flex;
+  transition: 0.3s;
+`;
+export const BtnWrapVisible = styled.div`
+  background-color: ${colors.white};
+  position: fixed;
+  bottom: ${({ visible }) => (visible ? "0" : "-90px")};
   left: 0;
   right: 0;
   padding: 16px;
+  display: flex;
+  transition: 0.3s;
 `;
 export const CompleteBtn = styled(DefaultCompleteButton)`
   width: 100%;
@@ -63,21 +77,21 @@ export const CompleteBtn = styled(DefaultCompleteButton)`
   font-size: ${fontSize.FontSize14};
   font-weight: ${fontWeight.FontWeight600};
 `;
-export const ButtonWrapDiv = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-export const ApplyBtn = styled(DefaultCompleteButton)`
-  height: 52px;
-  width: ${({ apply }) => (apply ? "224px" : "96px")};
-  &:last-child {
-    margin-right: 0;
-  }
-  background-color: ${({ apply }) => (apply ? colors.black : colors.gray350)};
-  color: ${colors.white};
+
+export const Btn50percent = styled(DefaultCompleteButton)`
+  width: 49.6%;
+  height: 54px;
+  font-size: ${fontSize.FontSize14};
   font-weight: ${fontWeight.FontWeight600};
-  margin-right: ${({ apply }) => (apply ? 0 : "8px")};
+  background-color: ${colors.black};
+  &:first-child {
+    margin-right: 8px;
+  }
+  &.delete {
+    background-color: ${colors.pointOrange200};
+  }
 `;
+
 export const HeightContainer = styled.div`
   height: 100vh;
   display: flex;
@@ -123,4 +137,8 @@ export const GroupNamelengthWrap = styled.div`
     font-size: ${fontSize.FontSize14};
     color: ${colors.gray400};
   }
+`;
+
+export const NewsCardcontent = styled.div`
+  padding: 48px 0 76px 0;
 `;

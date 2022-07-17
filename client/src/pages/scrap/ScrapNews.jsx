@@ -5,7 +5,7 @@ import { toggleScrapEditBtn } from "../../redux/reducer/modalSlice";
 import AccessToken from "@hoc/AccessToken";
 import { bookmarkOne } from "@api/bookmarkApi";
 
-import NewsCard from "../../components/NewsCard";
+import NewsCardList from "../../components/NewsCardList";
 import ScrapNewsCard from "./scrapcate/ScrapNewsCard";
 import ScrapCategory from "./scrapcate/ScrapCategory";
 import { FilterBG } from "@styles/naviStyle/naviWrap";
@@ -35,6 +35,7 @@ const ScrapNews = ({ accessToken }) => {
   useEffect(() => {
     getBookmarkOneDatas();
   }, []);
+  console.log("되는", bookmark);
   return (
     <>
       <FilterBG showScrapEditBtn={showScrapEditBtn} onClick={handleBG} />
@@ -45,7 +46,7 @@ const ScrapNews = ({ accessToken }) => {
           </Link>
         </BtnWrap>
         <BtnWrap>
-          <Link to="/scrapedit/:id">
+          <Link to={`/scrapedit/${groupId}`}>
             <FilterBtn>스크랩 편집</FilterBtn>
           </Link>
         </BtnWrap>
@@ -63,6 +64,19 @@ const ScrapNews = ({ accessToken }) => {
         </div>
       </Header>
       <ScrapCategory />
+      {/* {bookmark &&
+        bookmark.map((booknews) => {
+          return (
+            <NewsCardList
+              description={booknews.description}
+              brandName={booknews.brandName}
+              publishTime={booknews.publishTime}
+              assetTags={booknews.assetTags}
+              title={booknews.title}
+              id={booknews.newsId}
+            />
+          );
+        })} */}
     </>
   );
 };
