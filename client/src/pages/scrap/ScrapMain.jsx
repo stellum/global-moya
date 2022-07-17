@@ -1,16 +1,27 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom"; // useHistory 추가
 import { useSelector, useDispatch } from "react-redux";
 import { toggleScrapEditBtn } from "../../redux/reducer/modalSlice";
-import { BackArrow } from "@styles/svgIcon";
-import { EditButton, Header } from "@styles/scrap/scrap";
-import { DefaultContainer } from "@styles/common/container";
+import AccessToken from "@hoc/AccessToken";
+import { bookmarkAll } from "@api/bookmarkApi";
+
 import NewsCard from "../../components/NewsCard";
+import ScrapNewsCard from "./scrapcate/ScrapNewsCard";
 import ScrapCategory from "./scrapcate/ScrapCategory";
-import { FilterBG } from "@styles/filterStyle/filterBG";
-import { BtnWrap, FilterBtn } from "@styles/scrap/ScrapModal";
 import ScrapEditModal from "@components/ScrapModal/ScrapModal";
-const ScrapMain = () => {
+
+import { EditButton, Header } from "@styles/scrap/scrap";
+import { BackArrow } from "@styles/svgIcon";
+import { FilterBG } from "@styles/naviStyle/naviWrap";
+import {
+  BtnWrap,
+  FilterBtn,
+  ScrapMiniModalStyle,
+} from "@styles/scrap/ScrapModal";
+
+const ScrapMain = ({ accessToken }) => {
+  const [black, setBlack] = useState(true);
+  const [bookmarkall, setBookmarkall] = useState([]);
   const dispatch = useDispatch();
   const showScrapEditBtn = useSelector(
     (state) => state.modalSlice.showScrapEditBtn
@@ -21,29 +32,48 @@ const ScrapMain = () => {
   const handleBG = () => {
     dispatch(toggleScrapEditBtn(!showScrapEditBtn));
   };
+  const getBookmarkAllDatas = async () => {
+    const response = await bookmarkAll(accessToken);
+    setBookmarkall(response.reports);
+    console.log("올북마크 반환", response.reports);
+    const allbook = response.reports;
+    const newslist = allbook.map((i) => {
+      if (allbook[i].newsList != 0) {
+        const newsThing = allbook[i].newsList;
+        return newsThing;
+      }
+    });
+    console.log("올북마크 반환", newslist);
+  };
+  useEffect(() => {
+    getBookmarkAllDatas();
+    dispatch()
+  }, []);
   return (
     <>
-      {" "}
       <FilterBG showScrapEditBtn={showScrapEditBtn} onClick={handleBG} />
-      <ScrapEditModal showScrapEditBtn={showScrapEditBtn}>
+      <ScrapMiniModalStyle showScrapEditBtn={showScrapEditBtn}>
         <BtnWrap>
-          <FilterBtn>그룹 편집</FilterBtn>
+          <Link to="/scrap/groupedit">
+            <FilterBtn>그룹 편집</FilterBtn>
+          </Link>
         </BtnWrap>
-        <BtnWrap>
-          <FilterBtn>스크랩 편집</FilterBtn>
-        </BtnWrap>
-      </ScrapEditModal>
-      <DefaultContainer>
-        <Header>
-          <div>
+      </ScrapMiniModalStyle>
+
+      <Header>
+        <div>
+          <Link to="/main">
             <BackArrow />
-            <h3>스크랩 뉴스</h3>
-            <EditButton onClick={toggleEditModal}>편집</EditButton>
-          </div>
-        </Header>
-        <ScrapCategory />
-      </DefaultContainer>
+          </Link>
+          <h3>스크랩 뉴스</h3>
+          <EditButton className="edit" onClick={toggleEditModal}>
+            편집
+          </EditButton>
+        </div>
+      </Header>
+      <ScrapCategory black={black} />
+      <ScrapNewsCard />
     </>
   );
 };
-export default ScrapMain;
+export default AccessToken(ScrapMain);

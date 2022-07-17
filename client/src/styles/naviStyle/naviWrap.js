@@ -34,6 +34,6 @@ export const FilterBG = styled.div`
   position: fixed;
   top: 0;
   z-index: 1;
-  display: ${({ showBtn, showNavi }) =>
-    showBtn || showNavi ? "block" : "none"};
+  display: ${({ showScrapEditBtn, showNavi }) =>
+    showScrapEditBtn || showNavi ? "block" : "none"};
 `;

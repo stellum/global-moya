@@ -21,6 +21,7 @@ export const RadiusButton = styled(DefaultButton)`
   width: auto;
   padding: 0 16px;
   margin-right: 8px;
+  white-space: nowrap;
 `;
 
 export const CategoryButton = styled(DefaultButton)`
@@ -63,10 +64,24 @@ export const DefaultBlackButton = styled.button`
   border-radius: 2px;
   font-weight: ${fontWeight.FontWeight500};
 `;
-export const RadiusBlackButton = styled(DefaultButton)`
+export const DefaultCompleteButton = styled.button`
+  ${({ theme }) => theme.common.flexCenter}
+  width:${({ black }) => (black ? "64px" : "53px")};
+  height: 38px;
+  color: ${colors.white};
+  background-color: ${(props) =>
+    props.black ? props.theme.colors.black : props.theme.colors.gray350};
+  border-radius: 2px;
+  font-weight: ${fontWeight.FontWeight500};
+`;
+export const RadiusBlackButton = styled(DefaultBlackButton)`
   border-radius: 200px;
   font-weight: ${fontWeight.FontWeight500};
   width: auto;
   padding: 0 16px;
   margin-right: 8px;
+  white-space: nowrap;
+  &.all {
+    margin-left: 16px;
+  }
 `;

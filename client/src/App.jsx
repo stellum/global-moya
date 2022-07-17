@@ -27,7 +27,6 @@ import NewFolder from "./pages/scrap/NewFolder";
 import ScrapGroupEdit from "./pages/scrap/ScrapGroupEdit";
 import { ReactQueryDevtools } from "react-query/devtools";
 
-
 function App() {
   return (
     <>
@@ -57,7 +56,7 @@ function App() {
             {/*Scrap*/}
             <Route path="/scrap" element={<ScrapMain />} />
             <Route path="/scrap/:id" element={<ScrapNews />} />
-            <Route path="/scrap/:id/edit" element={<ScrapNewsEdit />} />
+            <Route path="/scrapedit/:id" element={<ScrapNewsEdit />} />
             <Route path="/newfolder" element={<NewFolder />} />
             <Route path="/scrap/groupedit" element={<ScrapGroupEdit />} />
 
