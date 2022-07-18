@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Register from "./Register";
 import RegisterPolicy from "./RegisterPolicy";
 import RegisterSuccess from "./RegisterSuccess";
-import { ImageIcon } from "../../styles/register/registerPolicy";
+import { ImageIcon } from "@styles/loginRegister/register/registerPolicy";
 import BackArrow from "../../assets/images/BackArrow.svg";
 
 const RegisterContainer = () => {

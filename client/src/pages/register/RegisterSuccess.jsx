@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CommonForm, MainDiv, SuccessIcon,Button } from "@styles/register/registerSuccess"
+import { CommonForm, MainDiv, SuccessIcon,Button } from "@styles/loginRegister/register/registerSuccess"
 
 
 const RegisterSuccess = () => {
