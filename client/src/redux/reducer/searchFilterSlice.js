@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getSearchData } from "@api/searchApi";
-import { retryAxios } from "@api/baseUrl";
+// import { retryAxios } from "@api/baseUrl";
 
 const initialState = {
   timeFilter: "mth1",
@@ -14,14 +14,17 @@ const initialState = {
 
 const fetchSearchNews = createAsyncThunk(
   "searchFilterSlice/fetchSearchNews",
-  async (queryParams) => {
+  async (queryParams, accessToken) => {
+    console.log("queryParams", queryParams);
+    console.log("accessToken", accessToken);
+
     try {
       console.log("slice param", queryParams);
-      const response = await getSearchData(queryParams);
+      const response = await getSearchData(queryParams, accessToken);
 
-      if (response === undefined) {
-        retryAxios(3, 1000);
-      }
+      // if (response === undefined) {
+      //   retryAxios(3, 1000);
+      // }
 
       return response;
     } catch (error) {

@@ -69,6 +69,7 @@ export const stepPayServer = axios.create({
 //   }
 // );
 
+/*
 export const retryAxios = (tryCount, timeInterval) => {
   // const accessToken = getCookie();
   const instance = axios.create({
@@ -114,3 +115,4 @@ export const retryAxios = (tryCount, timeInterval) => {
 };
 
 // retryAxios(3, 1000);
+*/

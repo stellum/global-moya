@@ -5,6 +5,7 @@ export const getSearchData = async (queryParams, accessToken) => {
     queryParams;
 
   console.log("queryParams", queryParams);
+  console.log("accessToken API", accessToken);
 
   try {
     const response = await clientServer({
