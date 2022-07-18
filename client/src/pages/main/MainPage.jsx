@@ -13,6 +13,7 @@ import { BtnWrap, FilterBtn } from "@styles/filterStyle/filterModal";
 
 import { useSelector, useDispatch } from "react-redux";
 import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
+import AccessToken from "@hoc/AccessToken";
 
 const MainPage = () => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
@@ -65,4 +66,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default AccessToken(MainPage);

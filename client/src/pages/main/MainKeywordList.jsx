@@ -24,7 +24,6 @@ import Spinner from "@components/common/Spinner";
 import AccessToken from "@hoc/AccessToken";
 
 const MainKeywordList = ({ view, apply, accessToken }) => {
-
   const [toggleTabState, setToggleTabState] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
@@ -81,16 +80,23 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
           paramValue,
         };
 
-        await dispatch(fetchSearchNews(queryParams)).then((response) => {
-          setNewsList(response.payload.newsList);
-          setPageToken(response.payload.nextPageToken);
-        });
+        await dispatch(fetchSearchNews(queryParams, accessToken)).then(
+          (response) => {
+            console.log("첫 response", response);
+            setNewsList(response.payload.newsList);
+            setPageToken(response.payload.nextPageToken);
+          }
+        );
       };
-      getDatas();
+
+      const timeoutID = setTimeout(() => {
+        getDatas();
+      }, 2000);
 
       return () => {
         console.log("unMounted 카드");
         effectMount.current = true;
+        clearTimeout(timeoutID);
       };
     }
   }, []);
@@ -107,12 +113,14 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
           paramValue,
         };
 
-        await dispatch(fetchSearchNews(queryParams)).then((response) => {
-          console.log("두번째");
-          console.log("res2", response);
-          setNewsList(response.payload.newsList);
-          setPageToken(response.payload.nextPageToken);
-        });
+        await dispatch(fetchSearchNews(queryParams, accessToken)).then(
+          (response) => {
+            console.log("두번째");
+            console.log("res2", response);
+            setNewsList(response.payload.newsList);
+            setPageToken(response.payload.nextPageToken);
+          }
+        );
       };
 
       const timeoutID = setTimeout(() => {
@@ -135,7 +143,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
               const { name, _id, index } = keyword;
               return (
                 <MainKeywordLi
-                  key={_id}
+                  key={_id + name}
                   toggleTab={toggleTabState === index}
                   onClick={() => toggleTab(index)}
                 >
@@ -156,10 +164,10 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
           ) : (
             status === "complete" &&
             keywordList.map((keyword) => {
-              const { _id, index } = keyword;
+              const { _id, index, keyType } = keyword;
               return (
                 <MainKeywordActiveContentDiv
-                  key={_id}
+                  key={_id + keyType}
                   toggleContent={toggleTabState === index}
                 >
                   <MainKeywordActiveContentH2>
