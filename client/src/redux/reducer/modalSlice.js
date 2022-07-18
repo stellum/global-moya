@@ -4,6 +4,7 @@ const initialState = {
   showBtn: false,
   showSideNavi: false,
   showModal: { view: false, sort: false },
+  showEditBtn: false,
 };
 
 // ! reducers: swtich case에서 fucntion으로 바꾼다.
@@ -34,13 +35,20 @@ export const modalSlice = createSlice({
       }
     },
     toggleNavigation: (state, action) => {
-      console.log(action);
       state.showSideNavi = action.payload;
+    },
+    toggleEditAction: (state, action) => {
+      console.log(action);
+      state.showEditBtn = action.payload;
     },
   },
 });
 
-export const { toggleBtnAction, toggleModalAction, toggleNavigation } =
-  modalSlice.actions;
+export const {
+  toggleBtnAction,
+  toggleModalAction,
+  toggleNavigation,
+  toggleEditAction,
+} = modalSlice.actions;
 
 export default modalSlice.reducer;
