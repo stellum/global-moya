@@ -1,5 +1,6 @@
 import clientServer from "./baseUrl";
 import { getCookie } from "../util/settingSessions";
+import { retryAxios } from "@api/baseUrl";
 
 /**
  * createKeywords / updateKeywords
@@ -24,8 +25,13 @@ export const getKeywords = async () => {
           });
         },
       ],
+      timeout: 4000,
       // withCredentials: true,
     });
+
+    // if (response === undefined) {
+    //   retryAxios(3, 1000);
+    // }
 
     if (response.status === 200) {
       const data = await response.data;
