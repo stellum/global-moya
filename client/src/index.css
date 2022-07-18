@@ -103,6 +103,8 @@ section {
 }
 body {
   line-height: 1;
+  /* x scroll disabled */
+  overflow-x: hidden;
 }
 ol,
 ul {
