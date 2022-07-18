@@ -56,7 +56,7 @@ const RegisterButton = styled.button`
   }
 `;
 
-const Register = () => {
+const Register = (props) => {
   const {
     register,
     handleSubmit,
@@ -82,6 +82,7 @@ const Register = () => {
     <>
       <RegisterForm
         onSubmit={handleSubmit((data) => {
+          props.setRegisterPage("onSuccess");
           const formData = new FormData();
 
           for (let key in data) {

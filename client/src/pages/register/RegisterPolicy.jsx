@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import {
   TermsAndConditions,
-  ImageIcon,
   CheckAll,
   CheckAllItems,
   Check,
@@ -12,9 +11,7 @@ import {
   SignUp,
 } from "../../styles/register/registerPolicy";
 import "../../index.css";
-import BackArrow from "../../assets/images/BackArrow.svg";
 import LearnMore from "../../assets/images/LearnMore.svg";
-import CheckedIcon from "../../assets/images/CheckedIcon.svg";
 import { Link } from "react-router-dom";
 
 const data = [
@@ -36,7 +33,7 @@ const data = [
   { id: "event", data: "이벤트 및 혜택 안내 수신동의 (선택)" },
 ];
 
-const RegisterPolicy = () => {
+const RegisterPolicy = (props) => {
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
 
@@ -63,10 +60,20 @@ const RegisterPolicy = () => {
     }
   };
 
+  // 가입 버튼 핸들러
+
+  const handleClick = () => {
+    if (
+      checkedItems.includes("privacy") &&
+      checkedItems.includes("service") &&
+      checkedItems.includes("personal")
+    ) {
+      props.setRegisterPage("onInput");
+    }
+  };
+
   return (
     <TermsAndConditions>
-      <h3>회원가입</h3>
-      <ImageIcon src={BackArrow} />
       <Instruction>서비스 이용 약관에 동의해 주세요.</Instruction>
       <CustomerAgreement>
         <CheckAll>
@@ -112,7 +119,7 @@ const RegisterPolicy = () => {
         <ImageContent src={MoreIcon} /></div>
         <div><Check type='checkbox' value="event" onChange={(e) => agreeHandler(e.currentTarget.checked, e.target.value)} />이벤트 및 혜택 안내 수신동의 (선택)</div> */}
       </CustomerAgreement>
-      <SignUp>가입하기</SignUp>
+      <SignUp onClick={handleClick}>가입하기</SignUp>
     </TermsAndConditions>
   );
 };
