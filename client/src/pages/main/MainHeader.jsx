@@ -1,23 +1,42 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import { MainHeader, SideHeader } from "@styles/main/mainPageHeader";
-import { NaviWrap, NaviGo, Navispan } from "@styles/naviStyle/naviWrap";
-import { FilterBG } from "@styles/filterStyle/filterBG";
+import {
+  NaviWrap,
+  NaviGo,
+  Navispan,
+  FilterBG,
+} from "@styles/naviStyle/naviWrap";
+
 import Hamburger from "@components/common/Hamburger";
 import MoyaLogo from "@components/MoyaLogo";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleNavigation } from "../../redux/reducer/modalSlice";
+import { MoreIcon } from "../../styles/svgIcon";
 import { logOutFunc } from "@api/loginApi";
+
+import { toggleNavigation } from "@redux/modalSlice";
 import { userLogoutAction } from "@redux/user/userSlice";
-import { Link } from "react-router-dom";
-const Header = () => {
+
+import AccessToken from "@hoc/AccessToken";
+
+const Header = ({ userLogin, accessToken }) => {
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
-
+  const navigate = useNavigate();
   const toggleNavi = () => {
     dispatch(toggleNavigation(!showNavi));
   };
   const handleBG = () => {
     dispatch(toggleNavigation(!showNavi));
+  };
+
+  const handleLogin = () => {
+    if (!userLogin) navigate("/login");
+    else {
+      logOutFunc(accessToken);
+      dispatch(userLogoutAction());
+    }
   };
   return (
     <>
@@ -31,23 +50,34 @@ const Header = () => {
           rel="noopener noreferrer"
           title="새창으로 열기"
         >
-          <NaviGo>AI 모야 글로벌 뉴스 바로가기</NaviGo>
+          <NaviGo>
+            AI 모야 글로벌 뉴스 바로가기
+            <MoreIcon />
+          </NaviGo>
         </a>
         <Navispan />
-        <NaviGo>스크랩 뉴스</NaviGo>
-        <NaviGo>키워드 관리</NaviGo>
+        <Link to="/scrap">
+          <NaviGo>
+            스크랩 뉴스
+            <MoreIcon />
+          </NaviGo>
+        </Link>
+        <NaviGo>
+          키워드 관리
+          <MoreIcon />
+        </NaviGo>
         <Navispan />
         <Link to="/mypagemain">
-          <NaviGo>마이페이지</NaviGo>
+          <NaviGo>
+            마이페이지
+            <MoreIcon />
+          </NaviGo>
         </Link>
-        <NaviGo
-          onClick={() => {
-            logOutFunc();
-            dispatch(userLogoutAction());
-          }}
-        >
-          로그아웃
+        <NaviGo onClick={handleLogin}>
+          {userLogin ? "로그아웃" : "로그인"}
+          <MoreIcon />
         </NaviGo>
+        <Navispan />
       </NaviWrap>
       <FilterBG showNavi={showNavi} onClick={handleBG} />
       <MainHeader>
@@ -58,4 +88,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default AccessToken(Header);

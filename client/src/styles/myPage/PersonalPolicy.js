@@ -25,3 +25,25 @@ export const Container = styled.div`
   letter-spacing: -0.2px;
   color: ${colors.gray650};
 `;
+
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 17px;
+  height: 56px;
+
+  height: 56px;
+  h3 {
+    text-align: center;
+    color: ${colors.gray900};
+    font-weight: ${fontWeight.FontWeight600};
+  }
+  div {
+    width: 100%;
+    margin: 0 auto;
+    svg {
+      position: absolute;
+      padding: 20px;
+    }
+  }
+`;

@@ -1,8 +1,6 @@
 import clientServer from "./baseUrl";
-import { getCookie } from "../util/settingSessions";
 
-export const getSearchData = async (queryParams) => {
-  const accessToken = getCookie();
+export const getSearchData = async (queryParams, accessToken) => {
   const { timeFilter, mediaType, language, orderBy, keyType, paramValue } =
     queryParams;
 

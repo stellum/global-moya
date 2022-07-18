@@ -1,11 +1,10 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ErrorPage from "@pages/error/ErrorPage";
 import Home from "@pages/home/Home";
 import MainPage from "@pages/main/MainPage";
 import Login from "./pages/login/Login";
-import Register from "./pages/login/Register";
-import RegisterPolicy from "@pages/register/RegisterPolicy";
+import RegisterContainer from "@pages/register/RegisterContainer";
 import PwChange from "./pages/login/PwChange";
 import QuickGuideMain from "@pages/quickGuide/QuickGuideMain";
 import { CustomContainer } from "@styles/common/container";
@@ -21,6 +20,16 @@ import Subscription from "./pages/myPage/Subscription";
 import EditKeywordContext from "@pages/edit/keyword/EditKeywordContext";
 // import EditGroupContext from "@pages/edit/group/EditGroupContext";
 
+import Password from "./pages/myPage/Password";
+
+import ScrapMain from "./pages/scrap/ScrapMain";
+import ScrapNews from "./pages/scrap/ScrapNews";
+import ScrapNewsEdit from "./pages/scrap/ScrapNewsEdit";
+import NewFolder from "./pages/scrap/NewFolder";
+import NameChange from "./pages/scrap/NameChange";
+import ScrapGroupEdit from "./pages/scrap/ScrapGroupEdit";
+import { ReactQueryDevtools } from "react-query/devtools";
+
 function App() {
   return (
     <>
@@ -35,8 +44,7 @@ function App() {
 
             {/* Register */}
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/registerpolicy" element={<RegisterPolicy />} />
+            <Route path="/register" element={<RegisterContainer />} />
             <Route path="/pwchange" element={<PwChange />} />
             <Route path="/personalpolicy" element={<PersonalPolicy />} />
             <Route path="/servicepolicy" element={<ServicePolicy />} />
@@ -46,9 +54,18 @@ function App() {
             {/* MyPage */}
             <Route path="/mypagemain" element={<MyPageMain />} />
             <Route path="/mypage/profile" element={<Profile />} />
+            <Route path="/mypage/password" element={<Password />} />
             <Route path="/mypage/subscription" element={<Subscription />} />
 
             <Route path="/contactus" element={<ContactUs />} />
+
+            {/*Scrap*/}
+            <Route path="/scrap" element={<ScrapMain />} />
+            <Route path="/scrap/:id" element={<ScrapNews />} />
+            <Route path="/scrapedit/:id" element={<ScrapNewsEdit />} />
+            <Route path="/newfolder" element={<NewFolder />} />
+            <Route path="/namechange" element={<NameChange />} />
+            <Route path="/scrap/groupedit" element={<ScrapGroupEdit />} />
 
             {/* Quick Search */}
             <Route path="/quick" element={<QuickGuideMain />} />
@@ -56,6 +73,7 @@ function App() {
             <Route path="/keyword" element={<KeywordMain />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
+          <ReactQueryDevtools initialIsOpen={false} />
         </CustomContainer>
       </BrowserRouter>
     </>

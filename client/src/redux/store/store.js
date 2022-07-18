@@ -22,16 +22,8 @@ import searchFilterSlice from "../reducer/searchFilterSlice";
 
 const persistConfig = {
   key: "root",
-  // key: "views",
   storage,
-  // whitelist: ["searchFilterSlice"],
-  blacklist: [
-    "modalSlice",
-    "categorySlice",
-    "buttonSlice",
-    // "keywordConnectedSlice",
-    // "searchFilterSlice",
-  ],
+  blacklist: ["modalSlice", "categorySlice", "accessTokenSlice", "buttonSlice"],
 };
 
 const rootReducer = combineReducers({
@@ -47,7 +39,6 @@ const rootReducer = combineReducers({
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
-  // combineReducer와 동일하다
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

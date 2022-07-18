@@ -10,14 +10,16 @@ import {
   CheckBox,
   Complete,
 } from "@styles/myPage/ContactUs";
+import { useNavigate } from "react-router-dom";
 import { AttachIcon, BackArrow, LearnMore } from "@styles/svgIcon";
 
 const ContactUs = () => {
+  const navigate = useNavigate();
   return (
     <ContactContainer>
       <Header>
         <div className="h3div">
-          <BackArrow />
+          <BackArrow onClick={() => navigate(-1)} />
           <h3>문의하기</h3>
         </div>
       </Header>

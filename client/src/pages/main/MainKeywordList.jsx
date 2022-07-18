@@ -21,8 +21,10 @@ import {
 import { toggleEditAction } from "@redux/modalSlice";
 import NewsCard from "@components/NewsCard";
 import Spinner from "@components/common/Spinner";
+import AccessToken from "@hoc/AccessToken";
 
-const MainKeywordList = ({ view, apply }) => {
+const MainKeywordList = ({ view, apply, accessToken }) => {
+
   const [toggleTabState, setToggleTabState] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
@@ -179,4 +181,4 @@ const MainKeywordList = ({ view, apply }) => {
   );
 };
 
-export default MainKeywordList;
+export default AccessToken(MainKeywordList);

@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   showBtn: false,
+  showScrapEditBtn: false,
+  showScrapMoveBtn: false,
   showSideNavi: false,
   showModal: { view: false, sort: false },
   showEditBtn: false,
@@ -14,6 +16,9 @@ export const modalSlice = createSlice({
   reducers: {
     toggleBtnAction: (state, action) => {
       state.showBtn = action.payload;
+    },
+    toggleScrapEditBtn: (state, action) => {
+      state.showScrapEditBtn = action.payload;
     },
     toggleModalAction: (state, action) => {
       switch (action.payload) {
@@ -41,14 +46,19 @@ export const modalSlice = createSlice({
       console.log(action);
       state.showEditBtn = action.payload;
     },
+    toggleScrapMoveBtn: (state, action) => {
+      state.showScrapMoveBtn = action.payload;
+    },
   },
 });
 
 export const {
   toggleBtnAction,
+  toggleScrapEditBtn,
   toggleModalAction,
   toggleNavigation,
   toggleEditAction,
+  toggleScrapMoveBtn,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;

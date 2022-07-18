@@ -2,19 +2,11 @@ import clientServer from "./baseUrl";
 import { getCookie } from "../util/settingSessions";
 import { retryAxios } from "@api/baseUrl";
 
-/**
- * createKeywords / updateKeywords
- * @param {*} json: keyType, _id, termSeq, updateList
- * @returns
- */
-
-export const getKeywords = async () => {
-  const accessToken = getCookie();
+export const getKeywords = async (accessToken) => {
   try {
     const response = await clientServer({
       url: "preferTerms/reports",
       headers: { Authorization: `Bearer ${accessToken}` },
-
       transformResponse: [
         function (data) {
           const transformedData = JSON.parse(data);
@@ -49,15 +41,16 @@ export const getKeywords = async () => {
 유저가 이미 생성된 키워드를 등록할 경우 = 4018
  */
 
-export const createKeywords = async (json) => {
-  const accessToken = getCookie();
-
+export const createKeywords = async (json, accessToken) => {
   try {
     const response = await clientServer({
       url: "preferTerms/create",
       method: "post",
 
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
       data: JSON.stringify(json),
     });
     // console.log(response);
@@ -75,8 +68,7 @@ export const createKeywords = async (json) => {
 // "termList" : keyType, _id, termSeq, updateFlag: R: Remove, S: Seq, D: Default
 // 순서변경, 삭제 한꺼번에 처리 가능
 // ! mutiple update / delete
-export const updateListKeywords = async (json) => {
-  const accessToken = getCookie();
+export const updateListKeywords = async (json, accessToken) => {
   try {
     const response = await clientServer({
       url: "preferTerms/updateList",
@@ -95,8 +87,7 @@ export const updateListKeywords = async (json) => {
 };
 
 // ! update 1개
-export const updateKeywords = async (json) => {
-  const accessToken = getCookie();
+export const updateKeywords = async (json, accessToken) => {
   try {
     const response = await clientServer({
       url: "preferTerms/updateSeq",
@@ -115,8 +106,7 @@ export const updateKeywords = async (json) => {
 };
 
 // ! delete 1개
-export const deleteKeywords = async (json) => {
-  const accessToken = getCookie();
+export const deleteKeywords = async (json, accessToken) => {
   try {
     const response = await clientServer({
       url: "preferTerms/delete",

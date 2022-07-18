@@ -80,7 +80,7 @@ export const Container = styled.div`
 export const Popup = styled.div`
   display: ${(props) => (props.popup ? "block" : "none")};
   width: 280px;
-  height: 144px;
+  height: 96px;
   left: 0;
   right: 0;
   margin: auto;

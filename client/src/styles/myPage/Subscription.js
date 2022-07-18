@@ -75,8 +75,6 @@ export const NextPayment = styled.div`
     font-size: ${fontSize.FontSize16};
     font-weight: ${fontWeight.FontWeight500};
   }
-
-  /* 양끝정렬 flex search go 맞았다 */
 `;
 export const PaymentMethod = styled.div`
   display: flex;
@@ -107,4 +105,29 @@ export const ApplyBtn = styled(DefaultButton)`
   font-size: ${colors.FontSize14};
   font-weight: ${fontWeight.FontWeight600};
   background-color: black;
+`;
+
+export const Popup = styled.div`
+  width: 280px;
+  height: 144px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  background-color: orange;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  span {
+    line-height: 24px;
+    padding: 12px 0 12px 16px;
+    font-size: ${fontSize.FontSize18};
+    font-weight: ${fontWeight.FontWeight600};
+  }
+  div {
+    font-size: ${fontSize.FontSize14};
+    font-weight: ${fontWeight.FontWeight400};
+    color: ${colors.gray900};
+  }
 `;
