@@ -2,23 +2,17 @@ import React, { useState } from "react";
 import MainHeader from "./MainHeader";
 import MainInputComponent from "./MainInput";
 import MainKeywordList from "./MainKeywordList";
-// import EditProvider from "@components/edit/EditProvider";
-// import EditContainer from "@components/edit/EditContainer";
-// import NewsCard from "@components/NewsCard";
-
+import EditKeywordContext from "@pages/edit/keyword/EditKeywordContext";
 import FilterIconModal from "@components/filterModal/FilterIconModal";
 import FilterTypeModal from "@components/filterModal/FilterTypeModal";
-import ViewTypeFilter from "../filtermodal/ViewTypeFilter";
-import SearchTypeFilter from "../filtermodal/SearchTypeFilter";
+import ViewTypeFilter from "@pages/filtermodal/ViewTypeFilter";
+import SearchTypeFilter from "@pages/filtermodal/SearchTypeFilter";
 import { FilterBG } from "@styles/filterStyle/filterBG";
 import { MainPageContainer } from "@styles/main/mainContainer";
 import { BtnWrap, FilterBtn } from "@styles/filterStyle/filterModal";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  toggleBtnAction,
-  toggleModalAction,
-} from "../../redux/reducer/modalSlice";
+import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
 
 const MainPage = () => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
@@ -65,10 +59,8 @@ const MainPage = () => {
         <MainHeader />
         <MainInputComponent />
         <MainKeywordList view={view} apply={apply} />
-        {/* <EditProvider /> */}
-        {/* <EditContainer /> */}
+        <EditKeywordContext />
       </MainPageContainer>
-      {/* <NewsCard view={view} apply={apply} /> */}
     </>
   );
 };
