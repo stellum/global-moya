@@ -11,9 +11,11 @@ import {
   Button,
   Popup,
 } from "@styles/myPage/Profile";
+import { useNavigate, Link } from "react-router-dom";
 import { BackArrow, ProfilePhoto, CloseIcon } from "@styles/svgIcon";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [popup, setPopup] = useState(false);
   const handleClick = () => {
     setPopup((prevState) => {
@@ -30,7 +32,7 @@ const Profile = () => {
       <Background popup={popup} onClick={handleClick}></Background>
       <Main>
         <div className="h3div">
-          <BackArrow />
+          <BackArrow onClick={() => navigate(-1)} />
           <h3>프로필 설정</h3>
         </div>
       </Main>

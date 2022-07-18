@@ -3,7 +3,7 @@ import {
   MainContainer,
   Main,
   AccountInfo,
-  Menu,
+  AccountSettings,
   Account,
   SubscriptionInfo,
   Subscription,
@@ -62,46 +62,55 @@ const MyPageMain = ({ user }) => {
             </SubscriptionInfo>
           </AccountInfo>
 
-          <Menu>
-            <Settings>
+          <Settings>
+            <AccountSettings>
+              <div>계정 관리</div>
+            </AccountSettings>
+            <Link to="/mypage/profile">
               <li>
-                <div>계정 관리</div>
+                <div>
+                  프로필 설정 <LearnMore />
+                </div>
               </li>
-
+            </Link>
+            <Link to="/mypage/password">
               <li>
                 <div>
                   비밀번호 재설정 <LearnMore />
                 </div>
               </li>
-            </Settings>
+            </Link>
 
-            <Help>
-              <div className="helpWrap">
-                <div>도움</div>
-
-                <ul>
-                  <li>
-                    공지사항 <LearnMore />
-                  </li>
-                  <Link to="/contactus">
-                    <li>
-                      1:1 문의하기 <LearnMore />
-                    </li>
-                  </Link>
-                  <Link to="/servicepolicy">
-                    <li>
-                      서비스 이용약관 <LearnMore />
-                    </li>
-                  </Link>
-                  <Link to="/personalpolicy">
-                    <li>
-                      개인정보 처리방침 <LearnMore />
-                    </li>
-                  </Link>
-                </ul>
+            <li>
+              <div>
+                로그아웃 <LearnMore />
               </div>
-            </Help>
-          </Menu>
+            </li>
+          </Settings>
+
+          <Help>
+            <div className="helpWrap">
+              <div>도움</div>
+
+              <ul>
+                <Link to="/contactus">
+                  <li>
+                    1:1 문의하기 <LearnMore />
+                  </li>
+                </Link>
+                <Link to="/servicepolicy">
+                  <li>
+                    서비스 이용약관 <LearnMore />
+                  </li>
+                </Link>
+                <Link to="/personalpolicy">
+                  <li>
+                    개인정보 처리방침 <LearnMore />
+                  </li>
+                </Link>
+              </ul>
+            </div>
+          </Help>
         </>
       )}
     </MainContainer>
