@@ -16,41 +16,57 @@ import HightLightText from "@components/HightLightText";
 import { colors } from "@styles/theme";
 import { changeCase } from "@util/changeCase";
 import AccessToken from "@hoc/AccessToken";
-import { checkClip, deleteKeywordFunc, createKeywordFunc } from "@util";
+import { deleteKeywordFunc, createKeywordFunc } from "@util";
 const KeywordList = ({
   keyword,
   accessToken,
-  reports,
   loading,
-  setCheckTrue,
-  checkTrue,
+  setFilterId,
+  filterId,
+  clipKeyword,
+  reports,
 }) => {
   const { filteredResult, generateKey } = MasterValueHook(keyword);
-  const [filterId, setFilterId] = useState({});
 
-  const curValue = (_id, category) => {
-    const filterCategory = _.filter(
-      filteredResult,
-      (item) => item.mainCate === category
+  const [currentDetail, setCurDetail] = useState({});
+  const [result, setResult] = useState(false);
+  const checkKeyword = (reports, id, category) => {
+    // console.log("reports", reports);
+    // console.log("id", filteredResult);
+    // console.log("category", category);
+    // console.log("----");
+    // if (reports.length === 0) return;
+    const result = reports.some(
+      (item) => item._id === id && item.keyType === category
     );
-
-    const filteredId = _.map(filterCategory, (item) =>
-      _.find(item.filtered, (item) => item._id === _id)
-    );
-    setFilterId(...filteredId);
+    // setResult(result);
+    return result;
   };
+  // useEffect(() => {}, []);
+  const filterCate = useCallback(
+    (_id, category) => {
+      const filterCurrentCate = _.filter(filteredResult, {
+        mainCate: category,
+      });
+      const res = _.filter(filterCurrentCate[0]?.filtered, { _id: _id });
+      setCurDetail(...res);
+    },
+    [currentDetail]
+  );
 
-  const handleFillStar = async (_id, category, accessToken, value) => {
-    curValue(_id, category);
+  const handleFillStar = useCallback(
+    (_id, category, accessToken) => {
+      setFilterId({ id: _id, category });
 
-    setCheckTrue(checkClip(reports, filterId, category));
-    console.log(checkClip(reports, filterId, category));
-    if (checkClip(reports, filterId, category)) {
-      // deleteKeywordFunc(value, category, accessToken, reports);
-    } else {
-      // createKeywordFunc(value, category, accessToken);
-    }
-  };
+      filterCate(_id, category);
+      if (checkKeyword(reports, _id, category)) {
+        deleteKeywordFunc(_id, category, accessToken, reports);
+      } else {
+        createKeywordFunc(_id, category, accessToken);
+      }
+    },
+    [filterId]
+  );
 
   return (
     <>
@@ -59,7 +75,7 @@ const KeywordList = ({
       ) : (
         <KeywordUL>
           {filteredResult &&
-            _.map(filteredResult, (item) => {
+            _.map(filteredResult, (item, index) => {
               return (
                 <>
                   <HighLightLi key={generateKey(item.mainCate)}>
@@ -87,17 +103,18 @@ const KeywordList = ({
                               </HightLightText>
                               <IconWrap star>
                                 <StarIcon
+                                  id={value._id}
                                   onClick={() => {
                                     handleFillStar(
                                       value._id,
                                       item.mainCate,
                                       accessToken,
-                                      value
+                                      idx
                                     );
                                   }}
-                                  $clip={checkClip(
+                                  $clip={checkKeyword(
                                     reports,
-                                    value,
+                                    value._id,
                                     item.mainCate
                                   )}
                                 />

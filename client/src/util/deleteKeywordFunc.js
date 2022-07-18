@@ -1,10 +1,11 @@
 import { deleteKeywords } from "../api/keywordListApi";
-const deleteKeywordFunc = async (item, category, accessToken, clipKeyword) => {
+const deleteKeywordFunc = async (id, category, accessToken, clipKeyword) => {
+  console.log(clipKeyword);
   const data = {
     keyType: category,
-    _id: item._id.toString(),
+    _id: id.toString(),
     termSeq: clipKeyword.find(
-      (clip) => clip._id === item._id && clip.keyType === category
+      (item) => item._id === id && item.keyType === category
     ).termSeq,
   };
   const res = await deleteKeywords(data, accessToken);

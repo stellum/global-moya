@@ -8,14 +8,18 @@ import { isLoading } from "@redux/categorySlice";
 import { getKeywords } from "@api/keywordListApi";
 const KeywordMain = ({ accessToken }) => {
   const [reports, setReports] = useState([]);
-  const [checkTrue, setCheckTrue] = useState(false);
+
   const keyword = useSelector((state) => state.categorySlice.keyword);
   const loading = useSelector((state) => state.categorySlice.loading);
+  const [filterId, setFilterId] = useState({ id: "", category: "" });
+  const [clipKeyword, setClipKeyword] = useState([]);
   const inputRef = useRef(null);
   const dispatch = useDispatch();
+
   const fetch = async () => {
     try {
       const reports = await getKeywords(accessToken);
+      console.log(reports);
       if (reports.reports.length > 0) {
         setReports(reports.reports);
         await dispatch(isLoading(false));
@@ -28,10 +32,19 @@ const KeywordMain = ({ accessToken }) => {
   };
   useEffect(() => {
     inputRef.current.focus();
-    fetch();
-    // console.log(checkTrue);
-  }, [checkTrue]);
+  }, []);
 
+  useEffect(() => {
+    fetch();
+  }, []);
+
+  useEffect(() => {
+    // setClipKeyword(
+    //   reports.filter((item) => item.keyType === filterId.category)
+    // );
+    console.log("현재클릭", filterId);
+    // console.log("포함카테고리 reports", clipKeyword);
+  }, [filterId]);
   return (
     <DefaultContainer>
       <QuickGuideHeader keyword={keyword} inputRef={inputRef} />
@@ -40,8 +53,9 @@ const KeywordMain = ({ accessToken }) => {
         inputRef={inputRef}
         reports={reports}
         loading={loading}
-        setCheckTrue={setCheckTrue}
-        checkTrue={checkTrue}
+        filterId={filterId}
+        setFilterId={setFilterId}
+        // clipKeyword={clipKeyword}
       />
     </DefaultContainer>
   );
