@@ -10,9 +10,10 @@ export const NaviWrap = styled.div`
   top: 0;
   transition: all 0.3s ease-out;
   background-color: ${colors.gray150};
-  z-index: 2;
+  z-index: 3;
 `;
-export const NaviGo = styled(DefaultContainer)`
+export const NaviGo = styled.div`
+  padding: 0px 16px;
   height: 48px;
   background-color: ${colors.white};
   border-top: 1px solid ${colors.gray250};
@@ -20,17 +21,18 @@ export const NaviGo = styled(DefaultContainer)`
   align-items: center;
   color: ${colors.black};
   font-size: ${fontSize.FontSize16};
-  &:last-child {
-    border-bottom: 1px solid ${colors.gray250};
-  }
-  &::after {
-    content: ">";
-    position: absolute;
-    right: 16px;
-  }
 `;
 export const Navispan = styled.div`
   height: 10px;
-  width: 100%;
   border-top: 1px solid ${colors.gray250};
+`;
+export const FilterBG = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.55);
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  display: ${({ showScrapMoveBtn, showScrapEditBtn, showNavi }) =>
+    showScrapMoveBtn || showScrapEditBtn || showNavi ? "block" : "none"};
 `;

@@ -12,7 +12,7 @@ import {
   Wrap,
 } from "@styles/scrap/scrap";
 import { BackArrow } from "@styles/svgIcon";
-const NewFolder = () => {
+const NameChange = () => {
   const navigate = useNavigate();
   const nameInput = useRef();
   const [black, setBlack] = useState();
@@ -31,7 +31,7 @@ const NewFolder = () => {
             <div onClick={() => navigate(-1)}>
               <BackArrow />
             </div>
-            <h3>새 그룹 추가</h3>
+            <h3>그룹 이름 변경</h3>
           </div>
         </FixedHeader>
         <NewGroupInputWrap>
@@ -59,4 +59,4 @@ const NewFolder = () => {
     </>
   );
 };
-export default NewFolder;
+export default NameChange;

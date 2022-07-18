@@ -25,7 +25,7 @@ export const bookmarkSave = async () => {
 };
 
 //내가 등록한 폴더별로 폴더내 저장된 모든 뉴스 리스트를 반환한다.
-export const bookmarkAll = async () => {
+export const bookmarkAll = async (accessToken) => {
   try {
     const response = await clientServer({
       url: "/bookmark/reportsAll",
@@ -44,7 +44,7 @@ export const bookmarkAll = async () => {
   }
 };
 // 내가 만든 폴더groupId 내에 저장된 뉴스 리스트를 반환한다.
-export const bookmarkReportsOne = async () => {
+export const bookmarkOne = async (accessToken, groupId) => {
   try {
     const response = await clientServer({
       headers: { Authorization: `Bearer ${accessToken}` },

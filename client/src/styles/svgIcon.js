@@ -28,9 +28,15 @@ import { ReactComponent as CloseIconSvg } from "@assets/CloseIcon.svg";
 import { ReactComponent as PhotoIconSvg } from "@assets/PhotoIcon.svg";
 import { ReactComponent as globalMOYAPremiumSvg } from "@assets/globalMOYAPremium.svg";
 import { ReactComponent as ProfilePhotoSvg } from "@assets/ProfilePhoto.svg";
-
+import { ReactComponent as MoreIconSvg } from "@assets/MoreIcon.svg";
+import { ReactComponent as ScrapCheckSvg } from "@assets/ScrapCheckIcon.svg";
+import { ReactComponent as NewGroupPlusSvg } from "@assets/NewGroupPlusIcon.svg";
 import { colors } from "./theme";
-
+export const NewGroupPlus = styled(NewGroupPlusSvg)``;
+export const MoreIcon = styled(MoreIconSvg)`
+  position: absolute;
+  right: 6px;
+`;
 export const TranslateIcon = styled(TranslateSvg)``;
 export const ShareIcon = styled(ShareIconSvg)``;
 export const ScrapIcon = styled(ScrapIconSvg)`
@@ -38,6 +44,18 @@ export const ScrapIcon = styled(ScrapIconSvg)`
   path {
     stroke: ${(props) =>
       props.$scrap ? colors.pointOrange200 : colors.gray770};
+  }
+`;
+export const ScrapCheckIcon = styled(ScrapCheckSvg)`
+  circle {
+    stroke: ${(props) =>
+      props.$scrapcheck ? colors.white : colors.pointOrange200};
+    fill: ${(props) =>
+      props.$scrapcheck ? colors.pointOrange200 : colors.white};
+  }
+  path {
+    stroke: ${(props) =>
+      props.$scrapcheck ? colors.white : colors.pointOrange200};
   }
 `;
 
