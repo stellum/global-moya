@@ -69,10 +69,8 @@ export const stepPayServer = axios.create({
 //   }
 // );
 
-import { getCookie } from "../util/settingSessions";
-
 export const retryAxios = (tryCount, timeInterval) => {
-  const accessToken = getCookie();
+  // const accessToken = getCookie();
   const instance = axios.create({
     // baseURL:
     //   "http://cityfalcon-web-797905939.ap-northeast-2.elb.amazonaws.com:3002",
