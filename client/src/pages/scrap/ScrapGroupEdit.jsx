@@ -6,7 +6,7 @@ import AccessToken from "@hoc/AccessToken";
 import { FixedHeader, BtnWrap } from "@styles/scrap/scrap";
 import { ApplyBtn, ButtonWrapDiv } from "@styles/scrap/scrapnews";
 import { BackArrow, NewGroupPlus } from "@styles/svgIcon";
-import GroupList from "@components/group/GroupList";
+// import GroupList from "@components/group/GroupList";
 const ScrapGroupEdit = () => {
   const navigate = useNavigate();
   return (
@@ -25,7 +25,7 @@ const ScrapGroupEdit = () => {
         </div>
       </FixedHeader>
       {/* 여기에 그룹 카테고리 리스트 map*/}
-      <GroupList />
+      {/* <GroupList /> */}
       <BtnWrap>
         <ButtonWrapDiv>
           <ApplyBtn>취소</ApplyBtn>
