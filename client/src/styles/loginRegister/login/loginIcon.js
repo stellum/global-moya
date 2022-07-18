@@ -1,18 +1,8 @@
 import styled from "styled-components";
 
-import { colors } from "@styles/theme";
-import { fontSize, fontWeight } from "../theme";
-
 import IconCancelSvg from "@assets/icons-cancel.svg";
 import IconEyeShut from "@assets/icons-eyeShut.svg"
 
-export const LoginEmail = styled.div`
-  border: 1px solid ${colors.gray350};
-  width: 328px;
-  height: 48px;
-  position: relative;
-  margin-bottom: 12px;
-`;
 
 // export const SpanIcon = styled.div`
 //   cursor: pointer;
@@ -21,28 +11,6 @@ export const LoginEmail = styled.div`
 //   position: absolute;
 // `;
 
-
-export const LoginInput = styled.input`
-  width: 270px;
-  height: 45px;
-  /* border: 1px solid ${colors.gray350}; */
-  border: 0;
-  border-radius: 2px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: ${fontWeight.FontWeight500};
-  line-height: 22px;
-  margin-bottom: 40px;
-  margin-left: 12px;
-  &:focus {
-    outline: none;
-    // placeholder 안없어짐
-    &::placeholder {
-      color: ${colors.gray500};
-      display: none;
-    }
-  }
-`;
 
 
 export const IconCancel = styled.span`

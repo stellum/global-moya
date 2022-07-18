@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
-import { colors } from "@styles/theme";
-import { fontSize, fontWeight } from "../theme";
+import { colors, fontSize, fontWeight } from "@styles/theme";
 
-export const LoginForm = styled.form`
+export const CommonForm = styled.form`
   width: 360px;
   position: absolute;
   top: 50%;

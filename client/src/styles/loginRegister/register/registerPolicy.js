@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { fontSize, fontWeight, colors } from "../theme";
+import { fontSize, fontWeight, colors } from "@styles/theme";
 
 export const TermsAndConditions = styled.div`
   padding: 12px 16px 16px;

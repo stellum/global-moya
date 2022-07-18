@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-import { fontWeight } from "../theme";
-import { colors } from "@styles/theme";
+import { colors, fontWeight } from "@styles/theme";
 
 export const LoginButton = styled.button`
   display: flex;

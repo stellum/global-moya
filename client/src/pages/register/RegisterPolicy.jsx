@@ -9,7 +9,7 @@ import {
   ImageContent,
   Checklabel,
   SignUp,
-} from "../../styles/register/registerPolicy";
+} from "@styles/loginRegister/register/registerPolicy";
 import "../../index.css";
 import LearnMore from "../../assets/images/LearnMore.svg";
 import { Link } from "react-router-dom";

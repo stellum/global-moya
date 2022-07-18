@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-import { colors } from "@styles/theme";
-import { fontWeight } from "../theme";
+import { colors, fontWeight } from "@styles/theme";
 
 export const RegisterLink = styled.div`
   margin-bottom: 49px;

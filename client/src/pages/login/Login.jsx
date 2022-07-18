@@ -13,23 +13,22 @@ import { subsUserAction } from "@redux/user/subsSlice";
 import { getKeywords } from "../../api/keywordListApi";
 import { addKeywordListAction } from "@redux/keywordListSlice";
 
-import { LoginForm } from "@styles/login/login";
+import { CommonForm } from "@styles/loginRegister/commonForm";
+import { InputDiv, InputType} from "@styles/loginRegister/loginRegisterInput";
 import {
-  LoginEmail,
-  LoginInput,
   IconCancel,
   IconText,
   ShowIcon,
-} from "@styles/login/loginInput";
+} from "@styles/loginRegister/login/loginIcon";
 import {
   LoginDiv,
   LoginSpan,
   LonginIcon,
   LoginAuto,
   FindPw,
-} from "@styles/login/loginAuto";
-import { RegisterLink, LoginRegi } from "@styles/login/loginNew";
-import { LoginButton } from "@styles/login/loginButton";
+} from "@styles/loginRegister/login/loginAuto";
+import { RegisterLink, LoginRegi } from "@styles/loginRegister/login/loginNew";
+import { LoginButton } from "@styles/loginRegister/loginRegisterButton";
 
 import { setRefreshToken } from "@util/settingSessions";
 const Login = () => {
@@ -70,7 +69,7 @@ const Login = () => {
   };
 
   return (
-    <LoginForm
+    <CommonForm
       onSubmit={handleSubmit((data) => {
         const formData = new FormData();
 
@@ -90,8 +89,12 @@ const Login = () => {
         }
       })}
     >
-      <LoginEmail>
-        <LoginInput
+      <div>
+        <div></div>
+        <span>로그인</span>
+      </div>
+      <InputDiv>
+        <InputType
           type="email"
           name="email"
           placeholder="이메일"
@@ -103,13 +106,12 @@ const Login = () => {
             },
           })}
         />
-
         <IconCancel>
           <IconText>icons-cancel</IconText>
         </IconCancel>
-      </LoginEmail>
-      <LoginEmail>
-        <LoginInput
+      </InputDiv>
+      <InputDiv>
+        <InputType
           type="password"
           name="password"
           placeholder="비밀번호"
@@ -120,7 +122,7 @@ const Login = () => {
         <ShowIcon>
           <IconText>눈동자 아이콘</IconText>
         </ShowIcon>
-      </LoginEmail>
+      </InputDiv>
 
       <LoginDiv>
         <LoginSpan>
@@ -139,7 +141,7 @@ const Login = () => {
       <LoginButton type="submit" disabled={isSubmitting}>
         로그인
       </LoginButton>
-    </LoginForm>
+    </CommonForm>
   );
 };
 
