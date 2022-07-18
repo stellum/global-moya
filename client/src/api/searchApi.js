@@ -10,6 +10,7 @@ export const getSearchData = async (queryParams, accessToken) => {
     const response = await clientServer({
       url: "/news/search",
       headers: { Authorization: `Bearer ${accessToken}` },
+      timeout: 4000,
       params: {
         timeFilter,
         mediaType,

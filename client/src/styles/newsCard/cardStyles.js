@@ -78,7 +78,7 @@ export const SubContent = styled.div`
 
 export const CardFooter = styled.div`
   background-color: ${colors.gray200};
-  padding: 6px 16px;
+  padding: 12px 16px;
   position: relative;
   .tags {
     span {

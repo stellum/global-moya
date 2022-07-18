@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import { colors, fontWeight } from "../theme";
-export const EditKeywordContainer = styled.div`
+import { colors, fontSize, fontWeight } from "../theme";
+export const EditContextWrap = styled.div`
   display: ${({ showEditBtn }) => (showEditBtn ? "flex" : "none")};
-  display: flex;
+`;
+export const EditContainer = styled.div`
+  padding: 0px 16px;
   flex-direction: column;
   position: absolute;
   top: 0;
@@ -12,14 +14,30 @@ export const EditKeywordContainer = styled.div`
   height: 100vh;
   background-color: ${colors.white};
   z-index: 999;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
-export const EditKeywordHeader = styled.h2`
+export const EditHeaderContainer = styled.div`
+  display: flex;
   padding: 30px 0px 15px;
+`;
+export const EditBack = styled.div`
+  cursor: pointer;
+`;
+export const EditHeader = styled.h2`
+  flex-grow: 1;
   text-align: center;
   font-weight: ${fontWeight.FontWeight600};
   color: ${colors.gray900};
 `;
-export const EditKeywordUl = styled.ul`
+export const EditCount = styled.span`
+  color: ${colors.gray500};
+`;
+export const EditUl = styled.ul`
   color: ${colors.gray870};
   height: 100%;
 `;
@@ -36,10 +54,68 @@ export const EditButtonCancel = styled.button`
   height: 52px;
   background-color: ${colors.gray350};
   color: ${colors.white};
+  cursor: pointer;
+  transition: background-color 500ms;
+  &:hover {
+    background-color: ${colors.gray300};
+  }
 `;
 export const EditButtonSave = styled.button`
   width: 70%;
   height: 52px;
   background-color: ${colors.gray900};
   color: ${colors.white};
+  cursor: pointer;
+  transition: background-color 500ms;
+  &:hover {
+    background-color: ${colors.gray850};
+  }
+`;
+export const EditButtonDelete = styled.button`
+  width: 70%;
+  height: 52px;
+  background-color: ${colors.pointOrange200};
+  color: ${colors.white};
+  cursor: pointer;
+  transition: background-color 500ms;
+  &:hover {
+    background-color: ${colors.pointOrange100};
+  }
+`;
+
+// SortableItem
+export const EditItemWrap = styled.div`
+  height: 48px;
+  display: flex;
+  align-items: center;
+  position: relative;
+`;
+// export const IconWrap = styled.div`
+//   width: 48px;
+//   display: flex;
+//   justify-content: center;
+//   svg {
+//     height: 20px;
+//   }
+//   cursor: pointer;
+// `;
+export const EditItemTextWrap = styled.div`
+  padding: 0px 20px;
+  border-radius: 4px;
+`;
+// mobile에서 터치 시 width,height 사이즈가 아이콘 보다 더 커야 터치하기에 좋다.
+export const EditHamburgerWrap = styled.div`
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+`;
+export const EditTextKeyword = styled.h4``;
+
+export const EditInputGroup = styled.input`
+  font-size: ${fontSize.FontSize16};
 `;

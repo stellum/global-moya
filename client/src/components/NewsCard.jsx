@@ -17,8 +17,6 @@ import {
   ExpandMoreIcon,
 } from "@styles/svgIcon";
 
-import mediumimg from "@assets/mediumimg.png";
-
 const NewsCard = ({ view, apply, newsList }) => {
   const [scrap, setScrap] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -29,10 +27,10 @@ const NewsCard = ({ view, apply, newsList }) => {
       {newsList.map((news) => {
         // console.log("news", news);
         return (
-          <Card>
+          <Card key={news.newsId}>
             <MainContent viewType={apply ? view : viewType}>
               <ImageContent
-                src={mediumimg}
+                src={news.imageUrl}
                 viewType={apply ? view : viewType}
               />
               <CardHeader viewType={apply ? view : viewType}>
@@ -63,27 +61,34 @@ const NewsCard = ({ view, apply, newsList }) => {
 
             <CardFooter>
               <Tickers $expand={expand}>
-                <li>
-                  <strong>Related Symbols</strong> ARKK,BNR,MTTR,TSP
-                </li>
-                <li>
-                  <strong>Related Symbols</strong> ARKK,BNR,MTTR,TSP
-                </li>
-                <li>
-                  <strong>Related Symbols</strong> ARKK,BNR,MTTR,TSP
-                </li>
+                {news.nluLabels.map((label, index) => (
+                  <li key={label + index}>
+                    <strong>Related Symbols</strong> {label}
+                  </li>
+                ))}
               </Tickers>
               <div className="tags">
-                {news.assetTags.map((tag) => {
-                  <span>#{tag}</span>;
-                })}
+                {news.assetTags.map((tag, index) => (
+                  <span key={tag + index}>#{tag}</span>
+                ))}
               </div>
-              <ExpandMoreIcon
-                onClick={() => {
-                  setExpand((prev) => !prev);
-                }}
-                $expand={expand}
-              />
+              {news.assetTags.length !== 0 ? (
+                <ExpandMoreIcon
+                  onClick={() => {
+                    setExpand((prev) => !prev);
+                  }}
+                  $expand={expand}
+                  tags={true}
+                />
+              ) : (
+                <ExpandMoreIcon
+                  onClick={() => {
+                    setExpand((prev) => !prev);
+                  }}
+                  $expand={expand}
+                  tags={false}
+                />
+              )}
             </CardFooter>
           </Card>
         );

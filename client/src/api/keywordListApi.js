@@ -1,23 +1,29 @@
 import clientServer from "./baseUrl";
+import { getCookie } from "../util/settingSessions";
+import { retryAxios } from "@api/baseUrl";
 
 export const getKeywords = async (accessToken) => {
   try {
     const response = await clientServer({
       url: "preferTerms/reports",
       headers: { Authorization: `Bearer ${accessToken}` },
-
-      // transformResponse: [
-      //   function (data) {
-      //     const transformedData = JSON.parse(data);
-      //     // console.log("transformedData", transformedData);
-      //     return transformedData.reports.map((item, index) => {
-      //       item.index = index;
-      //       return item;
-      //     });
-      //   },
-      // ],
+      transformResponse: [
+        function (data) {
+          const transformedData = JSON.parse(data);
+          // console.log("transformedData", transformedData);
+          return transformedData.reports.map((item, index) => {
+            item.index = index;
+            return item;
+          });
+        },
+      ],
+      timeout: 4000,
       // withCredentials: true,
     });
+
+    // if (response === undefined) {
+    //   retryAxios(3, 1000);
+    // }
 
     if (response.status === 200) {
       const data = await response.data;

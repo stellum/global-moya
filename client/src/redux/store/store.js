@@ -1,34 +1,38 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  combineReducers,
+  getDefaultMiddleware,
+} from "@reduxjs/toolkit";
 import userSlice from "../reducer/user/userSlice";
 import { persistStore } from "redux-persist";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import logger from "redux-logger";
+import buttonSlice from "../reducer/buttonSlice";
 import modalSlice from "../reducer/modalSlice";
 import cardTypeSlice from "../reducer/cardTypeSlice";
 import categorySlice from "../reducer/categorySlice";
 import subsSlice from "../reducer/user/subsSlice";
-
 import keywordConnectedSlice from "../reducer/keywordConnectedSlice";
 import searchFilterSlice from "../reducer/searchFilterSlice";
 
-const middlewares = [logger];
+// if (process.env.NODE_ENV !== "production") {
+//   middleware.push(logger);
+// }
 
 const persistConfig = {
   key: "root",
   storage,
-
-  blacklist: ["modalSlice", "categorySlice", "accessTokenSlice"],
+  blacklist: ["modalSlice", "categorySlice", "accessTokenSlice", "buttonSlice"],
 };
 
 const rootReducer = combineReducers({
   user: userSlice,
+  buttonSlice,
   modalSlice,
   cardTypeSlice,
   categorySlice,
-
   subsSlice,
-
   keywordConnectedSlice,
   searchFilterSlice,
 });
@@ -36,8 +40,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-
-  middleware: [...middlewares],
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(logger),
 });
 
 export const persistor = persistStore(store);

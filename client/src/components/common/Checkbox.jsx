@@ -1,92 +1,96 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  showDelBtnAction,
+  addCheckedBtn,
+  delCheckedBtn,
+  initCheckedAction,
+} from "@redux/buttonSlice";
 import styled from "styled-components";
+import { DeleteIcon } from "@styles/svgIcon";
 
-const Checkbox = () => {
-  const [checked, setChecked] = useState(false);
+const Label = styled.label`
+  display: flex;
+  align-items: center;
+  user-select: none;
+`;
 
-  const handleChange = (e) => {
-    console.log("e", e);
-    setChecked(!e.target.checked);
-  };
+const HiddenCheckbox = styled.input`
+  border: 0;
+  clip: rect(0 0 0 0);
+  clippath: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+`;
+
+const IconCheckbox = styled.div`
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+  ${DeleteIcon} {
+    & circle {
+      fill: ${(props) => (props.checked ? "##FC5B3F" : "#dfdfdf")};
+    }
+  }
+`;
+
+const Checkbox = ({ item }) => {
+  const [checkedButtons, setCheckedButtons] = useState([]);
+  const checkedBtn = useSelector((state) => state.buttonSlice.checkedBtn);
+
+  const dispatch = useDispatch();
+
+  const changeHandler = useCallback((checked, checkEl) => {
+    if (checked) {
+      // 체크 반영
+      setCheckedButtons([...checkedButtons, checkEl]);
+      dispatch(addCheckedBtn(checkEl));
+    } else {
+      // 체크 반영 해제
+      setCheckedButtons(checkedButtons.filter((button) => button !== checkEl));
+      dispatch(delCheckedBtn(checkEl));
+    }
+  });
+
+  useEffect(() => {
+    if (checkedBtn.length !== 0) {
+      dispatch(showDelBtnAction(true));
+    } else {
+      dispatch(showDelBtnAction(false));
+    }
+    return () => {};
+  }, [checkedBtn]);
+
+  useEffect(() => {
+    return () => {
+      // 초기화
+      dispatch(initCheckedAction());
+    };
+  }, []);
 
   return (
-    <CheckboxContainer>
-      <input
+    <Label htmlFor={item.id}>
+      <HiddenCheckbox
         type="checkbox"
-        checked={checked}
-        id="chk"
-        onChange={() => handleChange}
+        id={item.id}
+        name={item.keyword}
+        onChange={(e) => {
+          changeHandler(e.currentTarget.checked, "check");
+        }}
+        checked={checkedButtons.includes("check") ? true : false}
       />
-      {/* <label>{label}</label> */}
-      <label htmlFor="chk"></label>
-    </CheckboxContainer>
+      <IconCheckbox checked={checkedButtons.includes("check") ? true : false}>
+        <DeleteIcon />
+      </IconCheckbox>
+    </Label>
   );
 };
 
 export default Checkbox;
-
-const CheckboxContainer = styled.div`
-  display: inline-block;
-  > input {
-    opacity: 0;
-  }
-  > input + label {
-    position: relative; /* permet de positionner les pseudo-éléments */
-    padding-left: 25px; /* fait un peu d'espace pour notre case à venir */
-    cursor: pointer; /* affiche un curseur adapté */
-    &:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 1px;
-      width: 17px;
-      height: 17px; /* dim. de la case */
-      border: 1px solid #aaa;
-      background: #f8f8f8;
-      border-radius: 3px; /* angles arrondis */
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3); /* légère ombre interne */
-    }
-    &:after {
-      content: "✔";
-      position: absolute;
-      top: -1px;
-      left: 2px;
-      font-size: 16px;
-      color: #09ad7e;
-      transition: all 0.2s; /* on prévoit une animation */
-    }
-  }
-  > input:not(:checked) + label {
-    &:after {
-      opacity: 0; /* coche invisible */
-      transform: scale(0); /* mise à l'échelle à 0 */
-    }
-  }
-  > input:disabled:not(:checked) + label {
-    &:before {
-      box-shadow: none;
-      border-color: #bbb;
-      background-color: #ddd;
-    }
-  }
-  > input:checked + label {
-    &:after {
-      opacity: 1; /* coche opaque */
-      transform: scale(1); /* mise à l'échelle 1:1 */
-    }
-  }
-  > input:disabled:checked + label {
-    &:after {
-      color: #999;
-    }
-  }
-  > input:disabled + label {
-    color: #aaa;
-  }
-  > input:checked:focus + label,
-  input:not(:checked):focus + label {
-    &:before {
-      border: 1px dotted blue;
-    }
-  }
-`;
