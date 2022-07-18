@@ -22,12 +22,12 @@ const LvKeywordList = ({
   accessToken,
   setFillStar,
 }) => {
-  const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 100 });
+  const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 50 });
 
   useEffect(() => {
     setSliceValue((prev) => ({
       minValue: prev.maxValue,
-      maxValue: prev.maxValue + 100,
+      maxValue: prev.maxValue + 50,
     }));
   }, [page]);
 

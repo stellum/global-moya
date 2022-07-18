@@ -1,5 +1,6 @@
 import { deleteKeywords } from "../api/keywordListApi";
 const deleteKeywordFunc = async (id, category, accessToken, clipKeyword) => {
+  console.log(clipKeyword);
   const data = {
     keyType: category,
     _id: id.toString(),

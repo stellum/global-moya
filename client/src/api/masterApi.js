@@ -9,8 +9,8 @@ export const getMasterData = async () => {
       const data = await response.data;
       return data;
     }
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    return err.message;
   }
 };
 

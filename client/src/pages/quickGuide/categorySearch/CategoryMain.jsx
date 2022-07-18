@@ -51,12 +51,13 @@ const CategoryMain = ({ accessToken }) => {
   };
 
   useEffect(() => {
-    fetch();
     inputRef.current.value = "";
     inputRef.current.focus();
     dispatch(searchKeyword(""));
-  }, [category, fillStar]);
-
+  }, [category]);
+  useEffect(() => {
+    fetch();
+  }, [fillStar, category]);
   useEffect(() => {
     setClipKeyword(reports.filter((item) => item.keyType === category));
   }, [category, reports]);
@@ -65,7 +66,6 @@ const CategoryMain = ({ accessToken }) => {
   
     1. keyword가 있으면
     2. datalist에서 keyword를 필터 한 리스트를 보여준다
-
   */
   const renderLoader = () => <Spinner />;
   return (

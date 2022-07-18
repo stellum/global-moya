@@ -21,6 +21,7 @@ const HiglightKeyword = ({
   category,
   accessToken,
   clipKeyword,
+  setFillStar,
 }) => {
   const [filterKeyword, setFilterKeyword] = useState([]);
 

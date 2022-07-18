@@ -30,7 +30,7 @@ const MasterValueHook = (searchWord) => {
       ];
       setFilteredResult(resultParamValue);
     });
-  }, [filteredResult, searchWord]);
+  }, [searchWord]);
 
   useEffect(() => {
     getParamValueFunc();

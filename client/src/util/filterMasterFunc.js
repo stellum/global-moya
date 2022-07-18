@@ -6,9 +6,8 @@ export const filterValue = (dataArr, searchWord) => {
   });
   return filtered;
 };
-
 export const checkClip = (list, id) => {
-  const result = list.some((item) => item._id === id);
+  const result = _.some(list, (item) => item._id === id);
   return result;
 };
 export default checkClip;
