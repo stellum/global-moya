@@ -3,15 +3,9 @@ import axios from "axios";
 const clientServer = axios.create({
   baseURL:
     "http://cityfalcon-web-797905939.ap-northeast-2.elb.amazonaws.com:3002",
+  headers: { "Access-Control-Allow-Origin": "*" },
 });
 export default clientServer;
-
-const axiosPrivate = axios.create({
-  baseURL:
-    "http://cityfalcon-web-797905939.ap-northeast-2.elb.amazonaws.com:3002",
-  headers: { "Content-Type": "application/json" },
-  withCredentials: true,
-});
 
 const SECRET_KEY = import.meta.env.VITE_SECRET_TOKEN;
 // secret_key db에 저장?
@@ -23,32 +17,23 @@ export const stepPayServer = axios.create({
   },
 });
 
-// Intercepter
-// clientServer.interceptors.request.use(
-//   async (reqConfig) => {
-//     console.log("Intercepter", reqConfig);
+// export let retryNewsDatas;
 
-//     return reqConfig;
-//   },
-//   async (error) => {
-//     // 요청 오류가 있는 작업 수행
-//     console.log("req error", error);
-//     return Promise.reject(error);
-//   }
-// );
-
-// clientServer.interceptors.response.use(
+// instance.interceptors.response.use(
 //   async (resConfig) => {
 //     // 2xx 범위에 있는 상태 코드는 이 함수를 트리거 합니다.
 //     // 응답 데이터가 있는 작업 수행
 //     console.log("resConfig", resConfig);
 
+//     if (error.config.url === "/auth/refresh") {
+//       return;
+//     }
 //     if (error.config.url === "/news/search") {
 //       retryNewsDatas = resConfig.data;
 //     }
 
 //     // resConfig.data
-//     return resConfig;
+//     // return resConfig;
 //     // return resConfig.data;
 //   },
 //   async (error) => {
@@ -69,21 +54,24 @@ export const stepPayServer = axios.create({
 //   }
 // );
 
-/*
 export const retryAxios = (tryCount, timeInterval) => {
-  // const accessToken = getCookie();
   const instance = axios.create({
     // baseURL:
     //   "http://cityfalcon-web-797905939.ap-northeast-2.elb.amazonaws.com:3002",
     responseType: "json",
     headers: {
-      "Content-Type": "application/json",
-      headers: { Authorization: `Bearer ${accessToken}` },
+      "cntent-type": "application/json",
+      // headers: { Authorization: `Bearer ${accessToken}` },
     },
   });
 
   const onFulfilled = (response) => {
-    console.log("ful res", response);
+    // if (error.config.url === "/auth/refresh") {
+    //   return;
+    // }
+    // if (error.config.url === "/news/search") {
+    //   retryNewsDatas = resConfig.data;
+    // }
     return response;
   };
 
@@ -111,8 +99,12 @@ export const retryAxios = (tryCount, timeInterval) => {
 
   instance.interceptors.response.use(onFulfilled, onRejected);
 
+  console.log(
+    "instance",
+    instance.interceptors.response.use(onFulfilled, onRejected)
+  );
+
   return instance;
 };
 
 // retryAxios(3, 1000);
-*/

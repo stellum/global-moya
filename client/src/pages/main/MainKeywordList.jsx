@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-// import { getSearchData } from "@api/searchApi";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   keywordContentRequest,
   fetchSearchNews,
@@ -14,40 +13,37 @@ import {
   MainKeywordUl,
   MainKeywordContentDiv,
   MainKeywordActiveContentDiv,
-  MainKeywordActiveContentH2,
   EditIconDiv,
   EditIconCircle,
 } from "@styles/main/mainKeywordList";
-import { toggleEditAction } from "@redux/modalSlice";
+import { toggleEditAction } from "@redux/buttonSlice";
 import NewsCard from "@components/NewsCard";
 import Spinner from "@components/common/Spinner";
 import AccessToken from "@hoc/AccessToken";
 
 const MainKeywordList = ({ view, apply, accessToken }) => {
-  const [toggleTabState, setToggleTabState] = useState(0);
   const navigate = useNavigate();
-  const location = useLocation();
+  const dispatch = useDispatch();
 
+  const [toggleTabState, setToggleTabState] = useState(0);
+  const [newsList, setNewsList] = useState([]);
+  const [pageToken, setPageToken] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const { timeFilter, mediaType, language, orderBy, keyType, paramValue } =
+    useSelector((state) => state.searchFilterSlice);
+  const { status } = useSelector((state) => state.searchFilterSlice);
+
+  // toggle btn
+  const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
+
+  //local >> useSelector
   const rootStorage = JSON.parse(localStorage["persist:root"]);
   const keywordSlice = JSON.parse(rootStorage["keywordConnectedSlice"]);
   const keywordList = keywordSlice.keywordList;
   const keyTypeList = keywordSlice.keyTypeList;
   const paramValueList = keywordSlice.paramValueList;
 
-  const effectMount = useRef(false);
-
-  const dispatch = useDispatch();
-
-  // ! card
-  const { timeFilter, mediaType, language, orderBy, keyType, paramValue } =
-    useSelector((state) => state.searchFilterSlice);
-  const { status } = useSelector((state) => state.searchFilterSlice);
-
-  const [newsList, setNewsList] = useState([]);
-  const [pageToken, setPageToken] = useState("");
-
-  // toggle btn
-  const showEditBtn = useSelector((state) => state.modalSlice.showEditBtn);
 
   const toggleModal = () => {
     dispatch(toggleEditAction(!showEditBtn));
@@ -55,50 +51,47 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
   };
 
   const toggleTab = async (index) => {
-    setToggleTabState(index);
+    // 0 > FALSE
+    setToggleTabState(+index);
     await dispatch(
       keywordContentRequest([keyTypeList[index], paramValueList[index]])
     );
-
-    // navigate(
-    //   `/main?timeFilter=${timeFilter}&mediaType=${mediaType}&language=${language}&orderBy=${orderBy}&keyType=${keyType}&paramValue=${paramValue}`
-    // );
   };
 
   useEffect(() => {
-    if (effectMount.current === false) {
-      // getDatas();
-      console.log("첫실행");
+    navigate(
+      `/main?timeFilter=${timeFilter}&mediaType=${mediaType}&language=${language}&orderBy=${orderBy}&keyType=${keyType}&paramValue=${paramValue}`
+    );
+  }, [timeFilter, mediaType, language, orderBy, keyType, paramValue]);
 
-      const getDatas = async () => {
-        const queryParams = {
-          timeFilter,
-          mediaType,
-          language,
-          orderBy,
-          keyType,
-          paramValue,
-        };
+  useEffect(() => {
+    const getDatas = async () => {
+      const queryParams = {
+        timeFilter,
+        mediaType,
+        language,
+        orderBy,
+        keyType,
+        paramValue,
+      };
 
-        await dispatch(fetchSearchNews(queryParams, accessToken)).then(
-          (response) => {
-            console.log("첫 response", response);
+      await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
+        (response) => {
+          console.log("첫 response", response);
+          if (response.payload.status === 400) {
+            setErrorMsg("결과가 없습니다.");
+          } else {
             setNewsList(response.payload.newsList);
             setPageToken(response.payload.nextPageToken);
           }
-        );
-      };
+        }
+      );
+    };
+    getDatas();
 
-      const timeoutID = setTimeout(() => {
-        getDatas();
-      }, 2000);
-
-      return () => {
-        console.log("unMounted 카드");
-        effectMount.current = true;
-        clearTimeout(timeoutID);
-      };
-    }
+    return () => {
+      console.log("unMounted 카드");
+    };
   }, []);
 
   useEffect(() => {
@@ -113,23 +106,18 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
           paramValue,
         };
 
-        await dispatch(fetchSearchNews(queryParams, accessToken)).then(
+        await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
           (response) => {
-            console.log("두번째");
-            console.log("res2", response);
             setNewsList(response.payload.newsList);
             setPageToken(response.payload.nextPageToken);
           }
         );
       };
 
-      const timeoutID = setTimeout(() => {
-        getDatas();
-      }, 2000);
+      getDatas();
 
       return () => {
         console.log("clear time");
-        clearTimeout(timeoutID);
       };
     }
   }, [toggleTabState]);
@@ -144,7 +132,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
               return (
                 <MainKeywordLi
                   key={_id + name}
-                  toggleTab={toggleTabState === index}
+                  toggleTab={keyword.paramValue === paramValue}
                   onClick={() => toggleTab(index)}
                 >
                   {name.length > 10 ? name.slice(0, 9) + "..." : name}
@@ -170,9 +158,6 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
                   key={_id + keyType}
                   toggleContent={toggleTabState === index}
                 >
-                  <MainKeywordActiveContentH2>
-                    Content {index + 1}
-                  </MainKeywordActiveContentH2>
                   <NewsCard
                     key={index}
                     view={view}

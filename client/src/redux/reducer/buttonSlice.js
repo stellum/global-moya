@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  showEditBtn: false,
   showDelBtn: false,
   checkedBtn: [],
 };
@@ -9,6 +10,10 @@ export const buttonSlice = createSlice({
   name: "button",
   initialState,
   reducers: {
+    toggleEditAction: (state, action) => {
+      console.log(action);
+      state.showEditBtn = action.payload;
+    },
     showDelBtnAction: (state, action) => {
       state.showDelBtn = action.payload;
     },
@@ -26,6 +31,7 @@ export const buttonSlice = createSlice({
 });
 
 export const {
+  toggleEditAction,
   showDelBtnAction,
   addCheckedBtn,
   delCheckedBtn,

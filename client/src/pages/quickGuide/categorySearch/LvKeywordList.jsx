@@ -12,6 +12,7 @@ import _ from "lodash";
 import AccessToken from "@hoc/AccessToken";
 import { checkClip } from "@util/filterMasterFunc";
 import { deleteKeywordFunc, createKeywordFunc } from "@util";
+import { useNavigate } from "react-router-dom";
 const LvKeywordList = ({
   dataList,
   myRef,
@@ -23,6 +24,7 @@ const LvKeywordList = ({
   setFillStar,
 }) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 50 });
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSliceValue((prev) => ({
@@ -38,6 +40,12 @@ const LvKeywordList = ({
     } else {
       createKeywordFunc(_id, category, accessToken);
     }
+  };
+
+  const handleLocationState = (paramValue, category, exchange) => {
+    navigate(`/main/keywordsearch/${paramValue}`, {
+      state: { paramValue, category, exchange },
+    });
   };
   return (
     <>
@@ -57,7 +65,15 @@ const LvKeywordList = ({
                     <KeywordLi ref={myRef} key={item._id}>
                       <SearchIcon />
                       <KeywordWrap>
-                        <KeywordH4>
+                        <KeywordH4
+                          onClick={() => {
+                            handleLocationState(
+                              item.paramValue,
+                              category,
+                              item.exchange
+                            );
+                          }}
+                        >
                           {item.name} ({item.paramValue})
                         </KeywordH4>
                       </KeywordWrap>
@@ -81,7 +97,15 @@ const LvKeywordList = ({
                         <SearchIcon />
                       </IconWrap>
                       <KeywordWrap>
-                        <KeywordH4>
+                        <KeywordH4
+                          onClick={() => {
+                            handleLocationState(
+                              item.paramValue,
+                              category,
+                              item.exchange
+                            );
+                          }}
+                        >
                           {item.name} ({item.paramValue})
                         </KeywordH4>
                       </KeywordWrap>

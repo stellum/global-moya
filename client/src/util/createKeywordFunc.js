@@ -7,6 +7,6 @@ const createKeywordFunc = async (id, category, accessToken) => {
   };
 
   const res = await createKeywords(data, accessToken);
-  // console.log(res);
+  return res;
 };
 export default createKeywordFunc;

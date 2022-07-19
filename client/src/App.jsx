@@ -42,7 +42,10 @@ function App() {
             {/* Edit */}
             <Route path="/main/edit/keyword" element={<EditKeywordContext />} />
             {/* <Route path="/main/edit/group" element={<EditGroupContext />} /> */}
-
+            <Route
+              path="/main/keywordsearch/:id"
+              element={<KeywordCardMain />}
+            />
             {/* Register */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<RegisterContainer />} />

@@ -9,7 +9,7 @@ import {
 import { cardSwitchFunc } from "../../util/cardSwitchFunc";
 
 export const Card = styled.div`
-  max-width: 360px;
+  /* max-width: 360px; */
   margin: 20px auto;
   overflow: hidden;
   border-bottom: 1px solid ${colors.gray350};
@@ -27,6 +27,8 @@ export const MainContent = styled.div`
 `;
 export const CardHeader = styled.div`
   ${({ viewType }) => cardSwitchFunc(cardTextType, viewType)}
+
+  box-sizing: border-box;
   text-overflow: ellipsis;
   overflow: hidden;
   display: -webkit-box;
@@ -72,6 +74,9 @@ export const SubContent = styled.div`
   .iconGroup {
     svg {
       margin-left: 16px;
+      &:nth-child(1) {
+        margin-left: 0;
+      }
     }
   }
 `;
@@ -98,7 +103,7 @@ export const CardFooter = styled.div`
   }
 `;
 export const Tickers = styled.ul`
-  display: ${({ $expand }) => ($expand ? "block" : "none")};
+  display: ${({ $expand }) => ($expand === "expand" ? "block" : "none")};
   color: ${colors.gray500};
   font-size: ${fontSize.FontSize12};
   padding: 12px 0 8px 0;

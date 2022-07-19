@@ -157,7 +157,7 @@ export const Help = styled.div`
   }
   ul {
     margin-top: 15px;
-    color: ${colors.gray800};
+
     font-weight: 500;
     font-size: 16px;
     li {
