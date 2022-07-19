@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import {
   Card,
@@ -17,17 +17,35 @@ import {
   ExpandMoreIcon,
 } from "@styles/svgIcon";
 import { dateFormat } from "../util/dateFunc";
+import { translateApi } from "../api/translateApi";
 import ErrorMsg from "./ErrorMsg";
+import AccessToken from "@hoc/AccessToken";
 
-const NewsCard = ({ view, apply, newsList, errorMsg }) => {
+const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
   const [scrap, setScrap] = useState(false);
   const [open, setOpen] = useState({});
+  const [trakingId, setTrakingId] = useState({});
+  const [translate, setTranslate] = useState({});
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
 
   const handleExpand = (e) => {
     setOpen({ [e.target.id]: !open[e.target.id] });
   };
-  
+  const fetch = useCallback(
+    async (newsId, accessToken) => {
+      const response = await translateApi(newsId, accessToken);
+      console.log(response);
+      setTranslate(response);
+    },
+    [trakingId]
+  );
+  const handleTranslate = (e, newsId, accessToken, idx) => {
+    setTrakingId({ [e.target.id]: !trakingId[e.target.id] });
+    console.log(idx);
+    console.log(e.target.id);
+    // console.log(trakingId);
+    // fetch(newsId, accessToken);
+  };
   return (
     <>
       {newsList.length > 0 ? (
@@ -40,12 +58,12 @@ const NewsCard = ({ view, apply, newsList, errorMsg }) => {
                   viewType={apply ? view : viewType}
                 />
                 <CardHeader viewType={apply ? view : viewType}>
-                  <h2>{news.title}</h2>
+                  <h2 id={news.newsId}>{news.title}</h2>
                 </CardHeader>
               </MainContent>
 
               <Abstract>
-                <p>{news.description}</p>
+                <p id={news.newsId}>{news.description}</p>
               </Abstract>
 
               <SubContent>
@@ -53,7 +71,12 @@ const NewsCard = ({ view, apply, newsList, errorMsg }) => {
                   {news.brandName} | {dateFormat(news.publishTime)}
                 </div>
                 <div className="iconGroup">
-                  <TranslateIcon />
+                  <TranslateIcon
+                    id={idx}
+                    onClick={(e) => {
+                      handleTranslate(e, news.newsId, accessToken, idx);
+                    }}
+                  />
                   <ShareIcon />
                   <ScrapIcon
                     onClick={() => {
@@ -105,4 +128,4 @@ const NewsCard = ({ view, apply, newsList, errorMsg }) => {
   );
 };
 
-export default NewsCard;
+export default AccessToken(NewsCard);

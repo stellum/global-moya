@@ -43,8 +43,9 @@ const KeywordCardMain = ({ accessToken }) => {
   );
 
   const loading = useSelector((state) => state.categorySlice.loading);
+
   useEffect(() => {
-    console.log(loading);
+    dispatch(isLoading(true));
     const getDatas = async () => {
       const queryParams = {
         timeFilter,
@@ -58,7 +59,6 @@ const KeywordCardMain = ({ accessToken }) => {
 
       await dispatch(fetchSearchNews({ queryParams, accessToken }))
         .then((response) => {
-          console.log(response);
           if (response.payload.status === 400) {
             setErrorMsg("결과가 없습니다.");
           } else {
