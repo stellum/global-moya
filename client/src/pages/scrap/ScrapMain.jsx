@@ -5,10 +5,9 @@ import { toggleScrapEditBtn } from "../../redux/reducer/modalSlice";
 import AccessToken from "@hoc/AccessToken";
 import { bookmarkAll } from "@api/bookmarkApi";
 
-import NewsCard from "../../components/NewsCard";
-import ScrapNewsCard from "./scrapcate/ScrapNewsCard";
+import NewsCard from "@components/NewsCard";
+import NewsCardList from "@components/NewsCardList";
 import ScrapCategory from "./scrapcate/ScrapCategory";
-import ScrapEditModal from "@components/ScrapModal/ScrapModal";
 
 import { EditButton, Header } from "@styles/scrap/scrap";
 import { BackArrow } from "@styles/svgIcon";
@@ -19,9 +18,10 @@ import {
   ScrapMiniModalStyle,
 } from "@styles/scrap/ScrapModal";
 
-const ScrapMain = ({ accessToken }) => {
+const ScrapMain = ({ accessToken, view, apply }) => {
   const [black, setBlack] = useState(true);
-  const [bookmarkall, setBookmarkall] = useState([]);
+  const [newsList, setNewsList] = useState([]);
+  const [news2, setNews2] = useState([]);
   const dispatch = useDispatch();
   const showScrapEditBtn = useSelector(
     (state) => state.modalSlice.showScrapEditBtn
@@ -34,20 +34,22 @@ const ScrapMain = ({ accessToken }) => {
   };
   const getBookmarkAllDatas = async () => {
     const response = await bookmarkAll(accessToken);
-    setBookmarkall(response.reports);
-    console.log("올북마크 반환", response.reports);
+    setNews2(response.reports);
     const allbook = response.reports;
-    const newslist = allbook.map((i) => {
-      if (allbook[i].newsList != 0) {
-        const newsThing = allbook[i].newsList;
+
+    const newslist = allbook.map((e) => {
+      if (e.newsList) {
+        const newsThing = e.newsList;
         return newsThing;
       }
     });
-    console.log("올북마크 반환", newslist);
+    const A = newslist.flat();
+    setNewsList(A);
   };
   useEffect(() => {
     getBookmarkAllDatas();
   }, []);
+  console.log("newsList?", newsList);
   return (
     <>
       <FilterBG showScrapEditBtn={showScrapEditBtn} onClick={handleBG} />
@@ -58,7 +60,6 @@ const ScrapMain = ({ accessToken }) => {
           </Link>
         </BtnWrap>
       </ScrapMiniModalStyle>
-
       <Header>
         <div>
           <Link to="/main">
@@ -71,7 +72,11 @@ const ScrapMain = ({ accessToken }) => {
         </div>
       </Header>
       <ScrapCategory black={black} />
-      <ScrapNewsCard />
+      {newsList.map((news, idx) => (
+        <>
+          <NewsCardList news={news} view={view} apply={apply} idx={idx} />
+        </>
+      ))}
     </>
   );
 };

@@ -43,7 +43,7 @@ export const FixedHeader = styled(Header)`
   position: fixed;
   top: 0;
   background-color: ${colors.white};
-  z-index: 1;
+  z-index: 10;
 `;
 export const EditButton = styled.button`
   background: none;
@@ -60,6 +60,7 @@ export const BtnWrap = styled.div`
   padding: 16px;
   display: flex;
   transition: 0.3s;
+  z-index: 10;
 `;
 export const BtnWrapVisible = styled.div`
   background-color: ${colors.white};

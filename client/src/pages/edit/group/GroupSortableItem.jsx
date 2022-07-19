@@ -20,7 +20,7 @@ const GroupSortableItem = ({ item, type }) => {
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: item.id });
+  } = useSortable({ id: item.groupId });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -44,13 +44,13 @@ const GroupSortableItem = ({ item, type }) => {
       {/* <CheckInput type="checkbox" id="deleteCheck" /> */}
       {/* <CheckLabel htmlFor="deleteCheck" /> */}
 
-      <Checkbox checked={checked} onChange={handleCheckbox} />
-
+      {/* <Checkbox checked={checked} onChange={handleCheckbox} /> */}
+      <Checkbox key={item.groupId} item={item.groupName} />
       <EditItemTextWrap type={type}>
         <EditInputGroup
           type="button"
           placeholder="그룹명을 바꿔주세요."
-          defaultValue={item.keyword}
+          defaultValue={item.groupName}
           onChange={handleInput}
         />
       </EditItemTextWrap>

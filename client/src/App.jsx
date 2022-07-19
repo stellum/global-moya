@@ -18,7 +18,7 @@ import ServicePolicy from "@pages/myPage/ServicePolicy";
 import Profile from "@pages/myPage/Profile";
 import Subscription from "./pages/myPage/Subscription";
 import EditKeywordContext from "@pages/edit/keyword/EditKeywordContext";
-// import EditGroupContext from "@pages/edit/group/EditGroupContext";
+import EditGroupContext from "@pages/edit/group/EditGroupContext";
 
 import Password from "./pages/myPage/Password";
 
