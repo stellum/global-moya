@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
 import {
   Main,
   Settings,
@@ -15,6 +17,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { BackArrow, ProfilePhoto, CloseIcon } from "@styles/svgIcon";
 
 const Profile = () => {
+  const subsUser = useSelector((state) => state.subsSlice.subsUser);
   const navigate = useNavigate();
   const [popup, setPopup] = useState(false);
   const handleClick = () => {
@@ -44,8 +47,8 @@ const Profile = () => {
           </div>
 
           <div>
-            <span>김모아 님</span>
-            <p>moyanews@sysmetic.co.kr</p>
+            <span>{subsUser.name} 님</span>
+            <p>{subsUser.email}</p>
           </div>
         </Account>
 

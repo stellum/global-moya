@@ -14,14 +14,24 @@ import { BackArrow, ProfileIcon, LearnMore } from "@styles/svgIcon";
 import { useNavigate, Link } from "react-router-dom";
 import UserCheck from "@hoc/UserCheck";
 import { RequiredLogin } from "@hoc/userAccessType";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logOutFunc } from "@api/loginApi";
+import { userLogoutAction } from "@redux/user/userSlice";
+
 import { dateFormat, subDate } from "@util/dateFunc";
-const MyPageMain = ({ user }) => {
+const MyPageMain = ({ user, accessToken }) => {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const subsUser = useSelector((state) => state.subsSlice.subsUser);
   useEffect(() => {
     console.log(subsUser);
   }, []);
+  const handleLogin = () => {
+    logOutFunc(accessToken);
+    dispatch(userLogoutAction());
+    navigate("/");
+  };
   return (
     <MainContainer>
       {user && (
@@ -87,7 +97,7 @@ const MyPageMain = ({ user }) => {
             </Link>
 
             <li>
-              <div>
+              <div onClick={handleLogin}>
                 로그아웃 <LearnMore />
               </div>
             </li>
