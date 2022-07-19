@@ -41,8 +41,10 @@ const searchFilterSlice = createSlice({
   initialState,
   reducers: {
     keywordContentRequest: (state, action) => {
+      console.log(action.payload);
       state.keyType = action.payload[0];
       state.paramValue = action.payload[1];
+      state.exchange = action.payload[2];
     },
     loggedDefaultRequest: (state, action) => {
       console.log("state", state);

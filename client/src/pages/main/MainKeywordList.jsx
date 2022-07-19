@@ -30,8 +30,15 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
   const [pageToken, setPageToken] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
-  const { timeFilter, mediaType, language, orderBy, keyType, paramValue } =
-    useSelector((state) => state.searchFilterSlice);
+  const {
+    timeFilter,
+    mediaType,
+    language,
+    orderBy,
+    keyType,
+    paramValue,
+    exchange,
+  } = useSelector((state) => state.searchFilterSlice);
   const { status } = useSelector((state) => state.searchFilterSlice);
 
   // toggle btn
@@ -43,7 +50,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
   const keywordList = keywordSlice.keywordList;
   const keyTypeList = keywordSlice.keyTypeList;
   const paramValueList = keywordSlice.paramValueList;
-
+  const exchangeList = keywordSlice.exchangeList;
 
   const toggleModal = () => {
     dispatch(toggleEditAction(!showEditBtn));
@@ -54,13 +61,17 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
     // 0 > FALSE
     setToggleTabState(+index);
     await dispatch(
-      keywordContentRequest([keyTypeList[index], paramValueList[index]])
+      keywordContentRequest([
+        keyTypeList[index],
+        paramValueList[index],
+        exchangeList[index],
+      ])
     );
   };
 
   useEffect(() => {
     navigate(
-      `/main?timeFilter=${timeFilter}&mediaType=${mediaType}&language=${language}&orderBy=${orderBy}&keyType=${keyType}&paramValue=${paramValue}`
+      `/main?timeFilter=${timeFilter}&mediaType=${mediaType}&language=${language}&orderBy=${orderBy}&keyType=${keyType}&paramValue=${paramValue}&exchange=${exchange}`
     );
   }, [timeFilter, mediaType, language, orderBy, keyType, paramValue]);
 
@@ -73,6 +84,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
         orderBy,
         keyType,
         paramValue,
+        exchange,
       };
 
       await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
@@ -104,6 +116,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
           orderBy,
           keyType,
           paramValue,
+          exchange,
         };
 
         await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
