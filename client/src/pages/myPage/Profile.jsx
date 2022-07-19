@@ -41,8 +41,6 @@ const Profile = () => {
         <Account>
           <div className="iconWrap" onClick={handleClick}>
             <ProfilePhoto />
-
-            {/* <PhotoIcon id="btn" /> */}
           </div>
 
           <div>
@@ -53,7 +51,7 @@ const Profile = () => {
 
         <Container>
           <Header>
-            <span>닉네임</span>
+            <span>닉네임 변경</span>
             <p>최대 한글 nn자, 영문 nn자, 숫자 혼용 가능</p>
           </Header>
 
