@@ -8,7 +8,7 @@ import HomeFooter from "./HomeFooter";
 import AccessToken from "@hoc/AccessToken";
 
 const Home = ({ userLogin, accessToken }) => {
-  const { keyTypeList, paramValueList } = useSelector(
+  const { keyTypeList, paramValueList, exchangeList } = useSelector(
     (state) => state.keywordConnectedSlice
   );
 
@@ -18,12 +18,16 @@ const Home = ({ userLogin, accessToken }) => {
     if (userLogin) {
       const getDatas = async () => {
         const response = await getKeywords(accessToken);
-
+        console.log(response);
         await dispatch(addKeywordListAction(response));
-        console.log("keyTypeList", keyTypeList[0]);
-        console.log("paramValueList", paramValueList[0]);
+
+        console.log("paramValueList", exchangeList[0]);
         await dispatch(
-          keywordContentRequest([keyTypeList[0], paramValueList[0]])
+          keywordContentRequest([
+            keyTypeList[0],
+            paramValueList[0],
+            exchangeList[0].exchange,
+          ])
         );
       };
       getDatas();
