@@ -59,14 +59,15 @@ export const ScrapCheckIcon = styled(ScrapCheckSvg)`
   }
 `;
 
-export const ExpandMoreIcon = styled(ExpandMoreIconSvg)`
-  transform: ${({ $expand }) =>
-    $expand ? "rotate(180deg) translateY(0%)" : "rotate(0deg) translateY(50%)"};
+export const ExpandMoreIcon = styled.img`
+  transform: ${(props) =>
+    !props.tags
+      ? "rotate(0deg) translateY(0%)"
+      : "rotate(180deg) translateY(0%)"};
   cursor: pointer;
   position: absolute;
   top: 0px;
   right: 10px;
-  // transfrom: ${(props) => (!props.tags ? "translateY(0%)" : "")};
 `;
 
 export const GlobalMoyaLogo = styled(GlobalMoyaSvg)``;
