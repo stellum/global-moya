@@ -9,7 +9,9 @@ const initialState = {
   orderBy: "latest",
   keyType: "category",
   paramValue: "stocks",
+  exchange: null,
   status: "Welcome",
+  code: null,
 };
 
 const fetchSearchNews = createAsyncThunk(
@@ -19,7 +21,9 @@ const fetchSearchNews = createAsyncThunk(
 
     try {
       const response = await getSearchData(queryParams, accessToken);
-
+      if (response.stauts === 400) {
+        return response.status;
+      }
       return response;
     } catch (error) {
       console.log("slice error", error);
@@ -57,6 +61,7 @@ const searchFilterSlice = createSlice({
       state.status = "Loading";
     });
     builder.addCase(fetchSearchNews.fulfilled, (state, action) => {
+      // state.code = action.payload.data?.code;
       state.value = action.payload;
       state.status = "complete";
     });

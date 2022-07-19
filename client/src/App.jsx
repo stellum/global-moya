@@ -29,6 +29,7 @@ import NewFolder from "./pages/scrap/NewFolder";
 import NameChange from "./pages/scrap/NameChange";
 import ScrapGroupEdit from "./pages/scrap/ScrapGroupEdit";
 import { ReactQueryDevtools } from "react-query/devtools";
+import KeywordCardMain from "./pages/main/keywordCardMain/KeywordCardMain";
 
 function App() {
   return (
@@ -41,7 +42,10 @@ function App() {
             {/* Edit */}
             <Route path="/main/edit/keyword" element={<EditKeywordContext />} />
             {/* <Route path="/main/edit/group" element={<EditGroupContext />} /> */}
-
+            <Route
+              path="/main/keywordsearch/:id"
+              element={<KeywordCardMain />}
+            />
             {/* Register */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<RegisterContainer />} />

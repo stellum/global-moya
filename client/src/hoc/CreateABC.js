@@ -1,5 +1,5 @@
 function CreateABC(prev, next) {
-  var p, n, pos, str;
+  let p, n, pos, str;
   for (pos = 0; p === n; pos++) {
     p = pos < prev.length ? prev.charCodeAt(pos) : 96;
     n = pos < next.length ? next.charCodeAt(pos) : 123;
@@ -23,9 +23,9 @@ function CreateABC(prev, next) {
   }
   return str + String.fromCharCode(Math.ceil((p + n) / 2));
 }
-var strings = ["a", "c"];
+let strings = ["a", "c"];
 while (strings.length < 20) {
-  var rnd = Math.floor(Math.random() * (strings.length - 1));
+  let rnd = Math.floor(Math.random() * (strings.length - 1));
   strings.splice(rnd + 1, 0, midString(strings[rnd], strings[rnd + 1]));
   console.log(strings);
 }

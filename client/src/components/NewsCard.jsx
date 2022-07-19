@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Card,
@@ -16,23 +16,22 @@ import {
   ShareIcon,
   ExpandMoreIcon,
 } from "@styles/svgIcon";
-// svg를 컴포넌트 시키면 styled component에 ref적용이 안된다. 그래서 태그로 처리하기 위한 import
-import ExpandMoreIconSvg from "@assets/ExpandMoreIcon.svg";
+import { dateFormat } from "../util/dateFunc";
+import ErrorMsg from "./ErrorMsg";
 
-const NewsCard = ({ view, apply, newsList }) => {
+const NewsCard = ({ view, apply, newsList, errorMsg }) => {
   const [scrap, setScrap] = useState(false);
-  const [expand, setExpand] = useState(false);
-  const svgRefs = useRef([]);
-  const tickersRefs = useRef([]);
-
-  //! view랑 viewType이랑 같은 값.
+  const [open, setOpen] = useState({});
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
 
+  const handleExpand = (e) => {
+    setOpen({ [e.target.id]: !open[e.target.id] });
+  };
+  
   return (
     <>
-      {newsList &&
+      {newsList.length > 0 ? (
         newsList.map((news, idx) => {
-          // console.log("news", news);
           return (
             <Card key={news.newsId}>
               <MainContent viewType={apply ? view : viewType}>
@@ -51,9 +50,8 @@ const NewsCard = ({ view, apply, newsList }) => {
 
               <SubContent>
                 <div className="time">
-                  {news.brandName} | {news.publishTime}
+                  {news.brandName} | {dateFormat(news.publishTime)}
                 </div>
-
                 <div className="iconGroup">
                   <TranslateIcon />
                   <ShareIcon />
@@ -67,10 +65,8 @@ const NewsCard = ({ view, apply, newsList }) => {
               </SubContent>
 
               <CardFooter>
-                <Tickers
-                // $expand={expand}
-                >
-                  {news.nluLabels.map((label, index) => (
+                <Tickers $expand={`${open[idx] ? "expand" : "none"}`}>
+                  {news.nluLabels.slice(0, 3).map((label, index) => (
                     <li key={label + index}>
                       <strong>Related Symbols</strong> {label}
                     </li>
@@ -81,31 +77,30 @@ const NewsCard = ({ view, apply, newsList }) => {
                     <span key={tag + index}>#{tag}</span>
                   ))}
                 </div>
-                <ExpandMoreIcon
-                  src={ExpandMoreIconSvg}
-                  ref={(el) => (svgRefs.current[idx] = el)}
-                  onClick={() => {
-                    console.log("svgRef", svgRefs.current[idx]);
-                    let targetStyle = svgRefs.current[idx].style.transform;
-
-                    svgRefs.current[idx].style.transform =
-                      targetStyle === "rotate(0deg) translateY(0%)"
-                        ? "rotate(180deg) translateY(0%)"
-                        : "rotate(0deg) translateY(0%)";
-
-                    svgRefs.current[idx].style.transform =
-                      targetStyle === "rotate(180deg) translateY(-50%)"
-                        ? "rotate(0deg) translateY(50%)"
-                        : "rotate(180deg) translateY(-50%)";
-                    setExpand((prev) => !prev);
-                  }}
-                  // $expand={expand}
-                  tags={news.assetTags.length && true}
-                />
+                {news.assetTags.length !== 0 ? (
+                  <ExpandMoreIcon
+                    id={idx}
+                    onClick={(e) => {
+                      handleExpand(e, idx);
+                    }}
+                    $expand={`${open[idx] ? "expand" : "none"}`}
+                  />
+                ) : (
+                  <ExpandMoreIcon
+                    id={idx}
+                    onClick={(e) => {
+                      handleExpand(e, idx);
+                    }}
+                    $expand={`${open[idx] ? "expand" : "card"}`}
+                  />
+                )}
               </CardFooter>
             </Card>
           );
-        })}
+        })
+      ) : (
+        <ErrorMsg errorMsg={errorMsg} />
+      )}
     </>
   );
 };

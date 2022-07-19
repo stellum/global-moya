@@ -115,7 +115,7 @@ export const deleteKeywords = async (json, accessToken) => {
     });
     if (response.status === 200) {
       const data = await response.data;
-      console.log(data);
+      // console.log(data);
       return data;
     }
   } catch (e) {

@@ -28,14 +28,14 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
   const [toggleTabState, setToggleTabState] = useState(0);
   const [newsList, setNewsList] = useState([]);
   const [pageToken, setPageToken] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const { timeFilter, mediaType, language, orderBy, keyType, paramValue } =
     useSelector((state) => state.searchFilterSlice);
   const { status } = useSelector((state) => state.searchFilterSlice);
+
   // toggle btn
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
-
-  const effectMount = useRef(false); //! ref
 
   //local >> useSelector
   const rootStorage = JSON.parse(localStorage["persist:root"]);
@@ -43,6 +43,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
   const keywordList = keywordSlice.keywordList;
   const keyTypeList = keywordSlice.keyTypeList;
   const paramValueList = keywordSlice.paramValueList;
+
 
   const toggleModal = () => {
     dispatch(toggleEditAction(!showEditBtn));
@@ -77,12 +78,15 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
       await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
         (response) => {
           console.log("첫 response", response);
-          setNewsList(response.payload?.newsList);
-          setPageToken(response.payload?.nextPageToken);
+          if (response.payload.status === 400) {
+            setErrorMsg("결과가 없습니다.");
+          } else {
+            setNewsList(response.payload.newsList);
+            setPageToken(response.payload.nextPageToken);
+          }
         }
       );
     };
-
     getDatas();
 
     return () => {
