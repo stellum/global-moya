@@ -16,7 +16,7 @@ export const getKeywords = async (accessToken) => {
           });
         },
       ],
-      timeout: 4000,
+      timeout: 3000,
       // withCredentials: true,
     });
 

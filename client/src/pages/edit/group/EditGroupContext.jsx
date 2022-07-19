@@ -14,7 +14,7 @@ import {
 } from "@dnd-kit/sortable";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toggleEditAction } from "@redux/modalSlice";
+import { toggleEditAction } from "@redux/buttonSlice";
 import {
   EditContextWrap,
   EditContainer,
@@ -51,7 +51,7 @@ const EditGroupContext = () => {
   ]);
   const navigate = useNavigate();
 
-  const showEditBtn = useSelector((state) => state.modalSlice.showEditBtn);
+  const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
 
   const dispatch = useDispatch();
   const toggleModal = () => {

@@ -1,7 +1,6 @@
 import clientServer from "./baseUrl";
 
 export const getSearchData = async (queryParams, accessToken) => {
-  console.log("queryParams", queryParams);
   const {
     timeFilter,
     mediaType,
@@ -12,13 +11,11 @@ export const getSearchData = async (queryParams, accessToken) => {
     exchange,
   } = queryParams;
 
-  // console.log("accessToken API", accessToken);
-
   try {
     const response = await clientServer({
       url: "/news/search",
       headers: { Authorization: `Bearer ${accessToken}` },
-      timeout: 4000,
+      timeout: 3000,
       params: {
         timeFilter,
         mediaType,

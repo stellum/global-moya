@@ -10,6 +10,7 @@ import {
 
 const HomeInput = () => {
   const navigate = useNavigate();
+
   return (
     <HomeContainer>
       <GlobalMoyaLogo />

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getSearchData } from "@api/searchApi";
-// import { retryAxios } from "@api/baseUrl";
+import { retryAxios } from "@api/baseUrl";
 
 const initialState = {
   timeFilter: "mth1",
@@ -18,22 +18,20 @@ const fetchSearchNews = createAsyncThunk(
   "searchFilterSlice/fetchSearchNews",
   async (params, thunkAPI) => {
     let { queryParams, accessToken } = params;
-    // console.log("queryParams", queryParams);
-    // console.log("accessToken", accessToken);
 
     try {
-      // console.log("slice param", queryParams);
       const response = await getSearchData(queryParams, accessToken);
       if (response.stauts === 400) {
         return response.status;
       }
-      // if (response === undefined) {
-      //   retryAxios(3, 1000);
-      // }
-
       return response;
     } catch (error) {
       console.log("slice error", error);
+
+      // if (response === undefined) {
+      // console.log("retry axios 실행");
+      // retryAxios(3, 2000);
+      // }
     }
   }
 );
@@ -59,7 +57,7 @@ const searchFilterSlice = createSlice({
     // }
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchSearchNews.pending, (state) => {
+    builder.addCase(fetchSearchNews.pending, (state, action) => {
       state.status = "Loading";
     });
     builder.addCase(fetchSearchNews.fulfilled, (state, action) => {

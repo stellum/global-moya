@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCookieToken } from "@util/settingSessions";
 import { refreshTokenFunc } from "@api/loginApi";
 import { setAccessTokenAction } from "@redux/user/userSlice";
+
 const AccessToken = (SpecificComponent) => {
   const AccessToken = (props) => {
     const accessToken = useSelector((state) => state.user.accessToken);
     const userLogin = useSelector((state) => state.user.userLogin);
+
     const dispatch = useDispatch();
 
     const getCookie = async () => {

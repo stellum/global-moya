@@ -59,6 +59,7 @@ export const ScrapCheckIcon = styled(ScrapCheckSvg)`
   }
 `;
 
+
 export const ExpandMoreIcon = styled(ExpandMoreIconSvg)`
   transform: ${({ $expand }) =>
     $expand === "expand"
@@ -68,7 +69,6 @@ export const ExpandMoreIcon = styled(ExpandMoreIconSvg)`
   position: absolute;
   top: ${({ $expand }) => ($expand === "expand" ? "10px" : "0px")};
   right: 10px;
-  // transfrom: ${(props) => (!props.tags ? "translateY(0%)" : "")};
 `;
 
 export const GlobalMoyaLogo = styled(GlobalMoyaSvg)``;

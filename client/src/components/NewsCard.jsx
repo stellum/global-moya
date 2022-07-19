@@ -18,6 +18,7 @@ import {
 } from "@styles/svgIcon";
 import { dateFormat } from "../util/dateFunc";
 import ErrorMsg from "./ErrorMsg";
+
 const NewsCard = ({ view, apply, newsList, errorMsg }) => {
   const [scrap, setScrap] = useState(false);
   const [open, setOpen] = useState({});
@@ -26,6 +27,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg }) => {
   const handleExpand = (e) => {
     setOpen({ [e.target.id]: !open[e.target.id] });
   };
+  
   return (
     <>
       {newsList.length > 0 ? (
@@ -50,7 +52,6 @@ const NewsCard = ({ view, apply, newsList, errorMsg }) => {
                 <div className="time">
                   {news.brandName} | {dateFormat(news.publishTime)}
                 </div>
-
                 <div className="iconGroup">
                   <TranslateIcon />
                   <ShareIcon />
