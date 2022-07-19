@@ -50,13 +50,18 @@ const MyPageMain = ({ user }) => {
               <Subscription>
                 <div className="substerm">
                   <div>구독 기간 </div>| &nbsp;
-                  {subDate(subsUser.subscriptions[0].nextPaymentDateTime)}{" "}
+                  {subsUser.subscriptions &&
+                    subDate(
+                      subsUser.subscriptions[0]?.nextPaymentDateTime
+                    )}{" "}
                   &nbsp;~ &nbsp;
-                  {dateFormat(subsUser.subscriptions[0].nextPaymentDateTime)}
+                  {subsUser.subscriptions &&
+                    dateFormat(subsUser.subscriptions[0]?.nextPaymentDateTime)}
                 </div>
                 <div className="substerm">
                   <div>다음 결제일 </div>| &nbsp;
-                  {dateFormat(subsUser.subscriptions[0].nextPaymentDateTime)}
+                  {subsUser.subscriptions &&
+                    dateFormat(subsUser.subscriptions[0]?.nextPaymentDateTime)}
                 </div>
               </Subscription>
             </SubscriptionInfo>

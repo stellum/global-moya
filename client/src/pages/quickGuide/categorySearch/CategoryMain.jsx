@@ -7,7 +7,7 @@ import Spinner from "@components/common/Spinner";
 const HiglightKeyword = lazy(() => import("./HiglightKeyword"));
 const LvKeywordList = lazy(() => import("./LvKeywordList"));
 
-import QuickInfiniteHook from "../../../hooks/QuickInfiniteHook";
+import QuickInfiniteHook from "@hooks/QuickInfiniteHook";
 
 import { DefaultContainer } from "@styles/common/container";
 
@@ -38,9 +38,9 @@ const CategoryMain = ({ accessToken }) => {
       if (response.details.length > 0) {
         setDataList(response.details);
         const reports = await getKeywords(accessToken);
-        if (reports.reports.length > 0) {
+        if (reports.length > 0) {
           await dispatch(isLoading(false));
-          setReports(reports.reports);
+          setReports(reports);
         }
       }
     } catch (e) {

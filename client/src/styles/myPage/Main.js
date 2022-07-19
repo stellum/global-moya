@@ -161,12 +161,13 @@ export const Help = styled.div`
   }
   ul {
     margin-top: 15px;
-    color: ${colors.gray800};
+
     font-weight: 500;
     font-size: 16px;
     li {
       width: 360px;
       height: 44px;
+      color: ${colors.gray800};
     }
   }
   svg {

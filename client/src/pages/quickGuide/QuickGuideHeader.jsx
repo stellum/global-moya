@@ -13,7 +13,7 @@ const QuickGuideHeader = ({ inputRef, keyword }) => {
 
   const handleKeyword = _.debounce((e) => {
     dispatch(searchKeyword(e.target.value));
-  }, 200);
+  }, 400);
   const clearKeyword = () => {
     inputRef.current.value = "";
     dispatch(searchKeyword(""));

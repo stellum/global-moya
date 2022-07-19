@@ -1,23 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
+import { fetchSearchNews } from "@redux/searchFilterSlice";
+import { isLoading } from "@redux/categorySlice";
 import KeywordCardInput from "./KeywordCardInput";
 import MainHeader from "../MainHeader";
-import { MainPageContainer } from "@styles/main/mainContainer";
 import NewsCard from "@components/NewsCard";
 import FilterIconModal from "@components/filterModal/FilterIconModal";
 import FilterTypeModal from "@components/filterModal/FilterTypeModal";
 import ViewTypeFilter from "@pages/filtermodal/ViewTypeFilter";
 import SearchTypeFilter from "@pages/filtermodal/SearchTypeFilter";
+import { MainPageContainer } from "@styles/main/mainContainer";
 import { FilterBG } from "@styles/filterStyle/filterBG";
 import { BtnWrap, FilterBtn } from "@styles/filterStyle/filterModal";
 
-import { useSelector, useDispatch } from "react-redux";
-import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
-const KeywordCardMain = () => {
+import AccessToken from "@hoc/AccessToken";
+import Spinner from "@components/common/Spinner";
+
+const KeywordCardMain = ({ accessToken }) => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
   const showBtn = useSelector((state) => state.modalSlice.showBtn);
   const showModal = useSelector((state) => state.modalSlice.showModal);
   const [view, setView] = useState(viewType);
   const [apply, setApply] = useState(false);
+  const [newsList, setNewsList] = useState([]);
+  const [pageToken, setPageToken] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const dispatch = useDispatch();
   const handleClick = (e) => {
@@ -27,6 +36,48 @@ const KeywordCardMain = () => {
     dispatch(toggleBtnAction(!showBtn));
     dispatch(toggleModalAction(""));
   };
+
+  const location = useLocation();
+  const { timeFilter, mediaType, language, orderBy } = useSelector(
+    (state) => state.searchFilterSlice
+  );
+
+  const loading = useSelector((state) => state.categorySlice.loading);
+  useEffect(() => {
+    console.log(loading);
+    const getDatas = async () => {
+      const queryParams = {
+        timeFilter,
+        mediaType,
+        language,
+        orderBy,
+        keyType: `${location.state.category}`,
+        paramValue: `${location.state.paramValue}`,
+        exchange: `${location.state.exchange}`,
+      };
+
+      await dispatch(fetchSearchNews({ queryParams, accessToken }))
+        .then((response) => {
+          console.log(response);
+          if (response.payload.status === 400) {
+            setErrorMsg("결과가 없습니다.");
+          } else {
+            setNewsList(response.payload.newsList);
+            setPageToken(response.payload.nextPageToken);
+          }
+        })
+        .then(dispatch(isLoading(false)));
+    };
+
+    const timeoutID = setTimeout(() => {
+      getDatas();
+    }, 2000);
+
+    return () => {
+      console.log("unMounted 카드");
+      clearTimeout(timeoutID);
+    };
+  }, []);
   return (
     <>
       <FilterIconModal showBtn={showBtn}>
@@ -53,13 +104,23 @@ const KeywordCardMain = () => {
         <SearchTypeFilter showModal={showModal} showBtn={showBtn} />
       </FilterTypeModal>
       <FilterBG showBtn={showBtn} onClick={handleBG} />
-      <MainPageContainer>
+      <MainPageContainer style={{ paddingBottom: 0, borderBottom: 0 }}>
         <MainHeader />
         <KeywordCardInput />
       </MainPageContainer>
-      {/* <NewsCard /> */}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <NewsCard
+          view={view}
+          apply={apply}
+          newsList={newsList}
+          loading={loading}
+          errorMsg={errorMsg}
+        />
+      )}
     </>
   );
 };
 
-export default KeywordCardMain;
+export default AccessToken(KeywordCardMain);

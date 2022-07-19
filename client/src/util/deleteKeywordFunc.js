@@ -1,6 +1,5 @@
 import { deleteKeywords } from "../api/keywordListApi";
 const deleteKeywordFunc = async (id, category, accessToken, clipKeyword) => {
-  console.log(clipKeyword);
   const data = {
     keyType: category,
     _id: id.toString(),
@@ -9,6 +8,6 @@ const deleteKeywordFunc = async (id, category, accessToken, clipKeyword) => {
     ).termSeq,
   };
   const res = await deleteKeywords(data, accessToken);
-  console.log(res);
+  return res;
 };
 export default deleteKeywordFunc;

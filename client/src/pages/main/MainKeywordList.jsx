@@ -42,10 +42,10 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
   const { timeFilter, mediaType, language, orderBy, keyType, paramValue } =
     useSelector((state) => state.searchFilterSlice);
   const { status } = useSelector((state) => state.searchFilterSlice);
-
+  console.log(timeFilter, mediaType, language, orderBy, keyType, paramValue);
   const [newsList, setNewsList] = useState([]);
   const [pageToken, setPageToken] = useState("");
-
+  const [errorMsg, setErrorMsg] = useState("");
   // toggle btn
   const showEditBtn = useSelector((state) => state.modalSlice.showEditBtn);
 
@@ -80,11 +80,15 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
           paramValue,
         };
 
-        await dispatch(fetchSearchNews(queryParams, accessToken)).then(
+        await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
           (response) => {
             console.log("첫 response", response);
-            setNewsList(response.payload.newsList);
-            setPageToken(response.payload.nextPageToken);
+            if (response.payload.status === 400) {
+              setErrorMsg("결과가 없습니다.");
+            } else {
+              setNewsList(response.payload.newsList);
+              setPageToken(response.payload.nextPageToken);
+            }
           }
         );
       };
@@ -113,7 +117,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
           paramValue,
         };
 
-        await dispatch(fetchSearchNews(queryParams, accessToken)).then(
+        await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
           (response) => {
             console.log("두번째");
             console.log("res2", response);

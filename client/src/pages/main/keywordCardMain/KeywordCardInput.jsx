@@ -1,5 +1,4 @@
 import React from "react";
-import MainInput from "../MainInput";
 import { SearchIcon, FilterIcon } from "@styles/svgIcon";
 import {
   MainInputTag,

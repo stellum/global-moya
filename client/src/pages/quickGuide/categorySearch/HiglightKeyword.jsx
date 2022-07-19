@@ -50,7 +50,11 @@ const HiglightKeyword = ({
               <IconWrap>
                 <SearchIcon />
               </IconWrap>
-              <HightLightText>
+              <HightLightText
+                paramValue={item.paramValue}
+                category={category}
+                exchange={item.exchange}
+              >
                 <Highlighter
                   textToHighlight={item.name}
                   searchWords={[keyword]}

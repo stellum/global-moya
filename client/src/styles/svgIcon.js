@@ -61,10 +61,12 @@ export const ScrapCheckIcon = styled(ScrapCheckSvg)`
 
 export const ExpandMoreIcon = styled(ExpandMoreIconSvg)`
   transform: ${({ $expand }) =>
-    $expand ? "rotate(180deg) translateY(0%)" : "rotate(0deg) translateY(50%)"};
+    $expand === "expand"
+      ? "rotate(180deg) translateY(0%)"
+      : "rotate(0deg) translateY(50%)"};
   cursor: pointer;
   position: absolute;
-  top: 0px;
+  top: ${({ $expand }) => ($expand === "expand" ? "10px" : "0px")};
   right: 10px;
   // transfrom: ${(props) => (!props.tags ? "translateY(0%)" : "")};
 `;
