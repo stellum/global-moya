@@ -76,20 +76,22 @@ const Checkbox = ({ item }) => {
   }, []);
 
   return (
-    <Label htmlFor={item.id}>
-      <HiddenCheckbox
-        type="checkbox"
-        id={item.id}
-        name={item.keyword}
-        onChange={(e) => {
-          changeHandler(e.currentTarget.checked, "check");
-        }}
-        checked={checkedButtons.includes("check") ? true : false}
-      />
-      <IconCheckbox checked={checkedButtons.includes("check") ? true : false}>
-        <DeleteIcon />
-      </IconCheckbox>
-    </Label>
+    <>
+      <Label htmlFor={item.id}>
+        <HiddenCheckbox
+          type="checkbox"
+          id={item.id}
+          name={item.keyword}
+          onChange={(e) => {
+            changeHandler(e.currentTarget.checked, "check");
+          }}
+          checked={checkedButtons.includes("check") ? true : false}
+        />
+        <IconCheckbox checked={checkedButtons.includes("check") ? true : false}>
+          <DeleteIcon />
+        </IconCheckbox>
+      </Label>
+    </>
   );
 };
 
