@@ -17,8 +17,9 @@ import AccessToken from "@hoc/AccessToken";
 
 const MainPage = () => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
-  const showBtn = useSelector((state) => state.modalSlice.showBtn);
-  const showModal = useSelector((state) => state.modalSlice.showModal);
+  const showBtn = useSelector((state) => state.modalSlice.showBtn); 
+  const showModal = useSelector((state) => state.modalSlice.showModal); 
+
   const [view, setView] = useState(viewType);
   const [apply, setApply] = useState(false);
 
