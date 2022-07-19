@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { registerFunc } from "@api/registerApi";
 import { emailCheckFunc } from "@api/emailCheckApi";
 
-import { CommonForm } from "@styles/loginRegister/CommonForm";
+import { CommonForm } from "@styles/loginRegister/commonForm";
+import { Header, BackSpace, TitleHeader } from "@styles/loginRegister/header"
 import { InputDiv, InputType } from "@styles/loginRegister/loginRegisterInput"
 import { LoginButton } from "@styles/loginRegister/loginRegisterButton";
 import { OverlapBtn } from "@styles/loginRegister/register/overlapButton"
@@ -48,6 +49,10 @@ const Register = (props) => {
           // // 결제 연동 함수 들어갈 자리
         })}
       >
+        <Header>
+        <BackSpace />
+        <TitleHeader>회원가입</TitleHeader>
+        </Header>
         {/*중복 확인 버튼*/}
         <InputDiv>
           <InputType
@@ -120,7 +125,7 @@ const Register = (props) => {
           다음
         </LoginButton>
       </CommonForm>
-    </>
+      </>
   );
 };
 
