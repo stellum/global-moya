@@ -23,7 +23,7 @@ import searchFilterSlice from "../reducer/searchFilterSlice";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["modalSlice", "categorySlice", "accessTokenSlice", "buttonSlice"],
+  blacklist: ["modalSlice", "categorySlice", "accessTokenSlice"],
 };
 
 const rootReducer = combineReducers({
