@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const HomeHeader = () => {
   const isLogin = useSelector((state) => state.user.userLogin);
-  // console.log(isLogin);
+
   return (
     <>
       <DefaultHeader>

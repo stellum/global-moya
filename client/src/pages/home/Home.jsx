@@ -12,13 +12,11 @@ const Home = ({ userLogin, accessToken }) => {
     (state) => state.keywordConnectedSlice
   );
 
-  const effectMount = useRef(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (effectMount.current === false && userLogin) {
+    if (userLogin) {
       const getDatas = async () => {
-        // reports data
         const response = await getKeywords(accessToken);
 
         await dispatch(addKeywordListAction(response));
@@ -32,13 +30,12 @@ const Home = ({ userLogin, accessToken }) => {
 
       return () => {
         console.log("unMounted");
-        effectMount.current = true;
       };
     }
   }, []);
 
   useEffect(() => {
-    if (effectMount.current === false && userLogin === false) {
+    if (userLogin === false) {
       const getDatas = async () => {
         const response = await getKeywords(accessToken);
         await dispatch(addKeywordListAction(response));
@@ -47,7 +44,6 @@ const Home = ({ userLogin, accessToken }) => {
 
       return () => {
         console.log("unMounted");
-        effectMount.current = true;
       };
     }
   }, []);
