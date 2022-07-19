@@ -14,7 +14,7 @@ import {
 } from "@dnd-kit/sortable";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toggleEditAction } from "@redux/modalSlice";
+import { toggleEditAction } from "@redux/buttonSlice";
 import {
   EditContextWrap,
   EditContainer,
@@ -39,28 +39,9 @@ const EditKeywordContext = () => {
     (state) => state.keywordConnectedSlice
   );
   const [items, setItems] = useState(keywordNameList);
-
-  // const [items, setItems] = useState([
-  //   {
-  //     id: "abca",
-  //     keyword: "Keyword 1",
-  //   },
-  //   {
-  //     id: "abcb",
-  //     keyword: "Keyword 2",
-  //   },
-  //   {
-  //     id: "abcc",
-  //     keyword: "Keyword 3",
-  //   },
-  //   {
-  //     id: "abcd",
-  //     keyword: "Keyword 4",
-  //   },
-  // ]);
   const navigate = useNavigate();
 
-  const showEditBtn = useSelector((state) => state.modalSlice.showEditBtn);
+  const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
   const showDelBtn = useSelector((state) => state.buttonSlice.showDelBtn);
 
   const dispatch = useDispatch();
@@ -95,6 +76,14 @@ const EditKeywordContext = () => {
   const handleDragCancel = (event) => {
     // console.log("Cancel", event);
   };
+
+  /*
+    체크 박스 교체
+    1. items의 길이만큼 []; >> useState
+    2. true : check, fasle : unCheck
+    3. [check, check, uncheck, check .... ]
+    4. 클릭. item[idx] = !item[idx]
+  */
 
   return (
     <EditContextWrap showEditBtn={showEditBtn}>
