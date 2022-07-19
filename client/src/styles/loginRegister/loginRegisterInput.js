@@ -12,8 +12,7 @@ export const InputDiv = styled.div`
 
 export const InputType = styled.input`
   width: 270px;
-  height: 45px;
-  /* border: 1px solid ${colors.gray350}; */
+  height: 43px;
   border: 0;
   border-radius: 2px;
   font-family: "Pretendard";
