@@ -79,6 +79,7 @@ export const cardImgType = {
   CardType: `
     object-fit: cover;
     width: 100%;
+    height:208px;
   `,
 };
 export const cardTextType = {

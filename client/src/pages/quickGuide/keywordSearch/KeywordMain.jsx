@@ -1,27 +1,25 @@
 import React, { useRef, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { DefaultContainer } from "@styles/common/container";
 import QuickGuideHeader from "../QuickGuideHeader";
 import KeywordList from "./KeywordList";
-import { useSelector, useDispatch } from "react-redux";
 import AccessToken from "@hoc/AccessToken";
 import { isLoading } from "@redux/categorySlice";
 import { getKeywords } from "@api/keywordListApi";
 const KeywordMain = ({ accessToken }) => {
   const [reports, setReports] = useState([]);
-
   const keyword = useSelector((state) => state.categorySlice.keyword);
   const loading = useSelector((state) => state.categorySlice.loading);
   const [filterId, setFilterId] = useState({ id: "", category: "" });
-  const [clipKeyword, setClipKeyword] = useState([]);
+  const [result, setResult] = useState(false);
   const inputRef = useRef(null);
   const dispatch = useDispatch();
 
   const fetch = async () => {
     try {
-      const reports = await getKeywords(accessToken);
-      console.log(reports);
-      if (reports.reports.length > 0) {
-        setReports(reports.reports);
+      const reportsData = await getKeywords(accessToken);
+      if (reportsData.length > 0) {
+        setReports(reportsData);
         await dispatch(isLoading(false));
       }
     } catch (e) {
@@ -36,15 +34,8 @@ const KeywordMain = ({ accessToken }) => {
 
   useEffect(() => {
     fetch();
-  }, []);
-
-  useEffect(() => {
-    // setClipKeyword(
-    //   reports.filter((item) => item.keyType === filterId.category)
-    // );
-    console.log("현재클릭", filterId);
-    // console.log("포함카테고리 reports", clipKeyword);
-  }, [filterId]);
+    // console.log("현재클릭", result);
+  }, [filterId, result, keyword]);
   return (
     <DefaultContainer>
       <QuickGuideHeader keyword={keyword} inputRef={inputRef} />
@@ -55,7 +46,7 @@ const KeywordMain = ({ accessToken }) => {
         loading={loading}
         filterId={filterId}
         setFilterId={setFilterId}
-        // clipKeyword={clipKeyword}
+        setResult={setResult}
       />
     </DefaultContainer>
   );

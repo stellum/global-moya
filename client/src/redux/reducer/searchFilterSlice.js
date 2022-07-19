@@ -9,19 +9,24 @@ const initialState = {
   orderBy: "latest",
   keyType: "category",
   paramValue: "stocks",
+  exchange: null,
   status: "Welcome",
+  code: null,
 };
 
 const fetchSearchNews = createAsyncThunk(
   "searchFilterSlice/fetchSearchNews",
-  async (queryParams, accessToken) => {
-    console.log("queryParams", queryParams);
-    console.log("accessToken", accessToken);
+  async (params, thunkAPI) => {
+    let { queryParams, accessToken } = params;
+    // console.log("queryParams", queryParams);
+    // console.log("accessToken", accessToken);
 
     try {
-      console.log("slice param", queryParams);
+      // console.log("slice param", queryParams);
       const response = await getSearchData(queryParams, accessToken);
-
+      if (response.stauts === 400) {
+        return response.status;
+      }
       // if (response === undefined) {
       //   retryAxios(3, 1000);
       // }
@@ -58,6 +63,7 @@ const searchFilterSlice = createSlice({
       state.status = "Loading";
     });
     builder.addCase(fetchSearchNews.fulfilled, (state, action) => {
+      // state.code = action.payload.data?.code;
       state.value = action.payload;
       state.status = "complete";
     });

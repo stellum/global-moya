@@ -6,13 +6,6 @@ const clientServer = axios.create({
 });
 export default clientServer;
 
-const axiosPrivate = axios.create({
-  baseURL:
-    "http://cityfalcon-web-797905939.ap-northeast-2.elb.amazonaws.com:3002",
-  headers: { "Content-Type": "application/json" },
-  withCredentials: true,
-});
-
 const SECRET_KEY = import.meta.env.VITE_SECRET_TOKEN;
 // secret_key db에 저장?
 export const stepPayServer = axios.create({
