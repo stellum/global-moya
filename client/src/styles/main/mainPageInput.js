@@ -17,6 +17,7 @@ export const SearchIconWrap = styled.div`
 export const MainInputTag = styled(HomeInputTag)`
   background-color: ${colors.gray150};
   font-size: ${fontSize.FontSize16};
+
   &::placeholder {
     color: ${colors.gray400};
     font-size: ${fontSize.FontSize14};
@@ -33,4 +34,10 @@ export const FilterIconWrap = styled.div`
   width: 48px;
   height: inherit;
   ${({ theme }) => theme.common.flexCenter}
+`;
+export const AddKeywordDiv = styled.div`
+  width: 60px;
+  font-size: ${fontSize.FontSize14};
+  color: ${colors.pointOrange200};
+  font-weight: ${fontWeight.FontWeight600};
 `;

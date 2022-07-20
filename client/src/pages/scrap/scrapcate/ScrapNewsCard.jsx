@@ -12,7 +12,7 @@ import {
 } from "@styles/newsCard/cardStyles";
 import {
   ScrapCheckIcon,
-  TranslateIcon,
+  TranslateIconKo,
   ShareIcon,
   ExpandMoreIcon,
 } from "@styles/svgIcon";
@@ -42,7 +42,7 @@ const ScrapNewsCard = ({ view, apply }) => {
           <div className="time">brandName | publishTime</div>
 
           <div className="iconGroup">
-            <TranslateIcon />
+            <TranslateIconKo />
             <ShareIcon />
             <ScrapCheckIcon
               onClick={() => {

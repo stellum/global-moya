@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import HightLightText from "@components/HightLightText";
 import Spinner from "@components/common/Spinner";
-
+import AddKeywordModal from "@components/addKeywordModal/AddKeywordModal";
 import { filterValue } from "@util/filterMasterFunc";
 import Highlighter from "react-highlight-words";
 import _ from "lodash";
@@ -13,7 +13,7 @@ import {
 import { SearchIcon, StarIcon } from "@styles/svgIcon";
 import { colors } from "@styles/theme";
 import { deleteKeywordFunc, createKeywordFunc, checkClip } from "@util";
-import AccessToken from "@hoc/AccessToken";
+
 const HiglightKeyword = ({
   dataList,
   keyword,
@@ -22,6 +22,9 @@ const HiglightKeyword = ({
   accessToken,
   clipKeyword,
   setFillStar,
+  resultMsg,
+  setResultMsg,
+  reportsLength,
 }) => {
   const [filterKeyword, setFilterKeyword] = useState([]);
 
@@ -36,6 +39,7 @@ const HiglightKeyword = ({
       deleteKeywordFunc(_id, category, accessToken, clipKeyword);
     } else {
       createKeywordFunc(_id, category, accessToken);
+      setResultMsg(true);
     }
   };
 
@@ -44,55 +48,61 @@ const HiglightKeyword = ({
       {loading ? (
         <Spinner />
       ) : (
-        <KeywordUL>
-          {_.map(filterKeyword.slice(0, 40), (item, idx) => (
-            <HighLightLi key={item._id}>
-              <IconWrap>
-                <SearchIcon />
-              </IconWrap>
-              <HightLightText
-                paramValue={item.paramValue}
-                category={category}
-                exchange={item.exchange}
-              >
-                <Highlighter
-                  textToHighlight={item.name}
-                  searchWords={[keyword]}
-                  highlightStyle={{
-                    color: `${colors.pointOrange200}`,
-                    backgroundColor: "transparent",
-                  }}
-                />{" "}
-                (
-                <Highlighter
-                  textToHighlight={item.paramValue}
-                  searchWords={[keyword]}
-                  highlightStyle={{
-                    color: `${colors.pointOrange200}`,
-                    backgroundColor: "transparent",
-                  }}
-                />
-                )
-              </HightLightText>
-              <IconWrap star>
-                <StarIcon
-                  onClick={() => {
-                    handleFillStar(
-                      item._id,
-                      category,
-                      accessToken,
-                      clipKeyword
-                    );
-                  }}
-                  $clip={checkClip(clipKeyword, item._id)}
-                />
-              </IconWrap>
-            </HighLightLi>
-          ))}
-        </KeywordUL>
+        <>
+          <AddKeywordModal
+            resultMsg={resultMsg}
+            reportsLength={reportsLength}
+          />
+          <KeywordUL>
+            {_.map(filterKeyword.slice(0, 40), (item, idx) => (
+              <HighLightLi key={item._id}>
+                <IconWrap>
+                  <SearchIcon />
+                </IconWrap>
+                <HightLightText
+                  paramValue={item.paramValue}
+                  category={category}
+                  exchange={item.exchange}
+                >
+                  <Highlighter
+                    textToHighlight={item.name}
+                    searchWords={[keyword]}
+                    highlightStyle={{
+                      color: `${colors.pointOrange200}`,
+                      backgroundColor: "transparent",
+                    }}
+                  />{" "}
+                  (
+                  <Highlighter
+                    textToHighlight={item.paramValue}
+                    searchWords={[keyword]}
+                    highlightStyle={{
+                      color: `${colors.pointOrange200}`,
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                  )
+                </HightLightText>
+                <IconWrap star>
+                  <StarIcon
+                    onClick={() => {
+                      handleFillStar(
+                        item._id,
+                        category,
+                        accessToken,
+                        clipKeyword
+                      );
+                    }}
+                    $clip={checkClip(clipKeyword, item._id)}
+                  />
+                </IconWrap>
+              </HighLightLi>
+            ))}
+          </KeywordUL>
+        </>
       )}
     </>
   );
 };
 
-export default AccessToken(HiglightKeyword);
+export default HiglightKeyword;
