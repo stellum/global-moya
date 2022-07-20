@@ -8,8 +8,9 @@ import {
   IconWrap,
 } from "@styles/quickGuide/categorySearch/LvKeywordList";
 import Spinner from "@components/common/Spinner";
+import AddKeywordModal from "@components/addKeywordModal/AddKeywordModal";
 import _ from "lodash";
-import AccessToken from "@hoc/AccessToken";
+
 import { checkClip } from "@util/filterMasterFunc";
 import { deleteKeywordFunc, createKeywordFunc } from "@util";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +23,9 @@ const LvKeywordList = ({
   clipKeyword,
   accessToken,
   setFillStar,
+  resultMsg,
+  setResultMsg,
+  reportsLength,
 }) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 50 });
   const navigate = useNavigate();
@@ -33,12 +37,21 @@ const LvKeywordList = ({
     }));
   }, [page]);
 
-  const handleFillStar = (_id, category, accessToken, clipKeyword) => {
+  const handleFillStar = async (_id, category, accessToken, clipKeyword) => {
     setFillStar((prev) => !prev);
     if (checkClip(clipKeyword, _id)) {
-      deleteKeywordFunc(_id, category, accessToken, clipKeyword);
+      const res = await deleteKeywordFunc(
+        _id,
+        category,
+        accessToken,
+        clipKeyword
+      );
     } else {
-      createKeywordFunc(_id, category, accessToken);
+      const res = await createKeywordFunc(_id, category, accessToken);
+      if (res.code === 2002) {
+        reportsLength(res.code);
+      }
+      setResultMsg(true);
     }
   };
 
@@ -52,64 +65,36 @@ const LvKeywordList = ({
       {loading ? (
         <Spinner />
       ) : (
-        <KeywordUL>
-          {dataList &&
-            _.map(
-              dataList.slice(
-                0,
-                dataList.length > 100 ? sliceValue.maxValue : dataList.length
-              ),
-              (item, idx) => {
-                if (item.length === idx + 1) {
-                  return (
-                    <KeywordLi ref={myRef} key={item._id}>
-                      <SearchIcon />
-                      <KeywordWrap>
-                        <KeywordH4
-                          onClick={() => {
-                            handleLocationState(
-                              item.paramValue,
-                              category,
-                              item.exchange
-                            );
-                          }}
-                        >
-                          {item.name} ({item.paramValue})
-                        </KeywordH4>
-                      </KeywordWrap>
-                      <StarIcon
-                        onClick={() => {
-                          handleFillStar(
-                            item._id,
-                            category,
-                            accessToken,
-                            clipKeyword
-                          );
-                        }}
-                        $clip={checkClip(clipKeyword, item._id)}
-                      />
-                    </KeywordLi>
-                  );
-                } else {
-                  return (
-                    <KeywordLi ref={myRef} key={item._id}>
-                      <IconWrap>
+        <>
+          <AddKeywordModal
+            resultMsg={resultMsg}
+            reportsLength={reportsLength}
+          />
+          <KeywordUL>
+            {dataList &&
+              _.map(
+                dataList.slice(
+                  0,
+                  dataList.length > 100 ? sliceValue.maxValue : dataList.length
+                ),
+                (item, idx) => {
+                  if (item.length === idx + 1) {
+                    return (
+                      <KeywordLi ref={myRef} key={item._id}>
                         <SearchIcon />
-                      </IconWrap>
-                      <KeywordWrap>
-                        <KeywordH4
-                          onClick={() => {
-                            handleLocationState(
-                              item.paramValue,
-                              category,
-                              item.exchange
-                            );
-                          }}
-                        >
-                          {item.name} ({item.paramValue})
-                        </KeywordH4>
-                      </KeywordWrap>
-                      <IconWrap star>
+                        <KeywordWrap>
+                          <KeywordH4
+                            onClick={() => {
+                              handleLocationState(
+                                item.paramValue,
+                                category,
+                                item.exchange
+                              );
+                            }}
+                          >
+                            {item.name} ({item.paramValue})
+                          </KeywordH4>
+                        </KeywordWrap>
                         <StarIcon
                           onClick={() => {
                             handleFillStar(
@@ -121,16 +106,50 @@ const LvKeywordList = ({
                           }}
                           $clip={checkClip(clipKeyword, item._id)}
                         />
-                      </IconWrap>
-                    </KeywordLi>
-                  );
+                      </KeywordLi>
+                    );
+                  } else {
+                    return (
+                      <KeywordLi ref={myRef} key={item._id}>
+                        <IconWrap>
+                          <SearchIcon />
+                        </IconWrap>
+                        <KeywordWrap>
+                          <KeywordH4
+                            onClick={() => {
+                              handleLocationState(
+                                item.paramValue,
+                                category,
+                                item.exchange
+                              );
+                            }}
+                          >
+                            {item.name} ({item.paramValue})
+                          </KeywordH4>
+                        </KeywordWrap>
+                        <IconWrap star>
+                          <StarIcon
+                            onClick={() => {
+                              handleFillStar(
+                                item._id,
+                                category,
+                                accessToken,
+                                clipKeyword
+                              );
+                            }}
+                            $clip={checkClip(clipKeyword, item._id)}
+                          />
+                        </IconWrap>
+                      </KeywordLi>
+                    );
+                  }
                 }
-              }
-            )}
-        </KeywordUL>
+              )}
+          </KeywordUL>
+        </>
       )}
     </>
   );
 };
 
-export default AccessToken(memo(LvKeywordList));
+export default memo(LvKeywordList);

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+
 import {
   Main,
   Settings,
@@ -11,9 +13,12 @@ import {
   Button,
   Popup,
 } from "@styles/myPage/Profile";
+import { useNavigate, Link } from "react-router-dom";
 import { BackArrow, ProfilePhoto, CloseIcon } from "@styles/svgIcon";
 
 const Profile = () => {
+  const subsUser = useSelector((state) => state.subsSlice.subsUser);
+  const navigate = useNavigate();
   const [popup, setPopup] = useState(false);
   const handleClick = () => {
     setPopup((prevState) => {
@@ -30,7 +35,7 @@ const Profile = () => {
       <Background popup={popup} onClick={handleClick}></Background>
       <Main>
         <div className="h3div">
-          <BackArrow />
+          <BackArrow onClick={() => navigate(-1)} />
           <h3>프로필 설정</h3>
         </div>
       </Main>
@@ -39,19 +44,17 @@ const Profile = () => {
         <Account>
           <div className="iconWrap" onClick={handleClick}>
             <ProfilePhoto />
-
-            {/* <PhotoIcon id="btn" /> */}
           </div>
 
           <div>
-            <span>김모아 님</span>
-            <p>moyanews@sysmetic.co.kr</p>
+            <span>{subsUser.name} 님</span>
+            <p>{subsUser.email}</p>
           </div>
         </Account>
 
         <Container>
           <Header>
-            <span>닉네임</span>
+            <span>닉네임 변경</span>
             <p>최대 한글 nn자, 영문 nn자, 숫자 혼용 가능</p>
           </Header>
 

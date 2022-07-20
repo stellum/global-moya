@@ -15,7 +15,6 @@ import Spinner from "@components/common/Spinner";
 import HightLightText from "@components/HightLightText";
 import { colors } from "@styles/theme";
 import { changeCase } from "@util/changeCase";
-import AccessToken from "@hoc/AccessToken";
 import { deleteKeywordFunc, createKeywordFunc } from "@util";
 import AddKeywordModal from "@components/addKeywordModal/AddKeywordModal";
 const KeywordList = ({
@@ -26,10 +25,10 @@ const KeywordList = ({
   filterId,
   reports,
   setResult,
-  result,
+  reportsLength,
 }) => {
   const { filteredResult, generateKey } = MasterValueHook(keyword);
-  const [resultMsg, setResultMsg] = useState("");
+  const [resultMsg, setResultMsg] = useState(false);
 
   const checkKeyword = (reports, id, category) => {
     const result = reports.some(
@@ -49,13 +48,19 @@ const KeywordList = ({
   }, [reports]);
 
   const handleFillStar = useCallback(
-    (_id, category, accessToken) => {
+    async (_id, category, accessToken) => {
       setFilterId({ id: _id, category });
       if (checkKeyword(reports, _id, category)) {
-        deleteKeywordFunc(_id, category, accessToken, reports);
+        const res = await deleteKeywordFunc(
+          _id,
+          category,
+          accessToken,
+          reports
+        );
         setResult(true);
-      } else {
-        createKeywordFunc(_id, category, accessToken);
+      } else if (reportsLength < 10) {
+        const res = await createKeywordFunc(_id, category, accessToken);
+        console.log(res);
         setResult(true);
         setResultMsg(true);
       }
@@ -69,7 +74,10 @@ const KeywordList = ({
         <Spinner />
       ) : (
         <>
-          <AddKeywordModal resultMsg={resultMsg} />
+          <AddKeywordModal
+            resultMsg={resultMsg}
+            reportsLength={reportsLength}
+          />
           <KeywordUL>
             {filteredResult &&
               _.map(filteredResult, (item) => {
@@ -149,4 +157,4 @@ const KeywordList = ({
   );
 };
 
-export default AccessToken(memo(KeywordList));
+export default memo(KeywordList);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getCookieToken } from "@util/settingSessions";
 import { refreshTokenFunc } from "@api/loginApi";
@@ -11,11 +11,11 @@ const AccessToken = (SpecificComponent) => {
 
     const dispatch = useDispatch();
 
-    const getCookie = async () => {
+    const getCookie = useCallback(async () => {
       const refresh = await getCookieToken();
       const access_token = await refreshTokenFunc(refresh);
       await dispatch(setAccessTokenAction(access_token));
-    };
+    }, [userLogin]);
 
     useEffect(() => {
       if (userLogin) {

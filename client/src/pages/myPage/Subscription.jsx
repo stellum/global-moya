@@ -77,9 +77,6 @@ const Subscription = ({ user }) => {
                 <span>결제카드 : {subsUser.paymentMethods[0].paymentInfo}</span>
                 <span>수정</span>
               </div>
-              <div>
-                <span>백업결제수단</span> <span>수정</span>
-              </div>
             </PaymentMethod>
             <ApplyBtn>확인</ApplyBtn>
           </DefaultContainer>

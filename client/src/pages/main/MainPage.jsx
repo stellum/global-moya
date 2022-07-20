@@ -13,12 +13,11 @@ import { BtnWrap, FilterBtn } from "@styles/filterStyle/filterModal";
 
 import { useSelector, useDispatch } from "react-redux";
 import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
-import AccessToken from "@hoc/AccessToken";
 
 const MainPage = () => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
-  const showBtn = useSelector((state) => state.modalSlice.showBtn); 
-  const showModal = useSelector((state) => state.modalSlice.showModal); 
+  const showBtn = useSelector((state) => state.modalSlice.showBtn);
+  const showModal = useSelector((state) => state.modalSlice.showModal);
 
   const [view, setView] = useState(viewType);
   const [apply, setApply] = useState(false);
@@ -67,4 +66,4 @@ const MainPage = () => {
   );
 };
 
-export default AccessToken(MainPage);
+export default MainPage;

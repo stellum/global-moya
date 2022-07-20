@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { ReactComponent as TranslateSvg } from "@assets/Translate-ko.svg";
+import { ReactComponent as TranslateKoSvg } from "@assets/Translate-ko.svg";
+import { ReactComponent as TranslateEnSvg } from "@assets/Translate-en.svg";
 import { ReactComponent as ShareIconSvg } from "@assets/ShareIcon.svg";
 import { ReactComponent as ScrapIconSvg } from "@assets/ScrapIcon.svg";
 import { ReactComponent as ExpandMoreIconSvg } from "@assets/ExpandMoreIcon.svg";
@@ -31,13 +32,15 @@ import { ReactComponent as ProfilePhotoSvg } from "@assets/ProfilePhoto.svg";
 import { ReactComponent as MoreIconSvg } from "@assets/MoreIcon.svg";
 import { ReactComponent as ScrapCheckSvg } from "@assets/ScrapCheckIcon.svg";
 import { ReactComponent as NewGroupPlusSvg } from "@assets/NewGroupPlusIcon.svg";
+import { ReactComponent as IconstotopSvg } from "@assets/icons-totop.svg";
 import { colors } from "./theme";
 export const NewGroupPlus = styled(NewGroupPlusSvg)``;
 export const MoreIcon = styled(MoreIconSvg)`
   position: absolute;
   right: 6px;
 `;
-export const TranslateIcon = styled(TranslateSvg)``;
+export const TranslateIconKo = styled(TranslateKoSvg)``;
+export const TranslateIconEn = styled(TranslateEnSvg)``;
 export const ShareIcon = styled(ShareIconSvg)``;
 export const ScrapIcon = styled(ScrapIconSvg)`
   fill: ${(props) => (props.$scrap ? colors.pointOrange200 : "none")};
@@ -58,7 +61,6 @@ export const ScrapCheckIcon = styled(ScrapCheckSvg)`
       props.$scrapcheck ? colors.white : colors.pointOrange200};
   }
 `;
-
 
 export const ExpandMoreIcon = styled(ExpandMoreIconSvg)`
   transform: ${({ $expand }) =>
@@ -116,3 +118,4 @@ export const CloseIcon = styled(CloseIconSvg)``;
 export const PhotoIcon = styled(PhotoIconSvg)``;
 export const GlobalMOYAPremium = styled(globalMOYAPremiumSvg)``;
 export const ProfilePhoto = styled(ProfilePhotoSvg)``;
+export const Iconstotop = styled(IconstotopSvg)``;

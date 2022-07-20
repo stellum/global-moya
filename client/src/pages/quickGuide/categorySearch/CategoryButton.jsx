@@ -18,7 +18,7 @@ const CategoryButton = () => {
         });
       }
     });
-  }, []);
+  }, [params]);
 
   return (
     <QuickButtonWrap id="scroll-container">
