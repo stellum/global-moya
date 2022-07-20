@@ -8,7 +8,7 @@ export const Settings = styled.div`
 export const Main = styled.div`
   display: flex;
   align-items: center;
-
+  border-bottom: 1px solid #e8e8e8;
   height: 56px;
   h3 {
     text-align: center;
@@ -28,9 +28,9 @@ export const Main = styled.div`
 
 export const Account = styled.div`
   display: flex;
-  border-top: 2px solid #e8e8e8;
   padding-top: 23px;
   margin-left: 15px;
+  margin-bottom: 23px;
   span {
     font-size: ${fontSize.FontSize22};
     font-weight: ${fontWeight.FontWeight600};
@@ -57,24 +57,24 @@ export const Account = styled.div`
 `;
 
 export const Container = styled.div`
-  border-top: ${({ $button }) => ($button ? 0 : "2px solid #e8e8e8")};
-  padding: 16px 16px 0 16px;
+  border-top: ${({ $button }) => ($button ? 0 : "1px solid #e8e8e8")};
+  border-bottom: ${({ $button }) => ($button ? 0 : "1px solid #e8e8e8")};
+  padding: 16px 16px 16px 16px;
   span {
-    font-weight: 600;
-    font-size: 14px;
+    font-weight: ${fontWeight.FontWeight600};
+    font-size: ${fontSize.FontSize14};
     line-height: 22px;
     letter-spacing: -0.2px;
-    /* margin-bottom: 5px; */
-    /* Gray/Gray900 */
-    color: #111111;
+    margin-bottom: 15px;
+    color: ${colors.gray900};
   }
   p {
-    font-weight: 600;
-    font-size: 14px;
+    font-weight: ${fontWeight.FontWeight600};
+    font-size: ${fontSize.FontSize14};
     line-height: 22px;
     letter-spacing: -0.2px;
-    /* Gray/Gray400 */
-    color: #b7b7b7;
+    color: ${colors.gray400};
+    margin-top: 5px;
   }
 `;
 export const Popup = styled.div`
@@ -109,11 +109,7 @@ export const Background = styled.div`
   display: ${(props) => (props.popup ? "block" : "none")};
 `;
 
-export const PhotoIcon = styled.a``;
-
 export const ChoosePhoto = styled.div`
-  a {
-  }
   svg {
     width: 24px;
     height: 24px;
@@ -131,13 +127,14 @@ export const Header = styled.div`
 export const Nickname = styled.div`
   display: flex;
   width: 100%;
-  border: 1px solid black;
+  border: 1px solid ${colors.gray350};
   height: 48px;
   border-radius: 2px;
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
   box-sizing: border-box;
+  margin-top: 11px;
   .input {
     width: 50%;
     height: 100%;
@@ -167,6 +164,6 @@ export const Button = styled.button`
   line-height: 22px;
   background: #b7b7b7;
   border-radius: 2px;
-  margin-top: 470px;
+  margin-top: 400px;
   border: 1px solid #e8e8e8;
 `;
