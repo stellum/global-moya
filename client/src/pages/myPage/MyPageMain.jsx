@@ -17,28 +17,39 @@ import { logOutFunc } from "@api/loginApi";
 import { userLogoutAction } from "@redux/user/userSlice";
 import SubscriptionComp from "@components/SubscriptionComp";
 import { customerSearch } from "@api/subsApi";
-
+import { subsUserAction } from "@redux/user/subsSlice";
 const MyPageMain = ({ user, accessToken }) => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
   const subsUser = useSelector((state) => state.subsSlice.subsUser);
+
+  const fetch = async () => {
+    const customer = await customerSearch(subsUser.id);
+    if (customer.status === 200) {
+      await dispatch(subsUserAction(customer.data));
+    }
+  };
   useEffect(() => {
-    customerSearch(subsUser.id);
+    fetch();
     console.log(subsUser);
+    // dispatch(subsUserAction())
   }, []);
+
   const handleLogin = () => {
     logOutFunc(accessToken);
     dispatch(userLogoutAction());
-    navigate("/");
+    if (!user) {
+      navigate("/");
+    }
   };
+
   return (
     <MainContainer>
       {user && (
         <>
           <Main>
             <div className="h3div">
-              <BackArrow onClick={() => navigate(-1)} />
+              <BackArrow onClick={() => navigate(-1, { replace: true })} />
               <h3>마이페이지</h3>
             </div>
           </Main>

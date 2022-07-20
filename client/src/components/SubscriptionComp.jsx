@@ -8,7 +8,9 @@ const SubscriptionComp = ({ subsUser }) => {
   return (
     <>
       <SubscriptionInfo>
-        {subsUser.subscriptions.length > 0 ? (
+        {subsUser.subscriptions.length > 0 &&
+        subsUser.subscriptions[subsUser.subscriptions.length - 1].status ===
+          "ACTIVE" ? (
           <>
             <div className="subs">
               <span>월별 정기구독 이용중</span>
