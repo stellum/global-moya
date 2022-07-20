@@ -46,6 +46,7 @@ const KeywordCardMain = ({ accessToken }) => {
   const loading = useSelector((state) => state.categorySlice.loading);
 
   useEffect(() => {
+    console.log("keywordCardMain", timeFilter, mediaType, orderBy);
     inputRef.current.value = location.state.paramValue;
     dispatch(isLoading(true));
     const getDatas = async () => {
@@ -61,7 +62,7 @@ const KeywordCardMain = ({ accessToken }) => {
 
       await dispatch(fetchSearchNews({ queryParams, accessToken }))
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.payload.status === 400) {
             setErrorMsg("결과가 없습니다.");
           } else {
@@ -80,7 +81,7 @@ const KeywordCardMain = ({ accessToken }) => {
       console.log("unMounted 카드");
       clearTimeout(timeoutID);
     };
-  }, []);
+  }, [timeFilter, mediaType, orderBy]);
   return (
     <>
       <FilterIconModal showBtn={showBtn}>
@@ -104,7 +105,11 @@ const KeywordCardMain = ({ accessToken }) => {
           showBtn={showBtn}
           setApply={setApply}
         />
-        <SearchTypeFilter showModal={showModal} showBtn={showBtn} />
+        <SearchTypeFilter
+          showModal={showModal}
+          showBtn={showBtn}
+          setApply={setApply}
+        />
       </FilterTypeModal>
       <FilterBG showBtn={showBtn} onClick={handleBG} />
       <MainPageContainer style={{ paddingBottom: 0, borderBottom: 0 }}>

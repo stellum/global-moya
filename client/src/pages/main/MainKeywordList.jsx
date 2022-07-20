@@ -110,7 +110,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
     return () => {
       console.log("unMounted 카드");
     };
-  }, []);
+  }, [timeFilter, mediaType, orderBy]);
 
   useEffect(() => {
     const getDatas = async () => {
@@ -151,7 +151,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
     return () => {
       console.log("clear time");
     };
-  }, [toggleTabState]);
+  }, [toggleTabState, timeFilter, mediaType, orderBy]);
 
   return (
     <>

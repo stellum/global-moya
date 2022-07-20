@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   H2Tag,
   ButtonWrapDiv,
@@ -10,23 +10,62 @@ import {
   PublishWrap,
   FilterWrap,
 } from "@styles/filterStyle/filterStyle";
-// import { changeFilterRequest } from "@redux/searchFilterSlice";
-import { published, mediaTypeArr } from "./searchParam";
-const SearchTypeFilter = ({ showModal, showBtn }) => {
+import { changeFilterRequest, fetchSearchNews } from "@redux/searchFilterSlice";
+import { published, mediaTypeArr, orderByArr } from "./searchParam";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
+
+const SearchTypeFilter = ({ showModal, showBtn, setApply }) => {
+  const dispatch = useDispatch();
+
+  const { timeFilter, mediaType, orderBy } = useSelector(
+    (state) => state.searchFilterSlice
+  );
+
   const [searchType, setSearchType] = useState({
-    mediaType: "",
-    timeFilter: "",
-    orderBy: "",
+    mediaType: "mth1",
+    timeFilter: "mp,op,r",
+    orderBy: "latest",
   });
 
   const handleSearchType = (e) => {
-    const { id, name } = e.target;
+    const { value, name } = e.target;
+
     setSearchType({
       ...searchType,
-      [name]: id,
+      [name]: value,
     });
-    console.log(searchType);
   };
+  useEffect(() => {
+    console.log(searchType);
+    // console.log(
+    //   timeFilter,
+    //   mediaType,
+    //   language,
+    //   orderBy,
+    //   keyType,
+    //   paramValue,
+    //   exchange,
+    //   status
+    // );
+  }, [searchType]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    dispatch(toggleBtnAction(!showBtn));
+    dispatch(toggleModalAction(""));
+    if (e.target.id === "apply") {
+      setApply(true);
+      dispatch(changeFilterRequest(searchType));
+    } else {
+      console.log("cancel");
+      dispatch(changeFilterRequest({ timeFilter, mediaType, orderBy }));
+      setApply(false);
+      dispatch(toggleModalAction(""));
+    }
+  };
+
   return (
     <>
       {showBtn && (
@@ -40,7 +79,8 @@ const SearchTypeFilter = ({ showModal, showBtn }) => {
                     type="radio"
                     name="mediaType"
                     id={item.mediaType}
-                    defaultChecked={!idx}
+                    value={item.mediaType}
+                    defaultChecked={mediaType === item.mediaType}
                     onChange={handleSearchType}
                   />
                   <label htmlFor={item.mediaType}>{item.text}</label>
@@ -56,7 +96,8 @@ const SearchTypeFilter = ({ showModal, showBtn }) => {
                       type="radio"
                       name="timeFilter"
                       id={item.timeType}
-                      defaultChecked={!idx}
+                      value={item.timeType}
+                      defaultChecked={timeFilter === item.timeType}
                       onChange={handleSearchType}
                     />
                     <span className="publish-btn">{item.text}</span>
@@ -66,29 +107,27 @@ const SearchTypeFilter = ({ showModal, showBtn }) => {
             </PublishForm>
             <H2Tag>정렬</H2Tag>
             <SortForm>
-              <div>
-                <input
-                  type="radio"
-                  name="orderBy"
-                  id="latest"
-                  defaultChecked
-                  onChange={handleSearchType}
-                />
-                <label htmlFor="latest">최신순</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="orderBy"
-                  id="popular"
-                  onChange={handleSearchType}
-                />
-                <label htmlFor="popular">인기순</label>
-              </div>
+              {orderByArr.map((item, idx) => (
+                <div key={item.orderBy}>
+                  <input
+                    type="radio"
+                    name="orderBy"
+                    value={item.orderBy}
+                    id={item.orderBy}
+                    defaultChecked={orderBy === item.orderBy}
+                    onChange={handleSearchType}
+                  />
+                  <label htmlFor={item.orderBy}>{item.text}</label>
+                </div>
+              ))}
             </SortForm>
             <ButtonWrapDiv>
-              <ApplyBtn>취소</ApplyBtn>
-              <ApplyBtn apply>적용하기</ApplyBtn>
+              <ApplyBtn id="cancel" onClick={handleSearch}>
+                취소
+              </ApplyBtn>
+              <ApplyBtn id="apply" apply onClick={handleSearch}>
+                적용하기
+              </ApplyBtn>
             </ButtonWrapDiv>
           </FilterInner>
         </FilterWrap>

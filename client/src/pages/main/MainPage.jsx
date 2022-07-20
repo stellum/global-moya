@@ -53,7 +53,11 @@ const MainPage = () => {
           showBtn={showBtn}
           setApply={setApply}
         />
-        <SearchTypeFilter showModal={showModal} showBtn={showBtn} />
+        <SearchTypeFilter
+          showModal={showModal}
+          showBtn={showBtn}
+          setApply={setApply}
+        />
       </FilterTypeModal>
       <FilterBG showBtn={showBtn} onClick={handleBG} />
       <MainPageContainer>

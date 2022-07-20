@@ -46,3 +46,14 @@ export const mediaTypeArr = [
     text: "Research",
   },
 ];
+
+export const orderByArr = [
+  {
+    orderBy: "latest",
+    text: "최신순",
+  },
+  {
+    orderBy: "popular",
+    text: "인기순",
+  },
+];
