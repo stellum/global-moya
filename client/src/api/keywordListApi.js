@@ -10,8 +10,8 @@ export const getKeywords = async (accessToken) => {
         function (data) {
           const transformedData = JSON.parse(data);
           // console.log("transformedData", transformedData);
-          return transformedData.reports.map((item, index) => {
-            item.index = index;
+          return transformedData.reports.map((item, id) => {
+            item.id = id;
             return item;
           });
         },
@@ -30,6 +30,13 @@ export const getKeywords = async (accessToken) => {
     }
   } catch (e) {
     console.log(e);
+
+    // if (e.config.url === "/preferTerms/reports") {
+    //   console.log("에러여기");
+
+    //   // const token = e.config.headers.Authorization.split(" ")[1];
+    //   getKeywords(accessToken);
+    // }
   }
 };
 
@@ -56,6 +63,22 @@ export const createKeywords = async (json, accessToken) => {
     if (response.status === 200) {
       // console.log(data);
       return response;
+    }
+    if (response.status === 400) {
+      const message = await response.data.message;
+      return message;
+    }
+    if (response.data.code === 401) {
+      const message = await response.data.message;
+      return message;
+    }
+    if (response.data.code === 2002) {
+      const message = await response.data.message;
+      return message;
+    }
+    if (response.data.code === 4018) {
+      const message = await response.data.message;
+      return message;
     }
   } catch (e) {
     // 401, 2002, 4018 에러처리 필요
@@ -115,7 +138,7 @@ export const deleteKeywords = async (json, accessToken) => {
     });
     if (response.status === 200) {
       const data = await response.data;
-      // console.log(data);
+      console.log("deleted", data);
       return data;
     }
   } catch (e) {
