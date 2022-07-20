@@ -4,7 +4,6 @@ const initialState = {
   keywordList: [],
   keyTypeList: [],
   paramValueList: [],
-  keywordNameList: [],
   exchangeList: [],
 };
 
@@ -13,7 +12,6 @@ const keywordConnectedSlice = createSlice({
   initialState,
   reducers: {
     addKeywordListAction: (state, action) => {
-      console.log(action.payload);
       state.keywordList = action.payload;
 
       const keyTypeList = action.payload.map((obj) => {
@@ -22,15 +20,11 @@ const keywordConnectedSlice = createSlice({
       const paramValueList = action.payload.map((obj) => {
         return obj.paramValue;
       });
-      const keywordNameList = action.payload.map((obj) => {
-        return { id: obj.index, keyword: obj.name };
-      });
       const exchangeList = action.payload.map((obj) => {
         return obj.exchange;
       });
       state.keyTypeList = keyTypeList;
       state.paramValueList = paramValueList;
-      state.keywordNameList = keywordNameList;
       state.exchangeList = exchangeList;
     },
   },
