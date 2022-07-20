@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -77,11 +77,13 @@ const Login = () => {
 
   const handleShow = () => {
     setPwVisible(pwVisible ? false : true);
-    let bgIcon = eyeIconRef.current.style.backgroundImage;
-    console.log(bgIcon);
+    let showIcon = document.querySelector("#showIcon");
+    console.log(showIcon.style);
     pwVisible
-      ? (bgIcon = "client/src/assets/images/icons-eyeOpen.svg")
-      : (bgIcon = "client/src/assets/images/icons-eyeShut.svg");
+      ? (showIcon.style.backgroundImage =
+          "client/src/assets/images/icons-eyeOpen.svg")
+      : (showIcon.style.backgroundImage =
+          "client/src/assets/images/icons-eyeShut.svg");
   };
 
   return (
@@ -143,7 +145,7 @@ const Login = () => {
               required: "비밀번호는 필수 입력입니다.",
             })}
           />
-          <ShowIcon onClick={handleShow}>
+          <ShowIcon id="showIcon" onClick={handleShow}>
             <IconText>눈동자 아이콘</IconText>
           </ShowIcon>
         </InputDiv>
