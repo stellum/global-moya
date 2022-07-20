@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { fontSize, fontWeight, colors } from "../theme";
 
-export const MainContainer = styled.div``;
+export const MainContainer = styled.div`
+  position: relative;
+`;
 
 export const Main = styled.div`
   display: flex;
@@ -72,21 +74,6 @@ export const SubscriptionInfo = styled.div`
       line-height: 24px;
       letter-spacing: -0.2px;
       color: #2a2a2a;
-    }
-    button {
-      width: 69px;
-      height: 24px;
-      border: 1px solid #dfdfdf;
-      border-radius: 2px;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 18px;
-      display: inline-block;
-      letter-spacing: -0.2px;
-      background: #ffffff;
-      /* Gray/Gray400 */
-
-      color: #b7b7b7;
     }
   }
 `;

@@ -6,7 +6,6 @@ import {
   subMonths,
 } from "date-fns";
 export const dateFormat = (date) => {
-  console.log(date);
   return format(parseISO(date), "yyyy.MM.dd");
 };
 
