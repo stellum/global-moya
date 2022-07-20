@@ -92,42 +92,13 @@ export const Email = styled.input`
     }
   }
 `;
-// AttachIcon 친구는 어디서 조종되는걸까?
-export const Attachment = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  height: 40px;
-  border: 1px solid #c8c8c8;
-  border-radius: 2px;
-  color: ${colors.gray500};
-  font-size: ${fontSize.FontSize14};
-  font-weight: ${fontWeight.FontWeight500};
-  label {
-    padding: 0 12px;
-    height: 100%;
-    ${({ theme }) => theme.common.flexCenter};
-    justify-content: space-between;
-    input {
-      display: none;
-    }
-  }
-`;
 
-export const AttachmentDesc = styled.div`
-  width: 330px;
-  color: ${colors.gray500};
-  font-size: ${fontSize.FontSize14};
-  font-weight: ${fontWeight.FontWeight400};
-  letter-spacing: -0.2px;
-  line-height: 22px;
-  margin-top: 12px;
-  margin-bottom: 136px;
-`;
 export const CheckBox = styled.div`
   width: 100%;
   color: ${colors.gray500};
   font-size: ${fontSize.FontSize14};
   font-weight: ${fontWeight.FontWeight500};
+  margin-top: 169px;
   label {
     display: flex;
     position: relative;

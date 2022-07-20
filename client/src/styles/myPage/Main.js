@@ -105,23 +105,19 @@ export const Subscription = styled.div`
     }
   }
 `;
-export const Menu = styled.ul`
-  border-bottom: 1px solid #ddd;
+export const AccountSettings = styled.div`
+  /* 계정 관리 */
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: -0.2px;
+  /* Gray/Gray400 */
+  color: #b7b7b7;
 `;
-
 export const Settings = styled.ul`
   padding: 20px 18px 20px 18px;
-  /* 계정 관리 */
-  li:nth-child(1) {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 22px;
-    letter-spacing: -0.2px;
-    /* Gray/Gray400 */
-    color: #b7b7b7;
-  }
   /* 비밀번호 재설정 */
-  li:nth-child(2) {
+  li {
     width: 360px;
     height: 24px;
     left: 0px;

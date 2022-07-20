@@ -76,6 +76,7 @@ function App() {
             <Route path="/quick/:id" element={<CategoryMain />} />
             <Route path="/keyword" element={<KeywordMain />} />
             <Route path="*" element={<ErrorPage />} />
+            <Route path="/Keywordcardmain" element={<KeywordCardMain />} />
           </Routes>
           <ReactQueryDevtools initialIsOpen={false} />
         </CustomContainer>
