@@ -55,14 +55,15 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
 
   const handleTranslate = (e, newsId, accessToken) => {
     setTrakingId({ [e.target.id]: !trakingId[e.target.id] });
-    if (e.target.id === "ko") {
-      fetch(newsId, accessToken);
-      // checkTrans(translate, newsId);
-      setChangeTrans(false);
-    } else if (e.target.id === "en") {
-      // deleteTrans(translate, newsId);
-      setChangeTrans(true);
-    }
+    fetch(newsId, accessToken);
+    // if (e.target.id === "ko") {
+
+    //   // checkTrans(translate, newsId);
+    //   setChangeTrans(false);
+    // } else if (e.target.id === "en") {
+    //   // deleteTrans(translate, newsId);
+    //   setChangeTrans(true);
+    // }
   };
   const checkTrans = (translate, newsId) => {
     const result = translate.some((item) => item.newsId === newsId);
@@ -100,16 +101,11 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
               </MainContent>
 
               <Abstract>
-                {/* {translate.find((item) => item.newsId === news.newsId) ? (
-                  <p id={news.newsId}>
-                    {
-                      translate.find((item) => item.newsId === news.newsId)
-                        .description
-                    }
-                  </p>
+                {news.newsId === translate.newsId ? (
+                  <p id={news.newsId}>{translate.description}</p>
                 ) : (
                   <p id={news.newsId}>{news.description}</p>
-                )} */}
+                )}
               </Abstract>
 
               <SubContent>
