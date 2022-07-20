@@ -5,7 +5,7 @@ import { toggleScrapEditBtn } from "../../redux/reducer/modalSlice";
 import AccessToken from "@hoc/AccessToken";
 import { bookmarkOne } from "@api/bookmarkApi";
 
-import NewsCardList from "../../components/NewsCardList";
+import NewsCardList from "@components/NewsCardList";
 import ScrapNewsCard from "./scrapcate/ScrapNewsCard";
 import ScrapCategory from "./scrapcate/ScrapCategory";
 import { FilterBG } from "@styles/naviStyle/naviWrap";
@@ -13,10 +13,10 @@ import { ScrapModalStyle, BtnWrap, FilterBtn } from "@styles/scrap/ScrapModal";
 import { BackArrow } from "@styles/svgIcon";
 import { EditButton, Header } from "@styles/scrap/scrap";
 
-const ScrapNews = ({ accessToken }) => {
+const ScrapNews = ({ view, apply, accessToken }) => {
   const params = useParams();
   const groupId = params.id;
-  const [bookmark, setBookmark] = useState([]);
+  const [newsList, setNewsList] = useState([]);
   const dispatch = useDispatch();
   const showScrapEditBtn = useSelector(
     (state) => state.modalSlice.showScrapEditBtn
@@ -29,13 +29,12 @@ const ScrapNews = ({ accessToken }) => {
   };
   const getBookmarkOneDatas = async () => {
     const response = await bookmarkOne(accessToken, groupId);
-    setBookmark(response.details);
+    setNewsList(response.details);
     console.log("해당 북마크 반환", response.details);
   };
   useEffect(() => {
     getBookmarkOneDatas();
   }, []);
-  console.log("되는", bookmark);
   return (
     <>
       <FilterBG showScrapEditBtn={showScrapEditBtn} onClick={handleBG} />
@@ -64,19 +63,11 @@ const ScrapNews = ({ accessToken }) => {
         </div>
       </Header>
       <ScrapCategory />
-      {/* {bookmark &&
-        bookmark.map((booknews) => {
-          return (
-            <NewsCardList
-              description={booknews.description}
-              brandName={booknews.brandName}
-              publishTime={booknews.publishTime}
-              assetTags={booknews.assetTags}
-              title={booknews.title}
-              id={booknews.newsId}
-            />
-          );
-        })} */}
+      {newsList.map((news, idx) => (
+        <>
+          <NewsCardList news={news} view={view} apply={apply} idx={idx} />
+        </>
+      ))}
     </>
   );
 };
