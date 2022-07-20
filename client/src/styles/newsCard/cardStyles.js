@@ -22,12 +22,12 @@ export const MainContent = styled.div`
     viewType === "TextOnly" || viewType === "CardType"
       ? "column"
       : "row-reverse"};
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 `;
 export const CardHeader = styled.div`
   ${({ viewType }) => cardSwitchFunc(cardTextType, viewType)}
-
+  flex-grow: 1;
   box-sizing: border-box;
   text-overflow: ellipsis;
   overflow: hidden;

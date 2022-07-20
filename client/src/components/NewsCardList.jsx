@@ -16,7 +16,7 @@ import {
   ShareIcon,
   ExpandMoreIcon,
 } from "@styles/svgIcon";
-import { dateFormat } from "../util/dateFunc";
+import { differenceDayFunc } from "../util/dateFunc";
 import ErrorMsg from "./ErrorMsg";
 
 const NewsCardList = ({ view, apply, news, errorMsg, idx }) => {
@@ -47,7 +47,7 @@ const NewsCardList = ({ view, apply, news, errorMsg, idx }) => {
 
         <SubContent>
           <div className="time">
-            {/* {news.brandName} | {dateFormat(news.publishTime)} */}
+            {news.brandName} | {differenceDayFunc(news.publishTime)}
           </div>
           <div className="iconGroup">
             <TranslateIconKo />
