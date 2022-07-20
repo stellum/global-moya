@@ -10,6 +10,7 @@ import {
   PublishWrap,
   FilterWrap,
 } from "@styles/filterStyle/filterStyle";
+// import { changeFilterRequest } from "@redux/searchFilterSlice";
 import { published, mediaTypeArr } from "./searchParam";
 const SearchTypeFilter = ({ showModal, showBtn }) => {
   const [searchType, setSearchType] = useState({
