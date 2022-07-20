@@ -17,6 +17,7 @@ import { BtnWrap, FilterBtn } from "@styles/filterStyle/filterModal";
 
 import Spinner from "@components/common/Spinner";
 import AccessToken from "@hoc/AccessToken";
+import ScrollTop from "@components/ScrollTop";
 
 const KeywordCardMain = ({ accessToken }) => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
@@ -121,6 +122,7 @@ const KeywordCardMain = ({ accessToken }) => {
           errorMsg={errorMsg}
         />
       )}
+      <ScrollTop />
     </>
   );
 };
