@@ -19,7 +19,7 @@ import Spinner from "@components/common/Spinner";
 import AccessToken from "@hoc/AccessToken";
 import ScrollTop from "@components/ScrollTop";
 
-const KeywordCardMain = ({ accessToken }) => {
+const KeywordCardMain = () => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
   const showBtn = useSelector((state) => state.modalSlice.showBtn);
   const showModal = useSelector((state) => state.modalSlice.showModal);
@@ -60,7 +60,7 @@ const KeywordCardMain = ({ accessToken }) => {
         exchange: `${location.state.exchange}`,
       };
 
-      await dispatch(fetchSearchNews({ queryParams, accessToken }))
+      await dispatch(fetchSearchNews({ queryParams }))
         .then((response) => {
           // console.log(response);
           if (response.payload.status === 400) {

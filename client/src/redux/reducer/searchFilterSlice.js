@@ -16,10 +16,10 @@ const initialState = {
 const fetchSearchNews = createAsyncThunk(
   "searchFilterSlice/fetchSearchNews",
   async (params, thunkAPI) => {
-    let { queryParams, accessToken } = params;
+    let { queryParams } = params;
     console.log(queryParams);
     try {
-      const response = await getSearchData(queryParams, accessToken);
+      const response = await getSearchData(queryParams);
       console.log(response);
       // if (response.stauts === 400) {
       //   return response.status;

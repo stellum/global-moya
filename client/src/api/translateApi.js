@@ -1,11 +1,10 @@
 import clientServer from "./baseUrl";
 
-export const translateApi = async (newsId, accessToken) => {
+export const translateApi = async (newsId) => {
   try {
     const response = await clientServer({
       url: "/news/translate",
       method: "GET",
-      headers: { Authorization: `Bearer ${accessToken}` },
       params: { newsId },
     });
     if (response.status === 200) {

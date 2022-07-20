@@ -20,7 +20,7 @@ import { FilterBG } from "@styles/naviStyle/naviWrap";
 import { BackArrow } from "@styles/svgIcon";
 import { BtnWrapVisible } from "../../styles/scrap/scrap";
 
-const ScrapNewsEdit = ({ accessToken, scrapcheck }) => {
+const ScrapNewsEdit = ({ scrapcheck }) => {
   const params = useParams();
   const groupId = params.id;
   const [bookmark, setBookmark] = useState([]);
@@ -35,7 +35,7 @@ const ScrapNewsEdit = ({ accessToken, scrapcheck }) => {
     dispatch(toggleScrapMoveBtn(!showScrapMoveBtn));
   };
   const getBookmarkOneDatas = async () => {
-    const response = await bookmarkOne(accessToken, groupId);
+    const response = await bookmarkOne(groupId);
     setBookmark(response.details);
     console.log("해당 북마크 반환", response.details);
   };

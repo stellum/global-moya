@@ -18,7 +18,7 @@ import { getKeywords } from "@api/keywordListApi";
 import { useSelector, useDispatch } from "react-redux";
 import AccessToken from "@hoc/AccessToken";
 
-const CategoryMain = ({ accessToken }) => {
+const CategoryMain = ({}) => {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
   const [reports, setReports] = useState([]);
@@ -41,7 +41,7 @@ const CategoryMain = ({ accessToken }) => {
       if (response.details.length > 0) {
         setDataList(response.details);
 
-        const reports = await getKeywords(accessToken);
+        const reports = await getKeywords();
         if (reports.length > 0) {
           await dispatch(isLoading(false));
           setReports(reports);
@@ -98,7 +98,6 @@ const CategoryMain = ({ accessToken }) => {
             resultMsg={resultMsg}
             setResultMsg={setResultMsg}
             reportsLength={reportsLength}
-            accessToken={accessToken}
           />
         </Suspense>
       ) : (
@@ -115,7 +114,6 @@ const CategoryMain = ({ accessToken }) => {
             resultMsg={resultMsg}
             setResultMsg={setResultMsg}
             reportsLength={reportsLength}
-            accessToken={accessToken}
           />
         </Suspense>
       )}

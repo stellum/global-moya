@@ -24,7 +24,6 @@ export const getSearchData = async (queryParams, accessToken) => {
   try {
     const response = await clientServer({
       url: "/news/search",
-      headers: { Authorization: `Bearer ${accessToken}` },
       timeout: 3000,
       params: {
         timeFilter,
@@ -36,7 +35,7 @@ export const getSearchData = async (queryParams, accessToken) => {
         exchange,
       },
     });
-    
+
     if (response.status === 200) {
       const data = await response.data;
       return data;

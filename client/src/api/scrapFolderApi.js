@@ -4,7 +4,6 @@ import clientServer from "./baseUrl";
 export const allFolder = async (accessToken) => {
   try {
     const response = await clientServer({
-      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/reports",
       method: "get",
     });
@@ -19,10 +18,9 @@ export const allFolder = async (accessToken) => {
 };
 
 //그룹 폴더를 생성 (폴더명/시퀀스는 계정당 중복 불가)
-export const createFolder = async (accessToken) => {
+export const createFolder = async () => {
   try {
     const response = await clientServer({
-      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/create",
       method: "post",
       data: {
@@ -41,10 +39,9 @@ export const createFolder = async (accessToken) => {
 };
 
 //그롭 폴더명을 변경
-export const updateNameFolder = async (accessToken) => {
+export const updateNameFolder = async () => {
   try {
     const response = await clientServer({
-      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/updateName",
       method: "put",
       data: {
@@ -64,10 +61,9 @@ export const updateNameFolder = async (accessToken) => {
 };
 
 //그롭 폴더의 순서를 변경
-export const updateSeqFolder = async (accessToken) => {
+export const updateSeqFolder = async () => {
   try {
     const response = await clientServer({
-      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/updateSeq",
       method: "put",
       data: {
@@ -88,10 +84,9 @@ export const updateSeqFolder = async (accessToken) => {
 };
 
 //그룹 폴더를 삭제, 해당 폴더에 저장된 북마크도 동시에 전부 삭제 됨
-export const deleteFolder = async (accessToken) => {
+export const deleteFolder = async () => {
   try {
     const response = await clientServer({
-      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/delete",
       method: "delete",
       data: {
@@ -112,10 +107,9 @@ export const deleteFolder = async (accessToken) => {
 };
 
 //updateFlag (D->R,N,S)에 따라 벌크로 내용 변경
-export const updateListFolder = async (accessToken) => {
+export const updateListFolder = async () => {
   try {
     const response = await clientServer({
-      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/updateList",
       method: "delete",
       data: {

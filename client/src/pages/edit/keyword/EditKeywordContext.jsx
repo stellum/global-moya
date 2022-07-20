@@ -34,7 +34,7 @@ import { BackArrow } from "@styles/svgIcon";
 import KeywordSortableItem from "./KeywordSortableItem";
 // import { createTermSeq } from "@util/createTermSeq";
 
-const EditKeywordContext = ({ accessToken }) => {
+const EditKeywordContext = ({}) => {
   // const getTermSeq = createTermSeq(4);
 
   // const rootStorage = JSON.parse(localStorage["persist:root"]);
@@ -65,7 +65,7 @@ const EditKeywordContext = ({ accessToken }) => {
 
   useEffect(() => {
     const getDatas = async () => {
-      const response = await getKeywords(accessToken);
+      const response = await getKeywords();
       setItems(response);
     };
     getDatas();

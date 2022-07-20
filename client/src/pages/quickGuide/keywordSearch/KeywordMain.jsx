@@ -8,7 +8,7 @@ import { isLoading } from "@redux/categorySlice";
 import { getKeywords } from "@api/keywordListApi";
 import ScrollTop from "@components/ScrollTop";
 
-const KeywordMain = ({ accessToken }) => {
+const KeywordMain = ({}) => {
   const [reports, setReports] = useState([]);
   const [reportsLength, setReportsLength] = useState(0);
   const keyword = useSelector((state) => state.categorySlice.keyword);
@@ -20,7 +20,7 @@ const KeywordMain = ({ accessToken }) => {
 
   const fetch = async () => {
     try {
-      const reportsData = await getKeywords(accessToken);
+      const reportsData = await getKeywords();
       if (reportsData.length > 0) {
         setReports(reportsData);
         setReportsLength(reports.length);
@@ -52,7 +52,6 @@ const KeywordMain = ({ accessToken }) => {
         setFilterId={setFilterId}
         setResult={setResult}
         reportsLength={reportsLength}
-        accessToken={accessToken}
       />
       <ScrollTop />
     </DefaultContainer>

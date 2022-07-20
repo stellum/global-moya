@@ -18,7 +18,7 @@ import {
   ScrapMiniModalStyle,
 } from "@styles/scrap/ScrapModal";
 
-const ScrapMain = ({ accessToken, view, apply }) => {
+const ScrapMain = ({ view, apply }) => {
   const [black, setBlack] = useState(true);
   const [newsList, setNewsList] = useState([]);
   const [news2, setNews2] = useState([]);
@@ -33,7 +33,7 @@ const ScrapMain = ({ accessToken, view, apply }) => {
     dispatch(toggleScrapEditBtn(!showScrapEditBtn));
   };
   const getBookmarkAllDatas = async () => {
-    const response = await bookmarkAll(accessToken);
+    const response = await bookmarkAll();
     setNews2(response.reports);
     const allbook = response.reports;
 

@@ -1,4 +1,6 @@
 import axios from "axios";
+import { getCookieToken } from "../util/settingSessions";
+import { refreshTokenFunc } from "./loginApi";
 
 const clientServer = axios.create({
   baseURL:
@@ -6,6 +8,41 @@ const clientServer = axios.create({
   headers: { "Access-Control-Allow-Origin": "*" },
 });
 export default clientServer;
+
+clientServer.interceptors.response.use(
+  async (response) => {
+    console.log(response);
+
+    return response;
+  },
+  async (error) => {
+    const {
+      config,
+      response: { status },
+    } = error;
+    if (status === 401) {
+      console.log("baseStatus", status);
+      console.log("baseurl error", error);
+      console.log("base", config);
+      // console.log(status)
+      if (
+        error.response.data.msg === "Token has expired" ||
+        error.response.data.msg === "Missing Authorization Header"
+      ) {
+        const originalRequest = config;
+        const refreshToken = await getCookieToken();
+        const access_token = await refreshTokenFunc(refreshToken);
+        console.log(refreshToken);
+        console.log(access_token);
+        clientServer.defaults.headers.common.Authorization = `Bearer ${access_token}`;
+        originalRequest.headers.Authorization = `Bearer ${access_token}`;
+        return axios(originalRequest);
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 const SECRET_KEY = import.meta.env.VITE_SECRET_TOKEN;
 // secret_key db에 저장?

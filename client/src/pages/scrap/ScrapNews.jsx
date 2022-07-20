@@ -13,7 +13,7 @@ import { ScrapModalStyle, BtnWrap, FilterBtn } from "@styles/scrap/ScrapModal";
 import { BackArrow } from "@styles/svgIcon";
 import { EditButton, Header } from "@styles/scrap/scrap";
 
-const ScrapNews = ({ view, apply, accessToken }) => {
+const ScrapNews = ({ view, apply }) => {
   const params = useParams();
   const groupId = params.id;
   const [newsList, setNewsList] = useState([]);
@@ -28,7 +28,7 @@ const ScrapNews = ({ view, apply, accessToken }) => {
     dispatch(toggleScrapEditBtn(!showScrapEditBtn));
   };
   const getBookmarkOneDatas = async () => {
-    const response = await bookmarkOne(accessToken, groupId);
+    const response = await bookmarkOne(groupId);
     setNewsList(response.details);
     console.log("해당 북마크 반환", response.details);
   };
