@@ -16,10 +16,12 @@ import {
   ShareIcon,
   ExpandMoreIcon,
 } from "@styles/svgIcon";
+import globalMOYAPremiumSvg from "@assets/globalMOYA.svg";
 import { dateFormat } from "../util/dateFunc";
 import ErrorMsg from "./ErrorMsg";
 
 const NewsCard = ({ view, apply, newsList, errorMsg }) => {
+  console.log("newsList", newsList);
   const [scrap, setScrap] = useState(false);
   const [open, setOpen] = useState({});
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
@@ -27,7 +29,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg }) => {
   const handleExpand = (e) => {
     setOpen({ [e.target.id]: !open[e.target.id] });
   };
-  
+
   return (
     <>
       {newsList.length > 0 ? (
@@ -36,7 +38,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg }) => {
             <Card key={news.newsId}>
               <MainContent viewType={apply ? view : viewType}>
                 <ImageContent
-                  src={news.imageUrl}
+                  src={news.imageUrl ? news.imageUrl : globalMOYAPremiumSvg}
                   viewType={apply ? view : viewType}
                 />
                 <CardHeader viewType={apply ? view : viewType}>
