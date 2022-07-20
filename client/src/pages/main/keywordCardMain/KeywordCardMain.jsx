@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
@@ -15,8 +15,8 @@ import { MainPageContainer } from "@styles/main/mainContainer";
 import { FilterBG } from "@styles/filterStyle/filterBG";
 import { BtnWrap, FilterBtn } from "@styles/filterStyle/filterModal";
 
-import AccessToken from "@hoc/AccessToken";
 import Spinner from "@components/common/Spinner";
+import AccessToken from "@hoc/AccessToken";
 
 const KeywordCardMain = ({ accessToken }) => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
@@ -27,7 +27,7 @@ const KeywordCardMain = ({ accessToken }) => {
   const [newsList, setNewsList] = useState([]);
   const [pageToken, setPageToken] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-
+  const inputRef = useRef(null);
   const dispatch = useDispatch();
   const handleClick = (e) => {
     dispatch(toggleModalAction(e.target.id));
@@ -45,6 +45,7 @@ const KeywordCardMain = ({ accessToken }) => {
   const loading = useSelector((state) => state.categorySlice.loading);
 
   useEffect(() => {
+    inputRef.current.value = location.state.paramValue;
     dispatch(isLoading(true));
     const getDatas = async () => {
       const queryParams = {
@@ -59,6 +60,7 @@ const KeywordCardMain = ({ accessToken }) => {
 
       await dispatch(fetchSearchNews({ queryParams, accessToken }))
         .then((response) => {
+          console.log(response);
           if (response.payload.status === 400) {
             setErrorMsg("결과가 없습니다.");
           } else {
@@ -106,7 +108,7 @@ const KeywordCardMain = ({ accessToken }) => {
       <FilterBG showBtn={showBtn} onClick={handleBG} />
       <MainPageContainer style={{ paddingBottom: 0, borderBottom: 0 }}>
         <MainHeader />
-        <KeywordCardInput />
+        <KeywordCardInput inputRef={inputRef} />
       </MainPageContainer>
       {loading ? (
         <Spinner />

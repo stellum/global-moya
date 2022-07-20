@@ -5,11 +5,12 @@ import {
   MainInputWrap,
   SearchIconWrap,
   FilterIconWrap,
+  AddKeywordDiv,
 } from "@styles/main/mainPageInput";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleBtnAction } from "@redux/modalSlice";
 
-const KeywordInput = () => {
+const KeywordInput = ({ inputRef }) => {
   const showBtn = useSelector((state) => state.modalSlice.showBtn);
   const dispatch = useDispatch();
   const toggleModal = () => {
@@ -22,7 +23,12 @@ const KeywordInput = () => {
       <SearchIconWrap>
         <SearchIcon />
       </SearchIconWrap>
-      <MainInputTag placeholder="뉴스 키워드를 검색해보세요." />
+      <MainInputTag
+        placeholder="뉴스 키워드를 검색해보세요."
+        ref={inputRef}
+        style={{ flexGrow: 1, width: "50%" }}
+      />
+      <AddKeywordDiv>키워드 +</AddKeywordDiv>
       <FilterIconWrap onClick={toggleModal}>
         <FilterIcon />
       </FilterIconWrap>

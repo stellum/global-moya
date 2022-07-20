@@ -6,8 +6,11 @@ import KeywordList from "./KeywordList";
 import AccessToken from "@hoc/AccessToken";
 import { isLoading } from "@redux/categorySlice";
 import { getKeywords } from "@api/keywordListApi";
+import ScrollTop from "@components/ScrollTop";
+
 const KeywordMain = ({ accessToken }) => {
   const [reports, setReports] = useState([]);
+  const [reportsLength, setReportsLength] = useState(0);
   const keyword = useSelector((state) => state.categorySlice.keyword);
   const loading = useSelector((state) => state.categorySlice.loading);
   const [filterId, setFilterId] = useState({ id: "", category: "" });
@@ -20,6 +23,7 @@ const KeywordMain = ({ accessToken }) => {
       const reportsData = await getKeywords(accessToken);
       if (reportsData.length > 0) {
         setReports(reportsData);
+        setReportsLength(reports.length);
         await dispatch(isLoading(false));
       }
     } catch (e) {
@@ -47,7 +51,10 @@ const KeywordMain = ({ accessToken }) => {
         filterId={filterId}
         setFilterId={setFilterId}
         setResult={setResult}
+        reportsLength={reportsLength}
+        accessToken={accessToken}
       />
+      <ScrollTop />
     </DefaultContainer>
   );
 };

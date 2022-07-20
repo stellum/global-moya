@@ -100,6 +100,9 @@ export const CardFooter = styled.div`
       color: #949494;
       margin-right: 4px;
     }
+    div {
+      height: 24px;
+    }
   }
 `;
 export const Tickers = styled.ul`
@@ -116,4 +119,14 @@ export const Tickers = styled.ul`
 `;
 export const ImageContent = styled.img`
   ${({ viewType }) => cardSwitchFunc(cardImgType, viewType)}
+`;
+
+export const NoResultTickers = styled.div`
+  width: 100%;
+  height: 24px;
+  background-color: ${colors.gray200};
+`;
+export const TransWrap = styled.div`
+  background-color: red;
+  display: inline-block;
 `;

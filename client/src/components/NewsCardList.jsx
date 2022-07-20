@@ -12,7 +12,7 @@ import {
 } from "@styles/newsCard/cardStyles";
 import {
   ScrapIcon,
-  TranslateIcon,
+  TranslateIconKo,
   ShareIcon,
   ExpandMoreIcon,
 } from "@styles/svgIcon";
@@ -44,7 +44,7 @@ const NewsCardList = ({ view, apply, props }) => {
           </div>
 
           <div className="iconGroup">
-            <TranslateIcon />
+            <TranslateIconKo />
             <ShareIcon />
             <ScrapIcon
               onClick={() => {

@@ -18,7 +18,7 @@ const AccessToken = (SpecificComponent) => {
     }, [userLogin]);
 
     useEffect(() => {
-      if (userLogin && accessToken === null && accessToken === undefined) {
+      if (userLogin) {
         getCookie();
       }
     }, []);

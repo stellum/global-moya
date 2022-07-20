@@ -25,9 +25,7 @@ export const getSearchData = async (queryParams, accessToken) => {
         paramValue,
         exchange,
       },
-      // withCredentials: true,
     });
-    // console.log(response);
     if (response.status === 200) {
       const data = await response.data;
       return data;

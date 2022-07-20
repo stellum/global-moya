@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Card,
@@ -9,43 +9,76 @@ import {
   Abstract,
   CardHeader,
   Tickers,
+  NoResultTickers,
 } from "@styles/newsCard/cardStyles";
 import {
   ScrapIcon,
-  TranslateIcon,
+  TranslateIconKo,
   ShareIcon,
   ExpandMoreIcon,
+  TranslateIconEn,
 } from "@styles/svgIcon";
 import { dateFormat } from "../util/dateFunc";
 import { translateApi } from "../api/translateApi";
 import ErrorMsg from "./ErrorMsg";
+import { useEffect } from "react";
+import _ from "lodash";
 import AccessToken from "@hoc/AccessToken";
-
 const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
+  // console.log(accessToken);
   const [scrap, setScrap] = useState(false);
   const [open, setOpen] = useState({});
   const [trakingId, setTrakingId] = useState({});
-  const [translate, setTranslate] = useState({});
+  const [translate, setTranslate] = useState([]);
+  const [changeTrans, setChangeTrans] = useState(true);
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
-
   const handleExpand = (e) => {
     setOpen({ [e.target.id]: !open[e.target.id] });
   };
-  const fetch = useCallback(
-    async (newsId, accessToken) => {
-      const response = await translateApi(newsId, accessToken);
-      console.log(response);
-      setTranslate(response);
-    },
-    [trakingId]
-  );
-  const handleTranslate = (e, newsId, accessToken, idx) => {
-    setTrakingId({ [e.target.id]: !trakingId[e.target.id] });
-    console.log(idx);
-    console.log(e.target.id);
-    // console.log(trakingId);
-    // fetch(newsId, accessToken);
+  const fetch = async (newsId, accessToken) => {
+    const response = await translateApi(newsId, accessToken);
+    console.log(response);
+
+    setTranslate((prev) => [
+      ...prev,
+      {
+        newsId,
+        description: response.description,
+        title: response.title,
+      },
+    ]);
   };
+
+  useEffect(() => {
+    console.log("번역패치", translate);
+  }, [translate, changeTrans]);
+
+  const handleTranslate = (e, newsId, accessToken) => {
+    setTrakingId({ [e.target.id]: !trakingId[e.target.id] });
+    if (e.target.id === "ko") {
+      fetch(newsId, accessToken);
+      // checkTrans(translate, newsId);
+      setChangeTrans(false);
+    } else if (e.target.id === "en") {
+      // deleteTrans(translate, newsId);
+      setChangeTrans(true);
+    }
+  };
+  const checkTrans = (translate, newsId) => {
+    const result = translate.some((item) => item.newsId === newsId);
+    console.log(result);
+    return result;
+  };
+  const deleteTrans = (translate, newsId) => {
+    setTranslate(translate.filter((item) => item.newsId !== newsId));
+  };
+  /* 
+    1. 번역을 클릭한다
+    2. 번역 내용을 받아와서 newsId와 같이 저장 -> 배열
+    3. 저장 내용에 newsId가 같은게 있으면 아이콘은 en으로 변경
+    4. 다시 클릭하면 배열에서 제거와 함께 아이콘 ko로 변경
+  */
+
   return (
     <>
       {newsList.length > 0 ? (
@@ -58,12 +91,25 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
                   viewType={apply ? view : viewType}
                 />
                 <CardHeader viewType={apply ? view : viewType}>
-                  <h2 id={news.newsId}>{news.title}</h2>
+                  {news.newsId === translate.newsId ? (
+                    <h2 id={news.newsId}>{translate.title}</h2>
+                  ) : (
+                    <h2 id={news.newsId}>{news.title}</h2>
+                  )}
                 </CardHeader>
               </MainContent>
 
               <Abstract>
-                <p id={news.newsId}>{news.description}</p>
+                {/* {translate.find((item) => item.newsId === news.newsId) ? (
+                  <p id={news.newsId}>
+                    {
+                      translate.find((item) => item.newsId === news.newsId)
+                        .description
+                    }
+                  </p>
+                ) : (
+                  <p id={news.newsId}>{news.description}</p>
+                )} */}
               </Abstract>
 
               <SubContent>
@@ -71,12 +117,23 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
                   {news.brandName} | {dateFormat(news.publishTime)}
                 </div>
                 <div className="iconGroup">
-                  <TranslateIcon
-                    id={idx}
+                  <TranslateIconKo
+                    id="ko"
                     onClick={(e) => {
-                      handleTranslate(e, news.newsId, accessToken, idx);
+                      handleTranslate(e, news.newsId, accessToken);
                     }}
                   />
+                  {/* {changeTrans ? (
+                   
+                  ) : (
+                    <TranslateIconEn
+                      id="en"
+                      onClick={(e) => {
+                        handleTranslate(e, news.newsId, accessToken);
+                      }}
+                    />
+                  )} */}
+
                   <ShareIcon />
                   <ScrapIcon
                     onClick={() => {
@@ -86,21 +143,22 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
                   />
                 </div>
               </SubContent>
+              {news.assetTags.length > 0 ? (
+                <CardFooter>
+                  <Tickers $expand={`${open[idx] ? "expand" : "none"}`}>
+                    {news.nluLabels.slice(0, 3).map((label, index) => (
+                      <li key={label + index}>
+                        <strong>Related Symbols</strong> {label}
+                      </li>
+                    ))}
+                  </Tickers>
 
-              <CardFooter>
-                <Tickers $expand={`${open[idx] ? "expand" : "none"}`}>
-                  {news.nluLabels.slice(0, 3).map((label, index) => (
-                    <li key={label + index}>
-                      <strong>Related Symbols</strong> {label}
-                    </li>
-                  ))}
-                </Tickers>
-                <div className="tags">
-                  {news.assetTags.map((tag, index) => (
-                    <span key={tag + index}>#{tag}</span>
-                  ))}
-                </div>
-                {news.assetTags.length !== 0 ? (
+                  <div className="tags">
+                    {news.assetTags.map((tag, index) => (
+                      <span key={tag + index}>#{tag}</span>
+                    ))}
+                  </div>
+
                   <ExpandMoreIcon
                     id={idx}
                     onClick={(e) => {
@@ -108,16 +166,10 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
                     }}
                     $expand={`${open[idx] ? "expand" : "none"}`}
                   />
-                ) : (
-                  <ExpandMoreIcon
-                    id={idx}
-                    onClick={(e) => {
-                      handleExpand(e, idx);
-                    }}
-                    $expand={`${open[idx] ? "expand" : "card"}`}
-                  />
-                )}
-              </CardFooter>
+                </CardFooter>
+              ) : (
+                <NoResultTickers />
+              )}
             </Card>
           );
         })
