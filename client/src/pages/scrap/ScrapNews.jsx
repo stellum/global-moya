@@ -33,6 +33,7 @@ const ScrapNews = ({ view, apply, accessToken }) => {
   };
   useEffect(() => {
     getBookmarkOneDatas();
+    setNewsList("");
   }, [groupId]);
   return (
     <>
