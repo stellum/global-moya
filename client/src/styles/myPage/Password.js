@@ -27,7 +27,7 @@ export const Main = styled.div`
     position: relative;
     svg {
       position: absolute;
-      margin-left: 20px;
+      margin-left: 0;
     }
   }
 `;

@@ -5,8 +5,7 @@ import { colors } from "@styles/theme";
 import IconsCheckCircleSvg from "@assets/icons-checkCircle.svg";
 
 export const LoginDiv = styled.div`
-  //   width: 328px;
-  width: 90%;
+  width: 328px;
   margin-top: 5px;
   margin-bottom: 22%;
   position: relative;

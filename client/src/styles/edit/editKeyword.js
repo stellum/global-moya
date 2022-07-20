@@ -21,6 +21,18 @@ export const EditContainer = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
 `;
+export const EditContainer2 = styled.div`
+  margin: 60px 0 100px 0;
+  padding: 0px 16px;
+  flex-direction: column;
+  z-index: 9;
+  width: 100%;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  overflow-x: hidden;
+  overflow-y: auto;
+`;
 export const EditHeaderContainer = styled.div`
   display: flex;
   padding: 30px 0px 15px;

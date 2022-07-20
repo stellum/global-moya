@@ -91,7 +91,7 @@ const RegisterPolicy = (props) => {
           </Check>
         </CheckAll>
         {data.map((item) => (
-          <Check>
+          <Check key={item.id}>
             <input
               type="checkbox"
               id={item.id}

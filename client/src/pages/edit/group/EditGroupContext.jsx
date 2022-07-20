@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import AccessToken from "@hoc/AccessToken";
+import { allFolder } from "@api/scrapFolderApi";
 import {
   DndContext,
   closestCenter,
@@ -17,38 +19,22 @@ import { useNavigate } from "react-router-dom";
 import { toggleEditAction } from "@redux/buttonSlice";
 import {
   EditContextWrap,
-  EditContainer,
-  EditHeaderContainer,
-  EditBack,
-  EditHeader,
-  EditCount,
+  EditContainer2,
   EditUl,
-  EditButtonDiv,
-  EditButtonCancel,
-  EditButtonSave,
 } from "@styles/edit/editKeyword";
 import { BackArrow } from "@styles/svgIcon";
 import GroupSortableItem from "./GroupSortableItem";
 
-const EditGroupContext = () => {
-  const [items, setItems] = useState([
-    {
-      id: "abca",
-      keyword: "Keyword 1",
-    },
-    {
-      id: "abcb",
-      keyword: "Keyword 2",
-    },
-    {
-      id: "abcc",
-      keyword: "Keyword 3",
-    },
-    {
-      id: "abcd",
-      keyword: "Keyword 4",
-    },
-  ]);
+const EditGroupContext = ({ accessToken }) => {
+  const [items, setItems] = useState([]);
+  const getDatas = async () => {
+    const response = await allFolder(accessToken);
+    setItems(response.reports);
+  };
+  useEffect(() => {
+    getDatas();
+  }, []);
+  console.log("올폴더^^ 반환", items);
   const navigate = useNavigate();
 
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
@@ -65,8 +51,8 @@ const EditGroupContext = () => {
   const handleDragEnd = ({ active, over }) => {
     if (active.id !== over.id) {
       setItems((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over.id);
+        const oldIndex = items.findIndex((item) => item.groupId === active.id);
+        const newIndex = items.findIndex((item) => item.groupId === over.id);
 
         // console.log("item,old,new", items, oldIndex, newIndex);
         return arrayMove(items, oldIndex, newIndex);
@@ -99,28 +85,17 @@ const EditGroupContext = () => {
         autoScroll={{ threshold: { x: 0, y: 0 } }}
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          <EditContainer>
-            <EditHeaderContainer>
-              <EditBack onClick={toggleModal}>
-                <BackArrow />
-              </EditBack>
-              <EditHeader>키워드 편집</EditHeader>
-              <EditCount>8/10</EditCount>
-            </EditHeaderContainer>
+          <EditContainer2>
             <EditUl>
               {items.map((item) => (
-                <GroupSortableItem key={item.id} item={item} />
+                <GroupSortableItem key={item.groupId} item={item} />
               ))}
             </EditUl>
-            <EditButtonDiv>
-              <EditButtonCancel>취소</EditButtonCancel>
-              <EditButtonSave>저장</EditButtonSave>
-            </EditButtonDiv>
-          </EditContainer>
+          </EditContainer2>
         </SortableContext>
       </DndContext>
     </EditContextWrap>
   );
 };
 
-export default EditGroupContext;
+export default AccessToken(EditGroupContext);

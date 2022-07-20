@@ -83,6 +83,7 @@ export const createKeywords = async (json, accessToken) => {
   } catch (e) {
     // 401, 2002, 4018 에러처리 필요
     console.log(e);
+    return e.response.data;
   }
 };
 

@@ -17,13 +17,13 @@ const fetchSearchNews = createAsyncThunk(
   "searchFilterSlice/fetchSearchNews",
   async (params, thunkAPI) => {
     let { queryParams, accessToken } = params;
-
+    console.log(accessToken);
     try {
       const response = await getSearchData(queryParams, accessToken);
-
-      if (response.stauts === 400) {
-        return response.status;
-      }
+      console.log(response);
+      // if (response.stauts === 400) {
+      //   return response.status;
+      // }
       return response;
     } catch (error) {
       console.log("slice error", error);

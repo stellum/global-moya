@@ -6,6 +6,7 @@ import CategoryButton from "./CategoryButton";
 import Spinner from "@components/common/Spinner";
 const HiglightKeyword = lazy(() => import("./HiglightKeyword"));
 const LvKeywordList = lazy(() => import("./LvKeywordList"));
+import ScrollTop from "@components/ScrollTop";
 
 import QuickInfiniteHook from "@hooks/QuickInfiniteHook";
 
@@ -22,25 +23,29 @@ const CategoryMain = ({ accessToken }) => {
   const [page, setPage] = useState(1);
   const [reports, setReports] = useState([]);
   const [clipKeyword, setClipKeyword] = useState([]);
+  const [reportsLength, setReportsLength] = useState(0);
   const params = useParams();
   const category = params.id;
   const keyword = useSelector((state) => state.categorySlice.keyword);
   const loading = useSelector((state) => state.categorySlice.loading);
   const inputRef = useRef(null);
   const [fillStar, setFillStar] = useState(false);
+  const [resultMsg, setResultMsg] = useState(false);
   const { lastElementRef } = QuickInfiniteHook(setPage);
-
   const dispatch = useDispatch();
 
   const fetch = async () => {
     try {
       const response = await getCategoryList(category);
+
       if (response.details.length > 0) {
         setDataList(response.details);
+
         const reports = await getKeywords(accessToken);
         if (reports.length > 0) {
           await dispatch(isLoading(false));
           setReports(reports);
+          setReportsLength(reports.length);
         }
       }
     } catch (e) {
@@ -62,6 +67,14 @@ const CategoryMain = ({ accessToken }) => {
     setClipKeyword(reports.filter((item) => item.keyType === category));
   }, [category, reports]);
 
+  useEffect(() => {
+    const msgTimeOut = setTimeout(() => {
+      setResultMsg(false);
+    }, 2000);
+    return () => {
+      clearTimeout(msgTimeOut);
+    };
+  }, [reports]);
   /*  
   
     1. keyword가 있으면
@@ -82,6 +95,10 @@ const CategoryMain = ({ accessToken }) => {
             clipKeyword={clipKeyword}
             setFillStar={setFillStar}
             fillStar={fillStar}
+            resultMsg={resultMsg}
+            setResultMsg={setResultMsg}
+            reportsLength={reportsLength}
+            accessToken={accessToken}
           />
         </Suspense>
       ) : (
@@ -95,9 +112,14 @@ const CategoryMain = ({ accessToken }) => {
             clipKeyword={clipKeyword}
             setFillStar={setFillStar}
             fillStar={fillStar}
+            resultMsg={resultMsg}
+            setResultMsg={setResultMsg}
+            reportsLength={reportsLength}
+            accessToken={accessToken}
           />
         </Suspense>
       )}
+      <ScrollTop />
     </DefaultContainer>
   );
 };

@@ -5,13 +5,11 @@ import {
   MessageSubject,
   Message,
   Email,
-  Attachment,
-  AttachmentDesc,
   CheckBox,
   Complete,
 } from "@styles/myPage/ContactUs";
 import { useNavigate } from "react-router-dom";
-import { AttachIcon, BackArrow, LearnMore } from "@styles/svgIcon";
+import { BackArrow, LearnMore } from "@styles/svgIcon";
 
 const ContactUs = () => {
   const navigate = useNavigate();
@@ -40,18 +38,6 @@ const ContactUs = () => {
         placeholder="답변 받을 이메일 주소를 입력해주세요."
         required
       ></Email>
-      <Attachment>
-        <label htmlFor="fileBtn">
-          <input id="fileBtn" type="file" />
-          파일을 첨부해주세요.
-          <div>
-            <AttachIcon></AttachIcon>
-          </div>
-        </label>
-      </Attachment>
-      <AttachmentDesc>
-        *파일은 최대 n개, nnMB까지 첨부 가능합니다.
-      </AttachmentDesc>
 
       <CheckBox>
         <label htmlFor="privacy">
