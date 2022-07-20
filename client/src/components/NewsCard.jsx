@@ -16,9 +16,8 @@ import {
   TranslateIconKo,
   ShareIcon,
   ExpandMoreIcon,
-  TranslateIconEn,
 } from "@styles/svgIcon";
-import { dateFormat } from "../util/dateFunc";
+import { differenceDayFuncTwo } from "../util/dateFunc";
 import { translateApi } from "../api/translateApi";
 import ErrorMsg from "./ErrorMsg";
 import { useEffect } from "react";
@@ -39,14 +38,11 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
     const response = await translateApi(newsId, accessToken);
     console.log(response);
 
-    setTranslate((prev) => [
-      ...prev,
-      {
-        newsId,
-        description: response.description,
-        title: response.title,
-      },
-    ]);
+    setTranslate({
+      newsId,
+      description: response.description,
+      title: response.title,
+    });
   };
 
   useEffect(() => {
@@ -110,7 +106,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
 
               <SubContent>
                 <div className="time">
-                  {news.brandName} | {dateFormat(news.publishTime)}
+                  {news.brandName} | {differenceDayFuncTwo(news.publishTime)}
                 </div>
                 <div className="iconGroup">
                   <TranslateIconKo
