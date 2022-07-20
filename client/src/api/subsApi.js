@@ -120,7 +120,7 @@ export const customerSearch = async (userCode) => {
       url: `/v1/customers/${userCode}`,
       method: "GET",
     });
-
+    console.log(response);
     if (response.status === 200) {
       return response.data;
     }
@@ -153,6 +153,7 @@ export const subsCancel = async (subsId) => {
         whenToCancel: "NOW",
       },
     });
+    console.log(response);
   } catch (e) {
     console.log(e);
   }

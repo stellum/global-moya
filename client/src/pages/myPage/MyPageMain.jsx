@@ -5,8 +5,6 @@ import {
   AccountInfo,
   AccountSettings,
   Account,
-  SubscriptionInfo,
-  Subscription,
   Settings,
   Help,
 } from "@styles/myPage/Main";
@@ -17,14 +15,16 @@ import { RequiredLogin } from "@hoc/userAccessType";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutFunc } from "@api/loginApi";
 import { userLogoutAction } from "@redux/user/userSlice";
+import SubscriptionComp from "@components/SubscriptionComp";
+import { customerSearch } from "@api/subsApi";
 
-import { dateFormat, subDate } from "@util/dateFunc";
 const MyPageMain = ({ user, accessToken }) => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const subsUser = useSelector((state) => state.subsSlice.subsUser);
   useEffect(() => {
+    customerSearch(subsUser.id);
     console.log(subsUser);
   }, []);
   const handleLogin = () => {
@@ -49,32 +49,7 @@ const MyPageMain = ({ user, accessToken }) => {
               <span>{subsUser.name}</span>
               <p>{subsUser.email}</p>
             </Account>
-
-            <SubscriptionInfo>
-              <div className="subs">
-                <span>월별 정기구독 이용중</span>
-                <Link to="/mypage/subscription">
-                  <button>구독관리</button>
-                </Link>
-              </div>
-              <Subscription>
-                <div className="substerm">
-                  <div>구독 기간 </div>| &nbsp;
-                  {subsUser.subscriptions &&
-                    subDate(
-                      subsUser.subscriptions[0]?.nextPaymentDateTime
-                    )}{" "}
-                  &nbsp;~ &nbsp;
-                  {subsUser.subscriptions &&
-                    dateFormat(subsUser.subscriptions[0]?.nextPaymentDateTime)}
-                </div>
-                <div className="substerm">
-                  <div>다음 결제일 </div>| &nbsp;
-                  {subsUser.subscriptions &&
-                    dateFormat(subsUser.subscriptions[0]?.nextPaymentDateTime)}
-                </div>
-              </Subscription>
-            </SubscriptionInfo>
+            <SubscriptionComp subsUser={subsUser} />
           </AccountInfo>
 
           <Settings>

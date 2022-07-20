@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Settings,
   Main,
@@ -7,25 +7,38 @@ import {
   NextPayment,
   PaymentMethod,
   ApplyBtn,
-  Popup,
 } from "@styles/myPage/Subscription";
+import { FilterBG } from "@styles/filterStyle/filterBG";
+
 import { BackArrow, GlobalMOYAPremium } from "@styles/svgIcon";
 import { DefaultContainer } from "@styles/common/container";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import UserCheck from "../../hoc/UserCheck";
-import { RequiredLogin } from "../../hoc/userAccessType";
-import { payMentChange, subsCancel } from "../../api/subsApi";
-import { dateFormat } from "../../util/dateFunc";
+import UserCheck from "@hoc/UserCheck";
+import { RequiredLogin } from "@hoc/userAccessType";
+import { payMentChange, subsCancel } from "@api/subsApi";
+import { dateFormat } from "@util/dateFunc";
+import SubsCancelModal from "@components/SubsCancelModal";
 const Subscription = ({ user }) => {
+  const [popup, setPopup] = useState(false);
+  const [showBtn, setShowBtn] = useState(false);
   const navigate = useNavigate();
   const subsUser = useSelector((state) => state.subsSlice.subsUser);
-
+  const handleSubs = () => {
+    setPopup((prev) => !prev);
+    setShowBtn((prev) => !prev);
+  };
   return (
-    // <<<<<<< Updated upstream
     <>
       {user && (
         <Settings>
+          <SubsCancelModal
+            popup={popup}
+            subsUser={subsUser}
+            setPopup={setPopup}
+            setShowBtn={setShowBtn}
+          />
+          <FilterBG showBtn={showBtn} onClick={handleSubs} />
           <Main>
             <div className="h3div">
               <BackArrow onClick={() => navigate(-1)} />
@@ -37,44 +50,30 @@ const Subscription = ({ user }) => {
             <Logo>
               <GlobalMOYAPremium></GlobalMOYAPremium>
             </Logo>
-            {/* =======
-    <Settings>
-      <Popup>
-        <span>구독을 취소하시겠습니까?</span>
-        <div>
-          키워드 추가 및 뉴스 그룹 설정 기능 등의 프리미엄 혜택이 사라집니다.
-        </div>
-        <div>
-          <div>유지</div>
-          <div>구독 취소</div>
-        </div>
-      </Popup>
-      <Main>
-        <div className="h3div">
-          <BackArrow />
-          <h3>구독관리</h3>
-        </div>
-      </Main>
-      <DefaultContainer>
-        <Logo>
-          <GlobalMOYAPremium></GlobalMOYAPremium>
-        </Logo>
->>>>>>> Stashed changes */}
 
             <SubscriptionPlan>
               <span>개인 멤버십 | 9,900원/월</span>
               <NextPayment>
                 <div>
                   다음 결제일 |{" "}
-                  {dateFormat(subsUser.subscriptions[0].nextPaymentDateTime)}
+                  {dateFormat(
+                    subsUser.subscriptions[subsUser.subscriptions.length - 1]
+                      .nextPaymentDateTime
+                  )}
                 </div>
-                <span>구독취소</span>
+                <span onClick={handleSubs}>구독취소</span>
               </NextPayment>
             </SubscriptionPlan>
 
             <PaymentMethod>
               <div>
-                <span>결제카드 : {subsUser.paymentMethods[0].paymentInfo}</span>
+                <span>
+                  결제카드 :{" "}
+                  {
+                    subsUser.paymentMethods[subsUser.subscriptions.length - 1]
+                      .paymentInfo
+                  }
+                </span>
                 <span>수정</span>
               </div>
             </PaymentMethod>
