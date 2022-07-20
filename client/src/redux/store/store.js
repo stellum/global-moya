@@ -15,7 +15,7 @@ import categorySlice from "../reducer/categorySlice";
 import subsSlice from "../reducer/user/subsSlice";
 import keywordConnectedSlice from "../reducer/keywordConnectedSlice";
 import searchFilterSlice from "../reducer/searchFilterSlice";
-
+import ScrapFolderSlice from "../reducer/ScrapFolderSlice";
 // if (process.env.NODE_ENV !== "production") {
 //   middleware.push(logger);
 // }
@@ -35,6 +35,7 @@ const rootReducer = combineReducers({
   subsSlice,
   keywordConnectedSlice,
   searchFilterSlice,
+  ScrapFolderSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

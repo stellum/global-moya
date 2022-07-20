@@ -14,7 +14,7 @@ export const ScrapModalStyle = styled.div`
   overflow: hidden;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: 21;
   &::before {
     content: "";
     position: absolute;
@@ -53,7 +53,7 @@ export const FilterBtn = styled.button`
 export const ScrapMoveWrap = styled.div`
   position: fixed;
   bottom: 0;
-  z-index: 8;
+  z-index: 21;
   height: auto;
   width: 100%;
   padding-bottom: 16px;

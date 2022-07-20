@@ -53,7 +53,6 @@ const EditGroupContext = ({ accessToken }) => {
       setItems((items) => {
         const oldIndex = items.findIndex((item) => item.groupId === active.id);
         const newIndex = items.findIndex((item) => item.groupId === over.id);
-
         // console.log("item,old,new", items, oldIndex, newIndex);
         return arrayMove(items, oldIndex, newIndex);
       });

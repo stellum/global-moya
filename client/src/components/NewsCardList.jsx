@@ -9,6 +9,7 @@ import {
   Abstract,
   CardHeader,
   Tickers,
+  NoResultTickers,
 } from "@styles/newsCard/cardStyles";
 import {
   ScrapIcon,

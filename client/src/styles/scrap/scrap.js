@@ -43,7 +43,7 @@ export const FixedHeader = styled(Header)`
   position: fixed;
   top: 0;
   background-color: ${colors.white};
-  z-index: 10;
+  z-index: 2;
 `;
 export const EditButton = styled.button`
   background: none;
