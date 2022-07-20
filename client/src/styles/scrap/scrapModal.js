@@ -39,7 +39,7 @@ export const ScrapMiniModalStyle = styled.div`
   overflow: hidden;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: 21;
 `;
 export const BtnWrap = styled.div`
   padding: 12px;
