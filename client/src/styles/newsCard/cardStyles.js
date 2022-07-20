@@ -119,6 +119,7 @@ export const Tickers = styled.ul`
 `;
 export const ImageContent = styled.img`
   ${({ viewType }) => cardSwitchFunc(cardImgType, viewType)}
+  object-fit: contain;
 `;
 
 export const NoResultTickers = styled.div`

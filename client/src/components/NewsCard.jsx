@@ -17,6 +17,8 @@ import {
   ShareIcon,
   ExpandMoreIcon,
 } from "@styles/svgIcon";
+import globalMOYAPremiumSvg from "@assets/globalMOYA.svg";
+import { dateFormat } from "../util/dateFunc";
 import { differenceDayFuncTwo } from "../util/dateFunc";
 import { translateApi } from "../api/translateApi";
 import ErrorMsg from "./ErrorMsg";
@@ -76,6 +78,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
     4. 다시 클릭하면 배열에서 제거와 함께 아이콘 ko로 변경
   */
 
+
   return (
     <>
       {newsList.length > 0 ? (
@@ -84,7 +87,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
             <Card key={news.newsId}>
               <MainContent viewType={apply ? view : viewType}>
                 <ImageContent
-                  src={news.imageUrl}
+                  src={news.imageUrl ? news.imageUrl : globalMOYAPremiumSvg}
                   viewType={apply ? view : viewType}
                 />
                 <CardHeader viewType={apply ? view : viewType}>

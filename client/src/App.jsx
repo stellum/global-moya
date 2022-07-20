@@ -28,7 +28,6 @@ import ScrapNewsEdit from "./pages/scrap/ScrapNewsEdit";
 import NewFolder from "./pages/scrap/NewFolder";
 import NameChange from "./pages/scrap/NameChange";
 import ScrapGroupEdit from "./pages/scrap/ScrapGroupEdit";
-import { ReactQueryDevtools } from "react-query/devtools";
 import KeywordCardMain from "./pages/main/keywordCardMain/KeywordCardMain";
 
 function App() {
@@ -78,7 +77,6 @@ function App() {
             <Route path="*" element={<ErrorPage />} />
             <Route path="/Keywordcardmain" element={<KeywordCardMain />} />
           </Routes>
-          <ReactQueryDevtools initialIsOpen={false} />
         </CustomContainer>
       </BrowserRouter>
     </>

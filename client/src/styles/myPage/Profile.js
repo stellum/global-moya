@@ -105,7 +105,7 @@ export const Background = styled.div`
   height: 100vh;
   position: absolute;
   z-index: 1;
-  background-color: ${(props) => console.log(props)};
+
   display: ${(props) => (props.popup ? "block" : "none")};
 `;
 
