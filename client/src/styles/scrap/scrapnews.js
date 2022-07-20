@@ -18,3 +18,6 @@ export const ApplyBtn = styled(DefaultCompleteButton)`
   font-weight: ${fontWeight.FontWeight600};
   margin-right: ${({ apply }) => (apply ? 0 : "8px")};
 `;
+export const DeleteBtn = styled(ApplyBtn)`
+  background-color: ${colors.pointOrange200};
+`;
