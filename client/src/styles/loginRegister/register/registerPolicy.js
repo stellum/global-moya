@@ -48,6 +48,9 @@ export const SignUp = styled.button`
   background: #b7b7b7;
   border-radius: 2px;
   border: 1px solid #e8e8e8;
+  &:hover {
+    background-color: ${colors.black};
+  }
 `;
 
 export const CheckAll = styled.div`
