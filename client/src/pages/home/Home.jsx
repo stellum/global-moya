@@ -18,15 +18,13 @@ const Home = ({ userLogin, accessToken }) => {
     if (userLogin) {
       const getDatas = async () => {
         const response = await getKeywords(accessToken);
-        console.log(response);
         await dispatch(addKeywordListAction(response));
 
-        console.log("paramValueList", exchangeList[0]);
         await dispatch(
           keywordContentRequest([
             keyTypeList[0],
             paramValueList[0],
-            exchangeList[0].exchange,
+            exchangeList[0],
           ])
         );
       };

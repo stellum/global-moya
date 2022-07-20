@@ -16,6 +16,7 @@ import {
   EditIconDiv,
   EditIconCircle,
 } from "@styles/main/mainKeywordList";
+import { ErrorMsgP } from "@styles/common/errorMsg";
 import { toggleEditAction } from "@redux/buttonSlice";
 import NewsCard from "@components/NewsCard";
 import Spinner from "@components/common/Spinner";
@@ -38,19 +39,25 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
     keyType,
     paramValue,
     exchange,
+    status,
   } = useSelector((state) => state.searchFilterSlice);
-  const { status } = useSelector((state) => state.searchFilterSlice);
 
+  console.log("exchange", exchange);
   // toggle btn
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
 
   //local >> useSelector
-  const rootStorage = JSON.parse(localStorage["persist:root"]);
-  const keywordSlice = JSON.parse(rootStorage["keywordConnectedSlice"]);
-  const keywordList = keywordSlice.keywordList;
-  const keyTypeList = keywordSlice.keyTypeList;
-  const paramValueList = keywordSlice.paramValueList;
-  const exchangeList = keywordSlice.exchangeList;
+  // const rootStorage = JSON.parse(localStorage["persist:root"]);
+  // const keywordSlice = JSON.parse(rootStorage["keywordConnectedSlice"]);
+  // const keywordList = keywordSlice.keywordList;
+  // const keyTypeList = keywordSlice.keyTypeList;
+  // const paramValueList = keywordSlice.paramValueList;
+  // const exchangeList = keywordSlice.exchangeList;
+
+  const { keywordList, keyTypeList, paramValueList, exchangeList } =
+    useSelector((state) => state.keywordConnectedSlice);
+
+  console.log("exchangeList", exchangeList);
 
   const toggleModal = () => {
     dispatch(toggleEditAction(!showEditBtn));
@@ -58,8 +65,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
   };
 
   const toggleTab = async (index) => {
-    // 0 > FALSE
-    setToggleTabState(+index);
+    setToggleTabState(index);
     await dispatch(
       keywordContentRequest([
         keyTypeList[index],
@@ -73,7 +79,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
     navigate(
       `/main?timeFilter=${timeFilter}&mediaType=${mediaType}&language=${language}&orderBy=${orderBy}&keyType=${keyType}&paramValue=${paramValue}&exchange=${exchange}`
     );
-  }, [timeFilter, mediaType, language, orderBy, keyType, paramValue]);
+  }, [timeFilter, mediaType, language, orderBy, keyType, paramValue, exchange]);
 
   useEffect(() => {
     const getDatas = async () => {
@@ -89,10 +95,10 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
 
       await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
         (response) => {
-          console.log("첫 response", response);
-          if (response.payload.status === 400) {
+          if (response.payload.newsList.length === 0) {
             setErrorMsg("결과가 없습니다.");
           } else {
+            setErrorMsg("");
             setNewsList(response.payload.newsList);
             setPageToken(response.payload.nextPageToken);
           }
@@ -107,32 +113,44 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
   }, []);
 
   useEffect(() => {
-    if (toggleTabState) {
-      const getDatas = async () => {
-        const queryParams = {
-          timeFilter,
-          mediaType,
-          language,
-          orderBy,
-          keyType,
-          paramValue,
-          exchange,
-        };
+    const getDatas = async () => {
+      const queryParams = {
+        timeFilter,
+        mediaType,
+        language,
+        orderBy,
+        keyType,
+        paramValue,
+        exchange,
+      };
 
-        await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
-          (response) => {
+      await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
+        (response) => {
+          console.log("Res", response);
+          if (
+            (response.payload.newsList &&
+              response.payload.newsList.length === 0) ||
+            response.payload.status > 200
+          ) {
+            setErrorMsg("결과가 없습니다.");
+          } else {
+            setErrorMsg("");
             setNewsList(response.payload.newsList);
             setPageToken(response.payload.nextPageToken);
           }
-        );
-      };
+        }
+      );
+    };
 
+    if (toggleTabState === 0) {
       getDatas();
-
-      return () => {
-        console.log("clear time");
-      };
+    } else {
+      getDatas();
     }
+
+    return () => {
+      console.log("clear time");
+    };
   }, [toggleTabState]);
 
   return (
@@ -141,12 +159,12 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
         <MainKeywordDiv>
           <MainKeywordUl>
             {keywordList.map((keyword) => {
-              const { name, _id, index } = keyword;
+              const { name, _id, id } = keyword;
               return (
                 <MainKeywordLi
                   key={_id + name}
                   toggleTab={keyword.paramValue === paramValue}
-                  onClick={() => toggleTab(index)}
+                  onClick={() => toggleTab(id)}
                 >
                   {name.length > 10 ? name.slice(0, 9) + "..." : name}
                 </MainKeywordLi>
@@ -162,17 +180,18 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
         <MainKeywordContentDiv>
           {status === "Loading" ? (
             <Spinner />
+          ) : errorMsg ? (
+            <ErrorMsgP>{errorMsg}</ErrorMsgP>
           ) : (
-            status === "complete" &&
             keywordList.map((keyword) => {
-              const { _id, index, keyType } = keyword;
+              const { _id, id, keyType } = keyword;
               return (
                 <MainKeywordActiveContentDiv
                   key={_id + keyType}
-                  toggleContent={toggleTabState === index}
+                  toggleContent={toggleTabState === id}
                 >
                   <NewsCard
-                    key={index}
+                    key={id}
                     view={view}
                     apply={apply}
                     newsList={newsList}
