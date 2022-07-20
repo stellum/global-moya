@@ -9,7 +9,6 @@ export const LoginDiv = styled.div`
   margin-top: 5px;
   margin-bottom: 22%;
   position: relative;
-  border: 2px solid red;
 `;
 
 export const LoginSpan = styled.div`
