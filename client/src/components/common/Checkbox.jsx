@@ -6,6 +6,7 @@ import {
   delCheckedBtn,
   initCheckedAction,
 } from "@redux/buttonSlice";
+import { deleteKeywords } from "@api/keywordListApi";
 import styled from "styled-components";
 import { DeleteIcon } from "@styles/svgIcon";
 
@@ -41,13 +42,22 @@ const IconCheckbox = styled.div`
   }
 `;
 
-const Checkbox = ({ item }) => {
+const Checkbox = ({ item, handleDelete }) => {
   const [checkedButtons, setCheckedButtons] = useState([]);
   const checkedBtn = useSelector((state) => state.buttonSlice.checkedBtn);
+  const [keyType, setKeyType] = useState("");
+  const [_id, set_Id] = useState("");
+  const [termSeq, setTermSeq] = useState("");
+  // const [updateFlag, setUpdateFlag] = useState("");
 
   const dispatch = useDispatch();
 
   const changeHandler = useCallback((checked, checkEl) => {
+    console.log("item", item);
+    setKeyType(item.keyType);
+    set_Id(item._id);
+    setTermSeq(item.termSeq);
+
     if (checked) {
       // 체크 반영
       setCheckedButtons([...checkedButtons, checkEl]);
@@ -58,6 +68,20 @@ const Checkbox = ({ item }) => {
       dispatch(delCheckedBtn(checkEl));
     }
   });
+
+  // console.log("handleDelete", handleDelete());
+
+  // const deleteData = async () => {
+  //   const json = {
+  //     keyType: keyType,
+  //     _id: _id,
+  //     termSeq: termSeq,
+  //   };
+  //   if (checkedBtn.length === 1) {
+  //     const response = await deleteKeywords(json, accessToken);
+  //     console.log("del res", response);
+  //   }
+  // };
 
   useEffect(() => {
     if (checkedBtn.length !== 0) {
@@ -75,13 +99,27 @@ const Checkbox = ({ item }) => {
     };
   }, []);
 
+  // useEffect(() => {
+  // console.log("나 아이템", item);
+  // const deleteData = async () => {
+  //   const json = {
+  //     keyType: "",
+  //     _id: "",
+  //     termSeq: "",
+  //   };
+  //   if (checkedBtn.length === 1) {
+  //     const response = await deleteKeywords(json, accessToken);
+  //   }
+  // };
+  // }, [checkedBtn]);
+
   return (
     <>
       <Label htmlFor={item.id}>
         <HiddenCheckbox
           type="checkbox"
           id={item.id}
-          name={item.keyword}
+          name={item.name}
           onChange={(e) => {
             changeHandler(e.currentTarget.checked, "check");
           }}
