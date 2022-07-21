@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import IconCancelSvg from "@assets/icons-cancel.svg";
-import IconEyeShut from "@assets/icons-eyeShut.svg"
 
 export const IconCancel = styled.span`
   background-image: url(${IconCancelSvg});
@@ -23,7 +22,7 @@ export const IconText = styled.span`
 
 
 export const ShowIcon = styled.span`
-  background-image: url(${IconEyeShut});
+  background-image: url(${(props) => props.url});
   background-repeat: no-repeat;
   width: 22px;
   height: 22px;
