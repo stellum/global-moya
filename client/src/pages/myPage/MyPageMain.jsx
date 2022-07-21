@@ -77,14 +77,11 @@ const MyPageMain = ({ user }) => {
                 </div>
               </li>
             </Link>
-
-            <Link to="/">
-              <li>
-                <div onClick={handleLogin}>
-                  로그아웃 <LearnMore />
-                </div>
-              </li>
-            </Link>
+            <li>
+              <div onClick={handleLogin}>
+                로그아웃 <LearnMore />
+              </div>
+            </li>
           </Settings>
 
           <Help>
