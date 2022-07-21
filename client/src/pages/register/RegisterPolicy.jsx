@@ -123,14 +123,6 @@ const RegisterPolicy = (props) => {
               </Checklabel>
             </Check>
           ))}
-
-          {/* <div><Check type='checkbox' value="privacy" onChange={(e) => agreeHandler(e.currentTarget.checked, e.target.value)} />개인정보 수집 및 이용약관에 동의 (필수)          
-        <ImageContent src={MoreIcon} /></div> 
-        <div><Check type='checkbox' value="service" onChange={(e) => agreeHandler(e.currentTarget.checked, e.target.value)} />서비스 이용약관 동의 (필수)
-        <ImageContent src={MoreIcon} /></div>
-        <div><Check type='checkbox' value="personal" onChange={(e) => agreeHandler(e.currentTarget.checked, e.target.value)} />개인정보 처리방침 동의 (필수)
-        <ImageContent src={MoreIcon} /></div>
-        <div><Check type='checkbox' value="event" onChange={(e) => agreeHandler(e.currentTarget.checked, e.target.value)} />이벤트 및 혜택 안내 수신동의 (선택)</div> */}
         </CustomerAgreement>
         <SignUp onClick={handleClick}>가입하기</SignUp>
       </TermsAndConditions>
