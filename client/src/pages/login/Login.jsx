@@ -13,6 +13,7 @@ import { subsUserAction } from "@redux/user/subsSlice";
 import { getKeywords } from "../../api/keywordListApi";
 import { addKeywordListAction } from "@redux/keywordListSlice";
 
+import { Container } from "@styles/loginRegister/container"
 import { CommonForm } from "@styles/loginRegister/commonForm";
 import { Header, BackSpace, TitleHeader } from "@styles/loginRegister/header";
 import { InputDiv, InputType } from "@styles/loginRegister/loginRegisterInput";
@@ -70,7 +71,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <Container>
       <CommonForm
         onSubmit={handleSubmit((data) => {
           const formData = new FormData();
@@ -92,10 +93,9 @@ const Login = () => {
         })}
       >
         <Header>
-          <BackSpace />
+          <BackSpace onClick={() => { navigate("/")}}/>
           <TitleHeader>로그인</TitleHeader>
         </Header>
-
         <InputDiv>
           <InputType
             type="email"
@@ -126,7 +126,6 @@ const Login = () => {
             <IconText>눈동자 아이콘</IconText>
           </ShowIcon>
         </InputDiv>
-
         <LoginDiv>
           <LoginSpan>
             {/* <CheckCircle alt="icons-check"  /> */}
@@ -135,17 +134,15 @@ const Login = () => {
           </LoginSpan>
           <FindPw>비밀번호 찾기</FindPw>
         </LoginDiv>
-
         <RegisterLink>
           아직 계정이 없으신가요?
           <LoginRegi onClick={handleClick}>회원가입</LoginRegi>
         </RegisterLink>
-
         <LoginButton type="submit" disabled={isSubmitting}>
           로그인
         </LoginButton>
       </CommonForm>
-    </>
+    </Container>
   );
 };
 

@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { colors } from "@styles/theme";
-
 import IconsCheckCircleSvg from "@assets/icons-checkCircle.svg";
 
 export const LoginDiv = styled.div`
@@ -27,11 +25,9 @@ export const LonginIcon = styled.input`
 `;
 
 export const LoginAuto = styled.label`
-  /* display: inline-block; */
   line-height: 10px;
   cursor: pointer;
   &:before {
-    /* border: 2px solid red; */
     content: "";
     width: 20px;
     height: 20px;
