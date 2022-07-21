@@ -23,7 +23,7 @@ import { translateApi } from "../api/translateApi";
 import ErrorMsg from "./ErrorMsg";
 import _ from "lodash";
 const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
-  console.log(newsList);
+  // console.log(newsList);
   const [scrap, setScrap] = useState(false);
   const [open, setOpen] = useState({});
   const [trakingId, setTrakingId] = useState({});
