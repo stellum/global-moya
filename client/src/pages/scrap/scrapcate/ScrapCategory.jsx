@@ -1,13 +1,11 @@
 //스크랩뉴스 카테고리
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import AccessToken from "@hoc/AccessToken";
 import { allFolder } from "@api/scrapFolderApi";
 import { QuickButtonWrap } from "@styles/scrap/scrapcate";
-import _ from "lodash";
 import { RadiusBlackButton } from "@styles/common/button/button";
-import { useState } from "react";
 import { ScrapFolderChoose } from "@redux/scrapFolderSlice";
 
 const ScrapCategory = ({ black }) => {

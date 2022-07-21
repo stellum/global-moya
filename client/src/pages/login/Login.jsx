@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -71,8 +71,6 @@ const Login = () => {
 
   const [pwVisible, setPwVisible] = useState(false);
 
-  const eyeIconRef = useRef();
-
   const handleShow = () => {
     setPwVisible(pwVisible ? false : true);
     let showIcon = document.querySelector("#showIcon");
@@ -95,19 +93,14 @@ const Login = () => {
           }
 
           fetch(formData, data);
-
-          // formData는 XMLHttpRequest 전송을 위한 특수한 객체이므로 일반적인 방법으로는 콘솔에 못 찍음
-          // 밑에 처럼 keys(), values() 메서드를 써서 찍어줘야...
-          for (let key of formData.keys()) {
-            // console.log(key);
-          }
-          for (let value of formData.values()) {
-            // console.log(value);
-          }
         })}
       >
         <Header>
           <BackSpace
+<<<<<<< HEAD
+=======
+            type="button"
+>>>>>>> 7c03a1f4de9f3c26cae782d69fabb131cdd1852f
             onClick={() => {
               navigate("/");
             }}
@@ -139,7 +132,7 @@ const Login = () => {
         </InputDiv>
         <InputDiv>
           <InputType
-            type="password"
+            type={pwVisible ? "text" : "password"}
             name="password"
             placeholder="비밀번호"
             {...register("password", {

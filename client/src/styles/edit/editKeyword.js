@@ -130,4 +130,9 @@ export const EditTextKeyword = styled.h4``;
 
 export const EditInputGroup = styled.input`
   font-size: ${fontSize.FontSize16};
+  background: none;
+  border: 1px solid ${colors.gray250};
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
 `;

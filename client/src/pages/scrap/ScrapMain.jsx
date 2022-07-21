@@ -21,6 +21,7 @@ import {
 const ScrapMain = ({ view, apply }) => {
   const [black, setBlack] = useState(true);
   const [newsList, setNewsList] = useState([]);
+  const [news2, setNews2] = useState([]);
   const dispatch = useDispatch();
   const showScrapEditBtn = useSelector(
     (state) => state.modalSlice.showScrapEditBtn

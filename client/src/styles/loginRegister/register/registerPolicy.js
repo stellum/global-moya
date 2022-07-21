@@ -33,16 +33,13 @@ export const CustomerAgreement = styled.form`
   line-height: 2em;
 `;
 
-export const ImageContent = styled.img`
-  /* position: absolute;
-  right: 8px; */
-`;
+export const ImageContent = styled.img``;
 
 export const SignUp = styled.button`
   position: relative;
   width: 100%;
   height: 52px;
-  margin-top: 500px;
+  margin-top: 400px;
   color: ${colors.white};
   font-weight: ${fontWeight.FontWeight600};
   background: #b7b7b7;
@@ -104,8 +101,6 @@ export const Check = styled.div`
       }
     }
   }
-  /* display: flex;
-  align-items: center; */
   input {
     display: none;
     &:checked + label {
