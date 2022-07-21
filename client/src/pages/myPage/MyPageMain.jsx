@@ -77,7 +77,6 @@ const MyPageMain = ({ user }) => {
                 </div>
               </li>
             </Link>
-
             <li>
               <div onClick={handleLogin}>
                 로그아웃 <LearnMore />
