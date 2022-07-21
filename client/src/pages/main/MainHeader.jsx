@@ -19,7 +19,7 @@ import { toggleNavigation } from "@redux/modalSlice";
 import { userLogoutAction } from "@redux/user/userSlice";
 
 const Header = ({ user }) => {
-  console.log(user);
+  console.log("dbwj?", user);
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
   const navigate = useNavigate();
@@ -34,50 +34,77 @@ const Header = ({ user }) => {
     if (!user) navigate("/login");
     else {
       logOutFunc();
+      navigate("/");
       dispatch(userLogoutAction());
     }
   };
   return (
     <>
-      <NaviWrap showNavi={showNavi}>
-        <SideHeader>
-          <MoyaLogo />
-        </SideHeader>
-        <a
-          href="https://watch.moya.ai/global"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="새창으로 열기"
-        >
+      {user ? (
+        <NaviWrap showNavi={showNavi}>
+          <SideHeader>
+            <MoyaLogo />
+          </SideHeader>
+          <a
+            href="https://watch.moya.ai/global"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="새창으로 열기"
+          >
+            <NaviGo>
+              AI 모야 글로벌 뉴스 바로가기
+              <MoreIcon />
+            </NaviGo>
+          </a>
+          <Navispan />
+          <Link to="/scrap">
+            <NaviGo>
+              스크랩 뉴스
+              <MoreIcon />
+            </NaviGo>
+          </Link>
           <NaviGo>
-            AI 모야 글로벌 뉴스 바로가기
+            키워드 관리
             <MoreIcon />
           </NaviGo>
-        </a>
-        <Navispan />
-        <Link to="/scrap">
-          <NaviGo>
-            스크랩 뉴스
+          <Navispan />
+          <Link to="/mypagemain">
+            <NaviGo>
+              마이페이지
+              <MoreIcon />
+            </NaviGo>
+          </Link>
+          <NaviGo onClick={handleLogin}>
+            {user ? "로그아웃" : "로그인"}
             <MoreIcon />
           </NaviGo>
-        </Link>
-        <NaviGo>
-          키워드 관리
-          <MoreIcon />
-        </NaviGo>
-        <Navispan />
-        <Link to="/mypagemain">
-          <NaviGo>
-            마이페이지
+          <Navispan />
+        </NaviWrap>
+      ) : (
+        <NaviWrap showNavi={showNavi}>
+          <SideHeader>
+            <MoyaLogo />
+          </SideHeader>
+          <a
+            href="https://watch.moya.ai/global"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="새창으로 열기"
+          >
+            <NaviGo>
+              AI 모야 글로벌 뉴스 바로가기
+              <MoreIcon />
+            </NaviGo>
+          </a>
+          <Navispan />
+          <NaviGo onClick={handleLogin}>
+            {user ? "로그아웃" : "로그인"}
             <MoreIcon />
           </NaviGo>
-        </Link>
-        <NaviGo onClick={handleLogin}>
-          {user ? "로그아웃" : "로그인"}
-          <MoreIcon />
-        </NaviGo>
-        <Navispan />
-      </NaviWrap>
+          <Navispan />
+        </NaviWrap>
+      )}
+
       <FilterBG showNavi={showNavi} onClick={handleBG} />
       <MainHeader>
         <Hamburger click={toggleNavi} main></Hamburger>
