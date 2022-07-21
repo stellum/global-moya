@@ -7,7 +7,7 @@ import HomeContent from "./HomeContent";
 import HomeFooter from "./HomeFooter";
 import AccessToken from "@hoc/AccessToken";
 
-const Home = ({ userLogin }) => {
+const Home = ({ userLogin, accessToken }) => {
   const { keyTypeList, paramValueList, exchangeList } = useSelector(
     (state) => state.keywordConnectedSlice
   );
@@ -17,7 +17,7 @@ const Home = ({ userLogin }) => {
   useEffect(() => {
     if (userLogin) {
       const getDatas = async () => {
-        const response = await getKeywords();
+        const response = await getKeywords(accessToken);
         await dispatch(addKeywordListAction(response));
 
         await dispatch(

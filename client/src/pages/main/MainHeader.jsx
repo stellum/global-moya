@@ -19,7 +19,6 @@ import { toggleNavigation } from "@redux/modalSlice";
 import { userLogoutAction } from "@redux/user/userSlice";
 
 const Header = ({ user }) => {
-  console.log(user);
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
   const navigate = useNavigate();
@@ -50,7 +49,7 @@ const Header = ({ user }) => {
           title="새창으로 열기"
         >
           <NaviGo>
-            AI 모야 글로벌 뉴스 바로가기
+            AI 글로벌 주식 뉴스
             <MoreIcon />
           </NaviGo>
         </a>
@@ -61,10 +60,12 @@ const Header = ({ user }) => {
             <MoreIcon />
           </NaviGo>
         </Link>
-        <NaviGo>
-          키워드 관리
-          <MoreIcon />
-        </NaviGo>
+        <Link to="/main/edit/keyword">
+          <NaviGo>
+            키워드 관리
+            <MoreIcon />
+          </NaviGo>
+        </Link>
         <Navispan />
         <Link to="/mypagemain">
           <NaviGo>

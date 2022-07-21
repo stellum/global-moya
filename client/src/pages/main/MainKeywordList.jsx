@@ -42,22 +42,10 @@ const MainKeywordList = ({ view, apply }) => {
     status,
   } = useSelector((state) => state.searchFilterSlice);
 
-  // console.log("exchange", exchange);
-  // toggle btn
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
-
-  //local >> useSelector
-  // const rootStorage = JSON.parse(localStorage["persist:root"]);
-  // const keywordSlice = JSON.parse(rootStorage["keywordConnectedSlice"]);
-  // const keywordList = keywordSlice.keywordList;
-  // const keyTypeList = keywordSlice.keyTypeList;
-  // const paramValueList = keywordSlice.paramValueList;
-  // const exchangeList = keywordSlice.exchangeList;
 
   const { keywordList, keyTypeList, paramValueList, exchangeList } =
     useSelector((state) => state.keywordConnectedSlice);
-
-  // console.log("exchangeList", exchangeList);
 
   const toggleModal = () => {
     dispatch(toggleEditAction(!showEditBtn));
