@@ -32,8 +32,7 @@ clientServer.interceptors.response.use(
         const originalRequest = config;
         const refreshToken = await getCookieToken();
         const access_token = await refreshTokenFunc(refreshToken);
-        console.log(refreshToken);
-        console.log(access_token);
+
         clientServer.defaults.headers.common.Authorization = `Bearer ${access_token}`;
         originalRequest.headers.Authorization = `Bearer ${access_token}`;
         return axios(originalRequest);
@@ -44,7 +43,9 @@ clientServer.interceptors.response.use(
   }
 );
 
-const SECRET_KEY = import.meta.env.VITE_SECRET_TOKEN;
+// const SECRET_KEY = import.meta.env.VITE_SECRET_TOKEN;
+const SECRET_KEY =
+  "7eef25e8a3274b4b8b4a261bac872c963ce88c738a0e1d61ee5f639319d413ed";
 // secret_key db에 저장?
 export const stepPayServer = axios.create({
   baseURL: "https://api.steppay.kr/api",

@@ -32,7 +32,7 @@ import {
 } from "@styles/edit/editKeyword";
 import { BackArrow } from "@styles/svgIcon";
 import KeywordSortableItem from "./KeywordSortableItem";
-// import { createTermSeq } from "@util/createTermSeq";
+import { createTermSeq } from "@util/createTermSeq";
 
 const EditKeywordContext = ({}) => {
   // const getTermSeq = createTermSeq(4);
@@ -47,6 +47,8 @@ const EditKeywordContext = ({}) => {
 
   // const [keywordNameList, setKeywordNameList] = useState([]);
   const [items, setItems] = useState([]);
+  const [newItems, setNewItems] = useState([]);
+  const [newTerm, setTermSeq] = useState([]);
   const navigate = useNavigate();
 
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
@@ -66,7 +68,10 @@ const EditKeywordContext = ({}) => {
   useEffect(() => {
     const getDatas = async () => {
       const response = await getKeywords();
-      setItems(response);
+      if (response.length > 0) {
+        setItems(response);
+        setTermSeq(createTermSeq(response.length));
+      }
     };
     getDatas();
 
@@ -74,17 +79,19 @@ const EditKeywordContext = ({}) => {
       console.log("unMounted");
     };
   }, []);
-
+  useEffect(() => {
+    console.log(newTerm);
+  }, [newTerm]);
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
   const handleDragEnd = ({ active, over }) => {
     if (active.id !== over.id) {
       setItems((items) => {
-        console.log("items", items);
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over.id);
 
         console.log("item,old,new", items, oldIndex, newIndex);
+        setNewItems(items);
         return arrayMove(items, oldIndex, newIndex);
       });
     }
@@ -129,7 +136,7 @@ const EditKeywordContext = ({}) => {
                 <BackArrow />
               </EditBack>
               <EditHeader>키워드 편집</EditHeader>
-              <EditCount>{items.length}/10</EditCount>
+              <EditCount>{items && items.length}/10</EditCount>
             </EditHeaderContainer>
             <EditUl>
               {items.map((item) => (

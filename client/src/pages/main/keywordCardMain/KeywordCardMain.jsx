@@ -28,6 +28,7 @@ const KeywordCardMain = () => {
   const [newsList, setNewsList] = useState([]);
   const [pageToken, setPageToken] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [page, setPage] = useState(1);
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const handleClick = (e) => {
@@ -39,14 +40,12 @@ const KeywordCardMain = () => {
   };
 
   const location = useLocation();
-  const { timeFilter, mediaType, language, orderBy } = useSelector(
-    (state) => state.searchFilterSlice
-  );
+  const { timeFilter, mediaType, language, orderBy, nextPageToken } =
+    useSelector((state) => state.searchFilterSlice);
 
   const loading = useSelector((state) => state.categorySlice.loading);
 
   useEffect(() => {
-    console.log("keywordCardMain", timeFilter, mediaType, orderBy);
     inputRef.current.value = location.state.paramValue;
     dispatch(isLoading(true));
     const getDatas = async () => {

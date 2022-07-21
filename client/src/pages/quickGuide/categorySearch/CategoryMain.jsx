@@ -18,7 +18,7 @@ import { getKeywords } from "@api/keywordListApi";
 import { useSelector, useDispatch } from "react-redux";
 import AccessToken from "@hoc/AccessToken";
 
-const CategoryMain = ({}) => {
+const CategoryMain = () => {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
   const [reports, setReports] = useState([]);
@@ -30,7 +30,7 @@ const CategoryMain = ({}) => {
   const loading = useSelector((state) => state.categorySlice.loading);
   const inputRef = useRef(null);
   const [fillStar, setFillStar] = useState(false);
-  const [resultMsg, setResultMsg] = useState(false);
+  const [resultBoolean, setResultBoolean] = useState(false);
   const { lastElementRef } = QuickInfiniteHook(setPage);
   const dispatch = useDispatch();
 
@@ -69,7 +69,7 @@ const CategoryMain = ({}) => {
 
   useEffect(() => {
     const msgTimeOut = setTimeout(() => {
-      setResultMsg(false);
+      setResultBoolean(false);
     }, 2000);
     return () => {
       clearTimeout(msgTimeOut);
@@ -95,8 +95,8 @@ const CategoryMain = ({}) => {
             clipKeyword={clipKeyword}
             setFillStar={setFillStar}
             fillStar={fillStar}
-            resultMsg={resultMsg}
-            setResultMsg={setResultMsg}
+            resultBoolean={resultBoolean}
+            setResultBoolean={setResultBoolean}
             reportsLength={reportsLength}
           />
         </Suspense>
@@ -111,8 +111,8 @@ const CategoryMain = ({}) => {
             clipKeyword={clipKeyword}
             setFillStar={setFillStar}
             fillStar={fillStar}
-            resultMsg={resultMsg}
-            setResultMsg={setResultMsg}
+            resultBoolean={resultBoolean}
+            setResultBoolean={setResultBoolean}
             reportsLength={reportsLength}
           />
         </Suspense>

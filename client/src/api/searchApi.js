@@ -1,8 +1,6 @@
 import clientServer from "./baseUrl";
-// import { retryAxios } from "@api/baseUrl";
-import axiosRetry from "axios-retry";
 
-export const getSearchData = async (queryParams, accessToken) => {
+export const getSearchData = async (queryParams) => {
   const {
     timeFilter,
     mediaType,
@@ -11,6 +9,7 @@ export const getSearchData = async (queryParams, accessToken) => {
     keyType,
     paramValue,
     exchange,
+    nextPageToken,
   } = queryParams;
 
   // axiosRetry(clientServer, { retries: 3 });
@@ -33,6 +32,7 @@ export const getSearchData = async (queryParams, accessToken) => {
         keyType,
         paramValue,
         exchange,
+        nextPageToken,
       },
     });
 

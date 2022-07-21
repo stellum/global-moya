@@ -19,17 +19,15 @@ import { deleteKeywordFunc, createKeywordFunc } from "@util";
 import AddKeywordModal from "@components/addKeywordModal/AddKeywordModal";
 const KeywordList = ({
   keyword,
-  accessToken,
   loading,
   setFilterId,
   filterId,
   reports,
   setResult,
-  reportsLength,
 }) => {
   const { filteredResult, generateKey } = MasterValueHook(keyword);
-  const [resultMsg, setResultMsg] = useState(false);
-
+  const [resultBoolean, setResultBoolean] = useState(false);
+  const [limitCode, setLimitCode] = useState(0);
   const checkKeyword = (reports, id, category) => {
     const result = reports.some(
       (item) => item._id === id && item.keyType === category
@@ -40,7 +38,7 @@ const KeywordList = ({
   useEffect(() => {
     setResult(false);
     const msgTimeOut = setTimeout(() => {
-      setResultMsg(false);
+      setResultBoolean(false);
     }, 2000);
     return () => {
       clearTimeout(msgTimeOut);
@@ -48,21 +46,22 @@ const KeywordList = ({
   }, [reports]);
 
   const handleFillStar = useCallback(
-    async (_id, category, accessToken) => {
+    async (_id, category) => {
       setFilterId({ id: _id, category });
       if (checkKeyword(reports, _id, category)) {
-        const res = await deleteKeywordFunc(
-          _id,
-          category,
-          accessToken,
-          reports
-        );
+        await deleteKeywordFunc(_id, category, reports);
+        setLimitCode(0);
         setResult(true);
-      } else if (reportsLength < 10) {
-        const res = await createKeywordFunc(_id, category, accessToken);
+      } else {
+        const res = await createKeywordFunc(_id, category, reports);
         console.log(res);
+        if (res.code === 2002) {
+          setLimitCode(res.code);
+        } else {
+          setLimitCode(0);
+        }
         setResult(true);
-        setResultMsg(true);
+        setResultBoolean(true);
       }
     },
     [filterId, reports]
@@ -75,8 +74,8 @@ const KeywordList = ({
       ) : (
         <>
           <AddKeywordModal
-            resultMsg={resultMsg}
-            reportsLength={reportsLength}
+            resultBoolean={resultBoolean}
+            limitCode={limitCode}
           />
           <KeywordUL>
             {filteredResult &&
@@ -124,11 +123,7 @@ const KeywordList = ({
                                   <StarIcon
                                     id={value._id}
                                     onClick={() => {
-                                      handleFillStar(
-                                        value._id,
-                                        item.mainCate,
-                                        accessToken
-                                      );
+                                      handleFillStar(value._id, item.mainCate);
                                     }}
                                     $clip={checkKeyword(
                                       reports,

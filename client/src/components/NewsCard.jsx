@@ -96,7 +96,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg }) => {
                   <TranslateIconKo
                     id="ko"
                     onClick={(e) => {
-                      handleTranslate(e, news.newsId, accessToken);
+                      handleTranslate(e, news.newsId);
                     }}
                   />
                   {/* {changeTrans ? (

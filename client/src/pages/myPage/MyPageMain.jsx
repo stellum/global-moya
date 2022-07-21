@@ -18,7 +18,7 @@ import { userLogoutAction } from "@redux/user/userSlice";
 import SubscriptionComp from "@components/SubscriptionComp";
 import { customerSearch } from "@api/subsApi";
 import { subsUserAction } from "@redux/user/subsSlice";
-const MyPageMain = ({ user, accessToken }) => {
+const MyPageMain = ({ user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const subsUser = useSelector((state) => state.subsSlice.subsUser);
@@ -31,16 +31,12 @@ const MyPageMain = ({ user, accessToken }) => {
   };
   useEffect(() => {
     fetch();
-    console.log(subsUser);
-    // dispatch(subsUserAction())
   }, []);
 
   const handleLogin = () => {
-    logOutFunc(accessToken);
+    logOutFunc();
     dispatch(userLogoutAction());
-    if (!user) {
-      navigate("/");
-    }
+    navigate("/");
   };
 
   return (

@@ -11,6 +11,7 @@ const initialState = {
   exchange: null,
   status: "Welcome",
   code: null,
+  nextPageToken: null,
 };
 
 const fetchSearchNews = createAsyncThunk(

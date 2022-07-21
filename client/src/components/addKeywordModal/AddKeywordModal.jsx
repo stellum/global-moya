@@ -2,17 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { pxToRem, colors } from "@styles/theme";
 
-const AddKeywordModal = ({ resultMsg, reportsLength }) => {
-  console.log(reportsLength);
+const AddKeywordModal = ({ resultBoolean, limitCode }) => {
   return (
     <>
-      {reportsLength !== 10 ? (
-        <AddKeyword hide={resultMsg}>
-          {resultMsg ? "즐겨찾기 항목에 추가 되었습니다" : ""}
+      {limitCode === 2002 ? (
+        <AddKeyword hide={resultBoolean}>
+          {resultBoolean ? "10개까지 추가 가능합니다" : ""}
         </AddKeyword>
       ) : (
-        <AddKeyword hide={resultMsg}>
-          {resultMsg ? "즐겨찾기 항목은 10개까지 추가 가능합니다" : ""}
+        <AddKeyword hide={resultBoolean}>
+          {resultBoolean ? "즐겨찾기 항목에 추가 되었습니다" : ""}
         </AddKeyword>
       )}
     </>
