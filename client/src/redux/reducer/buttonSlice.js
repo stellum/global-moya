@@ -4,9 +4,6 @@ const initialState = {
   showEditBtn: false,
   showDelBtn: false,
   checkedBtn: [],
-  //그룹편집쪽 체크
-  showDelGroupBtn: false,
-  checkedGroupBtn: [],
 };
 
 export const buttonSlice = createSlice({
@@ -30,20 +27,6 @@ export const buttonSlice = createSlice({
       state.showDelBtn = initialState.showDelBtn;
       state.checkedBtn = initialState.checkedBtn;
     },
-    //그룹편집쪽 체크박스
-    showDelBtnGroupAction: (state, action) => {
-      state.showDelGroupBtn = action.payload;
-    },
-    addCheckedGroupBtn: (state, action) => {
-      state.checkedGroupBtn.push(action.payload);
-    },
-    delCheckedGroupBtn: (state, action) => {
-      state.checkedGroupBtn.pop(action.payload);
-    },
-    initCheckedGroupAction: (state) => {
-      state.showDelGroupBtn = initialState.showDelGroupBtn;
-      state.checkedGroupBtn = initialState.checkedGroupBtn;
-    },
   },
 });
 
@@ -53,10 +36,6 @@ export const {
   addCheckedBtn,
   delCheckedBtn,
   initCheckedAction,
-  showDelBtnGroupAction,
-  addCheckedGroupBtn,
-  delCheckedGroupBtn,
-  initCheckedGroupAction,
 } = buttonSlice.actions;
 
 export default buttonSlice.reducer;
