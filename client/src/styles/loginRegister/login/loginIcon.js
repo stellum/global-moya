@@ -3,16 +3,6 @@ import styled from "styled-components";
 import IconCancelSvg from "@assets/icons-cancel.svg";
 import IconEyeShut from "@assets/icons-eyeShut.svg"
 
-
-// export const SpanIcon = styled.div`
-//   cursor: pointer;
-//   width: 23px;
-//   height: 23px;
-//   position: absolute;
-// `;
-
-
-
 export const IconCancel = styled.span`
   background-image: url(${IconCancelSvg});
   background-repeat: no-repeat;

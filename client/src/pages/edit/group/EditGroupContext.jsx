@@ -37,14 +37,14 @@ const EditGroupContext = ({}) => {
   console.log("올폴더^^ 반환", items);
   const navigate = useNavigate();
 
-  const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
+  // const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
 
-  const dispatch = useDispatch();
-  const toggleModal = () => {
-    console.log(showEditBtn);
-    dispatch(toggleEditAction(!showEditBtn));
-    navigate("/main");
-  };
+  // const dispatch = useDispatch();
+  // const toggleModal = () => {
+  //   console.log(showEditBtn);
+  //   dispatch(toggleEditAction(!showEditBtn));
+  //   navigate("/main");
+  // };
 
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
@@ -53,7 +53,6 @@ const EditGroupContext = ({}) => {
       setItems((items) => {
         const oldIndex = items.findIndex((item) => item.groupId === active.id);
         const newIndex = items.findIndex((item) => item.groupId === over.id);
-
         // console.log("item,old,new", items, oldIndex, newIndex);
         return arrayMove(items, oldIndex, newIndex);
       });
@@ -73,7 +72,7 @@ const EditGroupContext = ({}) => {
   };
 
   return (
-    <EditContextWrap showEditBtn={showEditBtn}>
+    <EditContextWrap showEditBtn>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}

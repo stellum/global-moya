@@ -25,7 +25,7 @@ export const EditContainer2 = styled.div`
   margin: 60px 0 100px 0;
   padding: 0px 16px;
   flex-direction: column;
-  z-index: 9;
+  z-index: 1;
   width: 100%;
   &::-webkit-scrollbar {
     display: none;

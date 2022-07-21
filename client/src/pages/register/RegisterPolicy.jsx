@@ -1,4 +1,8 @@
 import React, { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { Container } from "@styles/loginRegister/container";
+import { Header, BackSpace, TitleHeader } from "@styles/loginRegister/header";
 import {
   TermsAndConditions,
   CheckAll,
@@ -36,6 +40,7 @@ const data = [
 const RegisterPolicy = (props) => {
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
+  const navigate = useNavigate();
 
   const allAgreeHandler = (checked) => {
     console.log(checked);
@@ -73,6 +78,11 @@ const RegisterPolicy = (props) => {
   };
 
   return (
+    <Container>
+      <Header>
+        <BackSpace onClick={() => { navigate("/login") }}/>
+        <TitleHeader>회원가입</TitleHeader>
+      </Header>
     <TermsAndConditions>
       <Instruction>서비스 이용 약관에 동의해 주세요.</Instruction>
       <CustomerAgreement>
@@ -121,6 +131,7 @@ const RegisterPolicy = (props) => {
       </CustomerAgreement>
       <SignUp onClick={handleClick}>가입하기</SignUp>
     </TermsAndConditions>
+    </Container> 
   );
 };
 

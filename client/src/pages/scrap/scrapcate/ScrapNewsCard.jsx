@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Card,
   MainContent,
@@ -16,31 +16,36 @@ import {
   ShareIcon,
   ExpandMoreIcon,
 } from "@styles/svgIcon";
+import { differenceDayFunc } from "@util/dateFunc";
 
-import mediumimg from "@assets/mediumimg.png";
-
-const ScrapNewsCard = ({ view, apply }) => {
+const ScrapNewsCard = ({ view, apply, news, idx }) => {
   const [scrapcheck, setScrapcheck] = useState(false);
-  const [expand, setExpand] = useState(false);
+  const [open, setOpen] = useState({});
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
-  console.log(scrapcheck);
+  const handleExpand = (e) => {
+    setOpen({ [e.target.id]: !open[e.target.id] });
+  };
   return (
     <>
-      <Card>
+      <Card key={news.newsId}>
         <MainContent viewType={apply ? view : viewType}>
-          <ImageContent src={mediumimg} viewType={apply ? view : viewType} />
+          <ImageContent
+            src={news.imageUrl}
+            viewType={apply ? view : viewType}
+          />
           <CardHeader viewType={apply ? view : viewType}>
-            <h2>title</h2>
+            <h2>{news.title}</h2>
           </CardHeader>
         </MainContent>
 
         <Abstract>
-          <p>description</p>
+          <p>{news.description}</p>
         </Abstract>
 
         <SubContent>
-          <div className="time">brandName | publishTime</div>
-
+          <div className="time">
+            {news.brandName} | {differenceDayFunc(news.publishTime)}
+          </div>
           <div className="iconGroup">
             <TranslateIconKo />
             <ShareIcon />
@@ -54,26 +59,35 @@ const ScrapNewsCard = ({ view, apply }) => {
         </SubContent>
 
         <CardFooter>
-          <Tickers $expand={expand}>
-            <li>
-              <strong>Related Symbols</strong> ARKK,BNR,MTTR,TSP
-            </li>
-            <li>
-              <strong>Related Symbols</strong> ARKK,BNR,MTTR,TSP
-            </li>
-            <li>
-              <strong>Related Symbols</strong> ARKK,BNR,MTTR,TSP
-            </li>
+          <Tickers $expand={`${open[idx] ? "expand" : "none"}`}>
+            {news.nluLabels.slice(0, 3).map((label, index) => (
+              <li key={label + index}>
+                <strong>Related Symbols</strong> {label}
+              </li>
+            ))}
           </Tickers>
           <div className="tags">
-            <span>tag</span>;
+            {news.assetTags.map((tag, index) => (
+              <span key={tag + index}>#{tag}</span>
+            ))}
           </div>
-          <ExpandMoreIcon
-            onClick={() => {
-              setExpand((prev) => !prev);
-            }}
-            $expand={expand}
-          />
+          {news.assetTags.length !== 0 ? (
+            <ExpandMoreIcon
+              id={idx}
+              onClick={(e) => {
+                handleExpand(e, idx);
+              }}
+              $expand={`${open[idx] ? "expand" : "none"}`}
+            />
+          ) : (
+            <ExpandMoreIcon
+              id={idx}
+              onClick={(e) => {
+                handleExpand(e, idx);
+              }}
+              $expand={`${open[idx] ? "expand" : "card"}`}
+            />
+          )}
         </CardFooter>
       </Card>
     </>

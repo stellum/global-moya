@@ -4,7 +4,6 @@ import { colors, fontWeight,fontSize } from "@styles/theme";
 
 import IconsCheckCircleSvg from "@assets/Icons-Success.svg";
 
-
 export const MainText = styled.span`
   text-align: center;
   color: ${colors.black};
@@ -23,13 +22,8 @@ export const SuccessIcon = styled.div`
 `;
 
 export const SuccessButton = styled.button`
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   color: ${colors.white};
   cursor: pointer;
-  /* position: absolute;
-  top: 708px; */
   font-weight: ${fontWeight.FontWeight600};
   margin: 308px 0px 10px;
   width: 328px;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import { subsUserAction } from "@redux/user/subsSlice";
 import { getKeywords } from "../../api/keywordListApi";
 import { addKeywordListAction } from "@redux/keywordListSlice";
 
+import { Container } from "@styles/loginRegister/container"
 import { CommonForm } from "@styles/loginRegister/commonForm";
 import { Header, BackSpace, TitleHeader } from "@styles/loginRegister/header";
 import { InputDiv, InputType } from "@styles/loginRegister/loginRegisterInput";
@@ -68,8 +69,25 @@ const Login = () => {
     navigate("/register");
   };
 
+  // input 아이콘 동작용 state, ref
+
+  const [pwVisible, setPwVisible] = useState(false);
+
+  const eyeIconRef = useRef();
+
+  const handleShow = () => {
+    setPwVisible(pwVisible ? false : true);
+    let showIcon = document.querySelector("#showIcon");
+    console.log(showIcon.style);
+    pwVisible
+      ? (showIcon.style.backgroundImage =
+          "client/src/assets/images/icons-eyeOpen.svg")
+      : (showIcon.style.backgroundImage =
+          "client/src/assets/images/icons-eyeShut.svg");
+  };
+
   return (
-    <>
+    <Container>
       <CommonForm
         onSubmit={handleSubmit((data) => {
           const formData = new FormData();
@@ -91,12 +109,12 @@ const Login = () => {
         })}
       >
         <Header>
-          <BackSpace />
+          <BackSpace onClick={() => { navigate("/")}}/>
           <TitleHeader>로그인</TitleHeader>
         </Header>
-
         <InputDiv>
           <InputType
+            id="email"
             type="email"
             name="email"
             placeholder="이메일"
@@ -108,7 +126,12 @@ const Login = () => {
               },
             })}
           />
-          <IconCancel>
+          <IconCancel
+            onClick={() => {
+              const emailInput = document.querySelector("#email");
+              emailInput.value = "";
+            }}
+          >
             <IconText>icons-cancel</IconText>
           </IconCancel>
         </InputDiv>
@@ -121,11 +144,10 @@ const Login = () => {
               required: "비밀번호는 필수 입력입니다.",
             })}
           />
-          <ShowIcon>
+          <ShowIcon id="showIcon" onClick={handleShow}>
             <IconText>눈동자 아이콘</IconText>
           </ShowIcon>
         </InputDiv>
-
         <LoginDiv>
           <LoginSpan>
             {/* <CheckCircle alt="icons-check"  /> */}
@@ -134,17 +156,15 @@ const Login = () => {
           </LoginSpan>
           <FindPw>비밀번호 찾기</FindPw>
         </LoginDiv>
-
         <RegisterLink>
           아직 계정이 없으신가요?
           <LoginRegi onClick={handleClick}>회원가입</LoginRegi>
         </RegisterLink>
-
         <LoginButton type="submit" disabled={isSubmitting}>
           로그인
         </LoginButton>
       </CommonForm>
-    </>
+    </Container>
   );
 };
 

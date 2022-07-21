@@ -4,16 +4,11 @@ import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import AccessToken from "@hoc/AccessToken";
 import { allFolder } from "@api/scrapFolderApi";
-import { isLoading } from "@redux/categorySlice";
 import { QuickButtonWrap } from "@styles/scrap/scrapcate";
 import _ from "lodash";
-import {
-  DefaultButton,
-  CategoryButton,
-  ScrapButton,
-  RadiusBlackButton,
-} from "@styles/common/button/button";
+import { RadiusBlackButton } from "@styles/common/button/button";
 import { useState } from "react";
+import { ScrapFolderChoose } from "@redux/scrapFolderSlice";
 
 const ScrapCategory = ({ black }) => {
   const params = useParams();
@@ -27,37 +22,40 @@ const ScrapCategory = ({ black }) => {
   useEffect(() => {
     getDatas();
   }, []);
+
   return (
     <>
       <QuickButtonWrap id="scroll-container">
         <Link to="/scrap">
-          <RadiusBlackButton
-            className="all"
-            black={black}
-            onClick={() => {
-              dispatch(isLoading(true));
-            }}
-          >
+          <RadiusBlackButton className="all" black={black}>
             전체
           </RadiusBlackButton>
         </Link>
-        {folder.map((group) => (
-          <Link
-            to={`/scrap/${group.groupId}`}
-            key={group.groupId}
-            id={group.groupId}
-          >
-            <RadiusBlackButton
-              black={params.id == group.groupId}
-              onClick={() => {
-                dispatch(isLoading(true));
-                dispatch(isLoading(true));
-              }}
+        {folder &&
+          folder.map((group) => (
+            <Link
+              to={`/scrap/${group.groupId}`}
+              key={group.groupId}
+              id={group.groupId}
             >
-              {group.groupName}
-            </RadiusBlackButton>
-          </Link>
-        ))}
+              <RadiusBlackButton
+                black={params.id == group.groupId}
+                name={group.groupName}
+                seq={group.groupSeq}
+                id={group.groupId}
+                onClick={() => {
+                  dispatch(
+                    ScrapFolderChoose({
+                      groupId: group.groupId,
+                      groupName: group.groupName,
+                    })
+                  );
+                }}
+              >
+                {group.groupName}
+              </RadiusBlackButton>
+            </Link>
+          ))}
       </QuickButtonWrap>
     </>
   );

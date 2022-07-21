@@ -3,14 +3,17 @@ import { useForm } from "react-hook-form";
 import { registerFunc } from "@api/registerApi";
 import { emailCheckFunc } from "@api/emailCheckApi";
 
+import { Container } from "@styles/loginRegister/container";
 import { CommonForm } from "@styles/loginRegister/commonForm";
 import { Header, BackSpace, TitleHeader } from "@styles/loginRegister/header"
 import { InputDiv, InputType } from "@styles/loginRegister/loginRegisterInput"
 import { LoginButton } from "@styles/loginRegister/loginRegisterButton";
 import { OverlapBtn } from "@styles/loginRegister/register/overlapButton"
 
+import { useNavigate } from "react-router-dom"
 
 const Register = (props) => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -33,26 +36,24 @@ const Register = (props) => {
   };
 
   return (
-    <>
+    <Container>
+      <Header>
+        <BackSpace onClick={() => { navigate("/login")}}/>
+        <TitleHeader>회원가입</TitleHeader>
+      </Header>
       <CommonForm
         onSubmit={handleSubmit((data) => {
           props.setRegisterPage("onSuccess");
           const formData = new FormData();
-
           for (let key in data) {
             if (key !== "passwordCheck") {
               formData.append(key, data[key]);
             }
           }
-
           registerFunc(formData);
           // // 결제 연동 함수 들어갈 자리
         })}
       >
-        <Header>
-        <BackSpace />
-        <TitleHeader>회원가입</TitleHeader>
-        </Header>
         {/*중복 확인 버튼*/}
         <InputDiv>
           <InputType
@@ -108,7 +109,6 @@ const Register = (props) => {
             })}
           />
         </InputDiv>
-
         <InputDiv>
           <InputType
             type="number"
@@ -125,7 +125,7 @@ const Register = (props) => {
           다음
         </LoginButton>
       </CommonForm>
-      </>
+      </Container>
   );
 };
 

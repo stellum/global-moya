@@ -6,7 +6,6 @@ import AccessToken from "@hoc/AccessToken";
 import { bookmarkOne } from "@api/bookmarkApi";
 
 import NewsCardList from "@components/NewsCardList";
-import ScrapNewsCard from "./scrapcate/ScrapNewsCard";
 import ScrapCategory from "./scrapcate/ScrapCategory";
 import { FilterBG } from "@styles/naviStyle/naviWrap";
 import { ScrapModalStyle, BtnWrap, FilterBtn } from "@styles/scrap/ScrapModal";
@@ -34,7 +33,8 @@ const ScrapNews = ({ view, apply }) => {
   };
   useEffect(() => {
     getBookmarkOneDatas();
-  }, []);
+    setNewsList("");
+  }, [groupId]);
   return (
     <>
       <FilterBG showScrapEditBtn={showScrapEditBtn} onClick={handleBG} />
@@ -63,11 +63,12 @@ const ScrapNews = ({ view, apply }) => {
         </div>
       </Header>
       <ScrapCategory />
-      {newsList.map((news, idx) => (
-        <>
-          <NewsCardList news={news} view={view} apply={apply} idx={idx} />
-        </>
-      ))}
+      {newsList &&
+        newsList.map((news, idx) => (
+          <>
+            <NewsCardList news={news} view={view} apply={apply} idx={idx} />
+          </>
+        ))}
     </>
   );
 };
