@@ -7,10 +7,7 @@ export const bookmarkSave = async () => {
       url: "/bookmark/save",
 
       method: "post",
-      data: {
-        groupId,
-        newsId,
-      },
+      data: json,
     });
 
     if (response.status === 200) {
@@ -66,20 +63,17 @@ export const bookmarkOne = async (groupId) => {
 export const bookmarkDelete = async () => {
   try {
     const response = await clientServer({
-      url: "/bookmark/delete",
+      url: "/bookmark/deleteList",
       method: "delete",
-      data: {
-        groupId,
-        newsIdList,
-      },
+      data: json,
     });
-
     if (response.status === 200) {
+      const data = await response.data;
+      console.log("deleted", data);
+      return data;
     }
-  } catch (error) {
-    if (error.response.status === 400) {
-      return error.response.status;
-    }
+  } catch (e) {
+    console.log(e);
   }
 };
 //기존에 스크랩한 뉴스리스트를 최대 10건까지 다른 폴더로 이동시킨다.
@@ -87,12 +81,8 @@ export const bookmarkMove = async () => {
   try {
     const response = await clientServer({
       url: "/bookmark/move",
-      method: "delete",
-      data: {
-        fromGroupId,
-        toGroupId,
-        newsIdList,
-      },
+      method: "post",
+      data: json,
     });
 
     if (response.status === 200) {

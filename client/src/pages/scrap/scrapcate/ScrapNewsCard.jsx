@@ -17,7 +17,7 @@ import {
   ExpandMoreIcon,
 } from "@styles/svgIcon";
 import { differenceDayFunc } from "@util/dateFunc";
-
+import ScrapCheck from "@components/common/ScrapCheck";
 const ScrapNewsCard = ({ view, apply, news, idx }) => {
   const [scrapcheck, setScrapcheck] = useState(false);
   const [open, setOpen] = useState({});
@@ -49,12 +49,7 @@ const ScrapNewsCard = ({ view, apply, news, idx }) => {
           <div className="iconGroup">
             <TranslateIconKo />
             <ShareIcon />
-            <ScrapCheckIcon
-              onClick={() => {
-                setScrapcheck((prev) => !prev);
-              }}
-              $scrapcheck={scrapcheck}
-            />
+            <ScrapCheck id={news.newsId} key={news.newsId} news={news} />
           </div>
         </SubContent>
 
