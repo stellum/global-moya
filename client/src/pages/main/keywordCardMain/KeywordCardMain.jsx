@@ -35,7 +35,17 @@ const KeywordCardMain = () => {
   const inputRef = useRef(null);
   const location = useLocation();
   const dispatch = useDispatch();
-  const { lastElementRef } = NewsCardInfiniteHook(setPage, loading);
+  const { lastElementRef } = NewsCardInfiniteHook(
+    setPage,
+    loading,
+    setErrorMsg,
+    setPageToken,
+    setNewsList,
+    page,
+    pageToken,
+    location,
+    newsList
+  );
 
   const handleClick = (e) => {
     dispatch(toggleModalAction(e.target.id));
@@ -65,19 +75,10 @@ const KeywordCardMain = () => {
         paramValue: `${location.state.paramValue}`,
         exchange: `${location.state.exchange ? location.state.exchange : null}`,
       };
-      const nextQueryParams = {
-        timeFilter,
-        mediaType,
-        language,
-        orderBy,
-        keyType: `${location.state.category}`,
-        paramValue: `${location.state.paramValue}`,
-        exchange: `${location.state.exchange ? location.state.exchange : null}`,
-        nextPageToken: `${pageToken ? pageToken : null}`,
-      };
+
       await dispatch(fetchSearchNews({ queryParams }))
         .then((response) => {
-          // console.log(response);
+          console.log(response);
           if (response.payload.status === 400) {
             setErrorMsg("결과가 없습니다.");
           } else {
@@ -96,45 +97,7 @@ const KeywordCardMain = () => {
       console.log("unMounted 카드");
       clearTimeout(timeoutID);
     };
-  }, [timeFilter, mediaType, orderBy]);
-
-  // useEffect(() => {
-  //   dispatch(isLoading(true));
-  //   console.log(pageToken);
-  //   const getDatas = async () => {
-  //     const queryParams = {
-  //       timeFilter,
-  //       mediaType,
-  //       language,
-  //       orderBy,
-  //       keyType: `${location.state.category}`,
-  //       paramValue: `${location.state.paramValue}`,
-  //       exchange: `${location.state.exchange ? location.state.exchange : null}`,
-  //       nextPageToken: `${pageToken ? pageToken : null}`,
-  //     };
-
-  //     await dispatch(fetchSearchNews({ queryParams }))
-  //       .then((response) => {
-  //         // console.log(response);
-  //         if (response.payload.status === 400) {
-  //           setErrorMsg("결과가 없습니다.");
-  //         } else {
-  //           setNewsList([...newsList, ...response.payload.newsList]);
-  //           setPageToken(response.payload.nextPageToken);
-  //         }
-  //       })
-  //       .then(dispatch(isLoading(false)));
-  //   };
-
-  //   const timeoutID = setTimeout(() => {
-  //     getDatas();
-  //   }, 2000);
-
-  //   return () => {
-  //     console.log("unMounted 카드");
-  //     clearTimeout(timeoutID);
-  //   };
-  // }, [page]);
+  }, [timeFilter, mediaType, orderBy, page]);
 
   return (
     <>
@@ -170,6 +133,7 @@ const KeywordCardMain = () => {
         <MainHeader />
         <KeywordCardInput inputRef={inputRef} />
       </MainPageContainer>
+
       {loading ? (
         <Spinner />
       ) : (
