@@ -23,7 +23,6 @@ import { translateApi } from "../api/translateApi";
 import ErrorMsg from "./ErrorMsg";
 import _ from "lodash";
 const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
-  // console.log(newsList);
   const [scrap, setScrap] = useState(false);
   const [open, setOpen] = useState({});
   const [trakingId, setTrakingId] = useState({});
@@ -61,90 +60,177 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
     <>
       {newsList.length > 0 ? (
         newsList.map((news, idx) => {
-          return (
-            <Card key={news.newsId} ref={lastElementRef}>
-              <MainContent viewType={apply ? view : viewType}>
-                <ImageContent
-                  src={news.imageUrl ? news.imageUrl : globalMOYAPremiumSvg}
-                  viewType={apply ? view : viewType}
-                />
-                <CardHeader viewType={apply ? view : viewType}>
-                  {news.newsId === translate.newsId ? (
-                    <h2 id={news.newsId}>{translate.title}</h2>
-                  ) : (
-                    <h2 id={news.newsId}>{news.title}</h2>
-                  )}
-                </CardHeader>
-              </MainContent>
-
-              <Abstract>
-                {news.newsId === translate.newsId ? (
-                  <p id={news.newsId}>{translate.description}</p>
-                ) : (
-                  <p id={news.newsId}>{news.description}</p>
-                )}
-              </Abstract>
-
-              <SubContent>
-                <div className="time">
-                  {news.brandName} | {differenceDayFuncTwo(news.publishTime)}
-                </div>
-                <div className="iconGroup">
-                  <TranslateIconKo
-                    id="ko"
-                    onClick={(e) => {
-                      handleTranslate(e, news.newsId);
-                    }}
+          if (newsList.length === idx + 1) {
+            return (
+              <Card key={news.newsId} ref={lastElementRef}>
+                <MainContent viewType={apply ? view : viewType}>
+                  <ImageContent
+                    src={news.imageUrl ? news.imageUrl : globalMOYAPremiumSvg}
+                    viewType={apply ? view : viewType}
                   />
-                  {/* {changeTrans ? (
-                   
+                  <CardHeader viewType={apply ? view : viewType}>
+                    {news.newsId === translate.newsId ? (
+                      <h2 id={news.newsId}>{translate.title}</h2>
+                    ) : (
+                      <h2 id={news.newsId}>{news.title}</h2>
+                    )}
+                  </CardHeader>
+                </MainContent>
+
+                <Abstract>
+                  {news.newsId === translate.newsId ? (
+                    <p id={news.newsId}>{translate.description}</p>
                   ) : (
-                    <TranslateIconEn
-                      id="en"
+                    <p id={news.newsId}>{news.description}</p>
+                  )}
+                </Abstract>
+
+                <SubContent>
+                  <div className="time">
+                    {news.brandName} | {differenceDayFuncTwo(news.publishTime)}
+                  </div>
+                  <div className="iconGroup">
+                    <TranslateIconKo
+                      id="ko"
                       onClick={(e) => {
-                        handleTranslate(e, news.newsId, accessToken);
+                        handleTranslate(e, news.newsId);
                       }}
                     />
-                  )} */}
+                    {/* {changeTrans ? (
+                     
+                    ) : (
+                      <TranslateIconEn
+                        id="en"
+                        onClick={(e) => {
+                          handleTranslate(e, news.newsId, accessToken);
+                        }}
+                      />
+                    )} */}
 
-                  <ShareIcon />
-                  <ScrapIcon
-                    onClick={() => {
-                      setScrap((prev) => !prev);
-                    }}
-                    $scrap={scrap}
-                  />
-                </div>
-              </SubContent>
-              {news.assetTags && news.assetTags.length > 0 ? (
-                <CardFooter>
-                  <Tickers $expand={`${open[idx] ? "expand" : "none"}`}>
-                    {news.nluLabels.slice(0, 3).map((label, index) => (
-                      <li key={label + index}>
-                        <strong>Related Symbols</strong> {label}
-                      </li>
-                    ))}
-                  </Tickers>
-
-                  <div className="tags">
-                    {news.assetTags.map((tag, index) => (
-                      <span key={tag + index}>#{tag}</span>
-                    ))}
+                    <ShareIcon />
+                    <ScrapIcon
+                      onClick={() => {
+                        setScrap((prev) => !prev);
+                      }}
+                      $scrap={scrap}
+                    />
                   </div>
+                </SubContent>
+                {news.assetTags && news.assetTags.length > 0 ? (
+                  <CardFooter>
+                    <Tickers $expand={`${open[idx] ? "expand" : "none"}`}>
+                      {news.nluLabels.slice(0, 3).map((label, index) => (
+                        <li key={label + index}>
+                          <strong>Related Symbols</strong> {label}
+                        </li>
+                      ))}
+                    </Tickers>
 
-                  <ExpandMoreIcon
-                    id={idx}
-                    onClick={(e) => {
-                      handleExpand(e, idx);
-                    }}
-                    $expand={`${open[idx] ? "expand" : "none"}`}
+                    <div className="tags">
+                      {news.assetTags.map((tag, index) => (
+                        <span key={tag + index}>#{tag}</span>
+                      ))}
+                    </div>
+
+                    <ExpandMoreIcon
+                      id={idx}
+                      onClick={(e) => {
+                        handleExpand(e, idx);
+                      }}
+                      $expand={`${open[idx] ? "expand" : "none"}`}
+                    />
+                  </CardFooter>
+                ) : (
+                  <NoResultTickers />
+                )}
+              </Card>
+            );
+          } else {
+            return (
+              <Card key={news.newsId} ref={lastElementRef}>
+                <MainContent viewType={apply ? view : viewType}>
+                  <ImageContent
+                    src={news.imageUrl ? news.imageUrl : globalMOYAPremiumSvg}
+                    viewType={apply ? view : viewType}
                   />
-                </CardFooter>
-              ) : (
-                <NoResultTickers />
-              )}
-            </Card>
-          );
+                  <CardHeader viewType={apply ? view : viewType}>
+                    {news.newsId === translate.newsId ? (
+                      <h2 id={news.newsId}>{translate.title}</h2>
+                    ) : (
+                      <h2 id={news.newsId}>{news.title}</h2>
+                    )}
+                  </CardHeader>
+                </MainContent>
+
+                <Abstract>
+                  {news.newsId === translate.newsId ? (
+                    <p id={news.newsId}>{translate.description}</p>
+                  ) : (
+                    <p id={news.newsId}>{news.description}</p>
+                  )}
+                </Abstract>
+
+                <SubContent>
+                  <div className="time">
+                    {news.brandName} | {differenceDayFuncTwo(news.publishTime)}
+                  </div>
+                  <div className="iconGroup">
+                    <TranslateIconKo
+                      id="ko"
+                      onClick={(e) => {
+                        handleTranslate(e, news.newsId);
+                      }}
+                    />
+                    {/* {changeTrans ? (
+                     
+                    ) : (
+                      <TranslateIconEn
+                        id="en"
+                        onClick={(e) => {
+                          handleTranslate(e, news.newsId, accessToken);
+                        }}
+                      />
+                    )} */}
+
+                    <ShareIcon />
+                    <ScrapIcon
+                      onClick={() => {
+                        setScrap((prev) => !prev);
+                      }}
+                      $scrap={scrap}
+                    />
+                  </div>
+                </SubContent>
+                {news.assetTags && news.assetTags.length > 0 ? (
+                  <CardFooter>
+                    <Tickers $expand={`${open[idx] ? "expand" : "none"}`}>
+                      {news.nluLabels.slice(0, 3).map((label, index) => (
+                        <li key={label + index}>
+                          <strong>Related Symbols</strong> {label}
+                        </li>
+                      ))}
+                    </Tickers>
+
+                    <div className="tags">
+                      {news.assetTags.map((tag, index) => (
+                        <span key={tag + index}>#{tag}</span>
+                      ))}
+                    </div>
+
+                    <ExpandMoreIcon
+                      id={idx}
+                      onClick={(e) => {
+                        handleExpand(e, idx);
+                      }}
+                      $expand={`${open[idx] ? "expand" : "none"}`}
+                    />
+                  </CardFooter>
+                ) : (
+                  <NoResultTickers />
+                )}
+              </Card>
+            );
+          }
         })
       ) : (
         <ErrorMsg errorMsg={errorMsg} />

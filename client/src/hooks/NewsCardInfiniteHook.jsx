@@ -1,40 +1,51 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { isLoading } from "@redux/categorySlice";
 import { fetchSearchNews } from "@redux/searchFilterSlice";
 import { getSearchData } from "@api/searchApi";
-const NewsCardInfiniteHook = (
-  setPage,
-  loading,
-  setErrorMsg,
-  setPageToken,
-  setNewsList,
-  page,
-  pageToken,
-  location,
-  newsList
-) => {
-  const dispatch = useDispatch();
+const NewsCardInfiniteHook = (setPage, page, location) => {
+  const [newsList, setNewsList] = useState([]);
+  const [pageToken, setPageToken] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoaidng] = useState(true);
   const observer = useRef(null);
   const { timeFilter, mediaType, language, orderBy } = useSelector(
     (state) => state.searchFilterSlice
   );
+  const QueryParams = {
+    timeFilter,
+    mediaType,
+    language,
+    orderBy,
+    keyType: `${location.category}`,
+    paramValue: `${location.paramValue}`,
+    exchange: `${location.exchange ? location.exchange : null}`,
+  };
   const nextQueryParams = {
     timeFilter,
     mediaType,
     language,
     orderBy,
-    keyType: `${location.state.category}`,
-    paramValue: `${location.state.paramValue}`,
-    exchange: `${location.state.exchange ? location.state.exchange : null}`,
-    nextPageToken: `${pageToken ? pageToken : null}`,
+    keyType: `${location.category}`,
+    paramValue: `${location.paramValue}`,
+    exchange: `${location.exchange ? location.exchange : null}`,
+    nextPageToken: `${pageToken}`,
   };
   const getMoreNews = async () => {
-    const res = await getSearchData(nextQueryParams);
+    const res = await getSearchData(page > 1 ? nextQueryParams : QueryParams);
     console.log(res);
+    if (res.newsList.length > 0) {
+      setLoaidng(false);
+      setNewsList((prev) => [...prev, ...res.newsList]);
+      setPageToken(res.nextPageToken);
+    }
   };
   useEffect(() => {
+    console.log("pageToken", pageToken);
+    console.log("hookloading", loading);
+    console.log(page);
     // dispatch(isLoading(true));
+    getMoreNews();
     // getMoreNews();
     // const getDatas = async () => {
     //   await dispatch(fetchSearchNews({ nextQueryParams })).then((response) => {
@@ -58,17 +69,19 @@ const NewsCardInfiniteHook = (
   }, [page]);
 
   const lastElementRef = useCallback((node) => {
-    if (loading) return;
+    // console.log(node);
+    // if (loading) return;
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         setPage((prev) => prev + 1);
+
         console.log("마지막");
       }
     });
     if (node) observer.current.observe(node);
   }, []);
-  return { lastElementRef };
+  return { lastElementRef, newsList, loading, errorMsg };
 };
 
 export default NewsCardInfiniteHook;

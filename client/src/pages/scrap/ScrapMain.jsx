@@ -16,7 +16,7 @@ import {
   BtnWrap,
   FilterBtn,
   ScrapMiniModalStyle,
-} from "@styles/scrap/ScrapModal";
+} from "@styles/scrap/scrapModal";
 
 const ScrapMain = ({ view, apply }) => {
   const [black, setBlack] = useState(true);
