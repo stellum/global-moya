@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AccessToken from "@hoc/AccessToken";
 import { allFolder } from "@api/scrapFolderApi";
 import {
   DndContext,
@@ -14,7 +13,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useSelector, useDispatch } from "react-redux";
+
 import { useNavigate } from "react-router-dom";
 import { toggleEditAction } from "@redux/buttonSlice";
 import {
@@ -97,4 +96,4 @@ const EditGroupContext = ({}) => {
   );
 };
 
-export default AccessToken(EditGroupContext);
+export default EditGroupContext;

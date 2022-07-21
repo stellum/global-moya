@@ -5,17 +5,16 @@ import { addKeywordListAction } from "@redux/keywordConnectedSlice";
 import { keywordContentRequest } from "@redux/searchFilterSlice";
 import HomeContent from "./HomeContent";
 import HomeFooter from "./HomeFooter";
-import AccessToken from "@hoc/AccessToken";
 
-const Home = ({ userLogin, accessToken }) => {
+const Home = () => {
   const { keyTypeList, paramValueList, exchangeList } = useSelector(
     (state) => state.keywordConnectedSlice
   );
-
+  const user = useSelector((state) => state.user.userLogin);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (userLogin) {
+    if (user) {
       const getDatas = async () => {
         const response = await getKeywords(accessToken);
         await dispatch(addKeywordListAction(response));
@@ -37,7 +36,7 @@ const Home = ({ userLogin, accessToken }) => {
   }, []);
 
   useEffect(() => {
-    if (userLogin === false) {
+    if (user === false) {
       const getDatas = async () => {
         const response = await getKeywords();
         await dispatch(addKeywordListAction(response));
@@ -58,4 +57,4 @@ const Home = ({ userLogin, accessToken }) => {
   );
 };
 
-export default AccessToken(Home);
+export default Home;

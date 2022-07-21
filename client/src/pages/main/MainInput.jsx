@@ -6,7 +6,6 @@ import {
   FilterIconWrap,
 } from "@styles/main/mainPageInput";
 import { SearchIcon, FilterIcon } from "@styles/svgIcon";
-import { FilterBG } from "@styles/filterStyle/filterBG";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleBtnAction } from "../../redux/reducer/modalSlice";
 

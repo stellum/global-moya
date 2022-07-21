@@ -3,16 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   groupName: "",
 };
-export const ScrapFolderSlice = createSlice({
+export const scrapFolderSlice = createSlice({
   name: "groupName",
   initialState,
   reducers: {
-    ScrapFolderChoose: (state, action) => {
+    scrapFolderChoose: (state, action) => {
       state.groupName = action.payload;
     },
   },
 });
 
-export const { ScrapFolderChoose } = ScrapFolderSlice.actions;
+export const { scrapFolderChoose } = scrapFolderSlice.actions;
 
-export default ScrapFolderSlice.reducer;
+export default scrapFolderSlice.reducer;

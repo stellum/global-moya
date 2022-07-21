@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import AccessToken from "@hoc/AccessToken";
+
 import { allFolder } from "@api/scrapFolderApi";
 import { QuickButtonWrap } from "@styles/scrap/scrapcate";
 import { RadiusBlackButton } from "@styles/common/button/button";
-import { ScrapFolderChoose } from "@redux/scrapFolderSlice";
+import { scrapFolderChoose } from "@redux/scrapFolderSlice";
 
 const ScrapCategory = ({ black }) => {
   const params = useParams();
@@ -43,7 +43,7 @@ const ScrapCategory = ({ black }) => {
                 id={group.groupId}
                 onClick={() => {
                   dispatch(
-                    ScrapFolderChoose({
+                    scrapFolderChoose({
                       groupId: group.groupId,
                       groupName: group.groupName,
                     })
@@ -58,4 +58,4 @@ const ScrapCategory = ({ black }) => {
     </>
   );
 };
-export default AccessToken(ScrapCategory);
+export default ScrapCategory;

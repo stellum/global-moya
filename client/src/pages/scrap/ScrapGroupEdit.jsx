@@ -1,9 +1,9 @@
 //스크랩 그룹 편집 : 순서변경,이름변경, 삭제
-import React, { useState, useRef, useInput } from "react";
+import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import EditGroupContext from "../edit/group/EditGroupContext";
-import AccessToken from "@hoc/AccessToken";
+
 import { FixedHeader, BtnWrap } from "@styles/scrap/scrap";
 import { ApplyBtn, DeleteBtn, ButtonWrapDiv } from "@styles/scrap/scrapnews";
 import { BackArrow, NewGroupPlus } from "@styles/svgIcon";
@@ -41,4 +41,4 @@ const ScrapGroupEdit = () => {
     </>
   );
 };
-export default AccessToken(ScrapGroupEdit);
+export default ScrapGroupEdit;

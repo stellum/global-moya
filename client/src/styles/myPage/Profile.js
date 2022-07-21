@@ -166,4 +166,7 @@ export const Button = styled.button`
   border-radius: 2px;
   margin-top: 400px;
   border: 1px solid #e8e8e8;
+  &:hover {
+    background-color: ${colors.black};
+  }
 `;

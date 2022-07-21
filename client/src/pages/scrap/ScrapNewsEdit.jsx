@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom"; // useHistory 추가
 import { useSelector, useDispatch } from "react-redux";
 import { toggleScrapMoveBtn } from "../../redux/reducer/modalSlice";
-import AccessToken from "@hoc/AccessToken";
+
 import { bookmarkOne } from "@api/bookmarkApi";
 
 import { ScrapMoveWrap, ScrapMoveh4 } from "@styles/scrap/scrapModal";
@@ -17,14 +17,14 @@ import ScrapNewsCard from "./scrapcate/ScrapNewsCard";
 import ScrapMoveModal from "./scrapcate/ScrapMoveModal";
 import { FilterBG } from "@styles/naviStyle/naviWrap";
 import { BackArrow } from "@styles/svgIcon";
-import { BtnWrapVisible } from "../../styles/scrap/scrap";
+import { BtnWrapVisible } from "@styles/scrap/scrap";
 
 const ScrapNewsEdit = ({ scrapcheck, view, apply }) => {
   const navigate = useNavigate();
   const params = useParams();
   const groupId = params.id;
   const groupName = useSelector(
-    (state) => state.ScrapFolderSlice.groupName.groupName
+    (state) => state.scrapFolderSlice.groupName.groupName
   );
   const [newsList, setNewsList] = useState([]);
   const dispatch = useDispatch();
@@ -82,4 +82,4 @@ const ScrapNewsEdit = ({ scrapcheck, view, apply }) => {
     </>
   );
 };
-export default AccessToken(ScrapNewsEdit);
+export default ScrapNewsEdit;
