@@ -16,6 +16,7 @@ import {
   TranslateIconKo,
   ShareIcon,
   ExpandMoreIcon,
+  TranslateIconEn,
 } from "@styles/svgIcon";
 import globalMOYAPremiumSvg from "@assets/globalMOYA.svg";
 import { differenceDayFuncTwo } from "../util/dateFunc";
@@ -35,26 +36,29 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
   const fetch = async (newsId) => {
     const response = await translateApi(newsId);
 
-    setTranslate({
-      newsId,
-      description: response.description,
-      title: response.title,
-    });
+    setTranslate((prev) => [
+      ...prev,
+      {
+        newsId,
+        description: response.description,
+        title: response.title,
+      },
+    ]);
   };
 
-  useEffect(() => {}, [translate, changeTrans]);
+  useEffect(() => {
+    // console.log(translate);
+  }, [translate, changeTrans]);
 
   const handleTranslate = (e, newsId) => {
+    if (translate.some((title) => title.newsId === newsId)) {
+      setTranslate((prev) => prev.filter((item) => item.newsId !== newsId));
+      return;
+    }
+
     setTrakingId({ [e.target.id]: !trakingId[e.target.id] });
     fetch(newsId);
   };
-
-  /* 
-    1. 번역을 클릭한다
-    2. 번역 내용을 받아와서 newsId와 같이 저장 -> 배열
-    3. 저장 내용에 newsId가 같은게 있으면 아이콘은 en으로 변경
-    4. 다시 클릭하면 배열에서 제거와 함께 아이콘 ko로 변경
-  */
 
   return (
     <>
@@ -69,19 +73,32 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
                     viewType={apply ? view : viewType}
                   />
                   <CardHeader viewType={apply ? view : viewType}>
-                    {news.newsId === translate.newsId ? (
-                      <h2 id={news.newsId}>{translate.title}</h2>
+                    {translate &&
+                    translate.some((title) => news.newsId === title.newsId) ? (
+                      <h2>
+                        {" "}
+                        {
+                          translate.find((item) => item.newsId === news.newsId)
+                            .title
+                        }
+                      </h2>
                     ) : (
-                      <h2 id={news.newsId}>{news.title}</h2>
+                      <h2> {news.title}</h2>
                     )}
                   </CardHeader>
                 </MainContent>
 
                 <Abstract>
-                  {news.newsId === translate.newsId ? (
-                    <p id={news.newsId}>{translate.description}</p>
+                  {translate &&
+                  translate.some((title) => news.newsId === title.newsId) ? (
+                    <p>
+                      {
+                        translate.find((item) => item.newsId === news.newsId)
+                          .description
+                      }
+                    </p>
                   ) : (
-                    <p id={news.newsId}>{news.description}</p>
+                    <p> {news.description}</p>
                   )}
                 </Abstract>
 
@@ -90,22 +107,22 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
                     {news.brandName} | {differenceDayFuncTwo(news.publishTime)}
                   </div>
                   <div className="iconGroup">
-                    <TranslateIconKo
-                      id="ko"
-                      onClick={(e) => {
-                        handleTranslate(e, news.newsId);
-                      }}
-                    />
-                    {/* {changeTrans ? (
-                     
-                    ) : (
+                    {translate &&
+                    translate.some((title) => news.newsId === title.newsId) ? (
                       <TranslateIconEn
-                        id="en"
+                        id={news.newsId}
                         onClick={(e) => {
-                          handleTranslate(e, news.newsId, accessToken);
+                          handleTranslate(e, news.newsId);
                         }}
                       />
-                    )} */}
+                    ) : (
+                      <TranslateIconKo
+                        id={news.newsId}
+                        onClick={(e) => {
+                          handleTranslate(e, news.newsId);
+                        }}
+                      />
+                    )}
 
                     <ShareIcon />
                     <ScrapIcon
@@ -154,19 +171,31 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
                     viewType={apply ? view : viewType}
                   />
                   <CardHeader viewType={apply ? view : viewType}>
-                    {news.newsId === translate.newsId ? (
-                      <h2 id={news.newsId}>{translate.title}</h2>
+                    {translate &&
+                    translate.some((title) => news.newsId === title.newsId) ? (
+                      <h2>
+                        {
+                          translate.find((item) => item.newsId === news.newsId)
+                            .title
+                        }
+                      </h2>
                     ) : (
-                      <h2 id={news.newsId}>{news.title}</h2>
+                      <h2> {news.title}</h2>
                     )}
                   </CardHeader>
                 </MainContent>
 
                 <Abstract>
-                  {news.newsId === translate.newsId ? (
-                    <p id={news.newsId}>{translate.description}</p>
+                  {translate &&
+                  translate.some((title) => news.newsId === title.newsId) ? (
+                    <p>
+                      {
+                        translate.find((item) => item.newsId === news.newsId)
+                          .description
+                      }
+                    </p>
                   ) : (
-                    <p id={news.newsId}>{news.description}</p>
+                    <p> {news.description}</p>
                   )}
                 </Abstract>
 
@@ -175,22 +204,22 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
                     {news.brandName} | {differenceDayFuncTwo(news.publishTime)}
                   </div>
                   <div className="iconGroup">
-                    <TranslateIconKo
-                      id="ko"
-                      onClick={(e) => {
-                        handleTranslate(e, news.newsId);
-                      }}
-                    />
-                    {/* {changeTrans ? (
-                     
-                    ) : (
+                    {translate &&
+                    translate.some((title) => news.newsId === title.newsId) ? (
                       <TranslateIconEn
-                        id="en"
+                        id={news.newsId}
                         onClick={(e) => {
-                          handleTranslate(e, news.newsId, accessToken);
+                          handleTranslate(e, news.newsId);
                         }}
                       />
-                    )} */}
+                    ) : (
+                      <TranslateIconKo
+                        id={news.newsId}
+                        onClick={(e) => {
+                          handleTranslate(e, news.newsId);
+                        }}
+                      />
+                    )}
 
                     <ShareIcon />
                     <ScrapIcon

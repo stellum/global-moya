@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { getKeywords } from "@api/keywordListApi";
-import AccessToken from "@hoc/AccessToken";
+
 import {
   DndContext,
   closestCenter,
@@ -177,4 +177,4 @@ const EditKeywordContext = ({}) => {
   );
 };
 
-export default AccessToken(EditKeywordContext);
+export default EditKeywordContext;
