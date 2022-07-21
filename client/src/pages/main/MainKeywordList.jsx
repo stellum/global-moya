@@ -20,7 +20,6 @@ import { ErrorMsgP } from "@styles/common/errorMsg";
 import { toggleEditAction } from "@redux/buttonSlice";
 import NewsCard from "@components/NewsCard";
 import Spinner from "@components/common/Spinner";
-import AccessToken from "@hoc/AccessToken";
 
 const MainKeywordList = ({ view, apply }) => {
   const navigate = useNavigate();
@@ -202,4 +201,4 @@ const MainKeywordList = ({ view, apply }) => {
   );
 };
 
-export default AccessToken(MainKeywordList);
+export default MainKeywordList;

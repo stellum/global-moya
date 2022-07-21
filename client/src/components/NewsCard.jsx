@@ -51,9 +51,6 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
   }, [translate, changeTrans]);
 
   const handleTranslate = (e, newsId) => {
-    console.log("etarget", e.target.id);
-    console.log("newsid", newsId);
-
     if (translate.some((title) => title.newsId === newsId)) {
       setTranslate((prev) => prev.filter((item) => item.newsId !== newsId));
       return;
@@ -62,15 +59,6 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
     setTrakingId({ [e.target.id]: !trakingId[e.target.id] });
     fetch(newsId);
   };
-
-  /* 
-    1. 번역을 클릭한다
-    2. 번역 내용을 받아와서 newsId와 같이 저장 -> 배열
-    3. 저장 내용에 newsId가 같은게 있으면 아이콘은 en으로 변경
-    4. 다시 클릭하면 배열에서 제거와 함께 아이콘 ko로 변경
-
-   
-  */
 
   return (
     <>

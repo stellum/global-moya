@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // useHistory 추가
 import { useSelector, useDispatch } from "react-redux";
 import { toggleScrapEditBtn } from "../../redux/reducer/modalSlice";
-import AccessToken from "@hoc/AccessToken";
+
 import { bookmarkAll } from "@api/bookmarkApi";
 
 import NewsCard from "@components/NewsCard";
 import NewsCardList from "@components/NewsCardList";
 import ScrapCategory from "./scrapcate/ScrapCategory";
-
 import { EditButton, Header } from "@styles/scrap/scrap";
 import { BackArrow } from "@styles/svgIcon";
 import { FilterBG } from "@styles/naviStyle/naviWrap";
@@ -80,4 +79,4 @@ const ScrapMain = ({ view, apply }) => {
     </>
   );
 };
-export default AccessToken(ScrapMain);
+export default ScrapMain;
