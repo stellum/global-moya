@@ -21,7 +21,7 @@ export const loginFunc = async (form) => {
   }
 };
 
-export const logOutFunc = async (accessToken) => {
+export const logOutFunc = async () => {
   try {
     const response = await clientServer({
       url: "auth/logout",

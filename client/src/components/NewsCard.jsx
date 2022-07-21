@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   Card,
@@ -18,15 +18,12 @@ import {
   ExpandMoreIcon,
 } from "@styles/svgIcon";
 import globalMOYAPremiumSvg from "@assets/globalMOYA.svg";
-import { dateFormat } from "../util/dateFunc";
 import { differenceDayFuncTwo } from "../util/dateFunc";
 import { translateApi } from "../api/translateApi";
 import ErrorMsg from "./ErrorMsg";
-import { useEffect } from "react";
 import _ from "lodash";
-import AccessToken from "@hoc/AccessToken";
-const NewsCard = ({ view, apply, newsList, errorMsg }) => {
-  // console.log(accessToken);
+const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
+  console.log(newsList);
   const [scrap, setScrap] = useState(false);
   const [open, setOpen] = useState({});
   const [trakingId, setTrakingId] = useState({});
@@ -65,7 +62,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg }) => {
       {newsList.length > 0 ? (
         newsList.map((news, idx) => {
           return (
-            <Card key={news.newsId}>
+            <Card key={news.newsId} ref={lastElementRef}>
               <MainContent viewType={apply ? view : viewType}>
                 <ImageContent
                   src={news.imageUrl ? news.imageUrl : globalMOYAPremiumSvg}
@@ -119,7 +116,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg }) => {
                   />
                 </div>
               </SubContent>
-              {news.assetTags.length > 0 ? (
+              {news.assetTags && news.assetTags.length > 0 ? (
                 <CardFooter>
                   <Tickers $expand={`${open[idx] ? "expand" : "none"}`}>
                     {news.nluLabels.slice(0, 3).map((label, index) => (
@@ -156,4 +153,4 @@ const NewsCard = ({ view, apply, newsList, errorMsg }) => {
   );
 };
 
-export default AccessToken(NewsCard);
+export default NewsCard;
