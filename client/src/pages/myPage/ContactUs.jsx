@@ -8,6 +8,13 @@ import {
   CheckBox,
   Complete,
 } from "@styles/myPage/ContactUs";
+import {
+  CheckAll,
+  CheckAllItems,
+  Check,
+  Checklabel,
+  ImageContent,
+} from "@styles/loginRegister/register/registerPolicy";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BackArrow, LearnMore } from "@styles/svgIcon";
@@ -40,23 +47,25 @@ const ContactUs = () => {
         required
       ></Email>
 
-      <CheckBox>
-        <label htmlFor="privacy">
-          <input type="checkbox" id="privacy" path="/personalpolicy" />
-          개인정보 수집, 이용동의 (필수)
+      <Check contact>
+        <input type="checkbox" id="policy" />
+        <Checklabel contact htmlFor="policy" className="container">
+          <span className="checkmark"></span>
+          <CheckAllItems contact>개인정보 수집, 이용 동의 (필수)</CheckAllItems>
           <Link to="/personalpolicy">
-            <LearnMore></LearnMore>
+            <LearnMore />
           </Link>
-        </label>
-        <br />
-        <label htmlFor="service">
-          <input type="checkbox" id="service" path="/servicepolicy" />
-          서비스 이용약관 동의 (필수)
+        </Checklabel>
+
+        <input type="checkbox" id="service" />
+        <Checklabel contact htmlFor="service" className="container">
+          <span className="checkmark"></span>
+          <CheckAllItems contact>서비스 이용약관 동의 (필수)</CheckAllItems>
           <Link to="/servicepolicy">
-            <LearnMore></LearnMore>
+            <LearnMore />
           </Link>
-        </label>
-      </CheckBox>
+        </Checklabel>
+      </Check>
 
       <Complete>완료</Complete>
     </ContactContainer>

@@ -62,6 +62,8 @@ export const CheckAll = styled.div`
 `;
 
 export const Checklabel = styled.label`
+  margin-bottom: ${({ contact }) => (contact ? "10px" : "0")};
+
   a {
     display: flex;
     align-items: center;
@@ -69,6 +71,7 @@ export const Checklabel = styled.label`
 `;
 
 export const Check = styled.div`
+  margin-top: ${({ contact }) => (contact ? "230px" : "0")};
   &:last-child {
     img {
       display: none;
@@ -118,4 +121,6 @@ export const Check = styled.div`
 export const CheckAllItems = styled.span`
   margin-left: 8px;
   flex-grow: 1;
+  font-size: ${fontSize.fontSize14};
+  color: ${({ contact }) => (contact ? colors.gray500 : colors.gray800)};
 `;
