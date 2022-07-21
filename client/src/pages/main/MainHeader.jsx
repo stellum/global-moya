@@ -52,7 +52,7 @@ const Header = ({ user }) => {
             title="새창으로 열기"
           >
             <NaviGo>
-              AI 모야 글로벌 뉴스 바로가기
+              AI 글로벌 주식 뉴스
               <MoreIcon />
             </NaviGo>
           </a>
@@ -92,7 +92,7 @@ const Header = ({ user }) => {
             title="새창으로 열기"
           >
             <NaviGo>
-              AI 모야 글로벌 뉴스 바로가기
+              AI 글로벌 주식 뉴스
               <MoreIcon />
             </NaviGo>
           </a>
