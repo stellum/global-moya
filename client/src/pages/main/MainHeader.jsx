@@ -15,13 +15,14 @@ import MoyaLogo from "@components/MoyaLogo";
 import { MoreIcon } from "../../styles/svgIcon";
 import { logOutFunc } from "@api/loginApi";
 
+import { toggleEditAction } from "@redux/buttonSlice";
 import { toggleNavigation } from "@redux/modalSlice";
 import { userLogoutAction } from "@redux/user/userSlice";
 
 const Header = ({ user }) => {
-  console.log("dbwj?", user);
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
+  const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
   const navigate = useNavigate();
   const toggleNavi = () => {
     dispatch(toggleNavigation(!showNavi));
@@ -37,6 +38,10 @@ const Header = ({ user }) => {
       navigate("/");
       dispatch(userLogoutAction());
     }
+  };
+  const toggleModal = () => {
+    dispatch(toggleEditAction(!showEditBtn));
+    navigate("/main/edit/keyword");
   };
   return (
     <>
@@ -63,7 +68,7 @@ const Header = ({ user }) => {
               <MoreIcon />
             </NaviGo>
           </Link>
-          <NaviGo>
+          <NaviGo onClick={toggleModal}>
             키워드 관리
             <MoreIcon />
           </NaviGo>
