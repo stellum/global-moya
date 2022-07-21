@@ -63,10 +63,15 @@ export const ScrapCheckIcon = styled(ScrapCheckSvg)`
 `;
 
 export const ExpandMoreIcon = styled(ExpandMoreIconSvg)`
-  transform: ${({ $expand }) =>
-    $expand === "expand"
-      ? "rotate(180deg) translateY(0%)"
-      : "rotate(0deg) translateY(50%)"};
+  transform: ${({ $expand }) => {
+    if ($expand === "expand") {
+      return "rotate(180deg) translateY(0%)";
+    } else if ($expand === "none") {
+      return "rotate(0deg) translateY(50%)";
+    } else if ($expand === "card") {
+      return "rotate(0deg) translateY(0%)";
+    }
+  }};
   cursor: pointer;
   position: absolute;
   top: ${({ $expand }) => ($expand === "expand" ? "10px" : "0px")};

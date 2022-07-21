@@ -13,7 +13,7 @@ import {
 } from "@styles/edit/editKeyword";
 
 // const KeywordSortableItem = forwardRef((props, ref) => {
-const KeywordSortableItem = ({ item }) => {
+const KeywordSortableItem = ({ item, handleDelete }) => {
   const {
     attributes,
     listeners,
@@ -32,9 +32,9 @@ const KeywordSortableItem = ({ item }) => {
 
   return (
     <EditItemWrap style={style} {...attributes}>
-      <Checkbox key={item.id} item={item.keyword} />
+      <Checkbox key={item.id} item={item} handleDelete={handleDelete} />
       <EditItemTextWrap>
-        <EditTextKeyword>{item.keyword}</EditTextKeyword>
+        <EditTextKeyword>{item.name}</EditTextKeyword>
       </EditItemTextWrap>
       <EditHamburgerWrap ref={setNodeRef} {...listeners}>
         <Hamburger />

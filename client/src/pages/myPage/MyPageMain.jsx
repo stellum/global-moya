@@ -5,8 +5,6 @@ import {
   AccountInfo,
   AccountSettings,
   Account,
-  SubscriptionInfo,
-  Subscription,
   Settings,
   Help,
 } from "@styles/myPage/Main";
@@ -17,28 +15,41 @@ import { RequiredLogin } from "@hoc/userAccessType";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutFunc } from "@api/loginApi";
 import { userLogoutAction } from "@redux/user/userSlice";
-
-import { dateFormat, subDate } from "@util/dateFunc";
+import SubscriptionComp from "@components/SubscriptionComp";
+import { customerSearch } from "@api/subsApi";
+import { subsUserAction } from "@redux/user/subsSlice";
 const MyPageMain = ({ user, accessToken }) => {
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
   const subsUser = useSelector((state) => state.subsSlice.subsUser);
+
+  const fetch = async () => {
+    const customer = await customerSearch(subsUser.id);
+    if (customer.status === 200) {
+      await dispatch(subsUserAction(customer.data));
+    }
+  };
   useEffect(() => {
+    fetch();
     console.log(subsUser);
+    // dispatch(subsUserAction())
   }, []);
+
   const handleLogin = () => {
     logOutFunc(accessToken);
     dispatch(userLogoutAction());
-    navigate("/");
+    if (!user) {
+      navigate("/");
+    }
   };
+
   return (
     <MainContainer>
       {user && (
         <>
           <Main>
             <div className="h3div">
-              <BackArrow onClick={() => navigate(-1)} />
+              <BackArrow onClick={() => navigate(-1, { replace: true })} />
               <h3>마이페이지</h3>
             </div>
           </Main>
@@ -49,32 +60,7 @@ const MyPageMain = ({ user, accessToken }) => {
               <span>{subsUser.name}</span>
               <p>{subsUser.email}</p>
             </Account>
-
-            <SubscriptionInfo>
-              <div className="subs">
-                <span>월별 정기구독 이용중</span>
-                <Link to="/mypage/subscription">
-                  <button>구독관리</button>
-                </Link>
-              </div>
-              <Subscription>
-                <div className="substerm">
-                  <div>구독 기간 </div>| &nbsp;
-                  {subsUser.subscriptions &&
-                    subDate(
-                      subsUser.subscriptions[0]?.nextPaymentDateTime
-                    )}{" "}
-                  &nbsp;~ &nbsp;
-                  {subsUser.subscriptions &&
-                    dateFormat(subsUser.subscriptions[0]?.nextPaymentDateTime)}
-                </div>
-                <div className="substerm">
-                  <div>다음 결제일 </div>| &nbsp;
-                  {subsUser.subscriptions &&
-                    dateFormat(subsUser.subscriptions[0]?.nextPaymentDateTime)}
-                </div>
-              </Subscription>
-            </SubscriptionInfo>
+            <SubscriptionComp subsUser={subsUser} />
           </AccountInfo>
 
           <Settings>

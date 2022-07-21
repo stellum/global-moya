@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getSearchData } from "@api/searchApi";
-import { retryAxios } from "@api/baseUrl";
 
 const initialState = {
   timeFilter: "mth1",
@@ -28,11 +27,6 @@ const fetchSearchNews = createAsyncThunk(
       return response;
     } catch (error) {
       console.log("slice error", error);
-
-      // if (response === undefined) {
-      // console.log("retry axios 실행");
-      // retryAxios(3, 2000);
-      // }
     }
   }
 );
@@ -47,17 +41,14 @@ const searchFilterSlice = createSlice({
       state.paramValue = action.payload[1];
       state.exchange = action.payload[2];
     },
-    loggedDefaultRequest: (state, action) => {
-      console.log("state", state);
-      console.log("action", action);
-      // state.keyType = action.payload;
-      // state.paramValue = action.payload;
+    changeFilterRequest: (state, action) => {
+      // state.timeFilter;
+      // state.mediaType;
+      // state.orderBy;
     },
-    // changeFilterRequest: (state, action) => {
-    //   state.timeFilter = action.payload;
-    //   state.mediaType = action.payload;
-    //   state.orderBy = action.payload;
-    // }
+    changeLanguageRequest: (state, action) => {
+      // state.language;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSearchNews.pending, (state, action) => {
@@ -75,6 +66,9 @@ const searchFilterSlice = createSlice({
 });
 
 export default searchFilterSlice.reducer;
-export const { keywordContentRequest, loggedDefaultRequest } =
-  searchFilterSlice.actions;
+export const {
+  keywordContentRequest,
+  changeFilterRequest,
+  changeLanguageRequest,
+} = searchFilterSlice.actions;
 export { fetchSearchNews };

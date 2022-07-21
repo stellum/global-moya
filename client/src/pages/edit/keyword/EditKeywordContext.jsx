@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getKeywords } from "@api/keywordListApi";
+import AccessToken from "@hoc/AccessToken";
 import {
   DndContext,
   closestCenter,
@@ -30,15 +32,21 @@ import {
 } from "@styles/edit/editKeyword";
 import { BackArrow } from "@styles/svgIcon";
 import KeywordSortableItem from "./KeywordSortableItem";
+// import { createTermSeq } from "@util/createTermSeq";
 
-const EditKeywordContext = () => {
+const EditKeywordContext = ({ accessToken }) => {
+  // const getTermSeq = createTermSeq(4);
+
   // const rootStorage = JSON.parse(localStorage["persist:root"]);
   // const keywordSlice = JSON.parse(rootStorage["keywordConnectedSlice"]);
   // const keywordNameList = keywordSlice.keywordNameList;
-  const { keywordNameList } = useSelector(
-    (state) => state.keywordConnectedSlice
-  );
-  const [items, setItems] = useState(keywordNameList);
+  // const { keywordNameList } = useSelector(
+  //   (state) => state.keywordConnectedSlice
+  // );
+  // const [items, setItems] = useState(keywordNameList);
+
+  // const [keywordNameList, setKeywordNameList] = useState([]);
+  const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
@@ -51,15 +59,32 @@ const EditKeywordContext = () => {
     navigate("/main");
   };
 
+  const handleDelete = () => {
+    // console.log("handleDel");
+  };
+
+  useEffect(() => {
+    const getDatas = async () => {
+      const response = await getKeywords(accessToken);
+      setItems(response);
+    };
+    getDatas();
+
+    return () => {
+      console.log("unMounted");
+    };
+  }, []);
+
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
   const handleDragEnd = ({ active, over }) => {
     if (active.id !== over.id) {
       setItems((items) => {
+        console.log("items", items);
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over.id);
 
-        // console.log("item,old,new", items, oldIndex, newIndex);
+        console.log("item,old,new", items, oldIndex, newIndex);
         return arrayMove(items, oldIndex, newIndex);
       });
     }
@@ -104,18 +129,25 @@ const EditKeywordContext = () => {
                 <BackArrow />
               </EditBack>
               <EditHeader>키워드 편집</EditHeader>
-              <EditCount>8/10</EditCount>
+              <EditCount>{items.length}/10</EditCount>
             </EditHeaderContainer>
             <EditUl>
-              {keywordNameList &&
+              {items.map((item) => (
+                <KeywordSortableItem
+                  key={item.id}
+                  item={item}
+                  handleDelete={handleDelete}
+                />
+              ))}
+              {/* {keywordNameList &&
                 items.map((item) => (
                   <KeywordSortableItem key={item.id} item={item} />
-                ))}
+                ))} */}
             </EditUl>
             <EditButtonDiv>
               <EditButtonCancel onClick={toggleModal}>취소</EditButtonCancel>
               {showDelBtn ? (
-                <EditButtonDelete>삭제</EditButtonDelete>
+                <EditButtonDelete onClick={handleDelete}>삭제</EditButtonDelete>
               ) : (
                 <EditButtonSave>저장</EditButtonSave>
               )}
@@ -127,4 +159,4 @@ const EditKeywordContext = () => {
   );
 };
 
-export default EditKeywordContext;
+export default AccessToken(EditKeywordContext);

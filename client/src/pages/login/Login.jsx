@@ -15,8 +15,8 @@ import { addKeywordListAction } from "@redux/keywordListSlice";
 
 import { Container } from "@styles/loginRegister/container"
 import { CommonForm } from "@styles/loginRegister/commonForm";
-import { Header, BackSpace, TitleHeader } from "@styles/loginRegister/header"
-import { InputDiv, InputType} from "@styles/loginRegister/loginRegisterInput";
+import { Header, BackSpace, TitleHeader } from "@styles/loginRegister/header";
+import { InputDiv, InputType } from "@styles/loginRegister/loginRegisterInput";
 import {
   IconCancel,
   IconText,
@@ -49,7 +49,7 @@ const Login = () => {
       const userList = await searchUserList(data.email);
       const userEmail = userList.userCode.content[0].email;
       const userCode = userList.userCode.content[0].id;
-
+      console.log(userList);
       await dispatch(
         fetchUserSuccess({
           userEmail,
@@ -71,82 +71,78 @@ const Login = () => {
   };
 
   return (
-  <Container>
-    <CommonForm
-      onSubmit={handleSubmit((data) => {
-        const formData = new FormData();
+    <Container>
+      <CommonForm
+        onSubmit={handleSubmit((data) => {
+          const formData = new FormData();
 
-        for (let key in data) {
-          formData.append(key, data[key]);
-        }
+          for (let key in data) {
+            formData.append(key, data[key]);
+          }
 
-        fetch(formData, data);
+          fetch(formData, data);
 
-        // formData는 XMLHttpRequest 전송을 위한 특수한 객체이므로 일반적인 방법으로는 콘솔에 못 찍음
-        // 밑에 처럼 keys(), values() 메서드를 써서 찍어줘야...
-        for (let key of formData.keys()) {
-          // console.log(key);
-        }
-        for (let value of formData.values()) {
-          // console.log(value);
-        }
-      })}
-    >
-      <Header>
-        <BackSpace onClick={() => { navigate("/")}}/>
-        <TitleHeader>로그인</TitleHeader>
-      </Header>
-
-      <InputDiv>
-        <InputType
-          type="email"
-          name="email"
-          placeholder="이메일"
-          {...register("email", {
-            required: "이메일은 필수 입력입니다.",
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "이메일 형식에 맞지 않습니다.",
-            },
-          })}
-        />
-        <IconCancel>
-          <IconText>icons-cancel</IconText>
-        </IconCancel>
-      </InputDiv>
-      <InputDiv>
-        <InputType
-          type="password"
-          name="password"
-          placeholder="비밀번호"
-          {...register("password", {
-            required: "비밀번호는 필수 입력입니다.",
-          })}
-        />
-        <ShowIcon>
-          <IconText>눈동자 아이콘</IconText>
-        </ShowIcon>
-      </InputDiv>
-
-      <LoginDiv>
-        <LoginSpan>
-          {/* <CheckCircle alt="icons-check"  /> */}
-          <LonginIcon type="checkbox" value="" />
-          <LoginAuto>자동 로그인</LoginAuto>
-        </LoginSpan>
-        <FindPw>비밀번호 찾기</FindPw>
-      </LoginDiv>
-
-      <RegisterLink>
-        아직 계정이 없으신가요?
-        <LoginRegi onClick={handleClick}>회원가입</LoginRegi>
-      </RegisterLink>
-
-      <LoginButton type="submit" disabled={isSubmitting}>
-        로그인
-      </LoginButton>
-    </CommonForm>
-  </Container>
+          // formData는 XMLHttpRequest 전송을 위한 특수한 객체이므로 일반적인 방법으로는 콘솔에 못 찍음
+          // 밑에 처럼 keys(), values() 메서드를 써서 찍어줘야...
+          for (let key of formData.keys()) {
+            // console.log(key);
+          }
+          for (let value of formData.values()) {
+            // console.log(value);
+          }
+        })}
+      >
+        <Header>
+          <BackSpace onClick={() => { navigate("/")}}/>
+          <TitleHeader>로그인</TitleHeader>
+        </Header>
+        <InputDiv>
+          <InputType
+            type="email"
+            name="email"
+            placeholder="이메일"
+            {...register("email", {
+              required: "이메일은 필수 입력입니다.",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "이메일 형식에 맞지 않습니다.",
+              },
+            })}
+          />
+          <IconCancel>
+            <IconText>icons-cancel</IconText>
+          </IconCancel>
+        </InputDiv>
+        <InputDiv>
+          <InputType
+            type="password"
+            name="password"
+            placeholder="비밀번호"
+            {...register("password", {
+              required: "비밀번호는 필수 입력입니다.",
+            })}
+          />
+          <ShowIcon>
+            <IconText>눈동자 아이콘</IconText>
+          </ShowIcon>
+        </InputDiv>
+        <LoginDiv>
+          <LoginSpan>
+            {/* <CheckCircle alt="icons-check"  /> */}
+            <LonginIcon type="checkbox" value="" />
+            <LoginAuto>자동 로그인</LoginAuto>
+          </LoginSpan>
+          <FindPw>비밀번호 찾기</FindPw>
+        </LoginDiv>
+        <RegisterLink>
+          아직 계정이 없으신가요?
+          <LoginRegi onClick={handleClick}>회원가입</LoginRegi>
+        </RegisterLink>
+        <LoginButton type="submit" disabled={isSubmitting}>
+          로그인
+        </LoginButton>
+      </CommonForm>
+    </Container>
   );
 };
 
