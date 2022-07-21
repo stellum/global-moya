@@ -34,12 +34,13 @@ import { BackArrow } from "@styles/svgIcon";
 import KeywordSortableItem from "./KeywordSortableItem";
 import { createTermSeq } from "@util/createTermSeq";
 
-const EditKeywordContext = ({ accessToken }) => {
+const EditKeywordContext = () => {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
   const showDelBtn = useSelector((state) => state.buttonSlice.showDelBtn);
+  const { accessToken } = useSelector((state) => state.user);
 
   const TermSeq = useMemo(() => createTermSeq(items.length), [items]);
 

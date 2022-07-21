@@ -13,7 +13,6 @@ import {
 const HomeInput = () => {
   const navigate = useNavigate();
   const userLogin = useSelector((state) => state.user.userLogin);
-  console.log(userLogin);
 
   const handleFocus = () => {
     if (userLogin) {
