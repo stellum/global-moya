@@ -25,7 +25,7 @@ import ErrorMsg from "./ErrorMsg";
 import { useEffect } from "react";
 import _ from "lodash";
 import AccessToken from "@hoc/AccessToken";
-const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
+const NewsCard = ({ view, apply, newsList, errorMsg }) => {
   // console.log(accessToken);
   const [scrap, setScrap] = useState(false);
   const [open, setOpen] = useState({});
@@ -36,9 +36,8 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
   const handleExpand = (e) => {
     setOpen({ [e.target.id]: !open[e.target.id] });
   };
-  const fetch = async (newsId, accessToken) => {
-    const response = await translateApi(newsId, accessToken);
-    console.log(response);
+  const fetch = async (newsId) => {
+    const response = await translateApi(newsId);
 
     setTranslate({
       newsId,
@@ -47,37 +46,19 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
     });
   };
 
-  useEffect(() => {
-    console.log("번역패치", translate);
-  }, [translate, changeTrans]);
+  useEffect(() => {}, [translate, changeTrans]);
 
-  const handleTranslate = (e, newsId, accessToken) => {
+  const handleTranslate = (e, newsId) => {
     setTrakingId({ [e.target.id]: !trakingId[e.target.id] });
-    fetch(newsId, accessToken);
-    // if (e.target.id === "ko") {
+    fetch(newsId);
+  };
 
-    //   // checkTrans(translate, newsId);
-    //   setChangeTrans(false);
-    // } else if (e.target.id === "en") {
-    //   // deleteTrans(translate, newsId);
-    //   setChangeTrans(true);
-    // }
-  };
-  const checkTrans = (translate, newsId) => {
-    const result = translate.some((item) => item.newsId === newsId);
-    console.log(result);
-    return result;
-  };
-  const deleteTrans = (translate, newsId) => {
-    setTranslate(translate.filter((item) => item.newsId !== newsId));
-  };
   /* 
     1. 번역을 클릭한다
     2. 번역 내용을 받아와서 newsId와 같이 저장 -> 배열
     3. 저장 내용에 newsId가 같은게 있으면 아이콘은 en으로 변경
     4. 다시 클릭하면 배열에서 제거와 함께 아이콘 ko로 변경
   */
-
 
   return (
     <>
@@ -115,7 +96,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg, accessToken }) => {
                   <TranslateIconKo
                     id="ko"
                     onClick={(e) => {
-                      handleTranslate(e, news.newsId, accessToken);
+                      handleTranslate(e, news.newsId);
                     }}
                   />
                   {/* {changeTrans ? (

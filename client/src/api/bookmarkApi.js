@@ -5,7 +5,7 @@ export const bookmarkSave = async () => {
   try {
     const response = await clientServer({
       url: "/bookmark/save",
-      headers: { Authorization: `Bearer ${accessToken}` },
+
       method: "post",
       data: {
         groupId,
@@ -25,11 +25,11 @@ export const bookmarkSave = async () => {
 };
 
 //내가 등록한 폴더별로 폴더내 저장된 모든 뉴스 리스트를 반환한다.
-export const bookmarkAll = async (accessToken) => {
+export const bookmarkAll = async () => {
   try {
     const response = await clientServer({
       url: "/bookmark/reportsAll",
-      headers: { Authorization: `Bearer ${accessToken}` },
+
       method: "get",
     });
 
@@ -44,10 +44,9 @@ export const bookmarkAll = async (accessToken) => {
   }
 };
 // 내가 만든 폴더groupId 내에 저장된 뉴스 리스트를 반환한다.
-export const bookmarkOne = async (accessToken, groupId) => {
+export const bookmarkOne = async (groupId) => {
   try {
     const response = await clientServer({
-      headers: { Authorization: `Bearer ${accessToken}` },
       url: `/bookmark/reportsOne/${groupId}`,
       method: "get",
     });
@@ -67,7 +66,6 @@ export const bookmarkOne = async (accessToken, groupId) => {
 export const bookmarkDelete = async () => {
   try {
     const response = await clientServer({
-      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/bookmark/delete",
       method: "delete",
       data: {
@@ -88,7 +86,6 @@ export const bookmarkDelete = async () => {
 export const bookmarkMove = async () => {
   try {
     const response = await clientServer({
-      headers: { Authorization: `Bearer ${accessToken}` },
       url: "/bookmark/move",
       method: "delete",
       data: {

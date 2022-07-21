@@ -7,7 +7,6 @@ export const getProductsList = async () => {
       url: "/v1/products/product_W9gLQy9ac",
       method: "GET",
     });
-    console.log(response);
   } catch (e) {
     console.log(e);
   }
@@ -23,7 +22,6 @@ export const searchUserList = async (userMail) => {
       },
     });
     if (response.status === 200) {
-      console.log(response);
       const subsUser = await customerSearch(response.data.content[0].id);
       return { userCode: response.data, subsUser: subsUser.data };
     }

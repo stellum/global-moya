@@ -11,15 +11,16 @@ const initialState = {
   exchange: null,
   status: "Welcome",
   code: null,
+  nextPageToken: null,
 };
 
 const fetchSearchNews = createAsyncThunk(
   "searchFilterSlice/fetchSearchNews",
   async (params, thunkAPI) => {
-    let { queryParams, accessToken } = params;
-    console.log(accessToken);
+    let { queryParams } = params;
+    console.log(queryParams);
     try {
-      const response = await getSearchData(queryParams, accessToken);
+      const response = await getSearchData(queryParams);
       console.log(response);
       // if (response.stauts === 400) {
       //   return response.status;
@@ -42,9 +43,11 @@ const searchFilterSlice = createSlice({
       state.exchange = action.payload[2];
     },
     changeFilterRequest: (state, action) => {
-      // state.timeFilter;
-      // state.mediaType;
-      // state.orderBy;
+      console.log(action);
+      const { payload } = action;
+      state.timeFilter = payload.timeFilter;
+      state.mediaType = payload.mediaType;
+      state.orderBy = payload.orderBy;
     },
     changeLanguageRequest: (state, action) => {
       // state.language;

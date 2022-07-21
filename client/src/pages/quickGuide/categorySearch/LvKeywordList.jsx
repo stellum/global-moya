@@ -21,13 +21,12 @@ const LvKeywordList = ({
   loading,
   category,
   clipKeyword,
-  accessToken,
   setFillStar,
-  resultMsg,
-  setResultMsg,
-  reportsLength,
+  resultBoolean,
+  setResultBoolean,
 }) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 50 });
+  const [limitCode, setLimitCode] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,24 +36,30 @@ const LvKeywordList = ({
     }));
   }, [page]);
 
-  const handleFillStar = async (_id, category, accessToken, clipKeyword) => {
+  const handleFillStar = async (_id, category, clipKeyword) => {
     setFillStar((prev) => !prev);
     if (checkClip(clipKeyword, _id)) {
-      const res = await deleteKeywordFunc(
-        _id,
-        category,
-        accessToken,
-        clipKeyword
-      );
+      await deleteKeywordFunc(_id, category, clipKeyword);
+      setLimitCode(0);
     } else {
-      const res = await createKeywordFunc(_id, category, accessToken);
+      const res = await createKeywordFunc(_id, category, clipKeyword);
+      console.log(res);
       if (res.code === 2002) {
-        reportsLength(res.code);
+        setLimitCode(res.code);
+      } else {
+        setLimitCode(0);
       }
-      setResultMsg(true);
+      setResultBoolean(true);
     }
   };
-
+  useEffect(() => {
+    const msgTimeOut = setTimeout(() => {
+      setResultBoolean(false);
+    }, 2000);
+    return () => {
+      clearTimeout(msgTimeOut);
+    };
+  }, [clipKeyword]);
   const handleLocationState = (paramValue, category, exchange) => {
     navigate(`/main/keywordsearch/${paramValue}`, {
       state: { paramValue, category, exchange },
@@ -67,8 +72,8 @@ const LvKeywordList = ({
       ) : (
         <>
           <AddKeywordModal
-            resultMsg={resultMsg}
-            reportsLength={reportsLength}
+            resultBoolean={resultBoolean}
+            limitCode={limitCode}
           />
           <KeywordUL>
             {dataList &&
@@ -97,12 +102,7 @@ const LvKeywordList = ({
                         </KeywordWrap>
                         <StarIcon
                           onClick={() => {
-                            handleFillStar(
-                              item._id,
-                              category,
-                              accessToken,
-                              clipKeyword
-                            );
+                            handleFillStar(item._id, category, clipKeyword);
                           }}
                           $clip={checkClip(clipKeyword, item._id)}
                         />
@@ -130,12 +130,7 @@ const LvKeywordList = ({
                         <IconWrap star>
                           <StarIcon
                             onClick={() => {
-                              handleFillStar(
-                                item._id,
-                                category,
-                                accessToken,
-                                clipKeyword
-                              );
+                              handleFillStar(item._id, category, clipKeyword);
                             }}
                             $clip={checkClip(clipKeyword, item._id)}
                           />

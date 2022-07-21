@@ -18,7 +18,7 @@ import { getKeywords } from "@api/keywordListApi";
 import { useSelector, useDispatch } from "react-redux";
 import AccessToken from "@hoc/AccessToken";
 
-const CategoryMain = ({ accessToken }) => {
+const CategoryMain = () => {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
   const [reports, setReports] = useState([]);
@@ -30,7 +30,7 @@ const CategoryMain = ({ accessToken }) => {
   const loading = useSelector((state) => state.categorySlice.loading);
   const inputRef = useRef(null);
   const [fillStar, setFillStar] = useState(false);
-  const [resultMsg, setResultMsg] = useState(false);
+  const [resultBoolean, setResultBoolean] = useState(false);
   const { lastElementRef } = QuickInfiniteHook(setPage);
   const dispatch = useDispatch();
 
@@ -41,7 +41,7 @@ const CategoryMain = ({ accessToken }) => {
       if (response.details.length > 0) {
         setDataList(response.details);
 
-        const reports = await getKeywords(accessToken);
+        const reports = await getKeywords();
         if (reports.length > 0) {
           await dispatch(isLoading(false));
           setReports(reports);
@@ -69,7 +69,7 @@ const CategoryMain = ({ accessToken }) => {
 
   useEffect(() => {
     const msgTimeOut = setTimeout(() => {
-      setResultMsg(false);
+      setResultBoolean(false);
     }, 2000);
     return () => {
       clearTimeout(msgTimeOut);
@@ -95,10 +95,9 @@ const CategoryMain = ({ accessToken }) => {
             clipKeyword={clipKeyword}
             setFillStar={setFillStar}
             fillStar={fillStar}
-            resultMsg={resultMsg}
-            setResultMsg={setResultMsg}
+            resultBoolean={resultBoolean}
+            setResultBoolean={setResultBoolean}
             reportsLength={reportsLength}
-            accessToken={accessToken}
           />
         </Suspense>
       ) : (
@@ -112,10 +111,9 @@ const CategoryMain = ({ accessToken }) => {
             clipKeyword={clipKeyword}
             setFillStar={setFillStar}
             fillStar={fillStar}
-            resultMsg={resultMsg}
-            setResultMsg={setResultMsg}
+            resultBoolean={resultBoolean}
+            setResultBoolean={setResultBoolean}
             reportsLength={reportsLength}
-            accessToken={accessToken}
           />
         </Suspense>
       )}

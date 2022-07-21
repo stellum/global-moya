@@ -9,6 +9,8 @@ export const loginFunc = async (form) => {
     });
 
     if (response.status === 200) {
+      const { access_token } = response.data;
+      clientServer.defaults.headers.common.Authorization = `Bearer ${access_token}`;
       return response;
     }
   } catch (error) {
@@ -24,7 +26,6 @@ export const logOutFunc = async (accessToken) => {
     const response = await clientServer({
       url: "auth/logout",
       method: "delete",
-      headers: { Authorization: `Bearer ${accessToken}` },
     });
     if (response.status === 200) {
       removeCookieToken();

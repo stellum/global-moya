@@ -22,7 +22,7 @@ import NewsCard from "@components/NewsCard";
 import Spinner from "@components/common/Spinner";
 import AccessToken from "@hoc/AccessToken";
 
-const MainKeywordList = ({ view, apply, accessToken }) => {
+const MainKeywordList = ({ view, apply }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -42,7 +42,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
     status,
   } = useSelector((state) => state.searchFilterSlice);
 
-  console.log("exchange", exchange);
+  // console.log("exchange", exchange);
   // toggle btn
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
 
@@ -57,7 +57,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
   const { keywordList, keyTypeList, paramValueList, exchangeList } =
     useSelector((state) => state.keywordConnectedSlice);
 
-  console.log("exchangeList", exchangeList);
+  // console.log("exchangeList", exchangeList);
 
   const toggleModal = () => {
     dispatch(toggleEditAction(!showEditBtn));
@@ -93,24 +93,22 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
         exchange,
       };
 
-      await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
-        (response) => {
-          if (response.payload.newsList.length === 0) {
-            setErrorMsg("결과가 없습니다.");
-          } else {
-            setErrorMsg("");
-            setNewsList(response.payload.newsList);
-            setPageToken(response.payload.nextPageToken);
-          }
+      await dispatch(fetchSearchNews({ queryParams })).then((response) => {
+        if (response.payload.newsList.length === 0) {
+          setErrorMsg("결과가 없습니다.");
+        } else {
+          setErrorMsg("");
+          setNewsList(response.payload.newsList);
+          setPageToken(response.payload.nextPageToken);
         }
-      );
+      });
     };
     getDatas();
 
     return () => {
       console.log("unMounted 카드");
     };
-  }, []);
+  }, [timeFilter, mediaType, orderBy]);
 
   useEffect(() => {
     const getDatas = async () => {
@@ -124,22 +122,20 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
         exchange,
       };
 
-      await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
-        (response) => {
-          console.log("Res", response);
-          if (
-            (response.payload.newsList &&
-              response.payload.newsList.length === 0) ||
-            response.payload.status > 200
-          ) {
-            setErrorMsg("결과가 없습니다.");
-          } else {
-            setErrorMsg("");
-            setNewsList(response.payload.newsList);
-            setPageToken(response.payload.nextPageToken);
-          }
+      await dispatch(fetchSearchNews({ queryParams })).then((response) => {
+        console.log("Res", response);
+        if (
+          (response.payload.newsList &&
+            response.payload.newsList.length === 0) ||
+          response.payload.status > 200
+        ) {
+          setErrorMsg("결과가 없습니다.");
+        } else {
+          setErrorMsg("");
+          setNewsList(response.payload.newsList);
+          setPageToken(response.payload.nextPageToken);
         }
-      );
+      });
     };
 
     if (toggleTabState === 0) {
@@ -151,7 +147,7 @@ const MainKeywordList = ({ view, apply, accessToken }) => {
     return () => {
       console.log("clear time");
     };
-  }, [toggleTabState]);
+  }, [toggleTabState, timeFilter, mediaType, orderBy]);
 
   return (
     <>

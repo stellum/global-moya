@@ -10,12 +10,12 @@ import { RadiusBlackButton } from "@styles/common/button/button";
 import { useState } from "react";
 import { ScrapFolderChoose } from "@redux/scrapFolderSlice";
 
-const ScrapCategory = ({ accessToken, black }) => {
+const ScrapCategory = ({ black }) => {
   const params = useParams();
   const dispatch = useDispatch();
   const [folder, setFolder] = useState([]);
   const getDatas = async () => {
-    const response = await allFolder(accessToken);
+    const response = await allFolder();
     setFolder(response.reports);
     console.log("올폴더 반환", response.reports);
   };

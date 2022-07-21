@@ -19,7 +19,7 @@ import Spinner from "@components/common/Spinner";
 import AccessToken from "@hoc/AccessToken";
 import ScrollTop from "@components/ScrollTop";
 
-const KeywordCardMain = ({ accessToken }) => {
+const KeywordCardMain = () => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
   const showBtn = useSelector((state) => state.modalSlice.showBtn);
   const showModal = useSelector((state) => state.modalSlice.showModal);
@@ -28,6 +28,7 @@ const KeywordCardMain = ({ accessToken }) => {
   const [newsList, setNewsList] = useState([]);
   const [pageToken, setPageToken] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [page, setPage] = useState(1);
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const handleClick = (e) => {
@@ -39,9 +40,8 @@ const KeywordCardMain = ({ accessToken }) => {
   };
 
   const location = useLocation();
-  const { timeFilter, mediaType, language, orderBy } = useSelector(
-    (state) => state.searchFilterSlice
-  );
+  const { timeFilter, mediaType, language, orderBy, nextPageToken } =
+    useSelector((state) => state.searchFilterSlice);
 
   const loading = useSelector((state) => state.categorySlice.loading);
 
@@ -59,9 +59,9 @@ const KeywordCardMain = ({ accessToken }) => {
         exchange: `${location.state.exchange}`,
       };
 
-      await dispatch(fetchSearchNews({ queryParams, accessToken }))
+      await dispatch(fetchSearchNews({ queryParams }))
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response.payload.status === 400) {
             setErrorMsg("결과가 없습니다.");
           } else {
@@ -80,7 +80,7 @@ const KeywordCardMain = ({ accessToken }) => {
       console.log("unMounted 카드");
       clearTimeout(timeoutID);
     };
-  }, []);
+  }, [timeFilter, mediaType, orderBy]);
   return (
     <>
       <FilterIconModal showBtn={showBtn}>
@@ -104,7 +104,11 @@ const KeywordCardMain = ({ accessToken }) => {
           showBtn={showBtn}
           setApply={setApply}
         />
-        <SearchTypeFilter showModal={showModal} showBtn={showBtn} />
+        <SearchTypeFilter
+          showModal={showModal}
+          showBtn={showBtn}
+          setApply={setApply}
+        />
       </FilterTypeModal>
       <FilterBG showBtn={showBtn} onClick={handleBG} />
       <MainPageContainer style={{ paddingBottom: 0, borderBottom: 0 }}>

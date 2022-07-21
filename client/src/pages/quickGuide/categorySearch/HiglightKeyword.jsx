@@ -19,27 +19,31 @@ const HiglightKeyword = ({
   keyword,
   loading,
   category,
-  accessToken,
   clipKeyword,
   setFillStar,
-  resultMsg,
-  setResultMsg,
-  reportsLength,
+  resultBoolean,
+  setResultBoolean,
 }) => {
   const [filterKeyword, setFilterKeyword] = useState([]);
-
+  const [limitCode, setLimitCode] = useState(0);
   useEffect(() => {
     const data = filterValue(dataList, keyword);
     setFilterKeyword(data);
   }, [keyword]);
 
-  const handleFillStar = (_id, category, accessToken, clipKeyword) => {
+  const handleFillStar = async (_id, category, clipKeyword) => {
     setFillStar((prev) => !prev);
     if (checkClip(clipKeyword, _id)) {
-      deleteKeywordFunc(_id, category, accessToken, clipKeyword);
+      setLimitCode(0);
+      deleteKeywordFunc(_id, category, clipKeyword);
     } else {
-      createKeywordFunc(_id, category, accessToken);
-      setResultMsg(true);
+      const res = await createKeywordFunc(_id, category, clipKeyword);
+      if (res.code === 2002) {
+        setLimitCode(res.code);
+      } else {
+        setLimitCode(0);
+      }
+      setResultBoolean(true);
     }
   };
 
@@ -50,8 +54,8 @@ const HiglightKeyword = ({
       ) : (
         <>
           <AddKeywordModal
-            resultMsg={resultMsg}
-            reportsLength={reportsLength}
+            resultBoolean={resultBoolean}
+            limitCode={limitCode}
           />
           <KeywordUL>
             {_.map(filterKeyword.slice(0, 40), (item, idx) => (
@@ -86,12 +90,7 @@ const HiglightKeyword = ({
                 <IconWrap star>
                   <StarIcon
                     onClick={() => {
-                      handleFillStar(
-                        item._id,
-                        category,
-                        accessToken,
-                        clipKeyword
-                      );
+                      handleFillStar(item._id, category, clipKeyword);
                     }}
                     $clip={checkClip(clipKeyword, item._id)}
                   />

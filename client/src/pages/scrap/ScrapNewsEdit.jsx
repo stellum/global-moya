@@ -19,7 +19,8 @@ import { FilterBG } from "@styles/naviStyle/naviWrap";
 import { BackArrow } from "@styles/svgIcon";
 import { BtnWrapVisible } from "../../styles/scrap/scrap";
 
-const ScrapNewsEdit = ({ view, apply, accessToken, scrapcheck }) => {
+
+const ScrapNewsEdit = ({ scrapcheck }) => {
   const navigate = useNavigate();
   const params = useParams();
   const groupId = params.id;
@@ -38,7 +39,8 @@ const ScrapNewsEdit = ({ view, apply, accessToken, scrapcheck }) => {
     dispatch(toggleScrapMoveBtn(!showScrapMoveBtn));
   };
   const getBookmarkOneDatas = async () => {
-    const response = await bookmarkOne(accessToken, groupId);
+    const response = await bookmarkOne(groupId);
+    setBookmark(response.details);
     setNewsList(response.details);
     console.log("해당 북마크 반환", response.details);
   };

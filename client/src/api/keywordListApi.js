@@ -1,11 +1,10 @@
 import clientServer from "./baseUrl";
 // import { retryAxios } from "@api/baseUrl";
 
-export const getKeywords = async (accessToken) => {
+export const getKeywords = async () => {
   try {
     const response = await clientServer({
       url: "preferTerms/reports",
-      headers: { Authorization: `Bearer ${accessToken}` },
       transformResponse: [
         function (data) {
           const transformedData = JSON.parse(data);
@@ -47,15 +46,13 @@ export const getKeywords = async (accessToken) => {
 유저가 이미 생성된 키워드를 등록할 경우 = 4018
  */
 
-export const createKeywords = async (json, accessToken) => {
+export const createKeywords = async (json) => {
   try {
     const response = await clientServer({
       url: "preferTerms/create",
       method: "post",
-
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
       },
       data: JSON.stringify(json),
     });
@@ -91,12 +88,11 @@ export const createKeywords = async (json, accessToken) => {
 // "termList" : keyType, _id, termSeq, updateFlag: R: Remove, S: Seq, D: Default
 // 순서변경, 삭제 한꺼번에 처리 가능
 // ! mutiple update / delete
-export const updateListKeywords = async (json, accessToken) => {
+export const updateListKeywords = async (json) => {
   try {
     const response = await clientServer({
       url: "preferTerms/updateList",
       method: "post",
-      headers: { Authorization: `Bearer ${accessToken}` },
       data: json,
     });
     if (response.status === 200) {
@@ -110,12 +106,11 @@ export const updateListKeywords = async (json, accessToken) => {
 };
 
 // ! update 1개
-export const updateKeywords = async (json, accessToken) => {
+export const updateKeywords = async (json) => {
   try {
     const response = await clientServer({
       url: "preferTerms/updateSeq",
       method: "put",
-      headers: { Authorization: `Bearer ${accessToken}` },
       data: json,
     });
     if (response.status === 200) {
@@ -129,12 +124,11 @@ export const updateKeywords = async (json, accessToken) => {
 };
 
 // ! delete 1개
-export const deleteKeywords = async (json, accessToken) => {
+export const deleteKeywords = async (json) => {
   try {
     const response = await clientServer({
       url: "preferTerms/delete",
       method: "delete",
-      headers: { Authorization: `Bearer ${accessToken}` },
       data: json,
     });
     if (response.status === 200) {

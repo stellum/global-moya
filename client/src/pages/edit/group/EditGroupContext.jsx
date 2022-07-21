@@ -25,10 +25,10 @@ import {
 import { BackArrow } from "@styles/svgIcon";
 import GroupSortableItem from "./GroupSortableItem";
 
-const EditGroupContext = ({ accessToken }) => {
+const EditGroupContext = ({}) => {
   const [items, setItems] = useState([]);
   const getDatas = async () => {
-    const response = await allFolder(accessToken);
+    const response = await allFolder();
     setItems(response.reports);
   };
   useEffect(() => {
