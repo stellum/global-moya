@@ -18,9 +18,8 @@ import { logOutFunc } from "@api/loginApi";
 import { toggleNavigation } from "@redux/modalSlice";
 import { userLogoutAction } from "@redux/user/userSlice";
 
-import AccessToken from "@hoc/AccessToken";
-
-const Header = ({ userLogin, accessToken }) => {
+const Header = ({ user }) => {
+  console.log(user);
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
   const navigate = useNavigate();
@@ -32,9 +31,9 @@ const Header = ({ userLogin, accessToken }) => {
   };
 
   const handleLogin = () => {
-    if (!userLogin) navigate("/login");
+    if (!user) navigate("/login");
     else {
-      logOutFunc(accessToken);
+      logOutFunc();
       dispatch(userLogoutAction());
     }
   };
@@ -74,7 +73,7 @@ const Header = ({ userLogin, accessToken }) => {
           </NaviGo>
         </Link>
         <NaviGo onClick={handleLogin}>
-          {userLogin ? "로그아웃" : "로그인"}
+          {user ? "로그아웃" : "로그인"}
           <MoreIcon />
         </NaviGo>
         <Navispan />
@@ -88,4 +87,4 @@ const Header = ({ userLogin, accessToken }) => {
   );
 };
 
-export default AccessToken(Header);
+export default Header;

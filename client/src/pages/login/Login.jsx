@@ -10,10 +10,8 @@ import UserCheck from "@hoc/UserCheck";
 import { RequiredLogout } from "@hoc/userAccessType";
 import { fetchUserSuccess } from "@redux/user/userSlice";
 import { subsUserAction } from "@redux/user/subsSlice";
-import { getKeywords } from "../../api/keywordListApi";
-import { addKeywordListAction } from "@redux/keywordListSlice";
 
-import { Container } from "@styles/loginRegister/container"
+import { Container } from "@styles/loginRegister/container";
 import { CommonForm } from "@styles/loginRegister/commonForm";
 import { Header, BackSpace, TitleHeader } from "@styles/loginRegister/header";
 import { InputDiv, InputType } from "@styles/loginRegister/loginRegisterInput";
@@ -109,7 +107,11 @@ const Login = () => {
         })}
       >
         <Header>
-          <BackSpace onClick={() => { navigate("/")}}/>
+          <BackSpace
+            onClick={() => {
+              navigate("/");
+            }}
+          />
           <TitleHeader>로그인</TitleHeader>
         </Header>
         <InputDiv>

@@ -1,6 +1,7 @@
 import clientServer from "./baseUrl";
 
 export const getSearchData = async (queryParams) => {
+  console.log(queryParams);
   const {
     timeFilter,
     mediaType,
@@ -23,7 +24,7 @@ export const getSearchData = async (queryParams) => {
   try {
     const response = await clientServer({
       url: "/news/search",
-      timeout: 3000,
+      // timeout: 3000,
       params: {
         timeFilter,
         mediaType,

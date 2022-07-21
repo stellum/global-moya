@@ -13,8 +13,10 @@ import { BtnWrap, FilterBtn } from "@styles/filterStyle/filterModal";
 
 import { useSelector, useDispatch } from "react-redux";
 import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
+import UserCheck from "@hoc/UserCheck";
 
-const MainPage = () => {
+const MainPage = ({ user }) => {
+  console.log(user);
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
   const showBtn = useSelector((state) => state.modalSlice.showBtn);
   const showModal = useSelector((state) => state.modalSlice.showModal);
@@ -61,7 +63,7 @@ const MainPage = () => {
       </FilterTypeModal>
       <FilterBG showBtn={showBtn} onClick={handleBG} />
       <MainPageContainer>
-        <MainHeader />
+        <MainHeader user={user} />
         <MainInputComponent />
         <MainKeywordList view={view} apply={apply} />
         <EditKeywordContext />
@@ -70,4 +72,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default UserCheck(MainPage);
