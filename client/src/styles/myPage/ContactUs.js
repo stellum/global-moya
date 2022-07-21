@@ -28,7 +28,6 @@ export const ContactContainer = styled(DefaultContainer)`
   input: {
   }
   input::placeholder {
-    /* padding: 0 12px; */
   }
 `;
 export const MessageSubject = styled.input`
@@ -43,7 +42,6 @@ export const MessageSubject = styled.input`
   font-size: ${fontSize.FontSize14};
   font-weight: ${fontWeight.FontWeight500};
   &::placeholder {
-    /* padding: 12px 12px; */
   }
   &:focus {
     outline: none;
@@ -105,6 +103,7 @@ export const CheckBox = styled.div`
     align-items: center;
     svg {
       right: 0;
+      bottom: -4px;
       position: absolute;
       fill: none;
       stroke: white;

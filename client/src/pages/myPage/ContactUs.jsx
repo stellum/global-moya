@@ -9,6 +9,7 @@ import {
   Complete,
 } from "@styles/myPage/ContactUs";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BackArrow, LearnMore } from "@styles/svgIcon";
 
 const ContactUs = () => {
@@ -41,15 +42,19 @@ const ContactUs = () => {
 
       <CheckBox>
         <label htmlFor="privacy">
-          <input type="checkbox" id="privacy" />
+          <input type="checkbox" id="privacy" path="/personalpolicy" />
           개인정보 수집, 이용동의 (필수)
-          <LearnMore></LearnMore>
+          <Link to="/personalpolicy">
+            <LearnMore></LearnMore>
+          </Link>
         </label>
         <br />
         <label htmlFor="service">
-          <input type="checkbox" id="service" />
+          <input type="checkbox" id="service" path="/servicepolicy" />
           서비스 이용약관 동의 (필수)
-          <LearnMore></LearnMore>
+          <Link to="/servicepolicy">
+            <LearnMore></LearnMore>
+          </Link>
         </label>
       </CheckBox>
 
