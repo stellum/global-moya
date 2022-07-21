@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { getKeywords } from "@api/keywordListApi";
 import AccessToken from "@hoc/AccessToken";
 import {
@@ -35,24 +35,13 @@ import KeywordSortableItem from "./KeywordSortableItem";
 import { createTermSeq } from "@util/createTermSeq";
 
 const EditKeywordContext = ({}) => {
-  // const getTermSeq = createTermSeq(4);
-
-  // const rootStorage = JSON.parse(localStorage["persist:root"]);
-  // const keywordSlice = JSON.parse(rootStorage["keywordConnectedSlice"]);
-  // const keywordNameList = keywordSlice.keywordNameList;
-  // const { keywordNameList } = useSelector(
-  //   (state) => state.keywordConnectedSlice
-  // );
-  // const [items, setItems] = useState(keywordNameList);
-
-  // const [keywordNameList, setKeywordNameList] = useState([]);
   const [items, setItems] = useState([]);
-  const [newItems, setNewItems] = useState([]);
-  const [newTerm, setTermSeq] = useState([]);
   const navigate = useNavigate();
 
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
   const showDelBtn = useSelector((state) => state.buttonSlice.showDelBtn);
+
+  const TermSeq = useMemo(() => createTermSeq(items.length), [items]);
 
   const dispatch = useDispatch();
   const toggleModal = () => {
@@ -61,27 +50,23 @@ const EditKeywordContext = ({}) => {
     navigate("/main");
   };
 
-  const handleDelete = () => {
-    // console.log("handleDel");
+  // const handleDelete = () => {
+  //   // console.log("handleDel");
+  // };
+
+  const getDatas = async () => {
+    const response = await getKeywords(accessToken);
+    setItems(response);
   };
 
   useEffect(() => {
-    const getDatas = async () => {
-      const response = await getKeywords();
-      if (response.length > 0) {
-        setItems(response);
-        setTermSeq(createTermSeq(response.length));
-      }
-    };
-    getDatas();
+    if (!items.length) getDatas();
+  }, [items]);
 
-    return () => {
-      console.log("unMounted");
-    };
-  }, []);
   useEffect(() => {
-    console.log(newTerm);
-  }, [newTerm]);
+    console.log(TermSeq);
+  }, [TermSeq]);
+
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
   const handleDragEnd = ({ active, over }) => {
@@ -90,8 +75,19 @@ const EditKeywordContext = ({}) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over.id);
 
-        console.log("item,old,new", items, oldIndex, newIndex);
-        setNewItems(items);
+        // 밀리는 것도 변경에 포함이 되는경우 >> 1개만 변경되는 경우는 없음.
+        const Min = oldIndex > newIndex ? newIndex : oldIndex;
+        const Max = oldIndex > newIndex ? oldIndex : newIndex;
+
+        for (let i = 0; i < items.length; i++) {
+          if (i >= Min && i <= Max) {
+            items[i].updateFlag = "S";
+          }
+        }
+
+        // 변경된 것만
+        // items[newIndex].updateFlag = "S"
+
         return arrayMove(items, oldIndex, newIndex);
       });
     }
@@ -107,6 +103,23 @@ const EditKeywordContext = ({}) => {
   };
   const handleDragCancel = (event) => {
     // console.log("Cancel", event);
+  };
+
+  const saveTermSeq = () => {
+    let SNum = 0;
+    let termItem = items.map((item, idx) => {
+      item.termSeq = Term[idx];
+      if (item.updateFlag === "S") SNum++;
+      return item;
+    });
+    console.log("termItem : ", termItem, " & SNum : ", SNum);
+    if (!SNum) {
+      return alert("변경 값이 없습니다.");
+    } else if (SNum === 1) {
+      return alert("한개 변경.");
+    } else {
+      return alert("다수 변경.");
+    }
   };
 
   /*
@@ -146,17 +159,15 @@ const EditKeywordContext = ({}) => {
                   handleDelete={handleDelete}
                 />
               ))}
-              {/* {keywordNameList &&
-                items.map((item) => (
-                  <KeywordSortableItem key={item.id} item={item} />
-                ))} */}
             </EditUl>
             <EditButtonDiv>
               <EditButtonCancel onClick={toggleModal}>취소</EditButtonCancel>
               {showDelBtn ? (
                 <EditButtonDelete onClick={handleDelete}>삭제</EditButtonDelete>
               ) : (
-                <EditButtonSave>저장</EditButtonSave>
+                <EditButtonSave onClick={() => saveTermSeq()}>
+                  저장
+                </EditButtonSave>
               )}
             </EditButtonDiv>
           </EditContainer>
