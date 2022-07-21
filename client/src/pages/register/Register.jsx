@@ -1,19 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { registerFunc } from "@api/registerApi";
+import { registerFunc, stepPayFunc } from "@api/registerApi";
 import { emailCheckFunc } from "@api/emailCheckApi";
 
-import { Container } from "@styles/loginRegister/container";
 import { CommonForm } from "@styles/loginRegister/commonForm";
-import { Header, BackSpace, TitleHeader } from "@styles/loginRegister/header"
-import { InputDiv, InputType } from "@styles/loginRegister/loginRegisterInput"
+import { Header, BackSpace, TitleHeader } from "@styles/loginRegister/header";
+import { InputDiv, InputType } from "@styles/loginRegister/loginRegisterInput";
 import { LoginButton } from "@styles/loginRegister/loginRegisterButton";
-import { OverlapBtn } from "@styles/loginRegister/register/overlapButton"
-
-import { useNavigate } from "react-router-dom"
+import { OverlapBtn } from "@styles/loginRegister/register/overlapButton";
 
 const Register = (props) => {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -21,12 +17,12 @@ const Register = (props) => {
     formState: { isSubmitting },
   } = useForm();
 
-  // 이메일 중복 검증 하는 함수 (버튼 글자 바꾸는 함수 미포함)
+  // 이메일 중복 검증 하는 함수
   const handleEmail = () => {
     console.log(watch().email);
     let data = { email: watch().email };
     let check = emailCheckFunc(JSON.stringify(data));
-    const button = document.getElementById("emailCheck");
+    const button = document.getElementById("#emailCheck");
 
     if (check === 200) {
       button.innerText = "확인완료";
@@ -36,24 +32,37 @@ const Register = (props) => {
   };
 
   return (
-    <Container>
-      <Header>
-        <BackSpace onClick={() => { navigate("/login")}}/>
-        <TitleHeader>회원가입</TitleHeader>
-      </Header>
+    <>
       <CommonForm
         onSubmit={handleSubmit((data) => {
           props.setRegisterPage("onSuccess");
           const formData = new FormData();
+
           for (let key in data) {
             if (key !== "passwordCheck") {
               formData.append(key, data[key]);
             }
           }
+
+          const stepPayData = {};
+
+          for (let key in data) {
+            if (key !== "passwodrCheck" && key !== "password") {
+              stepPayData[key] = data[key];
+              stepPayData["marketingSms"] = true;
+              stepPayData["marketingEmail"] = true;
+              stepPayData["marketingKakao"] = true;
+            }
+          }
+
           registerFunc(formData);
-          // // 결제 연동 함수 들어갈 자리
+          stepPayFunc(stepPayData.JSON.stringify());
         })}
       >
+        <Header>
+          <BackSpace />
+          <TitleHeader>회원가입</TitleHeader>
+        </Header>
         {/*중복 확인 버튼*/}
         <InputDiv>
           <InputType
@@ -109,6 +118,7 @@ const Register = (props) => {
             })}
           />
         </InputDiv>
+
         <InputDiv>
           <InputType
             type="number"
@@ -125,7 +135,7 @@ const Register = (props) => {
           다음
         </LoginButton>
       </CommonForm>
-      </Container>
+    </>
   );
 };
 

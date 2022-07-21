@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { ScrapFolderChoose } from "@redux/scrapFolderSlice";
+
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Hamburger from "@components/common/Hamburger";
@@ -13,6 +17,7 @@ import {
 
 // const GroupSortableItem = forwardRef((props, ref) => {
 const GroupSortableItem = ({ item, type }) => {
+  const dispatch = useDispatch();
   const {
     attributes,
     listeners,
@@ -47,12 +52,23 @@ const GroupSortableItem = ({ item, type }) => {
       {/* <Checkbox checked={checked} onChange={handleCheckbox} /> */}
       <Checkbox key={item.groupId} item={item.groupName} />
       <EditItemTextWrap type={type}>
-        <EditInputGroup
-          type="button"
-          placeholder="그룹명을 바꿔주세요."
-          defaultValue={item.groupName}
-          onChange={handleInput}
-        />
+        <Link to="/namechange">
+          <EditInputGroup
+            type="button"
+            placeholder="그룹명을 바꿔주세요."
+            defaultValue={item.groupName}
+            onChange={handleInput}
+            key={item.groupId}
+            onClick={() => {
+              dispatch(
+                ScrapFolderChoose({
+                  groupId: item.groupId,
+                  groupName: item.groupName,
+                })
+              );
+            }}
+          />
+        </Link>
       </EditItemTextWrap>
       <EditHamburgerWrap ref={setNodeRef} {...listeners}>
         <Hamburger />
