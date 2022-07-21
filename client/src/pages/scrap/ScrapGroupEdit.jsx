@@ -1,5 +1,5 @@
 //스크랩 그룹 편집 : 순서변경,이름변경, 삭제
-import React, { useState, useRef, useInput } from "react";
+import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import EditGroupContext from "../edit/group/EditGroupContext";
