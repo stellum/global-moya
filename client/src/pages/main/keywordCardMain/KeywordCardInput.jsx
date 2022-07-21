@@ -14,7 +14,6 @@ const KeywordInput = ({ inputRef }) => {
   const showBtn = useSelector((state) => state.modalSlice.showBtn);
   const dispatch = useDispatch();
   const toggleModal = () => {
-    console.log(showBtn);
     dispatch(toggleBtnAction(!showBtn));
   };
 

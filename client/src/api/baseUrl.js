@@ -11,8 +11,6 @@ export default clientServer;
 
 clientServer.interceptors.response.use(
   async (response) => {
-    console.log(response);
-
     return response;
   },
   async (error) => {
@@ -21,10 +19,6 @@ clientServer.interceptors.response.use(
       response: { status },
     } = error;
     if (status === 401) {
-      console.log("baseStatus", status);
-      console.log("baseurl error", error);
-      console.log("base", config);
-      // console.log(status)
       if (
         error.response.data.msg === "Token has expired" ||
         error.response.data.msg === "Missing Authorization Header"

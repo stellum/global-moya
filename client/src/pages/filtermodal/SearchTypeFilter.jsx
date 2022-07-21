@@ -15,18 +15,18 @@ import { published, mediaTypeArr, orderByArr } from "./searchParam";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
 
-const SearchTypeFilter = ({ showModal, showBtn, setApply }) => {
+const SearchTypeFilter = ({
+  showModal,
+  showBtn,
+  setApply,
+  setSearchType,
+  searchType,
+}) => {
   const dispatch = useDispatch();
 
   const { timeFilter, mediaType, orderBy } = useSelector(
     (state) => state.searchFilterSlice
   );
-
-  const [searchType, setSearchType] = useState({
-    mediaType: "mp,op,r",
-    timeFilter: "mth1",
-    orderBy: "latest",
-  });
 
   const handleSearchType = (e) => {
     const { value, name } = e.target;
@@ -36,9 +36,7 @@ const SearchTypeFilter = ({ showModal, showBtn, setApply }) => {
     });
   };
 
-  useEffect(() => {
-    console.log(searchType);
-  }, [searchType]);
+  useEffect(() => {}, [searchType]);
 
   const handleSearch = (e) => {
     e.preventDefault();

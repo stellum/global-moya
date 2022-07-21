@@ -63,18 +63,19 @@ export const bookmarkOne = async (groupId) => {
 };
 
 // 내가 등록한 특정 폴더내의 newsId 리스트를 최대 10건까지 한번에 삭제한다.
-export const bookmarkDelete = async () => {
+export const bookmarkDelete = async (json) => {
   try {
     const response = await clientServer({
       url: "/bookmark/delete",
       method: "delete",
-      data: {
-        groupId,
-        newsIdList,
+      headers: {
+        "Content-Type": "application/json",
       },
+      data: JSON.stringify(json),
     });
-
+    console.log(response);
     if (response.status === 200) {
+      return response;
     }
   } catch (error) {
     if (error.response.status === 400) {

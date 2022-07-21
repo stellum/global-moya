@@ -35,15 +35,25 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
   };
   const fetch = async (newsId) => {
     const response = await translateApi(newsId);
-
-    setTranslate((prev) => [
-      ...prev,
-      {
-        newsId,
-        description: response.description,
-        title: response.title,
-      },
-    ]);
+    if (response.status === 200) {
+      setTranslate((prev) => [
+        ...prev,
+        {
+          newsId,
+          description: response.data.description,
+          title: response.data.title,
+        },
+      ]);
+    } else if (response.status === 400) {
+      setTranslate((prev) => [
+        ...prev,
+        {
+          newsId,
+          description: "description",
+          title: response.data.title,
+        },
+      ]);
+    }
   };
 
   useEffect(() => {
@@ -98,7 +108,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
                       }
                     </p>
                   ) : (
-                    <p> {news.description}</p>
+                    <p> {news.description ? news.description : "no text"}</p>
                   )}
                 </Abstract>
 
@@ -195,7 +205,10 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
                       }
                     </p>
                   ) : (
-                    <p> {news.description}</p>
+                    <p>
+                      {" "}
+                      {news.description ? news.description : "no description"}
+                    </p>
                   )}
                 </Abstract>
 

@@ -27,7 +27,11 @@ const MainPage = () => {
 
   const [view, setView] = useState(viewType);
   const [apply, setApply] = useState(false);
-
+  const [searchType, setSearchType] = useState({
+    mediaType: "mp,op,r",
+    timeFilter: "mth1",
+    orderBy: "latest",
+  });
   const dispatch = useDispatch();
   const handleClick = (e) => {
     dispatch(toggleModalAction(e.target.id));
@@ -69,6 +73,8 @@ const MainPage = () => {
             showModal={showModal}
             showBtn={showBtn}
             setApply={setApply}
+            setSearchType={setSearchType}
+            searchType={searchType}
           />
         </Suspense>
       </FilterTypeModal>
