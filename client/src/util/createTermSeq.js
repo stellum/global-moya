@@ -36,7 +36,7 @@ export const createTermSeq = (editItemsLength) => {
       }
     };
 
-    if (editItemsLength === 1) {
+    if (editItemsLength === 0 || editItemsLength === 1) {
       strings = [...strings, "a"];
     } else if (editItemsLength === 2) {
       strings = [...strings, "a", "c"];

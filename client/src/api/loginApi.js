@@ -9,6 +9,7 @@ export const loginFunc = async (form) => {
     });
 
     if (response.status === 200) {
+      console.log("로그인");
       const { access_token } = response.data;
       clientServer.defaults.headers.common.Authorization = `Bearer ${access_token}`;
       return response;

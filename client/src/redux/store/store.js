@@ -11,7 +11,7 @@ import categorySlice from "../reducer/categorySlice";
 import subsSlice from "../reducer/user/subsSlice";
 import keywordConnectedSlice from "../reducer/keywordConnectedSlice";
 import searchFilterSlice from "../reducer/searchFilterSlice";
-import ScrapFolderSlice from "../reducer/scrapFolderSlice";
+import scrapFolderSlice from "../reducer/scrapFolderSlice";
 
 const persistConfig = {
   key: "root",
@@ -28,7 +28,7 @@ const rootReducer = combineReducers({
   subsSlice,
   keywordConnectedSlice,
   searchFilterSlice,
-  ScrapFolderSlice,
+  scrapFolderSlice,
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
