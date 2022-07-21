@@ -5,7 +5,6 @@ import { RequiredLogin, RequiredLogout } from "./userAccessType.js";
 export default function UserCheck(SpecificComponent, option = null) {
   function UserCheck(props) {
     const user = useSelector((state) => state.user.userLogin);
-    const accessToken = useSelector((state) => state.user.accessToken);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -22,7 +21,7 @@ export default function UserCheck(SpecificComponent, option = null) {
     return (
       <>
         {option === RequiredLogin ? (
-          <SpecificComponent {...props} user={user} accessToken={accessToken} />
+          <SpecificComponent {...props} user={user} />
         ) : (
           <SpecificComponent {...props} />
         )}

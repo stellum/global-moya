@@ -10,8 +10,6 @@ import UserCheck from "@hoc/UserCheck";
 import { RequiredLogout } from "@hoc/userAccessType";
 import { fetchUserSuccess } from "@redux/user/userSlice";
 import { subsUserAction } from "@redux/user/subsSlice";
-import { getKeywords } from "../../api/keywordListApi";
-import { addKeywordListAction } from "@redux/keywordListSlice";
 
 import { Container } from "@styles/loginRegister/container";
 import { CommonForm } from "@styles/loginRegister/commonForm";

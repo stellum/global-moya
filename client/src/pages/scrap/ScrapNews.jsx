@@ -8,7 +8,7 @@ import { bookmarkOne } from "@api/bookmarkApi";
 import NewsCardList from "@components/NewsCardList";
 import ScrapCategory from "./scrapcate/ScrapCategory";
 import { FilterBG } from "@styles/naviStyle/naviWrap";
-import { ScrapModalStyle, BtnWrap, FilterBtn } from "@styles/scrap/ScrapModal";
+import { ScrapModalStyle, BtnWrap, FilterBtn } from "@styles/scrap/scrapModal";
 import { BackArrow } from "@styles/svgIcon";
 import { EditButton, Header } from "@styles/scrap/scrap";
 

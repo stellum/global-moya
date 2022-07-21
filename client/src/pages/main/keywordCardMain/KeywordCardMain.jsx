@@ -24,27 +24,19 @@ const KeywordCardMain = () => {
   const showModal = useSelector((state) => state.modalSlice.showModal);
   const [view, setView] = useState(viewType);
   const [apply, setApply] = useState(false);
-  const [newsList, setNewsList] = useState([]);
-  const [pageToken, setPageToken] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+
   const [page, setPage] = useState(1);
-  const loading = useSelector((state) => state.categorySlice.loading);
+  // const loading = useSelector((state) => state.categorySlice.loading);
   const { timeFilter, mediaType, language, orderBy } = useSelector(
     (state) => state.searchFilterSlice
   );
   const inputRef = useRef(null);
   const location = useLocation();
   const dispatch = useDispatch();
-  const { lastElementRef } = NewsCardInfiniteHook(
+  const { lastElementRef, newsList, loading, errorMsg } = NewsCardInfiniteHook(
     setPage,
-    loading,
-    setErrorMsg,
-    setPageToken,
-    setNewsList,
     page,
-    pageToken,
-    location,
-    newsList
+    location.state
   );
 
   const handleClick = (e) => {
@@ -57,47 +49,47 @@ const KeywordCardMain = () => {
   };
 
   useEffect(() => {
-    console.log(pageToken);
-    console.log(loading);
+    // console.log(pageToken);
+    // console.log(location);
     console.log(page);
-  }, [page, loading]);
+  }, [page]);
 
   useEffect(() => {
     inputRef.current.value = location.state.paramValue;
-    dispatch(isLoading(true));
-    const getDatas = async () => {
-      const queryParams = {
-        timeFilter,
-        mediaType,
-        language,
-        orderBy,
-        keyType: `${location.state.category}`,
-        paramValue: `${location.state.paramValue}`,
-        exchange: `${location.state.exchange ? location.state.exchange : null}`,
-      };
+    // dispatch(isLoading(true));
+    // const getDatas = async () => {
+    //   const queryParams = {
+    //     timeFilter,
+    //     mediaType,
+    //     language,
+    //     orderBy,
+    //     keyType: `${location.state.category}`,
+    //     paramValue: `${location.state.paramValue}`,
+    //     exchange: `${location.state.exchange ? location.state.exchange : null}`,
+    //   };
 
-      await dispatch(fetchSearchNews({ queryParams }))
-        .then((response) => {
-          console.log(response);
-          if (response.payload.status === 400) {
-            setErrorMsg("결과가 없습니다.");
-          } else {
-            setNewsList(response.payload.newsList);
-            setPageToken(response.payload.nextPageToken);
-          }
-        })
-        .then(dispatch(isLoading(false)));
-    };
+    //   await dispatch(fetchSearchNews({ queryParams }))
+    //     .then((response) => {
+    //       console.log(response);
+    //       if (response.payload.status === 400) {
+    //         setErrorMsg("결과가 없습니다.");
+    //       } else {
+    //         setNewsList(response.payload.newsList);
+    //         setPageToken(response.payload.nextPageToken);
+    //       }
+    //     })
+    //     .then(dispatch(isLoading(false)));
+    // };
 
-    const timeoutID = setTimeout(() => {
-      getDatas();
-    }, 2000);
+    // const timeoutID = setTimeout(() => {
+    //   getDatas();
+    // }, 2000);
 
-    return () => {
-      console.log("unMounted 카드");
-      clearTimeout(timeoutID);
-    };
-  }, [timeFilter, mediaType, orderBy, page]);
+    // return () => {
+    //   console.log("unMounted 카드");
+    //   clearTimeout(timeoutID);
+    // };
+  }, []);
 
   return (
     <>
@@ -137,14 +129,16 @@ const KeywordCardMain = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <NewsCard
-          view={view}
-          apply={apply}
-          newsList={newsList}
-          loading={loading}
-          errorMsg={errorMsg}
-          lastElementRef={lastElementRef}
-        />
+        <>
+          <NewsCard
+            view={view}
+            apply={apply}
+            newsList={newsList}
+            loading={loading}
+            errorMsg={errorMsg}
+            lastElementRef={lastElementRef}
+          />
+        </>
       )}
       <ScrollTop />
     </>
