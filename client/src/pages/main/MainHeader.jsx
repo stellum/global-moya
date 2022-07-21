@@ -19,7 +19,6 @@ import { toggleNavigation } from "@redux/modalSlice";
 import { userLogoutAction } from "@redux/user/userSlice";
 
 const Header = ({ user }) => {
-  console.log(user);
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
   const navigate = useNavigate();

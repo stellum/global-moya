@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { isLoading } from "@redux/categorySlice";
-import { fetchSearchNews } from "@redux/searchFilterSlice";
+import { useSelector } from "react-redux";
 import { getSearchData } from "@api/searchApi";
 const NewsCardInfiniteHook = (setPage, page, location) => {
   const [newsList, setNewsList] = useState([]);
@@ -33,7 +31,7 @@ const NewsCardInfiniteHook = (setPage, page, location) => {
   };
   const getMoreNews = async () => {
     const res = await getSearchData(page > 1 ? nextQueryParams : QueryParams);
-    console.log(res);
+    // console.log(res);
     if (res.newsList.length > 0) {
       setLoaidng(false);
       setNewsList((prev) => [...prev, ...res.newsList]);
@@ -41,9 +39,9 @@ const NewsCardInfiniteHook = (setPage, page, location) => {
     }
   };
   useEffect(() => {
-    console.log("pageToken", pageToken);
-    console.log("hookloading", loading);
-    console.log(page);
+    // console.log("pageToken", pageToken);
+    // console.log("hookloading", loading);
+    // console.log(page);
     // dispatch(isLoading(true));
     getMoreNews();
     // getMoreNews();

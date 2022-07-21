@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
-import { fetchSearchNews } from "@redux/searchFilterSlice";
-import { isLoading } from "@redux/categorySlice";
 import KeywordCardInput from "./KeywordCardInput";
 import MainHeader from "../MainHeader";
 import ViewTypeFilter from "@pages/filtermodal/ViewTypeFilter";
@@ -26,6 +24,7 @@ const KeywordCardMain = () => {
   const [apply, setApply] = useState(false);
 
   const [page, setPage] = useState(1);
+  const user = useSelector((state) => state.user.userLogin);
   // const loading = useSelector((state) => state.categorySlice.loading);
   const { timeFilter, mediaType, language, orderBy } = useSelector(
     (state) => state.searchFilterSlice
@@ -122,7 +121,7 @@ const KeywordCardMain = () => {
       </FilterTypeModal>
       <FilterBG showBtn={showBtn} onClick={handleBG} />
       <MainPageContainer style={{ paddingBottom: 0, borderBottom: 0 }}>
-        <MainHeader />
+        <MainHeader user={user} />
         <KeywordCardInput inputRef={inputRef} />
       </MainPageContainer>
 
