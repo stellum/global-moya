@@ -16,7 +16,7 @@ const Home = () => {
   useEffect(() => {
     if (user) {
       const getDatas = async () => {
-        const response = await getKeywords();
+        const response = await getKeywords(accessToken);
         await dispatch(addKeywordListAction(response));
 
         await dispatch(

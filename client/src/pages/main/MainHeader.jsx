@@ -62,10 +62,12 @@ const Header = ({ user }) => {
               <MoreIcon />
             </NaviGo>
           </Link>
-          <NaviGo>
-            키워드 관리
-            <MoreIcon />
-          </NaviGo>
+          <Link to="/main/edit/keyword">
+            <NaviGo>
+              키워드 관리
+              <MoreIcon />
+            </NaviGo>
+          </Link>
           <Navispan />
           <Link to="/mypagemain">
             <NaviGo>

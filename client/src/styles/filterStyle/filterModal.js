@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { colors } from "@styles/theme";
 export const FilterModalStyle = styled.div`
-  width: 109px;
-  height: 92px;
   background-color: ${colors.white};
   position: absolute;
   border-radius: 8px;

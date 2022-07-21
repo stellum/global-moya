@@ -34,7 +34,7 @@ import { BackArrow } from "@styles/svgIcon";
 import KeywordSortableItem from "./KeywordSortableItem";
 import { createTermSeq } from "@util/createTermSeq";
 
-const EditKeywordContext = ({}) => {
+const EditKeywordContext = ({ accessToken }) => {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
@@ -50,9 +50,9 @@ const EditKeywordContext = ({}) => {
     navigate("/main");
   };
 
-  // const handleDelete = () => {
-  //   // console.log("handleDel");
-  // };
+  const handleDelete = () => {
+    // console.log("handleDel");
+  };
 
   const getDatas = async () => {
     const response = await getKeywords(accessToken);

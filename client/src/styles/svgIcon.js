@@ -79,7 +79,9 @@ export const ExpandMoreIcon = styled(ExpandMoreIconSvg)`
   right: 10px;
 `;
 
-export const GlobalMoyaLogo = styled(GlobalMoyaSvg)``;
+export const GlobalMoyaLogo = styled(GlobalMoyaSvg)`
+  cursor: pointer;
+`;
 export const IconsFacebook = styled(IconsFacebookSvg)``;
 export const IconsInstagram = styled(IconsInstagramSvg)``;
 export const IconsKakaotalk = styled(IconsKakaotalkSvg)``;
@@ -122,7 +124,9 @@ export const LearnMore = styled(LearnMoreSvg)``;
 export const AttachIcon = styled(AttachIconSvg)``;
 export const CloseIcon = styled(CloseIconSvg)``;
 export const PhotoIcon = styled(PhotoIconSvg)``;
-export const GlobalMOYAPremium = styled(globalMOYAPremiumSvg)``;
+export const GlobalMOYAPremium = styled(globalMOYAPremiumSvg)`
+  cursor: pointer;
+`;
 export const ProfilePhoto = styled(ProfilePhotoSvg)``;
 export const Iconstotop = styled(IconstotopSvg)``;
 export const IconsCheckCircle = styled(IconsCheckCircleSvg)``;
