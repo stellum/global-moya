@@ -13,13 +13,14 @@ import { BtnWrap, FilterBtn } from "@styles/filterStyle/filterModal";
 
 import { useSelector, useDispatch } from "react-redux";
 import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
+
 import UserCheck from "@hoc/UserCheck";
 
-const MainPage = ({ user }) => {
-  console.log(user);
+const MainPage = () => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
   const showBtn = useSelector((state) => state.modalSlice.showBtn);
   const showModal = useSelector((state) => state.modalSlice.showModal);
+  const user = useSelector((state) => state.user.userLogin);
 
   const [view, setView] = useState(viewType);
   const [apply, setApply] = useState(false);

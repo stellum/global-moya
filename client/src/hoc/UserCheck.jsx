@@ -23,7 +23,7 @@ export default function UserCheck(SpecificComponent, option = null) {
         {option === RequiredLogin ? (
           <SpecificComponent {...props} user={user} />
         ) : (
-          <SpecificComponent {...props} user={user} />
+          <SpecificComponent {...props} />
         )}
       </>
     );
