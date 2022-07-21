@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-import { colors, fontWeight,fontSize } from "@styles/theme";
-
-import IconsCheckCircleSvg from "@assets/Icons-Success.svg";
+import { colors, fontWeight, fontSize } from "@styles/theme";
 
 export const MainText = styled.span`
   text-align: center;
@@ -13,9 +11,6 @@ export const MainText = styled.span`
 `;
 
 export const SuccessIcon = styled.div`
-  background-image: url(${IconsCheckCircleSvg});
-  background-repeat: no-repeat;
-  background-size: 62px;
   margin-top: 153px;
   width: 63px;
   height: 63px;

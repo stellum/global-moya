@@ -33,6 +33,7 @@ import { ReactComponent as MoreIconSvg } from "@assets/MoreIcon.svg";
 import { ReactComponent as ScrapCheckSvg } from "@assets/ScrapCheckIcon.svg";
 import { ReactComponent as NewGroupPlusSvg } from "@assets/NewGroupPlusIcon.svg";
 import { ReactComponent as IconstotopSvg } from "@assets/icons-totop.svg";
+import { ReactComponent as IconsCheckCircleSvg } from "@assets/icons-Success.svg";
 import { colors } from "./theme";
 export const NewGroupPlus = styled(NewGroupPlusSvg)``;
 export const MoreIcon = styled(MoreIconSvg)`
@@ -124,3 +125,4 @@ export const PhotoIcon = styled(PhotoIconSvg)``;
 export const GlobalMOYAPremium = styled(globalMOYAPremiumSvg)``;
 export const ProfilePhoto = styled(ProfilePhotoSvg)``;
 export const Iconstotop = styled(IconstotopSvg)``;
+export const IconsCheckCircle = styled(IconsCheckCircleSvg)``;
