@@ -1,12 +1,8 @@
-import {
-  configureStore,
-  combineReducers,
-  getDefaultMiddleware,
-} from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userSlice from "../reducer/user/userSlice";
 import { persistStore } from "redux-persist";
 import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 import buttonSlice from "../reducer/buttonSlice";
 import modalSlice from "../reducer/modalSlice";
@@ -15,10 +11,7 @@ import categorySlice from "../reducer/categorySlice";
 import subsSlice from "../reducer/user/subsSlice";
 import keywordConnectedSlice from "../reducer/keywordConnectedSlice";
 import searchFilterSlice from "../reducer/searchFilterSlice";
-import ScrapFolderSlice from "../reducer/ScrapFolderSlice";
-// if (process.env.NODE_ENV !== "production") {
-//   middleware.push(logger);
-// }
+import ScrapFolderSlice from "../reducer/scrapFolderSlice";
 
 const persistConfig = {
   key: "root",
