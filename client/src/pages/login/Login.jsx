@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ import { subsUserAction } from "@redux/user/subsSlice";
 import { getKeywords } from "../../api/keywordListApi";
 import { addKeywordListAction } from "@redux/keywordListSlice";
 
-import { Container } from "@styles/loginRegister/container"
+import { Container } from "@styles/loginRegister/container";
 import { CommonForm } from "@styles/loginRegister/commonForm";
 import { Header, BackSpace, TitleHeader } from "@styles/loginRegister/header";
 import { InputDiv, InputType } from "@styles/loginRegister/loginRegisterInput";
@@ -73,8 +73,6 @@ const Login = () => {
 
   const [pwVisible, setPwVisible] = useState(false);
 
-  const eyeIconRef = useRef();
-
   const handleShow = () => {
     setPwVisible(pwVisible ? false : true);
     let showIcon = document.querySelector("#showIcon");
@@ -97,19 +95,15 @@ const Login = () => {
           }
 
           fetch(formData, data);
-
-          // formData는 XMLHttpRequest 전송을 위한 특수한 객체이므로 일반적인 방법으로는 콘솔에 못 찍음
-          // 밑에 처럼 keys(), values() 메서드를 써서 찍어줘야...
-          for (let key of formData.keys()) {
-            // console.log(key);
-          }
-          for (let value of formData.values()) {
-            // console.log(value);
-          }
         })}
       >
         <Header>
-          <BackSpace onClick={() => { navigate("/")}}/>
+          <BackSpace
+            type="button"
+            onClick={() => {
+              navigate("/");
+            }}
+          />
           <TitleHeader>로그인</TitleHeader>
         </Header>
         <InputDiv>
@@ -137,7 +131,7 @@ const Login = () => {
         </InputDiv>
         <InputDiv>
           <InputType
-            type="password"
+            type={pwVisible ? "text" : "password"}
             name="password"
             placeholder="비밀번호"
             {...register("password", {
@@ -160,7 +154,7 @@ const Login = () => {
           아직 계정이 없으신가요?
           <LoginRegi onClick={handleClick}>회원가입</LoginRegi>
         </RegisterLink>
-        <LoginButton type="submit" disabled={isSubmitting}>
+        <LoginButton type="button" disabled={isSubmitting}>
           로그인
         </LoginButton>
       </CommonForm>
