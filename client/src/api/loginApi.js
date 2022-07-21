@@ -13,7 +13,8 @@ export const loginFunc = async (form) => {
     }
   } catch (error) {
     if (error.response.status === 400) {
-      return error.response.status;
+      let errMsg = error.response.data.message;
+      return errMsg;
     }
   }
 };
