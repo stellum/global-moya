@@ -1,7 +1,7 @@
 // 새 스크랩 폴더 추가
-import React, { useState, useRef, useInput } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { ScrapFolderChoose } from "@redux/scrapFolderSlice";
+import { scrapFolderChoose } from "@redux/scrapFolderSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -18,23 +18,19 @@ import { BackArrow } from "@styles/svgIcon";
 
 const NameChange = () => {
   const dispatch = useDispatch();
-  const groupId = useSelector(
-    (state) => state.ScrapFolderSlice.groupName.groupId
-  );
   const groupName = useSelector(
-    (state) => state.ScrapFolderSlice.groupName.groupName
+    (state) => state.scrapFolderSlice.groupName.groupName
   );
   const navigate = useNavigate();
   const nameInput = useRef();
   const [black, setBlack] = useState();
   const [name, setName] = useState("");
-  const [number, setNumber] = useState(0);
 
   const handleChangeName = (e) => {
     setName(e.target.value);
     nameInput.current.focus();
     dispatch(
-      ScrapFolderChoose({
+      scrapFolderChoose({
         groupName: e.target.value,
       })
     );
