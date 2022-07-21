@@ -60,7 +60,7 @@ const deviceSizes = {
     maxWidth: pxToRem(1023),
   },
 };
-const device = {
+export const device = {
   mobile: `screen and (max-width:${deviceSizes.mobile.maxWidth})`,
   tablet: `screen and (min-width:${deviceSizes.tablet.minWidth}) and (max-width:${deviceSizes.tablet.maxWidth})`,
   laptop: `screen and (min-width:${deviceSizes.laptop.minWidth}) and (max-width:${deviceSizes.laptop.maxWidth})`,

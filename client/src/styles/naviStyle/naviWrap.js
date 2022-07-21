@@ -21,6 +21,7 @@ export const NaviGo = styled.div`
   align-items: center;
   color: ${colors.black};
   font-size: ${fontSize.FontSize16};
+  cursor: pointer;
 `;
 export const Navispan = styled.div`
   height: 10px;
