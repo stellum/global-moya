@@ -18,9 +18,9 @@ const AccessToken = (SpecificComponent) => {
     }, [userLogin]);
 
     useEffect(() => {
-      // if (userLogin) {
-      //   getCookie();
-      // }
+      if (userLogin) {
+        getCookie();
+      }
     }, []);
     return (
       <SpecificComponent
