@@ -97,10 +97,7 @@ const Login = () => {
       >
         <Header>
           <BackSpace
-<<<<<<< HEAD
-=======
             type="button"
->>>>>>> 7c03a1f4de9f3c26cae782d69fabb131cdd1852f
             onClick={() => {
               navigate("/");
             }}
