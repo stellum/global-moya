@@ -154,7 +154,7 @@ const Login = () => {
           아직 계정이 없으신가요?
           <LoginRegi onClick={handleClick}>회원가입</LoginRegi>
         </RegisterLink>
-        <LoginButton type="button" disabled={isSubmitting}>
+        <LoginButton type="submit" disabled={isSubmitting}>
           로그인
         </LoginButton>
       </CommonForm>
