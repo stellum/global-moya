@@ -10,7 +10,7 @@ export const NaviWrap = styled.div`
   top: 0;
   transition: all 0.3s ease-out;
   background-color: ${colors.gray150};
-  z-index: 3;
+  z-index: 8;
 `;
 export const NaviGo = styled.div`
   padding: 0px 16px;
@@ -32,7 +32,7 @@ export const FilterBG = styled.div`
   background-color: rgba(0, 0, 0, 0.55);
   position: fixed;
   top: 0;
-  z-index: 2;
+  z-index: 3;
   display: ${({ showScrapMoveBtn, showScrapEditBtn, showNavi }) =>
     showScrapMoveBtn || showScrapEditBtn || showNavi ? "block" : "none"};
 `;
