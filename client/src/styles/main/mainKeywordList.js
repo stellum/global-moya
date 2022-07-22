@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { colors, fontWeight } from "../theme";
+import { colors, fontSize, fontWeight, device } from "@styles/theme";
 export const MainKeywordContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
+  @media ${device.mobile} {
+    font-size: ${fontSize.FontSize14};
+  }
 `;
 export const MainKeywordDiv = styled.div`
   position: relative;
@@ -10,6 +14,7 @@ export const MainKeywordDiv = styled.div`
 export const MainKeywordUl = styled.ul`
   display: flex;
   margin-top: 20px;
+  margin-right: 38px;
   overflow-x: scroll;
   /* Firefox */
   scrollbar-width: none;
