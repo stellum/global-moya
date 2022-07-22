@@ -11,16 +11,16 @@ const initialState = {
   exchange: null,
   status: "Welcome",
   code: null,
+  newsList: [],
   nextPageToken: null,
 };
 
 const fetchSearchNews = createAsyncThunk(
   "searchFilterSlice/fetchSearchNews",
   async (params, thunkAPI) => {
-    let { queryParams } = params;
-    console.log(queryParams);
+    const { queryParams, accessToken } = params;
     try {
-      const response = await getSearchData(queryParams);
+      const response = await getSearchData(queryParams, accessToken);
       return response;
     } catch (error) {
       console.log("slice error", error);
@@ -33,6 +33,7 @@ const searchFilterSlice = createSlice({
   initialState,
   reducers: {
     keywordContentRequest: (state, action) => {
+      console.log("action.pa", action.payload);
       state.keyType = action.payload[0];
       state.paramValue = action.payload[1];
       state.exchange = action.payload[2];
@@ -43,17 +44,18 @@ const searchFilterSlice = createSlice({
       state.mediaType = payload.mediaType;
       state.orderBy = payload.orderBy;
     },
-    changeLanguageRequest: (state, action) => {
-      // state.language;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSearchNews.pending, (state, action) => {
       state.status = "Loading";
     });
     builder.addCase(fetchSearchNews.fulfilled, (state, action) => {
-      // state.code = action.payload.data?.code;
-      state.value = action.payload;
+      if (action.payload === undefined) {
+        return;
+      }
+      state.newsList = action.payload.newsList;
+      state.nextPageToken = action.payload.nextPageToken;
+
       state.status = "complete";
     });
     builder.addCase(fetchSearchNews.rejected, (state) => {
@@ -63,9 +65,6 @@ const searchFilterSlice = createSlice({
 });
 
 export default searchFilterSlice.reducer;
-export const {
-  keywordContentRequest,
-  changeFilterRequest,
-  changeLanguageRequest,
-} = searchFilterSlice.actions;
+export const { keywordContentRequest, changeFilterRequest } =
+  searchFilterSlice.actions;
 export { fetchSearchNews };

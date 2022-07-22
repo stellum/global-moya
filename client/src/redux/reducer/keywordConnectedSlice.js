@@ -15,6 +15,7 @@ const keywordConnectedSlice = createSlice({
       state.keywordList = action.payload;
 
       const keyTypeList = action.payload.map((obj) => {
+        console.log("obj", obj);
         return obj.keyType;
       });
       const paramValueList = action.payload.map((obj) => {
@@ -27,9 +28,11 @@ const keywordConnectedSlice = createSlice({
       state.paramValueList = paramValueList;
       state.exchangeList = exchangeList;
     },
+    deleteKeywordListAction: (state, action) => {},
   },
 });
 
-export const { addKeywordListAction } = keywordConnectedSlice.actions;
+export const { addKeywordListAction, deleteKeywordListAction } =
+  keywordConnectedSlice.actions;
 
 export default keywordConnectedSlice.reducer;

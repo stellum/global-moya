@@ -4,6 +4,7 @@ const initialState = {
   showEditBtn: false,
   showDelBtn: false,
   checkedBtn: [],
+  delItem: [],
   //그룹편집쪽 체크
   showDelGroupBtn: false,
   checkedGroupBtn: [],
@@ -30,6 +31,10 @@ export const buttonSlice = createSlice({
       state.showDelBtn = initialState.showDelBtn;
       state.checkedBtn = initialState.checkedBtn;
     },
+    delItemsAction: (state, action) => {
+      console.log("action이다", action);
+      // state.delItem =
+    },
     //그룹편집쪽 체크박스
     showDelBtnGroupAction: (state, action) => {
       state.showDelGroupBtn = action.payload;
@@ -53,6 +58,7 @@ export const {
   addCheckedBtn,
   delCheckedBtn,
   initCheckedAction,
+  delItemsAction,
   showDelBtnGroupAction,
   addCheckedGroupBtn,
   delCheckedGroupBtn,
