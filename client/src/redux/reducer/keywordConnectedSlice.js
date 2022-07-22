@@ -15,7 +15,6 @@ const keywordConnectedSlice = createSlice({
       state.keywordList = action.payload;
 
       const keyTypeList = action.payload.map((obj) => {
-        console.log("obj", obj);
         return obj.keyType;
       });
       const paramValueList = action.payload.map((obj) => {

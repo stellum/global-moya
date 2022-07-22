@@ -1,27 +1,21 @@
 import clientServer from "./baseUrl";
-// import { retryAxios } from "@api/baseUrl";
 
-export const getKeywords = async () => {
+export const getKeywords = async (accessToken) => {
   try {
     const response = await clientServer({
       url: "preferTerms/reports",
+      headers: { Authorization: `Bearer ${accessToken}` },
       transformResponse: [
         function (data) {
           const transformedData = JSON.parse(data);
-          // console.log("transformedData", transformedData);
           return transformedData.reports.map((item, id) => {
             item.id = id;
             return item;
           });
         },
       ],
-      timeout: 3000,
-      // withCredentials: true,
+      // timeout: 3000,
     });
-
-    // if (response === undefined) {
-    //   retryAxios(3, 1000);
-    // }
 
     if (response.status === 200) {
       const data = await response.data;
@@ -29,13 +23,6 @@ export const getKeywords = async () => {
     }
   } catch (e) {
     console.log(e);
-
-    // if (e.config.url === "/preferTerms/reports") {
-    //   console.log("에러여기");
-
-    //   // const token = e.config.headers.Authorization.split(" ")[1];
-    //   getKeywords(accessToken);
-    // }
   }
 };
 
@@ -112,6 +99,7 @@ export const updateListKeywords = async (json, accessToken) => {
           });
           const sendJson = { termList: temp };
           data = JSON.stringify(sendJson);
+          console.log("편집 성공");
           return data;
         },
       ],
@@ -156,14 +144,3 @@ export const deleteKeywords = async (json) => {
     console.log(e);
   }
 };
-
-// const a = {
-//   "termList": [
-//     { "_id": 1, "keyType": "sectors", "termSeq": "a", "updateFlag": "S" },
-//     { "_id": 2, "keyType": "sectors", "termSeq": "b", "updateFlag": "S" },
-//     { "_id": 3084, "keyType": "tickers", "termSeq": "bg", "updateFlag": "S" },
-//     { "_id": 1, "keyType": "category", "termSeq": "bu", "updateFlag": "S" },
-//     { "_id": 96, "keyType": "events", "termSeq": "bx", "updateFlag": "S" },
-//     { "_id": 42, "keyType": "commodities", "termSeq": "c", "updateFlag": "S" },
-//   ],
-// };
