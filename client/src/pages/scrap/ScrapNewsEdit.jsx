@@ -50,7 +50,10 @@ const ScrapNewsEdit = ({ scrapcheck, view, apply }) => {
   useEffect(() => {
     getBookmarkOneDatas();
   }, [dtNewsId]);
-
+  useEffect(() => {
+    console.log(dtNewsId);
+    console.log(groupId);
+  }, [dtNewsId]);
   const openModal = () => {
     setOpenBg((prev) => !prev);
   };

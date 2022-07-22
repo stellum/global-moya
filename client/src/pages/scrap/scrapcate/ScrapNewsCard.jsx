@@ -67,7 +67,12 @@ const ScrapNewsCard = ({ view, apply, news, idx, setDtNewsId }) => {
               }}
               $scrapcheck={scrapcheck}
             />
-            <ScrapCheck id={news.newsId} key={news.newsId} news={news} />
+            {/* <ScrapCheck
+              id={news.newsId}
+              key={news.newsId}
+              news={news}
+              handleCheck={handleCheck}
+            /> */}
           </div>
         </SubContent>
 

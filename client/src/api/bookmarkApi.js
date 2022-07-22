@@ -14,8 +14,7 @@ export const bookmarkSave = async (json) => {
     });
 
     if (response.status === 200) {
-      const data = await response.data;
-      return data;
+      return response;
     }
   } catch (error) {
     if (error.response.status === 400) {
@@ -64,9 +63,10 @@ export const bookmarkOne = async (groupId) => {
 
 // 내가 등록한 특정 폴더내의 newsId 리스트를 최대 10건까지 한번에 삭제한다.
 export const bookmarkDelete = async (json) => {
+  console.log(json);
   try {
     const response = await clientServer({
-      url: "/bookmark/deleteList",
+      url: "/bookmark/delete",
       method: "delete",
       headers: {
         "Content-Type": "application/json",
