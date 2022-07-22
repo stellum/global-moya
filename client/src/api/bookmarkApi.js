@@ -14,8 +14,7 @@ export const bookmarkSave = async (json) => {
     });
 
     if (response.status === 200) {
-      const data = await response.data;
-      return data;
+      return response;
     }
   } catch (error) {
     if (error.response.status === 400) {
