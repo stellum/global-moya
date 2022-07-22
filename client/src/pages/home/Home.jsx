@@ -5,34 +5,47 @@ import { addKeywordListAction } from "@redux/keywordConnectedSlice";
 import { keywordContentRequest } from "@redux/searchFilterSlice";
 import HomeContent from "./HomeContent";
 import HomeFooter from "./HomeFooter";
+import AccessToken from "@hoc/AccessToken";
 
-const Home = () => {
+const Home = ({ accessToken }) => {
+  // const rootStorage = JSON.parse(localStorage["persist:root"]);
+  // const keywordSlice = JSON.parse(rootStorage["keywordConnectedSlice"]);
+  // const keyTypeList = keywordSlice.keyTypeList;
+  // const paramValueList = keywordSlice.paramValueList;
+  // const exchangeList = keywordSlice.exchangeList;
+
   const { keyTypeList, paramValueList, exchangeList } = useSelector(
     (state) => state.keywordConnectedSlice
   );
-  const { userLogin, accessToken } = useSelector((state) => state.user);
+  console.log("kkk", keyTypeList, paramValueList, exchangeList);
+  const { userLogin } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const getDatas = async () => {
+      const response = await getKeywords(accessToken);
+      await dispatch(addKeywordListAction(response));
+    };
+
+    const getFirstKeyword = async () => {
+      await dispatch(
+        keywordContentRequest([
+          keyTypeList[0],
+          paramValueList[0],
+          exchangeList[0],
+        ])
+      );
+    };
+
     if (userLogin) {
-      const getDatas = async () => {
-        const response = await getKeywords(accessToken);
-        await dispatch(addKeywordListAction(response));
-
-        await dispatch(
-          keywordContentRequest([
-            keyTypeList[0],
-            paramValueList[0],
-            exchangeList[0],
-          ])
-        );
-      };
       getDatas();
-
-      return () => {
-        console.log("unMounted");
-      };
+      getFirstKeyword();
     }
+
+    return () => {
+      console.log("unMounted");
+    };
   }, []);
 
   useEffect(() => {
@@ -57,4 +70,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AccessToken(Home);

@@ -20,8 +20,9 @@ import { ErrorMsgP } from "@styles/common/errorMsg";
 import { toggleEditAction } from "@redux/buttonSlice";
 import NewsCard from "@components/NewsCard";
 import Spinner from "@components/common/Spinner";
+import AccessToken from "@hoc/AccessToken";
 
-const MainKeywordList = ({ view, apply }) => {
+const MainKeywordList = ({ view, apply, accessToken }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -29,6 +30,7 @@ const MainKeywordList = ({ view, apply }) => {
   const [newsList, setNewsList] = useState([]);
   const [pageToken, setPageToken] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     timeFilter,
@@ -38,7 +40,6 @@ const MainKeywordList = ({ view, apply }) => {
     keyType,
     paramValue,
     exchange,
-    status,
   } = useSelector((state) => state.searchFilterSlice);
 
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
@@ -62,69 +63,63 @@ const MainKeywordList = ({ view, apply }) => {
     );
   };
 
+  const getDatas = async () => {
+    setIsLoading(false);
+    const queryParams = {
+      timeFilter,
+      mediaType,
+      language,
+      orderBy,
+      keyType,
+      paramValue,
+      exchange,
+    };
+
+    await dispatch(fetchSearchNews({ queryParams, accessToken })).then(
+      (response) => {
+        console.log("Res", response);
+        let payload = response.payload;
+        if (
+          payload === undefined ||
+          payload.newsList.length === 0 ||
+          payload.status > 200
+        ) {
+          setErrorMsg("결과가 없습니다.");
+          setIsLoading(true);
+        } else {
+          setErrorMsg("");
+          setNewsList(payload.newsList);
+          setPageToken(payload.nextPageToken);
+          setIsLoading(true);
+        }
+      }
+    );
+  };
+
   useEffect(() => {
     navigate(
       `/main?timeFilter=${timeFilter}&mediaType=${mediaType}&language=${language}&orderBy=${orderBy}&keyType=${keyType}&paramValue=${paramValue}&exchange=${exchange}`
     );
   }, [timeFilter, mediaType, language, orderBy, keyType, paramValue, exchange]);
 
+  // 첫 실행
   useEffect(() => {
-    const getDatas = async () => {
-      const queryParams = {
-        timeFilter,
-        mediaType,
-        language,
-        orderBy,
-        keyType,
-        paramValue,
-        exchange,
-      };
-
-      await dispatch(fetchSearchNews({ queryParams })).then((response) => {
-        if (response.payload.newsList.length === 0) {
-          setErrorMsg("결과가 없습니다.");
-        } else {
-          setErrorMsg("");
-          setNewsList(response.payload.newsList);
-          setPageToken(response.payload.nextPageToken);
-        }
-      });
-    };
+    dispatch(
+      keywordContentRequest([
+        keyTypeList[0],
+        paramValueList[0],
+        exchangeList[0],
+      ])
+    );
     getDatas();
 
     return () => {
       console.log("unMounted 카드");
     };
-  }, [timeFilter, mediaType, orderBy]);
+  }, []);
 
+  // 탭 클릭 시
   useEffect(() => {
-    const getDatas = async () => {
-      const queryParams = {
-        timeFilter,
-        mediaType,
-        language,
-        orderBy,
-        keyType,
-        paramValue,
-        exchange,
-      };
-
-      await dispatch(fetchSearchNews({ queryParams })).then((response) => {
-        console.log("Res", response);
-        if (
-          (response.payload.newsList &&
-            response.payload.newsList.length === 0) ||
-          response.payload.status > 200
-        ) {
-          setErrorMsg("결과가 없습니다.");
-        } else {
-          setErrorMsg("");
-          setNewsList(response.payload.newsList);
-          setPageToken(response.payload.nextPageToken);
-        }
-      });
-    };
-
     if (toggleTabState === 0) {
       getDatas();
     } else {
@@ -161,7 +156,7 @@ const MainKeywordList = ({ view, apply }) => {
           </EditIconDiv>
         </MainKeywordDiv>
         <MainKeywordContentDiv>
-          {status === "Loading" ? (
+          {!isLoading ? (
             <Spinner />
           ) : errorMsg ? (
             <ErrorMsgP>{errorMsg}</ErrorMsgP>
@@ -189,4 +184,4 @@ const MainKeywordList = ({ view, apply }) => {
   );
 };
 
-export default MainKeywordList;
+export default AccessToken(MainKeywordList);
