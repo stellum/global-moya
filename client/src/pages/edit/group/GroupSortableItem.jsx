@@ -6,7 +6,7 @@ import { scrapFolderChoose } from "@redux/scrapFolderSlice";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Hamburger from "@components/common/Hamburger";
-import Checkbox from "@components/common/Checkbox";
+import ScrapgroupCheck from "@components/common/ScrapgroupCheck";
 
 import {
   EditItemWrap,
@@ -50,7 +50,7 @@ const GroupSortableItem = ({ item, type }) => {
       {/* <CheckLabel htmlFor="deleteCheck" /> */}
 
       {/* <Checkbox checked={checked} onChange={handleCheckbox} /> */}
-      <Checkbox key={item.groupId} item={item.groupName} />
+      <ScrapgroupCheck key={item.groupId} item={item} />
       <EditItemTextWrap type={type}>
         <Link to="/namechange">
           <EditInputGroup
