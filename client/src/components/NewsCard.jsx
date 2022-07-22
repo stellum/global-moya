@@ -22,6 +22,10 @@ import globalMOYAPremiumSvg from "@assets/globalMOYA.svg";
 import { differenceDayFuncTwo } from "../util/dateFunc";
 import { translateApi } from "../api/translateApi";
 import ErrorMsg from "./ErrorMsg";
+import { bookmarkAll } from "../api/bookmarkApi";
+import { toggleScrapMoveBtn } from "@redux/modalSlice";
+import { addNewsID } from "../redux/reducer/scrapNewsSlice";
+import { useDispatch } from "react-redux";
 import _ from "lodash";
 const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
   const [scrap, setScrap] = useState(false);
@@ -30,6 +34,10 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
   const [translate, setTranslate] = useState([]);
   const [changeTrans, setChangeTrans] = useState(true);
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
+  const dispatch = useDispatch();
+  const showScrapMoveBtn = useSelector(
+    (state) => state.modalSlice.showScrapMoveBtn
+  );
   const handleExpand = (e) => {
     setOpen({ [e.target.id]: !open[e.target.id] });
   };
@@ -55,7 +63,13 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
       ]);
     }
   };
-
+  const getBookmark = async () => {
+    const res = await bookmarkAll();
+    // console.log(res);
+  };
+  useEffect(() => {
+    getBookmark();
+  }, []);
   useEffect(() => {
     // console.log(translate);
   }, [translate, changeTrans]);
@@ -69,7 +83,10 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
     setTrakingId({ [e.target.id]: !trakingId[e.target.id] });
     fetch(newsId);
   };
-
+  const handleScrap = (newsId) => {
+    dispatch(addNewsID(newsId));
+    dispatch(toggleScrapMoveBtn(!showScrapMoveBtn));
+  };
   return (
     <>
       {newsList.length > 0 ? (
@@ -136,9 +153,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
 
                     <ShareIcon />
                     <ScrapIcon
-                      onClick={() => {
-                        setScrap((prev) => !prev);
-                      }}
+                      onClick={() => handleScrap(news.newsId)}
                       $scrap={scrap}
                     />
                   </div>
@@ -236,9 +251,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
 
                     <ShareIcon />
                     <ScrapIcon
-                      onClick={() => {
-                        setScrap((prev) => !prev);
-                      }}
+                      onClick={() => handleScrap(news.newsId)}
                       $scrap={scrap}
                     />
                   </div>
