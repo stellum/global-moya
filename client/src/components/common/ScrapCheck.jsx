@@ -35,7 +35,7 @@ const IconCheckbox = styled.div`
   cursor: pointer;
 `;
 
-const ScrapCheck = ({ news }) => {
+const ScrapCheck = ({ news, handleCheck }) => {
   const [checkedButtons, setCheckedButtons] = useState([]);
   const checkedBtn = useSelector(
     (state) => state.scrapCheckboxSlice.checkedScrapBtn
@@ -57,14 +57,15 @@ const ScrapCheck = ({ news }) => {
     }
   });
 
-  useEffect(() => {
-    if (checkedBtn.length !== 0) {
-      dispatch(showDelBtnScrapAction(true));
-    } else {
-      dispatch(showDelBtnScrapAction(false));
-    }
-    return () => {};
-  }, [checkedBtn]);
+  // useEffect(() => {
+  //   // console.log(handleCheck);
+  //   if (checkedBtn.length !== 0) {
+  //     dispatch(showDelBtnScrapAction(true));
+  //   } else {
+  //     dispatch(showDelBtnScrapAction(false));
+  //   }
+  //   return () => {};
+  // }, [checkedBtn]);
 
   useEffect(() => {
     return () => {
@@ -75,7 +76,12 @@ const ScrapCheck = ({ news }) => {
 
   return (
     <>
-      <Label htmlFor={news.newsId}>
+      <Label
+        htmlFor={news.newsId}
+        onClick={() => {
+          handleCheck(news.newsId);
+        }}
+      >
         <HiddenCheckbox
           type="checkbox"
           id={news.newsId}

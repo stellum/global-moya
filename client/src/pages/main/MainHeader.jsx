@@ -32,12 +32,12 @@ const Header = ({ user }) => {
   };
 
   const handleLogin = () => {
-    if (!user) navigate("/login");
-    else {
-      logOutFunc();
-      navigate("/");
-      dispatch(userLogoutAction());
-    }
+    navigate("/login");
+  };
+  const handleLogout = () => {
+    navigate("/");
+    logOutFunc();
+    dispatch(userLogoutAction());
   };
   const toggleModal = () => {
     dispatch(toggleEditAction(!showEditBtn));
@@ -79,8 +79,8 @@ const Header = ({ user }) => {
               <MoreIcon />
             </NaviGo>
           </Link>
-          <NaviGo onClick={handleLogin}>
-            {user ? "로그아웃" : "로그인"}
+          <NaviGo onClick={handleLogout}>
+            로그아웃
             <MoreIcon />
           </NaviGo>
           <Navispan />
@@ -103,7 +103,7 @@ const Header = ({ user }) => {
           </a>
           <Navispan />
           <NaviGo onClick={handleLogin}>
-            {user ? "로그아웃" : "로그인"}
+            로그인
             <MoreIcon />
           </NaviGo>
           <Navispan />
