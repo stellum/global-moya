@@ -12,9 +12,6 @@ export const TermsDiv = styled.div`
   border-bottom: 1px solid ${colors.gray750};
   padding: 16px 0 14px 16px;
   font-weight: ${fontWeight.FontWeight700};
-  a {
-    color: inherit;
-  }
 `;
 export const CompanyDiv = styled.div`
   padding: 16px 14px 16px;

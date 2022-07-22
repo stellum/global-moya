@@ -1,13 +1,16 @@
 import clientServer from "./baseUrl";
 //뉴스 북마크 CRUD
 //search/news에서 가져온 뉴스 newsId를 바인딩한 뉴스를 내 특정 폴더 내로 저장한다.
-export const bookmarkSave = async () => {
+export const bookmarkSave = async (json) => {
+  console.log(json);
   try {
     const response = await clientServer({
       url: "/bookmark/save",
-
       method: "post",
-      data: json,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify(json),
     });
 
     if (response.status === 200) {
@@ -60,17 +63,19 @@ export const bookmarkOne = async (groupId) => {
 };
 
 // 내가 등록한 특정 폴더내의 newsId 리스트를 최대 10건까지 한번에 삭제한다.
-export const bookmarkDelete = async () => {
+export const bookmarkDelete = async (json) => {
   try {
     const response = await clientServer({
       url: "/bookmark/deleteList",
       method: "delete",
-      data: json,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify(json),
     });
+    console.log(response);
     if (response.status === 200) {
-      const data = await response.data;
-      console.log("deleted", data);
-      return data;
+      return response;
     }
   } catch (e) {
     console.log(e);

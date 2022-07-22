@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { allFolder } from "@api/scrapFolderApi";
 import { QuickButtonWrap } from "@styles/scrap/scrapcate";
 import { RadiusBlackButton } from "@styles/common/button/button";
-import { scrapFolderChoose } from "@redux/scrapFolderSlice";
+import { ScrapFolderChoose } from "@redux/scrapFolderSlice";
 
 const ScrapCategory = ({ black }) => {
   const params = useParams();
@@ -43,7 +43,7 @@ const ScrapCategory = ({ black }) => {
                 id={group.groupId}
                 onClick={() => {
                   dispatch(
-                    scrapFolderChoose({
+                    ScrapFolderChoose({
                       groupId: group.groupId,
                       groupName: group.groupName,
                     })

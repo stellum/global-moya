@@ -37,4 +37,11 @@ const Loader = styled.div`
 const LoaderWrap = styled.div`
   width: 100%;
   height: 100vh;
+  z-index: 6;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
 `;

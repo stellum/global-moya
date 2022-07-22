@@ -10,13 +10,13 @@ const Home = () => {
   const { keyTypeList, paramValueList, exchangeList } = useSelector(
     (state) => state.keywordConnectedSlice
   );
-  const { userLogin, accessToken } = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.userLogin);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (userLogin) {
+    if (user) {
       const getDatas = async () => {
-        const response = await getKeywords(accessToken);
+        const response = await getKeywords();
         await dispatch(addKeywordListAction(response));
 
         await dispatch(
@@ -36,7 +36,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (userLogin === false) {
+    if (user === false) {
       const getDatas = async () => {
         const response = await getKeywords();
         await dispatch(addKeywordListAction(response));

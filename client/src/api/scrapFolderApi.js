@@ -1,11 +1,9 @@
 import clientServer from "./baseUrl";
 //나의 뉴스 폴더 생성 및 관리 API
 //생성된 모든 나의 그룹 폴더를 반환
-// export const allFolder = async (accessToken) => {
 export const allFolder = async () => {
   try {
     const response = await clientServer({
-      // headers: { Authorization: `Bearer ${accessToken}` },
       url: "/folders/reports",
       method: "get",
     });

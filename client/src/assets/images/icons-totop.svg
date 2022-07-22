@@ -1,22 +1,5 @@
-<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_bd_671_59388)">
-<circle cx="28" cy="27" r="24" fill="white" fill-opacity="0.8" shape-rendering="crispEdges"/>
-<circle cx="28" cy="27" r="23.8" stroke="#B7B7B7" stroke-width="0.4" shape-rendering="crispEdges"/>
-</g>
-<path d="M28.0005 18.3394L28.5662 17.7737L28.0005 17.208L27.4348 17.7737L28.0005 18.3394ZM35.0842 24.2917L28.5662 17.7737L27.4348 18.905L33.9529 25.4231L35.0842 24.2917ZM22.0482 25.4231L28.5662 18.905L27.4348 17.7737L20.9168 24.2917L22.0482 25.4231Z" fill="#2A2A2A"/>
-<path d="M27.199 18.7402L27.199 36.1091L28.799 36.1091L28.799 18.7402L27.199 18.7402Z" fill="#2A2A2A"/>
-<defs>
-<filter id="filter0_bd_671_59388" x="0" y="-1" width="60" height="61" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feGaussianBlur in="BackgroundImage" stdDeviation="2"/>
-<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_671_59388"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="2" dy="3"/>
-<feGaussianBlur stdDeviation="3"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0"/>
-<feBlend mode="normal" in2="effect1_backgroundBlur_671_59388" result="effect2_dropShadow_671_59388"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_671_59388" result="shape"/>
-</filter>
-</defs>
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="24" cy="24" r="23.8" fill="#E6E6E6" stroke="#B7B7B7" stroke-width="0.4"/>
+<path d="M24.0008 15.3398L24.5664 14.7742L24.0008 14.2085L23.4351 14.7742L24.0008 15.3398ZM31.0845 21.2922L24.5664 14.7742L23.4351 15.9055L29.9531 22.4236L31.0845 21.2922ZM18.0484 22.4236L24.5664 15.9055L23.4351 14.7742L16.917 21.2922L18.0484 22.4236Z" fill="#2A2A2A"/>
+<path d="M23.199 15.7402L23.199 33.1091L24.799 33.1091L24.799 15.7402L23.199 15.7402Z" fill="#2A2A2A"/>
 </svg>

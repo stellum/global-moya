@@ -50,9 +50,16 @@ export default ScrollTop;
 
 const ToTopDiv = styled.div`
   position: fixed;
-  bottom: 5%;
-  right: 10%;
+  bottom: 3%;
+  right: 5%;
   z-index: 3;
   opacity: ${({ btnStatus }) => (btnStatus ? 1 : 0)};
   transition: opacity 0.3s ease;
+  background-color: transparent;
+  border-radius: 50%;
+  box-shadow: 1px 3px 10px 2px rgba(178, 178, 178, 0.48);
+  display: flex;
+  svg {
+    border-radius: 50%;
+  }
 `;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { scrapFolderChoose } from "@redux/scrapFolderSlice";
+import { ScrapFolderChoose } from "@redux/scrapFolderSlice";
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -61,7 +61,7 @@ const GroupSortableItem = ({ item, type }) => {
             key={item.groupId}
             onClick={() => {
               dispatch(
-                scrapFolderChoose({
+                ScrapFolderChoose({
                   groupId: item.groupId,
                   groupName: item.groupName,
                 })

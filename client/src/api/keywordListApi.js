@@ -1,21 +1,27 @@
 import clientServer from "./baseUrl";
+// import { retryAxios } from "@api/baseUrl";
 
-export const getKeywords = async (accessToken) => {
+export const getKeywords = async () => {
   try {
     const response = await clientServer({
       url: "preferTerms/reports",
-      headers: { Authorization: `Bearer ${accessToken}` },
       transformResponse: [
         function (data) {
           const transformedData = JSON.parse(data);
+          // console.log("transformedData", transformedData);
           return transformedData.reports.map((item, id) => {
             item.id = id;
             return item;
           });
         },
       ],
-      // timeout: 3000,
+      timeout: 3000,
+      // withCredentials: true,
     });
+
+    // if (response === undefined) {
+    //   retryAxios(3, 1000);
+    // }
 
     if (response.status === 200) {
       const data = await response.data;
@@ -23,6 +29,13 @@ export const getKeywords = async (accessToken) => {
     }
   } catch (e) {
     console.log(e);
+
+    // if (e.config.url === "/preferTerms/reports") {
+    //   console.log("에러여기");
+
+    //   // const token = e.config.headers.Authorization.split(" ")[1];
+    //   getKeywords(accessToken);
+    // }
   }
 };
 
@@ -43,25 +56,31 @@ export const createKeywords = async (json) => {
       },
       data: JSON.stringify(json),
     });
+    // console.log(response);
     if (response.status === 200) {
-      const data = await response.data;
-      return data;
-    } else if (
-      response.status === 400 ||
-      response.data.code === 401 ||
-      response.data.code === 2002 ||
-      response.data.code === 4018
-    ) {
+      // console.log(data);
+      return response;
+    }
+    if (response.status === 400) {
       const message = await response.data.message;
       return message;
-    } else {
-      console.log("etc message", response.data.message);
-      // return;
+    }
+    if (response.data.code === 401) {
+      const message = await response.data.message;
+      return message;
+    }
+    if (response.data.code === 2002) {
+      const message = await response.data.message;
+      return message;
+    }
+    if (response.data.code === 4018) {
+      const message = await response.data.message;
+      return message;
     }
   } catch (e) {
     // 401, 2002, 4018 에러처리 필요
     console.log(e);
-    // return e.response.data;
+    return e.response.data;
   }
 };
 

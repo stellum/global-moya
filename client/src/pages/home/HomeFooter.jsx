@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   FooterTag,
   TermsDiv,
@@ -13,15 +12,7 @@ const HomeFooter = () => {
   return (
     <FooterTag>
       <TermsDiv>
-        <h2>
-          <Link to="/servicepolicy">
-            <span>이용약관 &nbsp;&nbsp;</span>
-          </Link>
-          |
-          <Link to="/personalpolicy">
-            <span> &nbsp;&nbsp;개인정보처리방침</span>
-          </Link>
-        </h2>
+        <h2>이용약관 &nbsp;&nbsp;| &nbsp;&nbsp;개인정보처리방침</h2>
       </TermsDiv>
       <CompanyDiv>
         <H2Tag>
@@ -41,30 +32,9 @@ const HomeFooter = () => {
           Copyrightⓒ 2022 Sysmetic co Ltd <br /> All rights reserved.
         </div>
         <SNSGroup>
-          <a
-            href="https://www.facebook.com/MOYAAI/"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="moya facebook"
-          >
-            <IconsFacebook />
-          </a>
-          <a
-            href="https://www.instagram.com/moya.ai/?hl=ko"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="moya instagram"
-          >
-            <IconsInstagram />
-          </a>
-          <a
-            href="https://pf.kakao.com/_sRNkxl"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="moya kakaotalk"
-          >
-            <IconsKakaotalk />
-          </a>
+          <IconsFacebook />
+          <IconsInstagram />
+          <IconsKakaotalk />
         </SNSGroup>
       </CopyRightDiv>
     </FooterTag>

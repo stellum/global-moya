@@ -11,6 +11,8 @@ import categorySlice from "../reducer/categorySlice";
 import subsSlice from "../reducer/user/subsSlice";
 import keywordConnectedSlice from "../reducer/keywordConnectedSlice";
 import searchFilterSlice from "../reducer/searchFilterSlice";
+import ScrapFolderSlice from "../reducer/scrapFolderSlice";
+import scrapNewsSlice from "../reducer/scrapNewsSlice";
 import scrapFolderSlice from "../reducer/scrapFolderSlice";
 import scrapCheckboxSlice from "../reducer/scrapCheckboxSlice";
 import scrapgroupCheckSlice from "../reducer/scrapgroupCheckSlice";
@@ -30,6 +32,8 @@ const rootReducer = combineReducers({
   subsSlice,
   keywordConnectedSlice,
   searchFilterSlice,
+  ScrapFolderSlice,
+  scrapNewsSlice,
   scrapFolderSlice,
   scrapCheckboxSlice,
   scrapgroupCheckSlice,
