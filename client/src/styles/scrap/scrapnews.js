@@ -17,7 +17,9 @@ export const ApplyBtn = styled(DefaultCompleteButton)`
   color: ${colors.white};
   font-weight: ${fontWeight.FontWeight600};
   margin-right: ${({ apply }) => (apply ? 0 : "8px")};
+  display: ${({ showDelGroupBtn }) => (showDelGroupBtn ? "none" : "flex")};
 `;
 export const DeleteBtn = styled(ApplyBtn)`
   background-color: ${colors.pointOrange200};
+  display: ${({ showDelGroupBtn }) => (showDelGroupBtn ? "flex" : "none")};
 `;

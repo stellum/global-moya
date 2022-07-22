@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { bookmarkOne, bookmarkDelete } from "@api/bookmarkApi";
 
 import { ScrapMoveWrap, ScrapMoveh4 } from "@styles/scrap/scrapModal";
+
 import {
   Btn50percent,
   FixedHeader,
@@ -25,6 +26,9 @@ const ScrapNewsEdit = ({ scrapcheck, view, apply }) => {
   const groupId = params.id;
   const groupName = useSelector(
     (state) => state.ScrapFolderSlice.groupName.groupName
+  );
+  const showDelScrapBtn = useSelector(
+    (state) => state.scrapCheckboxSlice.showDelScrapBtn
   );
   const [newsList, setNewsList] = useState([]);
   const [openBg, setOpenBg] = useState(false);
@@ -102,7 +106,7 @@ const ScrapNewsEdit = ({ scrapcheck, view, apply }) => {
           ))}
       </NewsCardcontent>
 
-      <BtnWrapVisible visible={!(scrapcheck = false)}>
+      <BtnWrapVisible showDelScrapBtn={showDelScrapBtn}>
         <Btn50percent onClick={toggleMoveModal}>이동</Btn50percent>
         <Btn50percent className="delete" onClick={openModal}>
           삭제

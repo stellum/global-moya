@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { registerFunc, stepPayFunc } from "@api/registerApi";
 import { emailCheckFunc } from "@api/emailCheckApi";
 
@@ -31,6 +32,8 @@ const Register = (props) => {
     }
   };
 
+  const navigate = useNavigate();
+
   return (
     <>
       <CommonForm
@@ -60,7 +63,7 @@ const Register = (props) => {
         })}
       >
         <Header>
-          <BackSpace />
+          <BackSpace onClick={() => { navigate("/login"); }} />
           <TitleHeader>회원가입</TitleHeader>
         </Header>
         {/*중복 확인 버튼*/}

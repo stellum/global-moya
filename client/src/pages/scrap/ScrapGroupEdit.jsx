@@ -10,7 +10,9 @@ import { BackArrow, NewGroupPlus } from "@styles/svgIcon";
 // import GroupList from "@components/group/GroupList";
 const ScrapGroupEdit = () => {
   const navigate = useNavigate();
-  const showDelBtn = useSelector((state) => state.buttonSlice.showDelBtn);
+  const showDelGroupBtn = useSelector(
+    (state) => state.scrapgroupCheckSlice.showDelGroupBtn
+  );
   const dispatch = useDispatch();
   return (
     <>
@@ -31,11 +33,14 @@ const ScrapGroupEdit = () => {
       <BtnWrap>
         <ButtonWrapDiv>
           <ApplyBtn>취소</ApplyBtn>
-          {showDelBtn ? (
-            <DeleteBtn apply>삭제</DeleteBtn>
-          ) : (
-            <ApplyBtn apply>저장</ApplyBtn>
-          )}
+
+          <DeleteBtn apply showDelGroupBtn={showDelGroupBtn}>
+            삭제
+          </DeleteBtn>
+
+          <ApplyBtn apply showDelGroupBtn={showDelGroupBtn}>
+            저장
+          </ApplyBtn>
         </ButtonWrapDiv>
       </BtnWrap>
     </>

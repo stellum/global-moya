@@ -15,12 +15,14 @@ import MoyaLogo from "@components/MoyaLogo";
 import { MoreIcon } from "../../styles/svgIcon";
 import { logOutFunc } from "@api/loginApi";
 
+import { toggleEditAction } from "@redux/buttonSlice";
 import { toggleNavigation } from "@redux/modalSlice";
 import { userLogoutAction } from "@redux/user/userSlice";
 
 const Header = ({ user }) => {
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
+  const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
   const navigate = useNavigate();
   const toggleNavi = () => {
     dispatch(toggleNavigation(!showNavi));
@@ -36,20 +38,48 @@ const Header = ({ user }) => {
       dispatch(userLogoutAction());
     }
   };
+  const toggleModal = () => {
+    dispatch(toggleEditAction(!showEditBtn));
+    navigate("/main/edit/keyword");
+  };
   return (
     <>
-      <NaviWrap showNavi={showNavi}>
-        <SideHeader>
-          <MoyaLogo />
-        </SideHeader>
-        <a
-          href="https://watch.moya.ai/global"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="새창으로 열기"
-        >
-          <NaviGo>
-            AI 모야 글로벌 뉴스 바로가기
+      {user ? (
+        <NaviWrap showNavi={showNavi}>
+          <SideHeader>
+            <MoyaLogo />
+          </SideHeader>
+          <a
+            href="https://watch.moya.ai/global"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="새창으로 열기"
+          >
+            <NaviGo>
+              AI 글로벌 주식 뉴스
+              <MoreIcon />
+            </NaviGo>
+          </a>
+          <Navispan />
+          <Link to="/scrap">
+            <NaviGo>
+              스크랩 뉴스
+              <MoreIcon />
+            </NaviGo>
+          </Link>
+          <NaviGo onClick={toggleModal}>
+            키워드 관리
+            <MoreIcon />
+          </NaviGo>
+          <Navispan />
+          <Link to="/mypagemain">
+            <NaviGo>
+              마이페이지
+              <MoreIcon />
+            </NaviGo>
+          </Link>
+          <NaviGo onClick={handleLogin}>
+            {user ? "로그아웃" : "로그인"}
             <MoreIcon />
           </NaviGo>
         </a>

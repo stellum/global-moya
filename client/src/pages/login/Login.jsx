@@ -31,6 +31,9 @@ import { RegisterLink, LoginRegi } from "@styles/loginRegister/login/loginNew";
 import { LoginButton } from "@styles/loginRegister/loginRegisterButton";
 
 import { setRefreshToken } from "@util/settingSessions";
+
+import IconEyeShut from "@assets/icons-eyeShut.svg"
+import IconEyeOpen from "@assets/icons-eyeOpen.svg"
 const Login = () => {
   const {
     register,
@@ -136,7 +139,7 @@ const Login = () => {
               required: "비밀번호는 필수 입력입니다.",
             })}
           />
-          <ShowIcon id="showIcon" onClick={handleShow}>
+          <ShowIcon id="showIcon" onClick={handleShow} url={pwVisible? IconEyeOpen : IconEyeShut}>
             <IconText>눈동자 아이콘</IconText>
           </ShowIcon>
         </InputDiv>
