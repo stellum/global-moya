@@ -34,6 +34,11 @@ const NewsCardInfiniteHook = (setPage, page, location) => {
   const getMoreNews = async () => {
     const res = await getSearchData(page > 1 ? nextQueryParams : QueryParams);
     console.log(res);
+    if (res === undefined || res.newsList === undefined) {
+      setErrorMsg("검색 결과를 찾을 수 없습니다.");
+      setLoaidng(false);
+    }
+
     if (res.newsList.length > 0) {
       setLoaidng(false);
       setNewsList((prev) => [...prev, ...res.newsList]);
