@@ -27,6 +27,7 @@ const LvKeywordList = ({
 }) => {
   const [sliceValue, setSliceValue] = useState({ minValue: 0, maxValue: 50 });
   const [limitCode, setLimitCode] = useState(0);
+  const [resMsg, setResMsg] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,23 +44,28 @@ const LvKeywordList = ({
       setLimitCode(0);
     } else {
       const res = await createKeywordFunc(_id, category, clipKeyword);
-      console.log(res);
+
       if (res.code === 2002) {
         setLimitCode(res.code);
+        setResMsg(res.message);
       } else {
         setLimitCode(0);
+        setResMsg(res.data.msg);
       }
       setResultBoolean(true);
     }
   };
+  // useEffect(() => {
+  //   const msgTimeOut = setTimeout(() => {
+  //     setResultBoolean(false);
+  //   }, 2000);
+  //   return () => {
+  //     clearTimeout(msgTimeOut);
+  //   };
+  // }, [clipKeyword]);
   useEffect(() => {
-    const msgTimeOut = setTimeout(() => {
-      setResultBoolean(false);
-    }, 2000);
-    return () => {
-      clearTimeout(msgTimeOut);
-    };
-  }, [clipKeyword]);
+    setFillStar((prev) => !prev);
+  }, [resMsg]);
   const handleLocationState = (paramValue, category, exchange) => {
     navigate(`/main/keywordsearch/${paramValue}`, {
       state: { paramValue, category, exchange },
