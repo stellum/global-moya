@@ -19,17 +19,17 @@ const Register = (props) => {
   } = useForm();
 
   const [emailInput, setEmailInput] = useState("ok");
-  const [emailCheck, setEmailCheck] = useState(1);
+  const [emailCheck, setEmailCheck] = useState("");
 
   // 이메일 중복 검증 하는 함수
 
   const button = document.getElementById("emailCheck");
+
   const handleEmail = () => {
     let email = watch().email;
     let data = { email: email };
     let json = JSON.stringify(data);
     const promise = emailCheckFunc(json);
-
     setEmailCheck(promise);
 
     if (/\S+@\S+\.\S+/.test(email)) {
@@ -85,7 +85,7 @@ const Register = (props) => {
             }
           }
 
-          const stepPayData = {};
+          let stepPayData = {};
 
           for (let key in data) {
             if (key !== "passwodrCheck" && key !== "password") {
@@ -95,11 +95,12 @@ const Register = (props) => {
               stepPayData["marketingKakao"] = true;
             }
           }
-          if (emailInput === "ok") {
-            registerFunc(formData);
-            stepPayFunc(stepPayData.JSON.stringify());
-            props.setRegisterPage("onSuccess");
-          }
+
+          stepPayData = stepPayData.JSON.stringify();
+
+          registerFunc(formData);
+          stepPayFunc(stepPayData);
+          props.setRegisterPage("onSuccess");
         })}
       >
         <Header>

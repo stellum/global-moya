@@ -10,11 +10,8 @@ export const emailCheckFunc = async (data) => {
     },
   })
     .then((res) => {
-      if (res.data.result === 0) {
-        return 0;
-      } else {
-        return 1;
-      }
+      console.log(res);
+      return res.data.result;
     })
     .catch((err) => console.log(err));
   // try {
