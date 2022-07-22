@@ -4,12 +4,18 @@ export const CustomContainer = styled.div`
     "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
     "Malgun Gothic", sans-serif;
   /* position: relative; */
-  @media ${({ theme }) => theme.device.mobile} {
+  @media ${({ theme }) => theme.device.labtop} {
+    margin: 0 auto;
+    max-width: 1023px;
   }
   @media ${({ theme }) => theme.device.tablet} {
+    margin: 0 auto;
+    max-width: 767px;
   }
-  @media ${({ theme }) => theme.device.labtop} {
-  } ;
+  @media ${({ theme }) => theme.device.mobile} {
+    margin: 0 auto;
+    max-width: 479px;
+  }
 `;
 
 export const DefaultContainer = styled.div`
