@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
-import { fetchSearchNews } from "@redux/searchFilterSlice";
-import { isLoading } from "@redux/categorySlice";
 import KeywordCardInput from "./KeywordCardInput";
 import MainHeader from "../MainHeader";
-import ViewTypeFilter from "@pages/filtermodal/ViewTypeFilter";
-import SearchTypeFilter from "@pages/filtermodal/SearchTypeFilter";
+
+const ViewTypeFilter = lazy(() => import("@pages/filtermodal/ViewTypeFilter"));
+const SearchTypeFilter = lazy(() =>
+  import("@pages/filtermodal/SearchTypeFilter")
+);
+
 import { MainPageContainer } from "@styles/main/mainContainer";
 import { FilterBG } from "@styles/filterStyle/filterBG";
 import { BtnWrap, FilterBtn } from "@styles/filterStyle/filterModal";
@@ -26,10 +28,8 @@ const KeywordCardMain = () => {
   const [apply, setApply] = useState(false);
 
   const [page, setPage] = useState(1);
-  // const loading = useSelector((state) => state.categorySlice.loading);
-  const { timeFilter, mediaType, language, orderBy } = useSelector(
-    (state) => state.searchFilterSlice
-  );
+  const user = useSelector((state) => state.user.userLogin);
+
   const inputRef = useRef(null);
   const location = useLocation();
   const dispatch = useDispatch();
@@ -49,48 +49,13 @@ const KeywordCardMain = () => {
   };
 
   useEffect(() => {
-    // console.log(pageToken);
-    // console.log(location);
     console.log(page);
   }, [page]);
 
   useEffect(() => {
     inputRef.current.value = location.state.paramValue;
-    // dispatch(isLoading(true));
-    // const getDatas = async () => {
-    //   const queryParams = {
-    //     timeFilter,
-    //     mediaType,
-    //     language,
-    //     orderBy,
-    //     keyType: `${location.state.category}`,
-    //     paramValue: `${location.state.paramValue}`,
-    //     exchange: `${location.state.exchange ? location.state.exchange : null}`,
-    //   };
-
-    //   await dispatch(fetchSearchNews({ queryParams }))
-    //     .then((response) => {
-    //       console.log(response);
-    //       if (response.payload.status === 400) {
-    //         setErrorMsg("결과가 없습니다.");
-    //       } else {
-    //         setNewsList(response.payload.newsList);
-    //         setPageToken(response.payload.nextPageToken);
-    //       }
-    //     })
-    //     .then(dispatch(isLoading(false)));
-    // };
-
-    // const timeoutID = setTimeout(() => {
-    //   getDatas();
-    // }, 2000);
-
-    // return () => {
-    //   console.log("unMounted 카드");
-    //   clearTimeout(timeoutID);
-    // };
   }, []);
-
+  const renderLoader = () => <Spinner />;
   return (
     <>
       <FilterIconModal showBtn={showBtn}>
@@ -107,22 +72,27 @@ const KeywordCardMain = () => {
       </FilterIconModal>
       <FilterTypeModal>
         {/* 버튼 조건에 따라 렌더링 */}
-        <ViewTypeFilter
-          setView={setView}
-          view={view}
-          showModal={showModal}
-          showBtn={showBtn}
-          setApply={setApply}
-        />
-        <SearchTypeFilter
-          showModal={showModal}
-          showBtn={showBtn}
-          setApply={setApply}
-        />
+        <Suspense fallback={renderLoader()}>
+          <ViewTypeFilter
+            setView={setView}
+            view={view}
+            showModal={showModal}
+            showBtn={showBtn}
+            setApply={setApply}
+          />
+        </Suspense>
+
+        <Suspense fallback={renderLoader()}>
+          <SearchTypeFilter
+            showModal={showModal}
+            showBtn={showBtn}
+            setApply={setApply}
+          />
+        </Suspense>
       </FilterTypeModal>
       <FilterBG showBtn={showBtn} onClick={handleBG} />
       <MainPageContainer style={{ paddingBottom: 0, borderBottom: 0 }}>
-        <MainHeader />
+        <MainHeader user={user} />
         <KeywordCardInput inputRef={inputRef} />
       </MainPageContainer>
 

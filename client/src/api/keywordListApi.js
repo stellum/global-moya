@@ -1,20 +1,20 @@
 import clientServer from "./baseUrl";
 
-export const getKeywords = async () => {
+export const getKeywords = async (accessToken) => {
   try {
     const response = await clientServer({
       url: "preferTerms/reports",
+      headers: { Authorization: `Bearer ${accessToken}` },
       transformResponse: [
         function (data) {
           const transformedData = JSON.parse(data);
-          console.log("transformedData", transformedData);
           return transformedData.reports.map((item, id) => {
             item.id = id;
             return item;
           });
         },
       ],
-      timeout: 3000,
+      // timeout: 3000,
     });
 
     if (response.status === 200) {
@@ -61,7 +61,7 @@ export const createKeywords = async (json) => {
   } catch (e) {
     // 401, 2002, 4018 에러처리 필요
     console.log(e);
-    return e.response.data;
+    // return e.response.data;
   }
 };
 

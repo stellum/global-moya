@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { isLoading } from "@redux/categorySlice";
-import { fetchSearchNews } from "@redux/searchFilterSlice";
+import { useSelector } from "react-redux";
 import { getSearchData } from "@api/searchApi";
 const NewsCardInfiniteHook = (setPage, page, location) => {
   const [newsList, setNewsList] = useState([]);
@@ -21,6 +19,7 @@ const NewsCardInfiniteHook = (setPage, page, location) => {
     paramValue: `${location.paramValue}`,
     exchange: `${location.exchange ? location.exchange : null}`,
   };
+
   const nextQueryParams = {
     timeFilter,
     mediaType,
@@ -31,6 +30,7 @@ const NewsCardInfiniteHook = (setPage, page, location) => {
     exchange: `${location.exchange ? location.exchange : null}`,
     nextPageToken: `${pageToken}`,
   };
+
   const getMoreNews = async () => {
     const res = await getSearchData(page > 1 ? nextQueryParams : QueryParams);
     console.log(res);
@@ -40,37 +40,12 @@ const NewsCardInfiniteHook = (setPage, page, location) => {
       setPageToken(res.nextPageToken);
     }
   };
+
   useEffect(() => {
-    console.log("pageToken", pageToken);
-    console.log("hookloading", loading);
-    console.log(page);
-    // dispatch(isLoading(true));
     getMoreNews();
-    // getMoreNews();
-    // const getDatas = async () => {
-    //   await dispatch(fetchSearchNews({ nextQueryParams })).then((response) => {
-    //     console.log(response);
-    //     if (response.payload.status === 400) {
-    //       setErrorMsg("결과가 없습니다.");
-    //     } else {
-    //       setNewsList([...newsList, ...response.payload.newsList]);
-    //       setPageToken(response.payload.nextPageToken);
-    //     }
-    //     dispatch(isLoading(false));
-    //   });
-    // };
-    // const timeoutID = setTimeout(() => {
-    //   getDatas();
-    // }, 2000);
-    // return () => {
-    //   console.log("unMounted 카드");
-    //   clearTimeout(timeoutID);
-    // };
   }, [page]);
 
   const lastElementRef = useCallback((node) => {
-    // console.log(node);
-    // if (loading) return;
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {

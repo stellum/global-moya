@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { DefaultContainer } from "@styles/common/container";
 import QuickGuideHeader from "../QuickGuideHeader";
 import KeywordList from "./KeywordList";
-import AccessToken from "@hoc/AccessToken";
+
 import { isLoading } from "@redux/categorySlice";
 import { getKeywords } from "@api/keywordListApi";
 import ScrollTop from "@components/ScrollTop";
 
-const KeywordMain = ({}) => {
+const KeywordMain = () => {
   const [reports, setReports] = useState([]);
   const [reportsLength, setReportsLength] = useState(0);
   const keyword = useSelector((state) => state.categorySlice.keyword);
@@ -38,7 +38,6 @@ const KeywordMain = ({}) => {
 
   useEffect(() => {
     fetch();
-    // console.log("현재클릭", result);
   }, [filterId, result, keyword]);
   return (
     <DefaultContainer>
@@ -58,4 +57,4 @@ const KeywordMain = ({}) => {
   );
 };
 
-export default AccessToken(KeywordMain);
+export default KeywordMain;

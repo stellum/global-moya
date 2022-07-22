@@ -16,7 +16,6 @@ import { isLoading, searchKeyword } from "@redux/categorySlice";
 import { getCategoryList } from "@api/masterApi";
 import { getKeywords } from "@api/keywordListApi";
 import { useSelector, useDispatch } from "react-redux";
-import AccessToken from "@hoc/AccessToken";
 
 const CategoryMain = () => {
   const [dataList, setDataList] = useState([]);
@@ -122,4 +121,4 @@ const CategoryMain = () => {
   );
 };
 
-export default AccessToken(CategoryMain);
+export default CategoryMain;

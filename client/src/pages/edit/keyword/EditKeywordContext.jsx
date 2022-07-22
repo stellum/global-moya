@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { getKeywords } from "@api/keywordListApi";
-import AccessToken from "@hoc/AccessToken";
+
 import {
   DndContext,
   closestCenter,
@@ -34,12 +34,13 @@ import { BackArrow } from "@styles/svgIcon";
 import KeywordSortableItem from "./KeywordSortableItem";
 import { createTermSeq } from "@util/createTermSeq";
 
-const EditKeywordContext = ({}) => {
+const EditKeywordContext = () => {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
   const showDelBtn = useSelector((state) => state.buttonSlice.showDelBtn);
+  const { accessToken } = useSelector((state) => state.user);
 
   const TermSeq = useMemo(() => createTermSeq(items.length), [items]);
 
@@ -50,9 +51,9 @@ const EditKeywordContext = ({}) => {
     navigate("/main");
   };
 
-  // const handleDelete = () => {
-  //   // console.log("handleDel");
-  // };
+  const handleDelete = () => {
+    // console.log("handleDel");
+  };
 
   const getDatas = async () => {
     const response = await getKeywords(accessToken);
@@ -177,4 +178,4 @@ const EditKeywordContext = ({}) => {
   );
 };
 
-export default AccessToken(EditKeywordContext);
+export default EditKeywordContext;

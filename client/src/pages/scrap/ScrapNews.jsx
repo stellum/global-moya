@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom"; // useHistory 추가
 import { useSelector, useDispatch } from "react-redux";
 import { toggleScrapEditBtn } from "../../redux/reducer/modalSlice";
-import AccessToken from "@hoc/AccessToken";
+
 import { bookmarkOne } from "@api/bookmarkApi";
 
 import NewsCardList from "@components/NewsCardList";
@@ -72,4 +72,4 @@ const ScrapNews = ({ view, apply }) => {
     </>
   );
 };
-export default AccessToken(ScrapNews);
+export default ScrapNews;

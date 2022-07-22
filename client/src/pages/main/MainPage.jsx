@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import MainHeader from "./MainHeader";
 import MainInputComponent from "./MainInput";
 import MainKeywordList from "./MainKeywordList";
 import EditKeywordContext from "@pages/edit/keyword/EditKeywordContext";
 import FilterIconModal from "@components/filterModal/FilterIconModal";
 import FilterTypeModal from "@components/filterModal/FilterTypeModal";
-import ViewTypeFilter from "@pages/filtermodal/ViewTypeFilter";
-import SearchTypeFilter from "@pages/filtermodal/SearchTypeFilter";
+const ViewTypeFilter = lazy(() => import("@pages/filtermodal/ViewTypeFilter"));
+const SearchTypeFilter = lazy(() =>
+  import("@pages/filtermodal/SearchTypeFilter")
+);
+import Spinner from "@components/common/Spinner";
 import { FilterBG } from "@styles/filterStyle/filterBG";
 import { MainPageContainer } from "@styles/main/mainContainer";
 import { BtnWrap, FilterBtn } from "@styles/filterStyle/filterModal";
@@ -33,6 +36,9 @@ const MainPage = () => {
     dispatch(toggleBtnAction(!showBtn));
     dispatch(toggleModalAction(""));
   };
+
+  const renderLoader = () => <Spinner />;
+
   return (
     <>
       <FilterIconModal showBtn={showBtn}>
@@ -49,18 +55,22 @@ const MainPage = () => {
       </FilterIconModal>
       <FilterTypeModal>
         {/* 버튼 조건에 따라 렌더링 */}
-        <ViewTypeFilter
-          setView={setView}
-          view={view}
-          showModal={showModal}
-          showBtn={showBtn}
-          setApply={setApply}
-        />
-        <SearchTypeFilter
-          showModal={showModal}
-          showBtn={showBtn}
-          setApply={setApply}
-        />
+        <Suspense fallback={renderLoader()}>
+          <ViewTypeFilter
+            setView={setView}
+            view={view}
+            showModal={showModal}
+            showBtn={showBtn}
+            setApply={setApply}
+          />
+        </Suspense>
+        <Suspense fallback={renderLoader()}>
+          <SearchTypeFilter
+            showModal={showModal}
+            showBtn={showBtn}
+            setApply={setApply}
+          />
+        </Suspense>
       </FilterTypeModal>
       <FilterBG showBtn={showBtn} onClick={handleBG} />
       <MainPageContainer>

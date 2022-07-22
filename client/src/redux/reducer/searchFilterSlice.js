@@ -21,10 +21,6 @@ const fetchSearchNews = createAsyncThunk(
     console.log(queryParams);
     try {
       const response = await getSearchData(queryParams);
-      console.log(response);
-      // if (response.stauts === 400) {
-      //   return response.status;
-      // }
       return response;
     } catch (error) {
       console.log("slice error", error);
@@ -37,13 +33,11 @@ const searchFilterSlice = createSlice({
   initialState,
   reducers: {
     keywordContentRequest: (state, action) => {
-      console.log(action.payload);
       state.keyType = action.payload[0];
       state.paramValue = action.payload[1];
       state.exchange = action.payload[2];
     },
     changeFilterRequest: (state, action) => {
-      console.log(action);
       const { payload } = action;
       state.timeFilter = payload.timeFilter;
       state.mediaType = payload.mediaType;

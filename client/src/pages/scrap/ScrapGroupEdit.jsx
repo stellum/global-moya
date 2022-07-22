@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import EditGroupContext from "../edit/group/EditGroupContext";
-import AccessToken from "@hoc/AccessToken";
+
 import { FixedHeader, BtnWrap } from "@styles/scrap/scrap";
 import { ApplyBtn, DeleteBtn, ButtonWrapDiv } from "@styles/scrap/scrapnews";
 import { BackArrow, NewGroupPlus } from "@styles/svgIcon";
@@ -46,4 +46,4 @@ const ScrapGroupEdit = () => {
     </>
   );
 };
-export default AccessToken(ScrapGroupEdit);
+export default ScrapGroupEdit;

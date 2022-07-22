@@ -12,6 +12,7 @@ export const HamburgerWrap = styled.div`
   div {
     background: ${({ main }) => (main ? "#000" : colors.gray400)};
   }
+  cursor: pointer;
 `;
 export const HamburgerBar = styled.div`
   width: 20px;

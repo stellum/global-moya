@@ -10,7 +10,7 @@ import {
   PublishWrap,
   FilterWrap,
 } from "@styles/filterStyle/filterStyle";
-import { changeFilterRequest, fetchSearchNews } from "@redux/searchFilterSlice";
+import { changeFilterRequest } from "@redux/searchFilterSlice";
 import { published, mediaTypeArr, orderByArr } from "./searchParam";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
@@ -23,31 +23,21 @@ const SearchTypeFilter = ({ showModal, showBtn, setApply }) => {
   );
 
   const [searchType, setSearchType] = useState({
-    mediaType: "mth1",
-    timeFilter: "mp,op,r",
+    mediaType: "mp,op,r",
+    timeFilter: "mth1",
     orderBy: "latest",
   });
 
   const handleSearchType = (e) => {
     const { value, name } = e.target;
-
     setSearchType({
       ...searchType,
       [name]: value,
     });
   };
+
   useEffect(() => {
     console.log(searchType);
-    // console.log(
-    //   timeFilter,
-    //   mediaType,
-    //   language,
-    //   orderBy,
-    //   keyType,
-    //   paramValue,
-    //   exchange,
-    //   status
-    // );
   }, [searchType]);
 
   const handleSearch = (e) => {
@@ -59,7 +49,6 @@ const SearchTypeFilter = ({ showModal, showBtn, setApply }) => {
       setApply(true);
       dispatch(changeFilterRequest(searchType));
     } else {
-      console.log("cancel");
       dispatch(changeFilterRequest({ timeFilter, mediaType, orderBy }));
       setApply(false);
       dispatch(toggleModalAction(""));
