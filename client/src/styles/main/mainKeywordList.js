@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { colors, fontWeight } from "../theme";
 import { colors, fontSize, fontWeight, device } from "@styles/theme";
 export const MainKeywordContainerDiv = styled.div`
   display: flex;

@@ -16,9 +16,10 @@ export const getKeywords = async (accessToken) => {
       ],
       // timeout: 3000,
     });
-
+    console.log(response);
     if (response.status === 200) {
       const data = await response.data;
+
       return data;
     }
   } catch (e) {
