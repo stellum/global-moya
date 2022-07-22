@@ -35,6 +35,7 @@ const Header = ({ user }) => {
     if (!user) navigate("/login");
     else {
       logOutFunc();
+      navigate("/");
       dispatch(userLogoutAction());
     }
   };
@@ -82,31 +83,33 @@ const Header = ({ user }) => {
             {user ? "로그아웃" : "로그인"}
             <MoreIcon />
           </NaviGo>
-        </a>
-        <Navispan />
-        <Link to="/scrap">
-          <NaviGo>
-            스크랩 뉴스
+          <Navispan />
+        </NaviWrap>
+      ) : (
+        <NaviWrap showNavi={showNavi}>
+          <SideHeader>
+            <MoyaLogo />
+          </SideHeader>
+          <a
+            href="https://watch.moya.ai/global"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="새창으로 열기"
+          >
+            <NaviGo>
+              AI 글로벌 주식 뉴스
+              <MoreIcon />
+            </NaviGo>
+          </a>
+          <Navispan />
+          <NaviGo onClick={handleLogin}>
+            {user ? "로그아웃" : "로그인"}
             <MoreIcon />
           </NaviGo>
-        </Link>
-        <NaviGo>
-          키워드 관리
-          <MoreIcon />
-        </NaviGo>
-        <Navispan />
-        <Link to="/mypagemain">
-          <NaviGo>
-            마이페이지
-            <MoreIcon />
-          </NaviGo>
-        </Link>
-        <NaviGo onClick={handleLogin}>
-          {user ? "로그아웃" : "로그인"}
-          <MoreIcon />
-        </NaviGo>
-        <Navispan />
-      </NaviWrap>
+          <Navispan />
+        </NaviWrap>
+      )}
+
       <FilterBG showNavi={showNavi} onClick={handleBG} />
       <MainHeader>
         <Hamburger click={toggleNavi} main></Hamburger>
