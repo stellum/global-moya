@@ -55,8 +55,8 @@ const EditKeywordContext = ({ accessToken }) => {
   const getDatas = async () => {
     const response = await getKeywords(accessToken);
     setItems(response);
-  }
-  
+  };
+
   useEffect(() => {
     if (!items.length) getDatas();
   }, [items]);
@@ -142,7 +142,9 @@ const EditKeywordContext = ({ accessToken }) => {
                   삭제
                 </EditButtonDelete>
               ) : (
-                <EditButtonSave>저장</EditButtonSave>
+                <EditButtonSave onClick={() => saveTermSeq()}>
+                  저장
+                </EditButtonSave>
               )}
             </EditButtonDiv>
           </EditContainer>

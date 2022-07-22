@@ -15,17 +15,18 @@ const Home = ({ accessToken }) => {
 
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   const getDatas = async () => {
+  //     const response = await getKeywords(accessToken);
+  //     await dispatch(addKeywordListAction(response));
+  //   };
+  // }, []);
+
   useEffect(() => {
     const getDatas = async () => {
       const response = await getKeywords(accessToken);
       await dispatch(addKeywordListAction(response));
     };
-
-  useEffect(() => {
-    const getDatas = async () => {
-      const response = await getKeywords();
-      await dispatch(addKeywordListAction(response));
-    }
     const getFirstKeyword = async () => {
       await dispatch(
         keywordContentRequest([
@@ -47,7 +48,7 @@ const Home = ({ accessToken }) => {
   }, []);
 
   useEffect(() => {
-    if (user === false) {
+    if (userLogin === false) {
       const getDatas = async () => {
         const response = await getKeywords();
         await dispatch(addKeywordListAction(response));
