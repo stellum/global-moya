@@ -31,10 +31,24 @@ import { ReactComponent as globalMOYAPremiumSvg } from "@assets/globalMOYAPremiu
 import { ReactComponent as ProfilePhotoSvg } from "@assets/ProfilePhoto.svg";
 import { ReactComponent as MoreIconSvg } from "@assets/MoreIcon.svg";
 import { ReactComponent as ScrapCheckSvg } from "@assets/ScrapCheckIcon.svg";
+import { ReactComponent as ScrapCheckboxSvg } from "@assets/ScrapCheckboxIcon.svg";
+import { ReactComponent as ScrapDelCheckboxSvg } from "@assets/ScrapDelCheckboxIcon.svg";
 import { ReactComponent as NewGroupPlusSvg } from "@assets/NewGroupPlusIcon.svg";
 import { ReactComponent as IconstotopSvg } from "@assets/icons-totop.svg";
 import { ReactComponent as IconsCheckCircleSvg } from "@assets/icons-Success.svg";
 import { colors } from "./theme";
+export const ScrapCheckbox = styled(ScrapCheckboxSvg)``;
+export const ScrapDelCheckbox = styled(ScrapDelCheckboxSvg)`
+  circle {
+    stroke: ${(props) =>
+      props.checked ? colors.white : colors.pointOrange200};
+    fill: ${(props) => (props.checked ? colors.pointOrange200 : colors.white)};
+  }
+  path {
+    stroke: ${(props) =>
+      props.checked ? colors.white : colors.pointOrange200};
+  }
+`;
 export const NewGroupPlus = styled(NewGroupPlusSvg)``;
 export const MoreIcon = styled(MoreIconSvg)`
   position: absolute;
@@ -79,9 +93,7 @@ export const ExpandMoreIcon = styled(ExpandMoreIconSvg)`
   right: 10px;
 `;
 
-export const GlobalMoyaLogo = styled(GlobalMoyaSvg)`
-  cursor: pointer;
-`;
+export const GlobalMoyaLogo = styled(GlobalMoyaSvg)``;
 export const IconsFacebook = styled(IconsFacebookSvg)``;
 export const IconsInstagram = styled(IconsInstagramSvg)``;
 export const IconsKakaotalk = styled(IconsKakaotalkSvg)``;
@@ -124,9 +136,7 @@ export const LearnMore = styled(LearnMoreSvg)``;
 export const AttachIcon = styled(AttachIconSvg)``;
 export const CloseIcon = styled(CloseIconSvg)``;
 export const PhotoIcon = styled(PhotoIconSvg)``;
-export const GlobalMOYAPremium = styled(globalMOYAPremiumSvg)`
-  cursor: pointer;
-`;
+export const GlobalMOYAPremium = styled(globalMOYAPremiumSvg)``;
 export const ProfilePhoto = styled(ProfilePhotoSvg)``;
 export const Iconstotop = styled(IconstotopSvg)``;
 export const IconsCheckCircle = styled(IconsCheckCircleSvg)``;

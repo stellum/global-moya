@@ -8,16 +8,9 @@ import HomeFooter from "./HomeFooter";
 import AccessToken from "@hoc/AccessToken";
 
 const Home = ({ accessToken }) => {
-  // const rootStorage = JSON.parse(localStorage["persist:root"]);
-  // const keywordSlice = JSON.parse(rootStorage["keywordConnectedSlice"]);
-  // const keyTypeList = keywordSlice.keyTypeList;
-  // const paramValueList = keywordSlice.paramValueList;
-  // const exchangeList = keywordSlice.exchangeList;
-
   const { keyTypeList, paramValueList, exchangeList } = useSelector(
     (state) => state.keywordConnectedSlice
   );
-  console.log("kkk", keyTypeList, paramValueList, exchangeList);
   const { userLogin } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -28,6 +21,11 @@ const Home = ({ accessToken }) => {
       await dispatch(addKeywordListAction(response));
     };
 
+  useEffect(() => {
+    const getDatas = async () => {
+      const response = await getKeywords();
+      await dispatch(addKeywordListAction(response));
+    }
     const getFirstKeyword = async () => {
       await dispatch(
         keywordContentRequest([
@@ -49,7 +47,7 @@ const Home = ({ accessToken }) => {
   }, []);
 
   useEffect(() => {
-    if (userLogin === false) {
+    if (user === false) {
       const getDatas = async () => {
         const response = await getKeywords();
         await dispatch(addKeywordListAction(response));

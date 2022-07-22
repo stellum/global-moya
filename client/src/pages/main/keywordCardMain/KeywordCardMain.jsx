@@ -33,10 +33,16 @@ const KeywordCardMain = () => {
   const inputRef = useRef(null);
   const location = useLocation();
   const dispatch = useDispatch();
+  const [searchType, setSearchType] = useState({
+    mediaType: "mp,op,r",
+    timeFilter: "mth1",
+    orderBy: "latest",
+  });
   const { lastElementRef, newsList, loading, errorMsg } = NewsCardInfiniteHook(
     setPage,
     page,
-    location.state
+    location.state,
+    searchType
   );
 
   const handleClick = (e) => {
@@ -87,6 +93,8 @@ const KeywordCardMain = () => {
             showModal={showModal}
             showBtn={showBtn}
             setApply={setApply}
+            searchType={searchType}
+            setSearchType={setSearchType}
           />
         </Suspense>
       </FilterTypeModal>
@@ -95,21 +103,18 @@ const KeywordCardMain = () => {
         <MainHeader user={user} />
         <KeywordCardInput inputRef={inputRef} />
       </MainPageContainer>
+      <>
+        <NewsCard
+          view={view}
+          apply={apply}
+          newsList={newsList}
+          loading={loading}
+          errorMsg={errorMsg}
+          lastElementRef={lastElementRef}
+        />
+        {loading ? <Spinner /> : null}
+      </>
 
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <NewsCard
-            view={view}
-            apply={apply}
-            newsList={newsList}
-            loading={loading}
-            errorMsg={errorMsg}
-            lastElementRef={lastElementRef}
-          />
-        </>
-      )}
       <ScrollTop />
     </>
   );

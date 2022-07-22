@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { colors, fontWeight} from "@styles/theme";
+import { colors, fontWeight } from "@styles/theme";
 
 export const InputDiv = styled.div`
   border: 1px solid ${colors.gray350};
@@ -21,6 +21,11 @@ export const InputType = styled.input`
   line-height: 22px;
   margin-bottom: 40px;
   margin-left: 12px;
+  &::-webkit-inner-spin-button {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+  }
   &:focus {
     outline: none;
     // placeholder 안없어짐

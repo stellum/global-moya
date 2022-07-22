@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { getSearchData } from "@api/searchApi";
-const NewsCardInfiniteHook = (setPage, page, location) => {
+const NewsCardInfiniteHook = (setPage, page, location, searchType) => {
   const [newsList, setNewsList] = useState([]);
   const [pageToken, setPageToken] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -33,12 +33,6 @@ const NewsCardInfiniteHook = (setPage, page, location) => {
 
   const getMoreNews = async () => {
     const res = await getSearchData(page > 1 ? nextQueryParams : QueryParams);
-    console.log(res);
-    if (res === undefined || res.newsList === undefined) {
-      setErrorMsg("검색 결과를 찾을 수 없습니다.");
-      setLoaidng(false);
-    }
-
     if (res.newsList.length > 0) {
       setLoaidng(false);
       setNewsList((prev) => [...prev, ...res.newsList]);
@@ -55,8 +49,7 @@ const NewsCardInfiniteHook = (setPage, page, location) => {
     observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         setPage((prev) => prev + 1);
-
-        console.log("마지막");
+        setLoaidng(true);
       }
     });
     if (node) observer.current.observe(node);

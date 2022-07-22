@@ -22,6 +22,10 @@ import globalMOYAPremiumSvg from "@assets/globalMOYA.svg";
 import { differenceDayFuncTwo } from "../util/dateFunc";
 import { translateApi } from "../api/translateApi";
 import ErrorMsg from "./ErrorMsg";
+import { bookmarkAll } from "../api/bookmarkApi";
+import { toggleScrapMoveBtn } from "@redux/modalSlice";
+import { addNewsID } from "../redux/reducer/scrapNewsSlice";
+import { useDispatch } from "react-redux";
 import _ from "lodash";
 const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
   const [scrap, setScrap] = useState(false);
@@ -30,22 +34,42 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
   const [translate, setTranslate] = useState([]);
   const [changeTrans, setChangeTrans] = useState(true);
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
+  const dispatch = useDispatch();
+  const showScrapMoveBtn = useSelector(
+    (state) => state.modalSlice.showScrapMoveBtn
+  );
   const handleExpand = (e) => {
     setOpen({ [e.target.id]: !open[e.target.id] });
   };
   const fetch = async (newsId) => {
     const response = await translateApi(newsId);
-
-    setTranslate((prev) => [
-      ...prev,
-      {
-        newsId,
-        description: response.description,
-        title: response.title,
-      },
-    ]);
+    if (response.status === 200) {
+      setTranslate((prev) => [
+        ...prev,
+        {
+          newsId,
+          description: response.data.description,
+          title: response.data.title,
+        },
+      ]);
+    } else if (response.status === 400) {
+      setTranslate((prev) => [
+        ...prev,
+        {
+          newsId,
+          description: "description",
+          title: response.data.title,
+        },
+      ]);
+    }
   };
-
+  const getBookmark = async () => {
+    const res = await bookmarkAll();
+    // console.log(res);
+  };
+  useEffect(() => {
+    getBookmark();
+  }, []);
   useEffect(() => {
     // console.log(translate);
   }, [translate, changeTrans]);
@@ -59,7 +83,10 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
     setTrakingId({ [e.target.id]: !trakingId[e.target.id] });
     fetch(newsId);
   };
-
+  const handleScrap = (newsId) => {
+    dispatch(addNewsID(newsId));
+    dispatch(toggleScrapMoveBtn(!showScrapMoveBtn));
+  };
   return (
     <>
       {newsList.length > 0 ? (
@@ -98,7 +125,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
                       }
                     </p>
                   ) : (
-                    <p> {news.description}</p>
+                    <p> {news.description ? news.description : "no text"}</p>
                   )}
                 </Abstract>
 
@@ -126,9 +153,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
 
                     <ShareIcon />
                     <ScrapIcon
-                      onClick={() => {
-                        setScrap((prev) => !prev);
-                      }}
+                      onClick={() => handleScrap(news.newsId)}
                       $scrap={scrap}
                     />
                   </div>
@@ -195,7 +220,10 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
                       }
                     </p>
                   ) : (
-                    <p> {news.description}</p>
+                    <p>
+                      {" "}
+                      {news.description ? news.description : "no description"}
+                    </p>
                   )}
                 </Abstract>
 
@@ -223,9 +251,7 @@ const NewsCard = ({ view, apply, newsList, errorMsg, lastElementRef }) => {
 
                     <ShareIcon />
                     <ScrapIcon
-                      onClick={() => {
-                        setScrap((prev) => !prev);
-                      }}
+                      onClick={() => handleScrap(news.newsId)}
                       $scrap={scrap}
                     />
                   </div>

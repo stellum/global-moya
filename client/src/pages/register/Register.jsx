@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { registerFunc, stepPayFunc } from "@api/registerApi";
 import { emailCheckFunc } from "@api/emailCheckApi";
 
@@ -17,25 +18,65 @@ const Register = (props) => {
     formState: { isSubmitting },
   } = useForm();
 
-  // 이메일 중복 검증 하는 함수
-  const handleEmail = () => {
-    console.log(watch().email);
-    let data = { email: watch().email };
-    let check = emailCheckFunc(JSON.stringify(data));
-    const button = document.getElementById("#emailCheck");
+  const [emailInput, setEmailInput] = useState("ok");
+  const [emailCheck, setEmailCheck] = useState("");
 
-    if (check === 200) {
-      button.innerText = "확인완료";
+  // 이메일 중복 검증 하는 함수
+
+  const button = document.getElementById("emailCheck");
+
+  const handleEmail = () => {
+    let email = watch().email;
+    let data = { email: email };
+    let json = JSON.stringify(data);
+    const promise = emailCheckFunc(json);
+    setEmailCheck(promise);
+
+    if (/\S+@\S+\.\S+/.test(email)) {
+      if (emailCheck === 0) {
+        button.innerText = "확인완료";
+        console.log(emailCheck);
+      } else {
+        button.innerText = "확인필요";
+        setEmailInput("existing");
+        console.log(emailCheck);
+      }
     } else {
       button.innerText = "확인필요";
+      setEmailInput("invalid");
+      console.log(emailCheck);
     }
   };
+
+  const [pwInput, setPwInput] = useState("");
+  const [pwCheck, setPwCheck] = useState("");
+  const [pwValid, setPwValid] = useState(true);
+  const [pwCorrect, setPwCorrect] = useState(true);
+
+  const handlePw = setTimeout(() => {
+    let pw = watch().password;
+    let reg =
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[$@$!%*?&])[A-Za-zd$@$!%*?&]{10,}";
+    setPwInput(watch().password);
+    if (pw !== reg) {
+      setPwValid(false);
+    }
+  }, 500);
+
+  const handlePwCorrect = setTimeout(() => {
+    setPwInput(watch().password);
+    setPwCheck(watch().passwordCheck);
+    if (pwInput !== pwCheck) {
+      setPwCorrect(false);
+    }
+  });
+
+  const navigate = useNavigate();
 
   return (
     <>
       <CommonForm
         onSubmit={handleSubmit((data) => {
-          props.setRegisterPage("onSuccess");
           const formData = new FormData();
 
           for (let key in data) {
@@ -44,7 +85,7 @@ const Register = (props) => {
             }
           }
 
-          const stepPayData = {};
+          let stepPayData = {};
 
           for (let key in data) {
             if (key !== "passwodrCheck" && key !== "password") {
@@ -55,12 +96,19 @@ const Register = (props) => {
             }
           }
 
+          stepPayData = stepPayData.JSON.stringify();
+
           registerFunc(formData);
-          stepPayFunc(stepPayData.JSON.stringify());
+          stepPayFunc(stepPayData);
+          props.setRegisterPage("onSuccess");
         })}
       >
         <Header>
-          <BackSpace />
+          <BackSpace
+            onClick={() => {
+              navigate("/login");
+            }}
+          />
           <TitleHeader>회원가입</TitleHeader>
         </Header>
         {/*중복 확인 버튼*/}
@@ -97,6 +145,7 @@ const Register = (props) => {
             type="password"
             name="password"
             placeholder="비밀번호"
+            onChange={handlePw}
             {...register("password", {
               required: "비밀번호를 입력해주세요.",
               pattern: {
@@ -113,6 +162,7 @@ const Register = (props) => {
             type="password"
             name="passwordCheck"
             placeholder="비밀번호 확인"
+            onChange={handlePwCorrect}
             {...register("passwordCheck", {
               required: "비밀번호가 일치하지 않습니다.",
             })}

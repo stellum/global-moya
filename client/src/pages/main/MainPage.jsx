@@ -18,16 +18,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleBtnAction, toggleModalAction } from "@redux/modalSlice";
 
 import UserCheck from "@hoc/UserCheck";
-
+import GroupChooseModal from "@components/scrapModal/GroupChooseModal";
 const MainPage = () => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
   const showBtn = useSelector((state) => state.modalSlice.showBtn);
   const showModal = useSelector((state) => state.modalSlice.showModal);
   const user = useSelector((state) => state.user.userLogin);
-
+  const showScrapMoveBtn = useSelector(
+    (state) => state.modalSlice.showScrapMoveBtn
+  );
   const [view, setView] = useState(viewType);
   const [apply, setApply] = useState(false);
-
+  const [searchType, setSearchType] = useState({
+    mediaType: "mp,op,r",
+    timeFilter: "mth1",
+    orderBy: "latest",
+  });
   const dispatch = useDispatch();
   const handleClick = (e) => {
     dispatch(toggleModalAction(e.target.id));
@@ -69,6 +75,8 @@ const MainPage = () => {
             showModal={showModal}
             showBtn={showBtn}
             setApply={setApply}
+            setSearchType={setSearchType}
+            searchType={searchType}
           />
         </Suspense>
       </FilterTypeModal>
@@ -79,6 +87,7 @@ const MainPage = () => {
         <MainKeywordList view={view} apply={apply} />
         <EditKeywordContext />
       </MainPageContainer>
+      <GroupChooseModal showScrapMoveBtn={showScrapMoveBtn} />
     </>
   );
 };

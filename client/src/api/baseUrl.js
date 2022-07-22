@@ -19,9 +19,6 @@ clientServer.interceptors.response.use(
       response: { status },
     } = error;
     if (status === 401) {
-      // console.log("baseStatus", status);
-      // console.log("baseurl error", error);
-      // console.log("base", config);
       if (
         error.response.data.msg === "Token has expired" ||
         error.response.data.msg === "Missing Authorization Header"

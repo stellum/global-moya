@@ -15,12 +15,14 @@ import MoyaLogo from "@components/MoyaLogo";
 import { MoreIcon } from "../../styles/svgIcon";
 import { logOutFunc } from "@api/loginApi";
 
+import { toggleEditAction } from "@redux/buttonSlice";
 import { toggleNavigation } from "@redux/modalSlice";
 import { userLogoutAction } from "@redux/user/userSlice";
 
 const Header = ({ user }) => {
   const dispatch = useDispatch();
   const showNavi = useSelector((state) => state.modalSlice.showSideNavi);
+  const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
   const navigate = useNavigate();
   const toggleNavi = () => {
     dispatch(toggleNavigation(!showNavi));
@@ -30,12 +32,16 @@ const Header = ({ user }) => {
   };
 
   const handleLogin = () => {
-    if (!user) navigate("/login");
-    else {
-      logOutFunc();
-      navigate("/");
-      dispatch(userLogoutAction());
-    }
+    navigate("/login");
+  };
+  const handleLogout = () => {
+    navigate("/");
+    logOutFunc();
+    dispatch(userLogoutAction());
+  };
+  const toggleModal = () => {
+    dispatch(toggleEditAction(!showEditBtn));
+    navigate("/main/edit/keyword");
   };
   return (
     <>
@@ -62,12 +68,10 @@ const Header = ({ user }) => {
               <MoreIcon />
             </NaviGo>
           </Link>
-          <Link to="/main/edit/keyword">
-            <NaviGo>
-              키워드 관리
-              <MoreIcon />
-            </NaviGo>
-          </Link>
+          <NaviGo onClick={toggleModal}>
+            키워드 관리
+            <MoreIcon />
+          </NaviGo>
           <Navispan />
           <Link to="/mypagemain">
             <NaviGo>
@@ -75,8 +79,8 @@ const Header = ({ user }) => {
               <MoreIcon />
             </NaviGo>
           </Link>
-          <NaviGo onClick={handleLogin}>
-            {user ? "로그아웃" : "로그인"}
+          <NaviGo onClick={handleLogout}>
+            로그아웃
             <MoreIcon />
           </NaviGo>
           <Navispan />
@@ -99,7 +103,7 @@ const Header = ({ user }) => {
           </a>
           <Navispan />
           <NaviGo onClick={handleLogin}>
-            {user ? "로그아웃" : "로그인"}
+            로그인
             <MoreIcon />
           </NaviGo>
           <Navispan />

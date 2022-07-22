@@ -1,5 +1,5 @@
 // 새 스크랩 폴더 추가
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useInput } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FixedHeader,
@@ -17,6 +17,7 @@ const NewFolder = () => {
   const nameInput = useRef();
   const [black, setBlack] = useState();
   const [name, setName] = useState("");
+  const [number, setNumber] = useState(0);
 
   const handleChangeName = (e) => {
     setName(e.target.value);

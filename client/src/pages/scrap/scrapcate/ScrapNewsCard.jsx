@@ -17,13 +17,25 @@ import {
   ExpandMoreIcon,
 } from "@styles/svgIcon";
 import { differenceDayFunc } from "@util/dateFunc";
+import ScrapCheck from "@components/common/ScrapCheck";
 
-const ScrapNewsCard = ({ view, apply, news, idx }) => {
+const ScrapNewsCard = ({ view, apply, news, idx, setDtNewsId }) => {
   const [scrapcheck, setScrapcheck] = useState(false);
   const [open, setOpen] = useState({});
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
   const handleExpand = (e) => {
     setOpen({ [e.target.id]: !open[e.target.id] });
+  };
+
+  const handleCheck = (id) => {
+    console.log(scrapcheck);
+    if (scrapcheck) {
+      setDtNewsId((prev) => prev.filter((item) => item !== id));
+    } else {
+      setDtNewsId((prev) => [...prev, id]);
+    }
+
+    setScrapcheck((prev) => !prev);
   };
   return (
     <>
@@ -51,10 +63,16 @@ const ScrapNewsCard = ({ view, apply, news, idx }) => {
             <ShareIcon />
             <ScrapCheckIcon
               onClick={() => {
-                setScrapcheck((prev) => !prev);
+                handleCheck(news.newsId);
               }}
               $scrapcheck={scrapcheck}
             />
+            {/* <ScrapCheck
+              id={news.newsId}
+              key={news.newsId}
+              news={news}
+              handleCheck={handleCheck}
+            /> */}
           </div>
         </SubContent>
 

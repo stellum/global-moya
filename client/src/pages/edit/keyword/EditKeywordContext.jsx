@@ -37,6 +37,8 @@ import AccessToken from "@hoc/AccessToken";
 
 const EditKeywordContext = ({ accessToken }) => {
   const [items, setItems] = useState([]);
+  const [newItems, setNewItems] = useState([]);
+  const [newTerm, setTermSeq] = useState([]);
   const navigate = useNavigate();
 
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
@@ -53,15 +55,11 @@ const EditKeywordContext = ({ accessToken }) => {
   const getDatas = async () => {
     const response = await getKeywords(accessToken);
     setItems(response);
-  };
-
+  }
+  
   useEffect(() => {
     if (!items.length) getDatas();
   }, [items]);
-
-  useEffect(() => {
-    // console.log(TermSeq);
-  }, [TermSeq]);
 
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
@@ -74,7 +72,6 @@ const EditKeywordContext = ({ accessToken }) => {
         for (let i = 0; i < items.length; i++) {
           items[i].updateFlag = "S";
         }
-
         return arrayMove(items, oldIndex, newIndex);
       });
     }
@@ -133,6 +130,10 @@ const EditKeywordContext = ({ accessToken }) => {
                   handleDelete={handleDelete}
                 />
               ))}
+              {/* {keywordNameList &&
+                items.map((item) => (
+                  <KeywordSortableItem key={item.id} item={item} />
+                ))} */}
             </EditUl>
             <EditButtonDiv>
               <EditButtonCancel onClick={toggleModal}>취소</EditButtonCancel>
@@ -141,9 +142,7 @@ const EditKeywordContext = ({ accessToken }) => {
                   삭제
                 </EditButtonDelete>
               ) : (
-                <EditButtonSave onClick={() => saveTermSeq()}>
-                  저장
-                </EditButtonSave>
+                <EditButtonSave>저장</EditButtonSave>
               )}
             </EditButtonDiv>
           </EditContainer>

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { scrapFolderChoose } from "@redux/scrapFolderSlice";
+import { ScrapFolderChoose } from "@redux/scrapFolderSlice";
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Hamburger from "@components/common/Hamburger";
-import Checkbox from "@components/common/Checkbox";
+import ScrapgroupCheck from "@components/common/ScrapgroupCheck";
 
 import {
   EditItemWrap,
@@ -50,7 +50,7 @@ const GroupSortableItem = ({ item, type }) => {
       {/* <CheckLabel htmlFor="deleteCheck" /> */}
 
       {/* <Checkbox checked={checked} onChange={handleCheckbox} /> */}
-      <Checkbox key={item.groupId} item={item.groupName} />
+      <ScrapgroupCheck key={item.groupId} item={item} />
       <EditItemTextWrap type={type}>
         <Link to="/namechange">
           <EditInputGroup
@@ -61,7 +61,7 @@ const GroupSortableItem = ({ item, type }) => {
             key={item.groupId}
             onClick={() => {
               dispatch(
-                scrapFolderChoose({
+                ScrapFolderChoose({
                   groupId: item.groupId,
                   groupName: item.groupName,
                 })

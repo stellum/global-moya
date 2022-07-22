@@ -20,7 +20,6 @@ import {
 const ScrapMain = ({ view, apply }) => {
   const [black, setBlack] = useState(true);
   const [newsList, setNewsList] = useState([]);
-  const [news2, setNews2] = useState([]);
   const dispatch = useDispatch();
   const showScrapEditBtn = useSelector(
     (state) => state.modalSlice.showScrapEditBtn
@@ -33,7 +32,6 @@ const ScrapMain = ({ view, apply }) => {
   };
   const getBookmarkAllDatas = async () => {
     const response = await bookmarkAll();
-    setNews2(response.reports);
 
     const allbook = response.reports;
     const newslist = allbook.map((e) => {

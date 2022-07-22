@@ -65,7 +65,7 @@ export const BtnWrap = styled.div`
 export const BtnWrapVisible = styled.div`
   background-color: ${colors.white};
   position: fixed;
-  bottom: ${({ visible }) => (visible ? "0" : "-90px")};
+  bottom: 0;
   left: 0;
   right: 0;
   padding: 16px;
