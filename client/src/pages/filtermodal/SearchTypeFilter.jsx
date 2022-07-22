@@ -36,9 +36,7 @@ const SearchTypeFilter = ({ showModal, showBtn, setApply }) => {
     });
   };
 
-  useEffect(() => {
-    console.log(searchType);
-  }, [searchType]);
+  useEffect(() => {}, [searchType]);
 
   const handleSearch = (e) => {
     e.preventDefault();
