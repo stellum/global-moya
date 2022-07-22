@@ -7,7 +7,6 @@ export const Container = styled(DefaultContainer)`
   input: {
   }
   input::placeholder {
-    /* padding: 0 12px; */
   }
 `;
 
@@ -78,5 +77,9 @@ export const ApplyBtn = styled(DefaultButton)`
   height: 54px;
   font-size: ${colors.FontSize14};
   font-weight: ${fontWeight.FontWeight600};
-  background-color: black;
+  color: ${colors.white};
+  background-color: ${colors.gray350};
+  &:hover {
+    background-color: ${colors.black};
+  }
 `;
