@@ -26,6 +26,7 @@ const HiglightKeyword = ({
 }) => {
   const [filterKeyword, setFilterKeyword] = useState([]);
   const [limitCode, setLimitCode] = useState(0);
+  const [resMsg, setResMsg] = useState([]);
   useEffect(() => {
     const data = filterValue(dataList, keyword);
     setFilterKeyword(data);
@@ -40,13 +41,16 @@ const HiglightKeyword = ({
       const res = await createKeywordFunc(_id, category, clipKeyword);
       if (res.code === 2002) {
         setLimitCode(res.code);
+        setResMsg(res.message);
       } else {
-        setLimitCode(0);
+        setResMsg(res.data.msg);
       }
       setResultBoolean(true);
     }
   };
-
+  useEffect(() => {
+    setFillStar((prev) => !prev);
+  }, [resMsg]);
   return (
     <>
       {loading ? (

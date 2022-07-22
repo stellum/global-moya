@@ -16,8 +16,8 @@ import { isLoading, searchKeyword } from "@redux/categorySlice";
 import { getCategoryList } from "@api/masterApi";
 import { getKeywords } from "@api/keywordListApi";
 import { useSelector, useDispatch } from "react-redux";
-
-const CategoryMain = () => {
+import AccessToken from "../../../hoc/AccessToken";
+const CategoryMain = ({ accessToken }) => {
   const [dataList, setDataList] = useState([]);
   const [page, setPage] = useState(1);
   const [reports, setReports] = useState([]);
@@ -40,7 +40,8 @@ const CategoryMain = () => {
       if (response.details.length > 0) {
         setDataList(response.details);
 
-        const reports = await getKeywords();
+        const reports = await getKeywords(accessToken);
+        console.log(reports);
         if (reports.length > 0) {
           await dispatch(isLoading(false));
           setReports(reports);
@@ -121,4 +122,4 @@ const CategoryMain = () => {
   );
 };
 
-export default CategoryMain;
+export default AccessToken(CategoryMain);

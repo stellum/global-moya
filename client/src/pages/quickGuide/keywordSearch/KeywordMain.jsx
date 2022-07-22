@@ -7,8 +7,8 @@ import KeywordList from "./KeywordList";
 import { isLoading } from "@redux/categorySlice";
 import { getKeywords } from "@api/keywordListApi";
 import ScrollTop from "@components/ScrollTop";
-
-const KeywordMain = () => {
+import AccessToken from "../../../hoc/AccessToken";
+const KeywordMain = ({ accessToken }) => {
   const [reports, setReports] = useState([]);
   const [reportsLength, setReportsLength] = useState(0);
   const keyword = useSelector((state) => state.categorySlice.keyword);
@@ -20,7 +20,7 @@ const KeywordMain = () => {
 
   const fetch = async () => {
     try {
-      const reportsData = await getKeywords();
+      const reportsData = await getKeywords(accessToken);
       if (reportsData.length > 0) {
         setReports(reportsData);
         setReportsLength(reports.length);
@@ -57,4 +57,4 @@ const KeywordMain = () => {
   );
 };
 
-export default KeywordMain;
+export default AccessToken(KeywordMain);
