@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { getSearchData } from "@api/searchApi";
-const NewsCardInfiniteHook = (setPage, page, location, searchType) => {
+const NewsCardInfiniteHook = (
+  setPage,
+  page,
+  location,
+  searchType,
+  accessToken
+) => {
   const [newsList, setNewsList] = useState([]);
   const [pageToken, setPageToken] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -32,7 +38,11 @@ const NewsCardInfiniteHook = (setPage, page, location, searchType) => {
   };
 
   const getMoreNews = async () => {
-    const res = await getSearchData(page > 1 ? nextQueryParams : QueryParams);
+    const res = await getSearchData(
+      page > 1 ? nextQueryParams : QueryParams,
+      accessToken
+    );
+    console.log(res);
     if (res.newsList.length > 0) {
       setLoaidng(false);
       setNewsList((prev) => [...prev, ...res.newsList]);

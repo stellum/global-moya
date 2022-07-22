@@ -19,8 +19,8 @@ import FilterIconModal from "@components/filterModal/FilterIconModal";
 import FilterTypeModal from "@components/filterModal/FilterTypeModal";
 import Spinner from "@components/common/Spinner";
 import ScrollTop from "@components/ScrollTop";
-
-const KeywordCardMain = () => {
+import AccessToken from "../../../hoc/AccessToken";
+const KeywordCardMain = ({ accessToken }) => {
   const viewType = useSelector((state) => state.cardTypeSlice.viewType);
   const showBtn = useSelector((state) => state.modalSlice.showBtn);
   const showModal = useSelector((state) => state.modalSlice.showModal);
@@ -42,7 +42,8 @@ const KeywordCardMain = () => {
     setPage,
     page,
     location.state,
-    searchType
+    searchType,
+    accessToken
   );
 
   const handleClick = (e) => {
@@ -120,4 +121,4 @@ const KeywordCardMain = () => {
   );
 };
 
-export default KeywordCardMain;
+export default AccessToken(KeywordCardMain);
