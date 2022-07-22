@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { getKeywords } from "@api/keywordListApi";
+import { getKeywords, updateListKeywords } from "@api/keywordListApi";
 
 import {
   DndContext,
@@ -33,26 +33,21 @@ import {
 import { BackArrow } from "@styles/svgIcon";
 import KeywordSortableItem from "./KeywordSortableItem";
 import { createTermSeq } from "@util/createTermSeq";
+import AccessToken from "@hoc/AccessToken";
 
-const EditKeywordContext = () => {
+const EditKeywordContext = ({ accessToken }) => {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
   const showDelBtn = useSelector((state) => state.buttonSlice.showDelBtn);
-  const { accessToken } = useSelector((state) => state.user);
 
   const TermSeq = useMemo(() => createTermSeq(items.length), [items]);
 
   const dispatch = useDispatch();
   const toggleModal = () => {
-    console.log(showEditBtn);
     dispatch(toggleEditAction(!showEditBtn));
     navigate("/main");
-  };
-
-  const handleDelete = () => {
-    // console.log("handleDel");
   };
 
   const getDatas = async () => {
@@ -65,7 +60,7 @@ const EditKeywordContext = () => {
   }, [items]);
 
   useEffect(() => {
-    console.log(TermSeq);
+    // console.log(TermSeq);
   }, [TermSeq]);
 
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
@@ -76,70 +71,48 @@ const EditKeywordContext = () => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over.id);
 
-        // 밀리는 것도 변경에 포함이 되는경우 >> 1개만 변경되는 경우는 없음.
-        const Min = oldIndex > newIndex ? newIndex : oldIndex;
-        const Max = oldIndex > newIndex ? oldIndex : newIndex;
-
         for (let i = 0; i < items.length; i++) {
-          if (i >= Min && i <= Max) {
-            items[i].updateFlag = "S";
-          }
+          items[i].updateFlag = "S";
         }
-
-        // 변경된 것만
-        // items[newIndex].updateFlag = "S"
 
         return arrayMove(items, oldIndex, newIndex);
       });
     }
   };
-  const handleDragStart = (event) => {
-    // console.log("start", event);
-  };
-  const handleDragMove = (event) => {
-    // console.log("Move", event);
-  };
-  const handleDragOver = (event) => {
-    // console.log("Over", event);
-  };
-  const handleDragCancel = (event) => {
-    // console.log("Cancel", event);
-  };
 
   const saveTermSeq = () => {
     let SNum = 0;
     let termItem = items.map((item, idx) => {
-      item.termSeq = Term[idx];
+      item.termSeq = TermSeq[idx];
       if (item.updateFlag === "S") SNum++;
       return item;
     });
-    console.log("termItem : ", termItem, " & SNum : ", SNum);
     if (!SNum) {
       return alert("변경 값이 없습니다.");
-    } else if (SNum === 1) {
-      return alert("한개 변경.");
     } else {
-      return alert("다수 변경.");
+      updateListKeywords({ termList: termItem }, accessToken);
     }
   };
 
-  /*
-    체크 박스 교체
-    1. items의 길이만큼 []; >> useState
-    2. true : check, fasle : unCheck
-    3. [check, check, uncheck, check .... ]
-    4. 클릭. item[idx] = !item[idx]
-  */
+  const handleDelete = () => {
+    // let DNum = 0;
+    // let termItem = items.map((item, idx) => {
+    //   item.termSeq = TermSeq[idx];
+    //   if (item.updateFlag === "R") DNum++;
+    //   return item;
+    // });
+    // if (!DNum) {
+    //   return alert("변경 값이 없습니다.");
+    // } else {
+    //   updateListKeywords({ termList: termItem }, accessToken);
+    // }
+  };
 
   return (
     <EditContextWrap showEditBtn={showEditBtn}>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
-        onDragStart={handleDragStart}
-        onDragMove={handleDragMove}
-        onDragOver={handleDragOver}
-        onDragCancel={handleDragCancel}
         onDragEnd={handleDragEnd}
         autoScroll={{ threshold: { x: 0, y: 0 } }}
       >
@@ -164,7 +137,9 @@ const EditKeywordContext = () => {
             <EditButtonDiv>
               <EditButtonCancel onClick={toggleModal}>취소</EditButtonCancel>
               {showDelBtn ? (
-                <EditButtonDelete onClick={handleDelete}>삭제</EditButtonDelete>
+                <EditButtonDelete onClick={() => handleDelete()}>
+                  삭제
+                </EditButtonDelete>
               ) : (
                 <EditButtonSave onClick={() => saveTermSeq()}>
                   저장
@@ -178,4 +153,4 @@ const EditKeywordContext = () => {
   );
 };
 
-export default EditKeywordContext;
+export default AccessToken(EditKeywordContext);
