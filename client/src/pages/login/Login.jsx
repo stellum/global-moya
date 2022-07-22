@@ -50,11 +50,13 @@ const Login = () => {
       const userList = await searchUserList(data.email);
       const userEmail = userList.userCode.content[0].email;
       const userCode = userList.userCode.content[0].id;
+      const accessToken = response.data.access_token;
 
       await dispatch(
         fetchUserSuccess({
           userEmail,
           userCode,
+          accessToken,
         })
       );
       await dispatch(subsUserAction(userList.subsUser));

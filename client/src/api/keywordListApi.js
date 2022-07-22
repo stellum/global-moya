@@ -88,18 +88,34 @@ export const createKeywords = async (json) => {
 // "termList" : keyType, _id, termSeq, updateFlag: R: Remove, S: Seq, D: Default
 // 순서변경, 삭제 한꺼번에 처리 가능
 // ! mutiple update / delete
-export const updateListKeywords = async (json) => {
+export const updateListKeywords = async (json, accessToken) => {
   try {
-    const response = await clientServer({
+    await clientServer({
       url: "preferTerms/updateList",
+      headers: {
+        "Content-Type": `application/json`,
+        Authorization: `Bearer ${accessToken}`,
+      },
       method: "post",
       data: json,
+      transformRequest: [
+        function (data) {
+          const transformedData = data;
+          let temp = [];
+          temp = transformedData.termList.map((item) => {
+            delete item.id;
+            delete item.name;
+            delete item.paramValue;
+            delete item.exchange;
+            temp.push(item);
+            return item;
+          });
+          const sendJson = { termList: temp };
+          data = JSON.stringify(sendJson);
+          return data;
+        },
+      ],
     });
-    if (response.status === 200) {
-      const data = await response.data;
-
-      return data;
-    }
   } catch (e) {
     console.log(e);
   }
@@ -140,3 +156,14 @@ export const deleteKeywords = async (json) => {
     console.log(e);
   }
 };
+
+// const a = {
+//   "termList": [
+//     { "_id": 1, "keyType": "sectors", "termSeq": "a", "updateFlag": "S" },
+//     { "_id": 2, "keyType": "sectors", "termSeq": "b", "updateFlag": "S" },
+//     { "_id": 3084, "keyType": "tickers", "termSeq": "bg", "updateFlag": "S" },
+//     { "_id": 1, "keyType": "category", "termSeq": "bu", "updateFlag": "S" },
+//     { "_id": 96, "keyType": "events", "termSeq": "bx", "updateFlag": "S" },
+//     { "_id": 42, "keyType": "commodities", "termSeq": "c", "updateFlag": "S" },
+//   ],
+// };

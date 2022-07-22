@@ -5,34 +5,45 @@ import { addKeywordListAction } from "@redux/keywordConnectedSlice";
 import { keywordContentRequest } from "@redux/searchFilterSlice";
 import HomeContent from "./HomeContent";
 import HomeFooter from "./HomeFooter";
+import AccessToken from "@hoc/AccessToken";
 
-const Home = () => {
+const Home = ({ accessToken }) => {
   const { keyTypeList, paramValueList, exchangeList } = useSelector(
     (state) => state.keywordConnectedSlice
   );
-  const user = useSelector((state) => state.user.userLogin);
+  const { userLogin } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user) {
-      const getDatas = async () => {
-        const response = await getKeywords();
-        await dispatch(addKeywordListAction(response));
+    const getDatas = async () => {
+      const response = await getKeywords(accessToken);
+      await dispatch(addKeywordListAction(response));
+    };
 
-        await dispatch(
-          keywordContentRequest([
-            keyTypeList[0],
-            paramValueList[0],
-            exchangeList[0],
-          ])
-        );
-      };
-      getDatas();
-
-      return () => {
-        console.log("unMounted");
-      };
+  useEffect(() => {
+    const getDatas = async () => {
+      const response = await getKeywords();
+      await dispatch(addKeywordListAction(response));
     }
+    const getFirstKeyword = async () => {
+      await dispatch(
+        keywordContentRequest([
+          keyTypeList[0],
+          paramValueList[0],
+          exchangeList[0],
+        ])
+      );
+    };
+
+    if (userLogin) {
+      getDatas();
+      getFirstKeyword();
+    }
+
+    return () => {
+      console.log("unMounted");
+    };
   }, []);
 
   useEffect(() => {
@@ -57,4 +68,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AccessToken(Home);

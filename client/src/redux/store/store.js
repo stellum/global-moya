@@ -20,7 +20,7 @@ import scrapgroupCheckSlice from "../reducer/scrapgroupCheckSlice";
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["modalSlice", "categorySlice", "accessTokenSlice"],
+  blacklist: ["modalSlice", "categorySlice", "buttonSlice"],
 };
 
 const rootReducer = combineReducers({

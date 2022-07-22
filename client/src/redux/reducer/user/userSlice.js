@@ -17,10 +17,12 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setAccessTokenAction: (state, action) => {
+      // console.log("action", action);
       state.accessToken = action.payload;
       state.expireTime = new Date().getTime + TOKEN_TIME_OUT;
     },
     fetchUserSuccess: (state, action) => {
+      // console.log("action2", action);
       state.userLogin = true;
       state.expireTime = new Date().getTime + TOKEN_TIME_OUT;
       state.accessToken = action.payload.accessToken;

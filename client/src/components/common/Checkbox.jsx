@@ -5,6 +5,7 @@ import {
   addCheckedBtn,
   delCheckedBtn,
   initCheckedAction,
+  delItemsAction,
 } from "@redux/buttonSlice";
 import { deleteKeywords } from "@api/keywordListApi";
 import styled from "styled-components";
@@ -53,7 +54,6 @@ const Checkbox = ({ item, handleDelete }) => {
   const dispatch = useDispatch();
 
   const changeHandler = useCallback((checked, checkEl) => {
-    console.log("item", item);
     setKeyType(item.keyType);
     set_Id(item._id);
     setTermSeq(item.termSeq);
@@ -62,6 +62,7 @@ const Checkbox = ({ item, handleDelete }) => {
       // 체크 반영
       setCheckedButtons([...checkedButtons, checkEl]);
       dispatch(addCheckedBtn(checkEl));
+      dispatch(delItemsAction({ keyType, _id, termSeq }));
     } else {
       // 체크 반영 해제
       setCheckedButtons(checkedButtons.filter((button) => button !== checkEl));

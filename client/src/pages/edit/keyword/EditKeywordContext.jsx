@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { getKeywords } from "@api/keywordListApi";
+import React, { useState, useEffect, useMemo } from "react";
+import { getKeywords, updateListKeywords } from "@api/keywordListApi";
 
 import {
   DndContext,
@@ -33,19 +33,9 @@ import {
 import { BackArrow } from "@styles/svgIcon";
 import KeywordSortableItem from "./KeywordSortableItem";
 import { createTermSeq } from "@util/createTermSeq";
+import AccessToken from "@hoc/AccessToken";
 
-const EditKeywordContext = ({}) => {
-  // const getTermSeq = createTermSeq(4);
-
-  // const rootStorage = JSON.parse(localStorage["persist:root"]);
-  // const keywordSlice = JSON.parse(rootStorage["keywordConnectedSlice"]);
-  // const keywordNameList = keywordSlice.keywordNameList;
-  // const { keywordNameList } = useSelector(
-  //   (state) => state.keywordConnectedSlice
-  // );
-  // const [items, setItems] = useState(keywordNameList);
-
-  // const [keywordNameList, setKeywordNameList] = useState([]);
+const EditKeywordContext = ({ accessToken }) => {
   const [items, setItems] = useState([]);
   const [newItems, setNewItems] = useState([]);
   const [newTerm, setTermSeq] = useState([]);
@@ -54,34 +44,23 @@ const EditKeywordContext = ({}) => {
   const showEditBtn = useSelector((state) => state.buttonSlice.showEditBtn);
   const showDelBtn = useSelector((state) => state.buttonSlice.showDelBtn);
 
+  const TermSeq = useMemo(() => createTermSeq(items.length), [items]);
+
   const dispatch = useDispatch();
   const toggleModal = () => {
-    console.log(showEditBtn);
     dispatch(toggleEditAction(!showEditBtn));
     navigate("/main");
   };
 
-  const handleDelete = () => {
-    // console.log("handleDel");
-  };
-
+  const getDatas = async () => {
+    const response = await getKeywords(accessToken);
+    setItems(response);
+  }
+  
   useEffect(() => {
-    const getDatas = async () => {
-      const response = await getKeywords();
-      if (response.length > 0) {
-        setItems(response);
-        setTermSeq(createTermSeq(response.length));
-      }
-    };
-    getDatas();
+    if (!items.length) getDatas();
+  }, [items]);
 
-    return () => {
-      console.log("unMounted");
-    };
-  }, []);
-  useEffect(() => {
-    console.log(newTerm);
-  }, [newTerm]);
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
   const handleDragEnd = ({ active, over }) => {
@@ -90,42 +69,47 @@ const EditKeywordContext = ({}) => {
         const oldIndex = items.findIndex((item) => item.id === active.id);
         const newIndex = items.findIndex((item) => item.id === over.id);
 
-        console.log("item,old,new", items, oldIndex, newIndex);
-        setNewItems(items);
+        for (let i = 0; i < items.length; i++) {
+          items[i].updateFlag = "S";
+        }
         return arrayMove(items, oldIndex, newIndex);
       });
     }
   };
-  const handleDragStart = (event) => {
-    // console.log("start", event);
-  };
-  const handleDragMove = (event) => {
-    // console.log("Move", event);
-  };
-  const handleDragOver = (event) => {
-    // console.log("Over", event);
-  };
-  const handleDragCancel = (event) => {
-    // console.log("Cancel", event);
+
+  const saveTermSeq = () => {
+    let SNum = 0;
+    let termItem = items.map((item, idx) => {
+      item.termSeq = TermSeq[idx];
+      if (item.updateFlag === "S") SNum++;
+      return item;
+    });
+    if (!SNum) {
+      return alert("변경 값이 없습니다.");
+    } else {
+      updateListKeywords({ termList: termItem }, accessToken);
+    }
   };
 
-  /*
-    체크 박스 교체
-    1. items의 길이만큼 []; >> useState
-    2. true : check, fasle : unCheck
-    3. [check, check, uncheck, check .... ]
-    4. 클릭. item[idx] = !item[idx]
-  */
+  const handleDelete = () => {
+    // let DNum = 0;
+    // let termItem = items.map((item, idx) => {
+    //   item.termSeq = TermSeq[idx];
+    //   if (item.updateFlag === "R") DNum++;
+    //   return item;
+    // });
+    // if (!DNum) {
+    //   return alert("변경 값이 없습니다.");
+    // } else {
+    //   updateListKeywords({ termList: termItem }, accessToken);
+    // }
+  };
 
   return (
     <EditContextWrap showEditBtn={showEditBtn}>
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
-        onDragStart={handleDragStart}
-        onDragMove={handleDragMove}
-        onDragOver={handleDragOver}
-        onDragCancel={handleDragCancel}
         onDragEnd={handleDragEnd}
         autoScroll={{ threshold: { x: 0, y: 0 } }}
       >
@@ -154,7 +138,9 @@ const EditKeywordContext = ({}) => {
             <EditButtonDiv>
               <EditButtonCancel onClick={toggleModal}>취소</EditButtonCancel>
               {showDelBtn ? (
-                <EditButtonDelete onClick={handleDelete}>삭제</EditButtonDelete>
+                <EditButtonDelete onClick={() => handleDelete()}>
+                  삭제
+                </EditButtonDelete>
               ) : (
                 <EditButtonSave>저장</EditButtonSave>
               )}
@@ -166,4 +152,4 @@ const EditKeywordContext = ({}) => {
   );
 };
 
-export default EditKeywordContext;
+export default AccessToken(EditKeywordContext);
