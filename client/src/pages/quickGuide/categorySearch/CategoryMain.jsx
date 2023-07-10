@@ -61,6 +61,7 @@ const CategoryMain = ({ accessToken }) => {
     dispatch(searchKeyword(""));
   }, [category]);
   useEffect(() => {
+    console.log("fetching...");
     fetch();
   }, [fillStar, category]);
   useEffect(() => {

@@ -96,7 +96,7 @@ const Register = (props) => {
             }
           }
 
-          stepPayData = stepPayData.JSON.stringify();
+          // stepPayData = stepPayData.JSON.stringify();
 
           registerFunc(formData);
           stepPayFunc(stepPayData);

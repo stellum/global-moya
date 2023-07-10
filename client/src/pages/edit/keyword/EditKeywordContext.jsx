@@ -58,8 +58,8 @@ const EditKeywordContext = ({ accessToken }) => {
   };
 
   useEffect(() => {
-    if (!items.length) getDatas();
-  }, [items]);
+    getDatas();
+  }, []);
 
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
